@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formation Officine – Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a9e6e;
+    --green-dark: #0f7a53;
+    --green-light: #e6f7f1;
+    --bg: #f4f6f3;
+    --card: #ffffff;
+    --text: #1a1f1c;
+    --muted: #6b7672;
+    --border: #dde5e0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 40px 20px 60px;
+  }
+
+  header {
+    max-width: 860px;
+    margin: 0 auto 48px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .header-left .badge {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+  }
+
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text);
+  }
+  header h1 span { color: var(--green); }
+
+  .header-right {
+    text-align: right;
+  }
+  #quiz-count {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--green);
+    line-height: 1;
+  }
+  .header-right p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── FILTERS ── */
+  .filters {
+    max-width: 860px;
+    margin: 0 auto 28px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 100px;
+    padding: 7px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--green);
+    border-color: var(--green);
+    color: white;
+  }
+
+  /* ── GRID ── */
+  #quiz-grid {
+    max-width: 860px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+  }
+
+  .quiz-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 24px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: fadeUp 0.4s ease both;
+  }
+  .quiz-card:hover {
+    border-color: var(--green);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(26,158,110,0.12);
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .card-emoji {
+    font-size: 2rem;
+    line-height: 1;
+  }
+  .card-theme {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--green-light);
+    color: var(--green-dark);
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .card-meta {
+    display: flex;
+    gap: 12px;
+    margin-top: auto;
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .meta-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+  .diff-facile   { background: #27ae60; }
+  .diff-intermédiaire { background: var(--green); }
+  .diff-avancé   { background: #e67e22; }
+  .diff-expert   { background: #e84040; }
+
+  .card-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--green);
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    margin-top: 4px;
+  }
+
+  /* ── EMPTY STATE ── */
+  #empty-state {
+    max-width: 860px;
+    margin: 0 auto;
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+  }
+  #empty-state p { font-size: 0.95rem; margin-top: 8px; }
+
+  /* ── ERROR ── */
+  #error-state {
+    max-width: 860px;
+    margin: 0 auto;
+    display: none;
+    background: #fdeaea;
+    border: 1px solid #f5c6c6;
+    border-radius: 14px;
+    padding: 24px;
+    font-size: 0.9rem;
+    color: #8c1a1a;
+  }
+  #error-state strong { display: block; margin-bottom: 6px; font-family: 'Syne', sans-serif; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="badge">Formation Officine</div>
+    <h1>Bibliothèque<br><span>de Quiz</span></h1>
+  </div>
+  <div class="header-right">
+    <div id="quiz-count">–</div>
+    <p>quiz disponibles</p>
+  </div>
+</header>
+
+<div class="filters" id="filters">
+  <button class="filter-btn active" data-theme="tous" onclick="filterBy('tous', this)">Tous</button>
+</div>
+
+<div id="quiz-grid"></div>
+<div id="empty-state">
+  <div style="font-size:2rem">🔍</div>
+  <p>Aucun quiz dans cette catégorie pour l'instant.</p>
+</div>
+<div id="error-state">
+  <strong>Impossible de charger les quiz</strong>
+  Vérifiez que le fichier <code>quizzes.json</code> est bien présent dans le même dossier que cette page.
+</div>
+
+<script>
+let allQuizzes = [];
+let activeTheme = 'tous';
+
+async function loadQuizzes() {
+  try {
+    const res = await fetch('quizzes.json');
+    if (!res.ok) throw new Error('fetch failed');
+    allQuizzes = await res.json();
+    init();
+  } catch(e) {
+    document.getElementById('error-state').style.display = 'block';
+  }
+}
+
+function init() {
+  document.getElementById('quiz-count').textContent = allQuizzes.length;
+
+  // Build theme filters
+  const themes = ['tous', ...new Set(allQuizzes.map(q => q.theme))];
+  const filtersEl = document.getElementById('filters');
+  filtersEl.innerHTML = '';
+  themes.forEach(t => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn' + (t === 'tous' ? ' active' : '');
+    btn.dataset.theme = t;
+    btn.textContent = t === 'tous' ? 'Tous' : t;
+    btn.onclick = () => filterBy(t, btn);
+    filtersEl.appendChild(btn);
+  });
+
+  renderCards(allQuizzes);
+}
+
+function filterBy(theme, btn) {
+  activeTheme = theme;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered = theme === 'tous' ? allQuizzes : allQuizzes.filter(q => q.theme === theme);
+  renderCards(filtered);
+}
+
+function renderCards(list) {
+  const grid = document.getElementById('quiz-grid');
+  const empty = document.getElementById('empty-state');
+
+  if (list.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  grid.innerHTML = '';
+  list.forEach((q, i) => {
+    const card = document.createElement('a');
+    card.href = q.fichier;
+    card.className = 'quiz-card';
+    card.style.animationDelay = (i * 0.05) + 's';
+
+    const diff = (q.difficulte || 'Intermédiaire').toLowerCase();
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="card-emoji">${q.emoji || '📋'}</span>
+        <span class="card-theme">${q.theme || ''}</span>
+      </div>
+      <div class="card-title">${q.titre}</div>
+      <div class="card-meta">
+        <div class="meta-item">
+          <div class="meta-dot diff-${diff}"></div>
+          ${q.difficulte || 'Intermédiaire'}
+        </div>
+        <div class="meta-item">
+          <div class="meta-dot"></div>
+          ${q.questions || '?'} questions
+        </div>
+      </div>
+      <div class="card-arrow">
+        <span>Commencer le quiz</span>
+        <span>→</span>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+loadQuizzes();
+</script>
+</body>
+</html>
