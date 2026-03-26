@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Contraception Vol.2 – Formation Officine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --green:#1a9e6e; --green-dark:#0f7a53; --green-light:#e6f7f1; --red:#e84040; --red-light:#fdeaea; --bg:#f4f6f3; --text:#1a1f1c; --muted:#6b7672; --border:#dde5e0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px}
+  .screen{display:none;width:100%;max-width:680px}
+  .screen.active{display:flex;flex-direction:column;align-items:center}
+  #screen-intro{text-align:center;gap:20px}
+  .badge{display:inline-block;background:var(--green);color:white;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:8px}
+  #screen-intro h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,6vw,3rem);font-weight:800;line-height:1.1}
+  #screen-intro h1 span{color:var(--green)}
+  #screen-intro p{color:var(--muted);font-size:1rem;max-width:460px}
+  .intro-stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .stat-pill{background:white;border:1px solid var(--border);border-radius:12px;padding:14px 22px;text-align:center;min-width:100px}
+  .stat-pill strong{display:block;font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--green)}
+  .stat-pill span{font-size:.82rem;color:var(--muted)}
+  .btn-start{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;border:none;padding:18px 48px;border-radius:14px;cursor:pointer;transition:background .2s,transform .15s;box-shadow:0 4px 20px rgba(26,158,110,.3)}
+  .btn-start:hover{background:var(--green-dark);transform:translateY(-2px)}
+  #screen-quiz{gap:20px}
+  .progress-row{width:100%;display:flex;align-items:center;gap:12px}
+  .progress-bar-track{flex:1;height:6px;background:var(--border);border-radius:100px;overflow:hidden}
+  .progress-bar-fill{height:100%;background:var(--green);border-radius:100px;transition:width .4s ease;width:0%}
+  .progress-label{font-size:.82rem;color:var(--muted);white-space:nowrap;font-weight:500}
+  .score-badge{background:var(--green-light);color:var(--green-dark);font-size:.82rem;font-weight:500;padding:5px 12px;border-radius:100px;white-space:nowrap}
+  .question-card{background:white;border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;box-shadow:0 2px 12px rgba(0,0,0,.06);animation:fadeIn .3s ease}
+  .q-meta{font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+  .q-meta em{background:var(--green-light);color:var(--green-dark);padding:2px 8px;border-radius:6px;font-style:normal;margin-left:6px}
+  .question-text{font-family:'Syne',sans-serif;font-size:clamp(1.05rem,2.5vw,1.22rem);font-weight:700;line-height:1.4;margin-bottom:24px}
+  .options-grid{display:flex;flex-direction:column;gap:10px}
+  .option-btn{width:100%;text-align:left;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;font-family:'DM Sans',sans-serif;font-size:.95rem;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:12px;line-height:1.4}
+  .option-btn .opt-letter{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:white;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;color:var(--muted);transition:all .18s}
+  .option-btn:hover:not(:disabled){border-color:var(--green);background:var(--green-light)}
+  .option-btn:hover:not(:disabled) .opt-letter{background:var(--green);border-color:var(--green);color:white}
+  .option-btn:disabled{cursor:default}
+  .option-btn.correct{background:var(--green-light);border-color:var(--green);color:var(--green-dark);font-weight:500}
+  .option-btn.correct .opt-letter{background:var(--green);border-color:var(--green);color:white}
+  .option-btn.wrong{background:var(--red-light);border-color:var(--red);color:var(--red)}
+  .option-btn.wrong .opt-letter{background:var(--red);border-color:var(--red);color:white}
+  .option-btn.dimmed{opacity:.45}
+  .feedback-box{margin-top:20px;padding:18px 20px;border-radius:12px;font-size:.9rem;line-height:1.6;display:none;animation:fadeIn .3s ease}
+  .feedback-box.show{display:block}
+  .feedback-box.correct-fb{background:var(--green-light);border-left:4px solid var(--green);color:#0f5c3c}
+  .feedback-box.wrong-fb{background:var(--red-light);border-left:4px solid var(--red);color:#8c1a1a}
+  .feedback-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:5px}
+  .next-btn{width:100%;background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px;border-radius:12px;cursor:pointer;transition:background .2s;display:none}
+  .next-btn.show{display:block}
+  .next-btn:hover{background:var(--green-dark)}
+  #screen-results{text-align:center;gap:24px}
+  .result-circle{width:140px;height:140px;border-radius:50%;background:conic-gradient(var(--green) 0%,var(--green) var(--pct),var(--border) var(--pct));display:flex;align-items:center;justify-content:center;position:relative}
+  .result-circle::before{content:'';position:absolute;width:110px;height:110px;border-radius:50%;background:white}
+  .result-inner{position:relative;z-index:1;text-align:center}
+  .result-score{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--green);line-height:1}
+  .result-total{font-size:.8rem;color:var(--muted)}
+  #screen-results h2{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800}
+  #screen-results .result-msg{color:var(--muted);max-width:420px;font-size:.95rem;line-height:1.6}
+  .review-list{width:100%;display:flex;flex-direction:column;gap:10px;text-align:left}
+  .review-item{background:white;border:1px solid var(--border);border-radius:12px;padding:14px 18px;font-size:.88rem;display:flex;gap:12px;align-items:flex-start;line-height:1.5}
+  .review-icon{flex-shrink:0;font-size:1rem;margin-top:1px}
+  .review-q{font-weight:500;color:var(--text)}
+  .review-ans{color:var(--muted);margin-top:2px}
+  .review-ans strong{color:var(--green-dark)}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .retry-btn{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px 40px;border-radius:14px;cursor:pointer;transition:background .2s;box-shadow:0 4px 20px rgba(26,158,110,.3)}
+  .retry-btn:hover{background:var(--green-dark)}
+  .home-btn{background:white;color:var(--green);font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;border:1.5px solid var(--green);padding:12px 28px;border-radius:14px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
+  .home-btn:hover{background:var(--green-light)}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<div id="screen-intro" class="screen active">
+  <div>
+    <div class="badge">Formation Officine</div>
+    <h1>Contraception<br><span>Vol. 2</span></h1>
+  </div>
+  <p>Microprogestatifs, quick start, DIU cuivre et au lévonorgestrel, préservatifs.</p>
+  <div class="intro-stats">
+    <div class="stat-pill"><strong>12</strong><span>questions</span></div>
+    <div class="stat-pill"><strong>QCM</strong><span>format</span></div>
+    <div class="stat-pill"><strong>~6 min</strong><span>durée</span></div>
+  </div>
+  <button class="btn-start" onclick="startQuiz()">Commencer →</button>
+</div>
+
+<div id="screen-quiz" class="screen">
+  <div class="progress-row">
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    <span class="progress-label" id="progress-label">1 / 12</span>
+    <span class="score-badge" id="score-display">Score : 0</span>
+  </div>
+  <div class="question-card" id="question-card">
+    <div class="q-meta">Question <span id="q-num">1</span> <em id="q-theme"></em></div>
+    <div class="question-text" id="q-text"></div>
+    <div class="options-grid" id="options-grid"></div>
+    <div class="feedback-box" id="feedback-box">
+      <div class="feedback-title" id="fb-title"></div>
+      <div id="fb-body"></div>
+    </div>
+  </div>
+  <button class="next-btn" id="next-btn" onclick="nextQuestion()">Question suivante →</button>
+</div>
+
+<div id="screen-results" class="screen">
+  <div class="result-circle" id="result-circle">
+    <div class="result-inner">
+      <div class="result-score" id="res-score">0/12</div>
+      <div class="result-total" id="res-pct">0%</div>
+    </div>
+  </div>
+  <h2 id="res-title"></h2>
+  <p class="result-msg" id="res-msg"></p>
+  <div class="review-list" id="review-list"></div>
+  <div class="btn-row">
+    <button class="retry-btn" onclick="restartQuiz()">🔄 Recommencer</button>
+    <a class="home-btn" href="home.html">← Accueil</a>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    theme: "Microprogestatifs",
+    text: "Quelle est la marge d'oubli tolérée pour le Microval® comparé au Slinda® ?",
+    options: [
+      "3 heures pour Microval®, 12 heures pour Slinda®",
+      "12 heures pour les deux",
+      "3 heures pour les deux",
+      "24 heures pour Slinda®, 12 heures pour Microval®"
+    ],
+    correct: 0,
+    explanation: "<strong>Microval®</strong> (très faiblement dosé) : efficacité repose sur la coagulation de la glaire cervicale → marge de <strong>3 heures seulement</strong>. <strong>Slinda® et Optimizette®</strong> (antigonadotropes) : bloquent l'ovulation à > 95% → tolèrent un oubli jusqu'à <strong>12 heures</strong>, comme les OP. Cette distinction est fondamentale à expliquer à la patiente dès la première délivrance."
+  },
+  {
+    theme: "Microprogestatifs",
+    text: "Une patiente sous Microval® part en voyage avec un décalage horaire de 7 heures. Que lui conseillez-vous ?",
+    options: [
+      "Continuer à l'heure habituelle du pays d'origine, sans changement",
+      "Prendre la première pilule dans le nouveau pays un peu plus tôt, puis reprendre le rythme habituel",
+      "Passer temporairement au Slinda® pour la durée du voyage",
+      "Prendre un préservatif pendant tout le voyage par sécurité"
+    ],
+    correct: 1,
+    explanation: "Pour un <strong>décalage horaire important</strong> : prendre la première pilule dans le nouveau pays <strong>un peu plus tôt</strong>, puis reprendre le rythme habituel en respectant toujours l'intervalle de <strong>12 heures maximum</strong> entre deux prises. En Europe (décalage faible) : continuer à l'heure habituelle du pays d'origine. Les microprogestatifs antigonadotropes se gèrent comme les OP pour l'adaptation horaire."
+  },
+  {
+    theme: "Microprogestatifs",
+    text: "Une patiente sous pilule OP souhaite passer à un microprogestatif. Elle prend son dernier comprimé actif demain. Quand débuter le microprogestatif ?",
+    options: [
+      "Attendre les prochaines règles",
+      "Le lendemain de la dernière pilule OP, sans intervalle libre",
+      "7 jours après la dernière pilule OP",
+      "N'importe quand, avec un préservatif 7 jours"
+    ],
+    correct: 1,
+    explanation: "Pour un relais après OP : débuter le microprogestatif <strong>le lendemain de la dernière pilule active</strong> (sans prendre les placebos) → aucune protection supplémentaire nécessaire. Si la patiente tarde et ne le débute pas le lendemain, il faut ajouter un <strong>préservatif pendant 7 jours</strong>, le temps que le microprogestatif soit efficace. En résumé : <strong>lendemain = pas de préservatif / plus tard = préservatif 7 jours.</strong>"
+  },
+  {
+    theme: "Quick start",
+    text: "Le « quick start » permet de débuter une pilule OP à quel moment du cycle ?",
+    options: [
+      "Uniquement le premier jour des règles",
+      "À n'importe quel moment, sous deux conditions",
+      "Uniquement en début ou en milieu de cycle",
+      "Uniquement après un test de grossesse négatif"
+    ],
+    correct: 1,
+    explanation: "Le <strong>quick start</strong> permet de débuter une pilule OP <strong>à n'importe quel moment du cycle</strong>, sous deux conditions : <strong>s'assurer que la femme n'est pas enceinte</strong> (un test urinaire n'exclut qu'une grossesse de plus de 2 semaines) et utiliser une <strong>protection complémentaire pendant 7 jours</strong>. Faire un test de grossesse une semaine après par précaution."
+  },
+  {
+    theme: "Quick start",
+    text: "Une patiente a des cycles très irréguliers (SOPK) et souhaite débuter une pilule OP. Elle a eu un rapport il y a 4 jours. Quelle est la démarche correcte ?",
+    options: [
+      "Attendre le début des prochaines règles avant de débuter",
+      "Faire un test urinaire immédiatement, débuter la pilule, et refaire un test après 7 jours",
+      "Ne pas démarrer — cycles irréguliers contre-indiquent le quick start",
+      "Débuter uniquement si test de grossesse négatif confirmé à J14"
+    ],
+    correct: 1,
+    explanation: "En cas de <strong>cycles irréguliers ou de rapports récents</strong> : faire un test urinaire immédiatement, débuter la pilule, et <strong>refaire un test après 7 jours</strong>. La pharmacovigilance est très rassurante sur la prise de pilule en tout début de grossesse. Pour le SOPK notamment, où les cycles sont très longs, attendre les règles serait délétère — le quick start est particulièrement indiqué."
+  },
+  {
+    theme: "DIU cuivre",
+    text: "Une patiente vient de passer de la pilule OP au DIU cuivre. Elle est surprise d'avoir des pertes abondantes et translucides autour du 14e jour. Quelle est votre explication ?",
+    options: [
+      "Signe d'infection — orienter vers le gynécologue",
+      "Retour du cycle naturel avec glaire ovulatoire physiologique",
+      "Effet indésirable du cuivre sur la muqueuse vaginale",
+      "Leucorrhées pathologiques liées à une vaginose"
+    ],
+    correct: 1,
+    explanation: "Le DIU cuivre entraîne le <strong>retour d'un cycle naturel</strong> : les femmes retrouvent la <strong>glaire ovulatoire</strong> physiologique, abondante, translucide et glissante autour de l'ovulation. Sous pilule OP, cette glaire était supprimée — sa réapparition peut surprendre. Les leucorrhées physiologiques sont <strong>inodores, translucides et non irritantes</strong>. Pertes malodorantes ou colorées → suspecter une vaginose."
+  },
+  {
+    theme: "DIU cuivre",
+    text: "Quel risque infectieux spécifique justifie un dépistage systématique lors de la pose d'un DIU chez les femmes de moins de 25 ans ?",
+    options: [
+      "Mycose vaginale",
+      "Vaginose bactérienne",
+      "Chlamydia",
+      "Trichomonase"
+    ],
+    correct: 2,
+    explanation: "La <strong>chlamydia</strong> est la principale IST à dépister systématiquement avant ou lors de la pose d'un DIU chez les femmes < 25 ans. La pose peut entraîner une remontée de germes vers l'utérus et les trompes, majorant le risque d'<strong>infections génitales hautes</strong>. Les mycoses ne sont pas spécifiquement induites par le DIU et ne constituent pas une indication de dépistage systématique."
+  },
+  {
+    theme: "DIU cuivre",
+    text: "Une patiente sous DIU cuivre signale des règles beaucoup plus abondantes et douloureuses depuis la pose. Que lui expliquez-vous ?",
+    options: [
+      "C'est anormal — elle doit retirer son DIU",
+      "C'est un effet attendu lié au retour du cycle naturel, à anticiper lors du conseil",
+      "Les ménorragies sont liées au cuivre qui irrite l'endomètre de façon pathologique",
+      "Proposer un traitement hormonal pour compenser"
+    ],
+    correct: 1,
+    explanation: "Les <strong>ménorragies et dysménorrhées</strong> sont des effets indésirables <strong>attendus et fréquents</strong> du DIU cuivre, liés au retour du cycle naturel sans protection hormonale. Ce point doit être <strong>anticipé lors du conseil</strong> avant la pose pour éviter l'abandon prématuré. La patiente qui choisit le DIU cuivre pour éviter les hormones doit être informée de ces désagréments possibles."
+  },
+  {
+    theme: "DIU LNG",
+    text: "Après la pose d'un Mirena®, une patiente signale de petits saignements irréguliers 3 semaines après. Que lui répondez-vous ?",
+    options: [
+      "Orienter en urgence — signe probable de déplacement",
+      "C'est un spotting attendu lié à l'atrophie de l'endomètre, normal 3 à 6 semaines",
+      "Proposer un traitement hémostatique",
+      "Suspecter une infection et orienter vers le médecin"
+    ],
+    correct: 1,
+    explanation: "Le <strong>spotting</strong> dans les semaines suivant la pose d'un DIU au lévonorgestrel est un <strong>effet indésirable attendu et fréquent</strong>, lié à l'atrophie progressive de l'endomètre. Il dure généralement <strong>3 à 6 semaines</strong>. Un <strong>contrôle médical à 6 semaines</strong> après la pose est recommandé. Signes d'alarme à distinguer : douleurs pelviennes persistantes, pertes suspectes, fièvre → gynécologue."
+  },
+  {
+    theme: "DIU LNG",
+    text: "Une femme sous Mirena® depuis 2 mois signale une douleur pelvienne unilatérale intermittente. Que suspectez-vous en priorité ?",
+    options: [
+      "Déplacement du DIU — diagnostic d'urgence",
+      "Kyste fonctionnel ovarien — fréquent, souvent asymptomatique",
+      "Infection génitale haute — orienter immédiatement",
+      "Grossesse extra-utérine"
+    ],
+    correct: 1,
+    explanation: "Environ <strong>30% des utilisatrices de DIU LNG</strong> présentent des <strong>kystes fonctionnels ovariens</strong>, le plus souvent asymptomatiques, parfois responsables de douleurs pelviennes unilatérales. C'est la première hypothèse à évoquer face à ce tableau. Les signes d'infection (fièvre, pertes suspectes, douleur bilatérale) ou de déplacement (perception du fil à l'extérieur, douleur aux rapports) ont une présentation différente."
+  },
+  {
+    theme: "Préservatifs",
+    text: "Une patiente se plaint d'irritations après chaque rapport avec préservatif et évoque une allergie au latex. Quelle est votre démarche prioritaire ?",
+    options: [
+      "Confirmer l'allergie et orienter vers des préservatifs en polyuréthane",
+      "Rechercher d'abord d'autres causes plus fréquentes : mycose, manque de lubrification, rapports rapprochés",
+      "Proposer un antihistaminique local",
+      "Déconseiller les préservatifs et proposer une alternative contraceptive"
+    ],
+    correct: 1,
+    explanation: "L'<strong>allergie au latex</strong> est rare (0,04 à 1%). Les irritations post-coïtales sont le plus souvent dues à : <strong>mycose vulvovaginale</strong> réveillée par le rapport, rapports fréquents et rapprochés, ou <strong>manque de lubrification</strong> (notamment après la ménopause). Rechercher ces causes en priorité avant d'orienter vers une allergie. La mycose peut être traitée en automédication — le partenaire n'a pas besoin d'être traité si asymptomatique."
+  },
+  {
+    theme: "Préservatifs",
+    text: "Un patient demande s'il peut utiliser de la vaseline comme lubrifiant avec ses préservatifs. Que lui répondez-vous ?",
+    options: [
+      "Oui, la vaseline est un lubrifiant adapté aux préservatifs",
+      "Non — les lubrifiants huileux fragilisent le latex et réduisent la protection",
+      "Oui, mais uniquement avec des préservatifs épais",
+      "Non, mais uniquement en cas de rapport prolongé"
+    ],
+    correct: 1,
+    explanation: "Les <strong>lubrifiants huileux</strong> (vaseline, huiles végétales, crèmes hydratantes) sont <strong>incompatibles avec les préservatifs en latex</strong> : ils augmentent le risque de rupture et de porosité, réduisant significativement la protection contre les IST et les grossesses non désirées, notamment contre le VIH. Conseiller des <strong>lubrifiants à base d'eau ou de silicone</strong>, compatibles avec le latex."
+  }
+];
+
+let current=0,score=0,userAnswers=[];
+
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function startQuiz(){current=0;score=0;userAnswers=[];showScreen('screen-quiz');renderQuestion()}
+
+function renderQuestion(){
+  const q=QUESTIONS[current],total=QUESTIONS.length;
+  document.getElementById('progress-bar').style.width=((current/total)*100)+'%';
+  document.getElementById('progress-label').textContent=`${current+1} / ${total}`;
+  document.getElementById('score-display').textContent=`Score : ${score}`;
+  document.getElementById('q-num').textContent=current+1;
+  document.getElementById('q-theme').textContent=q.theme;
+  document.getElementById('q-text').textContent=q.text;
+  const grid=document.getElementById('options-grid');
+  grid.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    const btn=document.createElement('button');
+    btn.className='option-btn';
+    btn.innerHTML=`<span class="opt-letter">${l}</span><span>${q.options[i]}</span>`;
+    btn.onclick=()=>selectAnswer(i);
+    grid.appendChild(btn);
+  });
+  document.getElementById('feedback-box').className='feedback-box';
+  document.getElementById('next-btn').className='next-btn';
+}
+
+function selectAnswer(chosen){
+  const q=QUESTIONS[current];
+  document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+  const ok=chosen===q.correct;
+  if(ok)score++;
+  userAnswers[current]=chosen;
+  document.querySelectorAll('.option-btn').forEach((btn,i)=>{
+    if(i===q.correct)btn.classList.add('correct');
+    else if(i===chosen&&!ok)btn.classList.add('wrong');
+    else btn.classList.add('dimmed');
+  });
+  const fb=document.getElementById('feedback-box');
+  document.getElementById('fb-title').textContent=ok?'✓ Bonne réponse !':'✗ Pas tout à fait…';
+  document.getElementById('fb-body').innerHTML=q.explanation;
+  fb.className='feedback-box show '+(ok?'correct-fb':'wrong-fb');
+  const nb=document.getElementById('next-btn');
+  nb.className='next-btn show';
+  nb.textContent=current<QUESTIONS.length-1?'Question suivante →':'Voir mes résultats →';
+}
+
+function nextQuestion(){current++;if(current>=QUESTIONS.length)showResults();else renderQuestion()}
+
+function showResults(){
+  showScreen('screen-results');
+  const total=QUESTIONS.length,pct=Math.round((score/total)*100);
+  document.getElementById('res-score').textContent=`${score}/${total}`;
+  document.getElementById('res-pct').textContent=`${pct}%`;
+  document.getElementById('result-circle').style.setProperty('--pct',pct+'%');
+  const t=['🔁 À retravailler','📚 Des lacunes à combler','👍 Très bon niveau','🏆 Expertise confirmée !'];
+  const m=['Les fondamentaux ne sont pas encore acquis. Recommencez après révision.','Niveau intermédiaire. Certains points clés méritent une révision.','Bonne maîtrise. Relisez les points manqués pour consolider.','Résultat parfait. Votre conseil en contraception est solide.'];
+  const idx=pct===100?3:pct>=75?2:pct>=50?1:0;
+  document.getElementById('res-title').textContent=t[idx];
+  document.getElementById('res-msg').textContent=m[idx];
+  const list=document.getElementById('review-list');
+  list.innerHTML='';
+  QUESTIONS.forEach((q,i)=>{
+    const ok=userAnswers[i]===q.correct;
+    const item=document.createElement('div');
+    item.className='review-item';
+    item.innerHTML=`<span class="review-icon">${ok?'✅':'❌'}</span><div><div class="review-q">${q.text}</div>${!ok?`<div class="review-ans">Bonne réponse : <strong>${q.options[q.correct]}</strong></div>`:''}</div>`;
+    list.appendChild(item);
+  });
+}
+
+function restartQuiz(){startQuiz()}
+</script>
+</body>
+</html>

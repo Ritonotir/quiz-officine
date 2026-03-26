@@ -14,5 +14,21 @@
     "questions": 12,
     "difficulte": "Intermédiaire",
     "emoji": "🌿"
+  },
+  {
+    "titre": "Contraception – Vol. 1",
+    "fichier": "quiz-contraception-1.html",
+    "theme": "Contraception",
+    "questions": 12,
+    "difficulte": "Intermédiaire",
+    "emoji": "💊"
+  },
+  {
+    "titre": "Contraception – Vol. 2",
+    "fichier": "quiz-contraception-2.html",
+    "theme": "Contraception",
+    "questions": 12,
+    "difficulte": "Intermédiaire",
+    "emoji": "🔵"
   }
 ]
