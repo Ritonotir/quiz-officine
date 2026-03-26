@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formation Officine – Accès</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a9e6e;
+    --green-dark: #0f7a53;
+    --green-light: #e6f7f1;
+    --bg: #f4f6f3;
+    --text: #1a1f1c;
+    --muted: #6b7672;
+    --border: #dde5e0;
+    --red: #e84040;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px 36px;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    text-align: center;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+  .input-group {
+    position: relative;
+    margin-bottom: 14px;
+  }
+  input[type="password"] {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--text);
+    background: var(--bg);
+    outline: none;
+    transition: border-color 0.2s;
+    letter-spacing: 0.15em;
+  }
+  input[type="password"]:focus { border-color: var(--green); background: white; }
+  input[type="password"].error { border-color: var(--red); }
+
+  .error-msg {
+    font-size: 0.82rem;
+    color: var(--red);
+    margin-bottom: 14px;
+    display: none;
+    animation: shake 0.3s ease;
+  }
+  .error-msg.show { display: block; }
+
+  button {
+    width: 100%;
+    background: var(--green);
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  button:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+  .footer-note {
+    margin-top: 24px;
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="badge">Formation Officine</div>
+  <h1>Accès réservé</h1>
+  <p class="subtitle">Outil de formation interne.<br>Entrez le mot de passe pour continuer.</p>
+
+  <div class="input-group">
+    <input type="password" id="pwd" placeholder="Mot de passe" onkeydown="if(event.key==='Enter') checkPassword()" autofocus />
+  </div>
+  <div class="error-msg" id="error-msg">Mot de passe incorrect.</div>
+  <button onclick="checkPassword()">Accéder →</button>
+
+  <p class="footer-note">Accès réservé à l'équipe officine.<br>Ne se substitue pas aux référentiels officiels.</p>
+</div>
+
+<script>
+  // ── Modifiez uniquement cette ligne ──
+  const MOT_DE_PASSE = "officine2024";
+  // ─────────────────────────────────────
+
+  // Déjà authentifié ?
+  if (sessionStorage.getItem('auth') === 'ok') {
+    window.location.href = 'index.html';
+  }
+
+  function checkPassword() {
+    const input = document.getElementById('pwd');
+    const errorMsg = document.getElementById('error-msg');
+
+    if (input.value === MOT_DE_PASSE) {
+      sessionStorage.setItem('auth', 'ok');
+      window.location.href = 'index.html';
+    } else {
+      input.classList.add('error');
+      errorMsg.classList.add('show');
+      input.value = '';
+      input.focus();
+      setTimeout(() => {
+        input.classList.remove('error');
+      }, 1000);
+    }
+  }
+</script>
+</body>
+</html>
