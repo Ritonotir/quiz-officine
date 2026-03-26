@@ -6,5 +6,13 @@
     "questions": 12,
     "difficulte": "Intermédiaire",
     "emoji": "🤧"
+  },
+  {
+    "titre": "Allergies Saisonnières",
+    "fichier": "quiz-allergies.html",
+    "theme": "Allergologie",
+    "questions": 12,
+    "difficulte": "Intermédiaire",
+    "emoji": "🌿"
   }
 ]
