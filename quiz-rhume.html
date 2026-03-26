@@ -391,6 +391,13 @@
     box-shadow: 0 4px 20px rgba(26,158,110,0.3);
   }
   .retry-btn:hover { background: var(--green-dark); }
+  .home-btn {
+    background: white; color: var(--green);
+    font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700;
+    border: 1.5px solid var(--green); padding: 12px 28px; border-radius: 14px; cursor: pointer;
+    transition: all 0.2s; text-decoration: none; display: inline-block;
+  }
+  .home-btn:hover { background: var(--green-light); }
 
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(6px); }
@@ -451,6 +458,7 @@
   <p class="result-msg" id="res-msg"></p>
   <div class="review-list" id="review-list"></div>
   <button class="retry-btn" onclick="restartQuiz()">🔄 Recommencer</button>
+  <a class="home-btn" href="home.html">← Accueil</a>
 </div>
 
 <script>
