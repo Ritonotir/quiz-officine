@@ -30,5 +30,29 @@
     "questions": 12,
     "difficulte": "Intermédiaire",
     "emoji": "🔵"
+  },
+  {
+    "titre": "Vaccination Jeunes Enfants – Facile",
+    "fichier": "quiz-vaccination-jeunes-enfants-facile.html",
+    "theme": "Vaccination",
+    "questions": 12,
+    "difficulte": "Facile",
+    "emoji": "💉"
+  },
+  {
+    "titre": "Vaccination Jeunes Enfants – Modéré",
+    "fichier": "quiz-vaccination-jeunes-enfants-modere.html",
+    "theme": "Vaccination",
+    "questions": 12,
+    "difficulte": "Intermédiaire",
+    "emoji": "💉"
+  },
+  {
+    "titre": "Vaccination Jeunes Enfants – Difficile",
+    "fichier": "quiz-vaccination-jeunes-enfants-difficile.html",
+    "theme": "Vaccination",
+    "questions": 12,
+    "difficulte": "Avancé",
+    "emoji": "💉"
   }
 ]
