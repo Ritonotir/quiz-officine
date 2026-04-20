@@ -612,12 +612,36 @@ function showScreen(id) {
 function startQuiz() {
   current = 0; score = 0; answered = []; userAnswers = [];
   showScreen('screen-quiz');
+  prepareQuiz();
   renderQuestion();
 }
 
+
+// ── RANDOMIZATION ──
+let shuffledQuestions = [];
+let shuffledOptions = []; // per question: array of {text, origIndex}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function prepareQuiz() {
+  shuffledQuestions = shuffle(QUESTIONS);
+  shuffledOptions = shuffledQuestions.map(q => {
+    const opts = q.options.map((text, origIndex) => ({ text, origIndex }));
+    return shuffle(opts);
+  });
+}
+
 function renderQuestion() {
-  const q = QUESTIONS[current];
-  const total = QUESTIONS.length;
+  const q = shuffledQuestions[current];
+  const opts = shuffledOptions[current];
+  const total = shuffledQuestions.length;
 
   document.getElementById('progress-bar').style.width = ((current / total) * 100) + '%';
   document.getElementById('progress-label').textContent = `${current + 1} / ${total}`;
@@ -629,55 +653,47 @@ function renderQuestion() {
   const grid = document.getElementById('options-grid');
   grid.innerHTML = '';
   const letters = ['A', 'B', 'C', 'D'];
-  q.options.forEach((opt, i) => {
+  opts.forEach((opt, displayIndex) => {
     const btn = document.createElement('button');
     btn.className = 'option-btn';
-    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span><span>${opt}</span>`;
-    btn.onclick = () => selectAnswer(i);
+    btn.innerHTML = `<span class="opt-letter">${letters[displayIndex]}</span><span>${opt.text}</span>`;
+    btn.onclick = () => selectAnswer(opt.origIndex);
     grid.appendChild(btn);
   });
 
-  const fb = document.getElementById('feedback-box');
-  fb.className = 'feedback-box';
+  document.getElementById('feedback-box').className = 'feedback-box';
   document.getElementById('next-btn').className = 'next-btn';
 }
 
-function selectAnswer(chosen) {
-  const q = QUESTIONS[current];
-  const buttons = document.querySelectorAll('.option-btn');
-  buttons.forEach(b => b.disabled = true);
+function selectAnswer(chosenOrigIndex) {
+  const q = shuffledQuestions[current];
+  const opts = shuffledOptions[current];
+  document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
 
-  const isCorrect = chosen === q.correct;
+  const isCorrect = chosenOrigIndex === q.correct;
   if (isCorrect) score++;
-  userAnswers[current] = chosen;
+  userAnswers[current] = chosenOrigIndex;
 
-  buttons.forEach((btn, i) => {
-    if (i === q.correct) btn.classList.add('correct');
-    else if (i === chosen && !isCorrect) btn.classList.add('wrong');
+  document.querySelectorAll('.option-btn').forEach((btn, displayIndex) => {
+    const origIndex = opts[displayIndex].origIndex;
+    if (origIndex === q.correct) btn.classList.add('correct');
+    else if (origIndex === chosenOrigIndex && !isCorrect) btn.classList.add('wrong');
     else btn.classList.add('dimmed');
   });
 
   const fb = document.getElementById('feedback-box');
-  const fbTitle = document.getElementById('fb-title');
-  const fbBody = document.getElementById('fb-body');
+  document.getElementById('fb-title').textContent = isCorrect ? '✓ Bonne réponse !' : '✗ Pas tout à fait…';
+  document.getElementById('fb-body').innerHTML = q.explanation;
+  fb.className = 'feedback-box show ' + (isCorrect ? 'correct-fb' : 'wrong-fb');
 
-  if (isCorrect) {
-    fb.className = 'feedback-box correct-fb show';
-    fbTitle.textContent = '✓ Bonne réponse !';
-  } else {
-    fb.className = 'feedback-box wrong-fb show';
-    fbTitle.textContent = '✗ Pas tout à fait…';
-  }
-  fbBody.innerHTML = q.explanation;
-
-  document.getElementById('next-btn').className = 'next-btn show';
-  document.getElementById('next-btn').textContent =
-    current < QUESTIONS.length - 1 ? 'Question suivante →' : 'Voir mes résultats →';
+  const nb = document.getElementById('next-btn');
+  nb.className = 'next-btn show';
+  nb.textContent = current < shuffledQuestions.length - 1 ? 'Question suivante →' : 'Voir mes résultats →';
 }
 
 function nextQuestion() {
   current++;
-  if (current >= QUESTIONS.length) {
+  if (current >= shuffledQuestions.length) {
     showResults();
   } else {
     renderQuestion();
@@ -712,7 +728,7 @@ function showResults() {
 
   const list = document.getElementById('review-list');
   list.innerHTML = '';
-  QUESTIONS.forEach((q, i) => {
+  shuffledQuestions.forEach((q, i) => {
     const isOk = userAnswers[i] === q.correct;
     const item = document.createElement('div');
     item.className = 'review-item';

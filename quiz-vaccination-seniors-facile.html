@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Vaccination Seniors 65+ – Facile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--green:#1a9e6e;--green-dark:#0f7a53;--green-light:#e6f7f1;--red:#e84040;--red-light:#fdeaea;--bg:#f4f6f3;--text:#1a1f1c;--muted:#6b7672;--border:#dde5e0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px}
+  .screen{display:none;width:100%;max-width:680px}
+  .screen.active{display:flex;flex-direction:column;align-items:center}
+  #screen-intro{text-align:center;gap:20px}
+  .badge{display:inline-block;background:var(--green);color:white;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:8px}
+  #screen-intro h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,6vw,3rem);font-weight:800;line-height:1.1}
+  #screen-intro h1 span{color:var(--green)}
+  #screen-intro p{color:var(--muted);font-size:1rem;max-width:460px}
+  .intro-stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .stat-pill{background:white;border:1px solid var(--border);border-radius:12px;padding:14px 22px;text-align:center;min-width:100px}
+  .stat-pill strong{display:block;font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--green)}
+  .stat-pill span{font-size:.82rem;color:var(--muted)}
+  .btn-start{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;border:none;padding:18px 48px;border-radius:14px;cursor:pointer;transition:background .2s,transform .15s;box-shadow:0 4px 20px rgba(26,158,110,.3)}
+  .btn-start:hover{background:var(--green-dark);transform:translateY(-2px)}
+  #screen-quiz{gap:20px}
+  .progress-row{width:100%;display:flex;align-items:center;gap:12px}
+  .progress-bar-track{flex:1;height:6px;background:var(--border);border-radius:100px;overflow:hidden}
+  .progress-bar-fill{height:100%;background:var(--green);border-radius:100px;transition:width .4s ease;width:0%}
+  .progress-label{font-size:.82rem;color:var(--muted);white-space:nowrap;font-weight:500}
+  .score-badge{background:var(--green-light);color:var(--green-dark);font-size:.82rem;font-weight:500;padding:5px 12px;border-radius:100px;white-space:nowrap}
+  .question-card{background:white;border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;box-shadow:0 2px 12px rgba(0,0,0,.06);animation:fadeIn .3s ease}
+  .q-meta{font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+  .q-meta em{background:var(--green-light);color:var(--green-dark);padding:2px 8px;border-radius:6px;font-style:normal;margin-left:6px}
+  .question-text{font-family:'Syne',sans-serif;font-size:clamp(1.05rem,2.5vw,1.22rem);font-weight:700;line-height:1.4;margin-bottom:24px}
+  .options-grid{display:flex;flex-direction:column;gap:10px}
+  .option-btn{width:100%;text-align:left;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;font-family:'DM Sans',sans-serif;font-size:.95rem;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:12px;line-height:1.4}
+  .option-btn .opt-letter{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:white;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;color:var(--muted);transition:all .18s}
+  .option-btn:hover:not(:disabled){border-color:var(--green);background:var(--green-light)}
+  .option-btn:hover:not(:disabled) .opt-letter{background:var(--green);border-color:var(--green);color:white}
+  .option-btn:disabled{cursor:default}
+  .option-btn.correct{background:var(--green-light);border-color:var(--green);color:var(--green-dark);font-weight:500}
+  .option-btn.correct .opt-letter{background:var(--green);border-color:var(--green);color:white}
+  .option-btn.wrong{background:var(--red-light);border-color:var(--red);color:var(--red)}
+  .option-btn.wrong .opt-letter{background:var(--red);border-color:var(--red);color:white}
+  .option-btn.dimmed{opacity:.45}
+  .feedback-box{margin-top:20px;padding:18px 20px;border-radius:12px;font-size:.9rem;line-height:1.6;display:none;animation:fadeIn .3s ease}
+  .feedback-box.show{display:block}
+  .feedback-box.correct-fb{background:var(--green-light);border-left:4px solid var(--green);color:#0f5c3c}
+  .feedback-box.wrong-fb{background:var(--red-light);border-left:4px solid var(--red);color:#8c1a1a}
+  .feedback-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:5px}
+  .next-btn{width:100%;background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px;border-radius:12px;cursor:pointer;transition:background .2s;display:none}
+  .next-btn.show{display:block}
+  .next-btn:hover{background:var(--green-dark)}
+  #screen-results{text-align:center;gap:24px}
+  .result-circle{width:140px;height:140px;border-radius:50%;background:conic-gradient(var(--green) 0%,var(--green) var(--pct),var(--border) var(--pct));display:flex;align-items:center;justify-content:center;position:relative}
+  .result-circle::before{content:'';position:absolute;width:110px;height:110px;border-radius:50%;background:white}
+  .result-inner{position:relative;z-index:1;text-align:center}
+  .result-score{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--green);line-height:1}
+  .result-total{font-size:.8rem;color:var(--muted)}
+  #screen-results h2{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800}
+  #screen-results .result-msg{color:var(--muted);max-width:420px;font-size:.95rem;line-height:1.6}
+  .review-list{width:100%;display:flex;flex-direction:column;gap:10px;text-align:left}
+  .review-item{background:white;border:1px solid var(--border);border-radius:12px;padding:14px 18px;font-size:.88rem;display:flex;gap:12px;align-items:flex-start;line-height:1.5}
+  .review-icon{flex-shrink:0;font-size:1rem;margin-top:1px}
+  .review-q{font-weight:500;color:var(--text)}
+  .review-ans{color:var(--muted);margin-top:2px}
+  .review-ans strong{color:var(--green-dark)}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .retry-btn{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px 40px;border-radius:14px;cursor:pointer;transition:background .2s;box-shadow:0 4px 20px rgba(26,158,110,.3)}
+  .retry-btn:hover{background:var(--green-dark)}
+  .home-btn{background:white;color:var(--green);font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;border:1.5px solid var(--green);padding:12px 28px;border-radius:14px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
+  .home-btn:hover{background:var(--green-light)}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div id="screen-intro" class="screen active">
+  <div><div class="badge">Formation Officine</div>
+  <h1>Vaccination<br><span>Seniors 65+ – Facile</span></h1></div>
+  <p>Bases et calendrier 65+ : DTP, pneumocoque, zona, grippe haute dose.</p>
+  <div class="intro-stats">
+    <div class="stat-pill"><strong>12</strong><span>questions</span></div>
+    <div class="stat-pill"><strong>QCM</strong><span>format</span></div>
+    <div class="stat-pill"><strong>~5 min</strong><span>durée</span></div>
+  </div>
+  <button class="btn-start" onclick="startQuiz()">Commencer →</button>
+</div>
+<div id="screen-quiz" class="screen">
+  <div class="progress-row">
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    <span class="progress-label" id="progress-label">1 / 12</span>
+    <span class="score-badge" id="score-display">Score : 0</span>
+  </div>
+  <div class="question-card">
+    <div class="q-meta">Question <span id="q-num">1</span> <em id="q-theme"></em></div>
+    <div class="question-text" id="q-text"></div>
+    <div class="options-grid" id="options-grid"></div>
+    <div class="feedback-box" id="feedback-box">
+      <div class="feedback-title" id="fb-title"></div>
+      <div id="fb-body"></div>
+    </div>
+  </div>
+  <button class="next-btn" id="next-btn" onclick="nextQuestion()">Question suivante →</button>
+</div>
+<div id="screen-results" class="screen">
+  <div class="result-circle" id="result-circle">
+    <div class="result-inner">
+      <div class="result-score" id="res-score">0/12</div>
+      <div class="result-total" id="res-pct">0%</div>
+    </div>
+  </div>
+  <h2 id="res-title"></h2>
+  <p class="result-msg" id="res-msg"></p>
+  <div class="review-list" id="review-list"></div>
+  <div class="btn-row">
+    <button class="retry-btn" onclick="restartQuiz()">🔄 Recommencer</button>
+    <a class="home-btn" href="home.html">← Accueil</a>
+  </div>
+</div>
+<script>
+
+const QUESTIONS = [
+  {theme:"DTP senior",text:"Quels sont les âges fixes des rappels DTP recommandés chez le senior ?",options:["70, 80, 90 ans","75, 85, 95 ans","65, 75, 85, 95 ans","Tous les 20 ans, pas d'âge fixe"],correct:1,
+   explanation:"Après 65 ans, les rappels DTP sont recommandés aux âges fixes : <strong>75, 85 et 95 ans</strong> (tous les 10 ans). Le premier rappel senior se fait à 65 ans (dernier rappel adulte), puis à 75, 85, 95 ans. La fréquence est de 10 ans (contre 20 ans avant 65 ans) en raison de l'immunosénescence."},
+  {theme:"Pneumocoque",text:"Quelle valence de vaccin pneumococcique est désormais recommandée en dose unique pour les seniors ?",options:["VPC13 (Prevenar 13)","VPP23 (Pneumovax)","VPC20 (Prevenar 20)","VPC15 (Vaxneuvance)"],correct:2,
+   explanation:"Depuis 2025, le <strong>VPC20 (Prevenar 20®)</strong> est recommandé en <strong>dose unique</strong> pour toutes les personnes de 65 ans et plus. Il couvre 20 sérotypes pneumococciques et remplace le schéma séquentiel VPC13 + VPP23. C'est la recommandation actuelle, simplifiée et plus large que ses prédécesseurs."},
+  {theme:"Zona",text:"Le vaccin Shingrix® est-il un vaccin vivant ou inactivé ?",options:["Vivant atténué","Inactivé recombinant adjuvé","À ARN messager","À vecteur viral"],correct:1,
+   explanation:"Shingrix® est un vaccin <strong>inactivé recombinant adjuvé</strong> : il contient une protéine recombinante de l'enveloppe du virus varicelle-zona (gE) associée à un puissant système adjuvant (AS01B). Cette nature inactivée le rend utilisable chez les immunodéprimés — contrairement à l'ancien Zostavax® (vaccin vivant)."},
+  {theme:"Zona",text:"Peut-on vacciner contre le zona une personne qui a déjà eu la maladie ?",options:["Non, inutile — elle est immunisée","Oui, la vaccination est recommandée malgré l'antécédent","Seulement après 10 ans sans récidive","Contre-indiqué après zona"],correct:1,
+   explanation:"Oui — avoir eu le zona n'est pas une contre-indication à Shingrix®. La vaccination reste recommandée car <strong>l'immunité naturelle post-zona peut s'estomper</strong> avec l'âge, laissant le patient vulnérable à une récidive. Il est conseillé d'attendre 1 an après l'épisode de zona avant de vacciner."},
+  {theme:"Zona",text:"Quel est le principal avantage de Shingrix® par rapport à l'ancien vaccin Zostavax® ?",options:["Une seule dose suffit","Moins d'effets secondaires locaux","Efficacité nettement supérieure, notamment chez les plus âgés","Absence de douleur à l'injection"],correct:2,
+   explanation:"La supériorité de Shingrix® réside dans son <strong>efficacité bien maintenue avec l'âge</strong> : plus de 90% d'efficacité contre le zona chez les 70 ans et plus, et plus de 85% contre les douleurs post-zostériennes. L'ancien Zostavax® (vivant) voyait son efficacité chuter rapidement avec l'âge et après quelques années."},
+  {theme:"Grippe senior",text:"Quel vaccin grippe est spécifiquement recommandé pour les plus de 65 ans ?",options:["VaxigripTetra (standard)","Influvac Tetra (standard)","Efluelda (haute dose)","Fluenz (nasal)"],correct:2,
+   explanation:"Le vaccin <strong>Efluelda®</strong> (haute dose) est spécifiquement recommandé pour les personnes de 65 ans et plus depuis 2023. Il contient <strong>4 fois plus d'antigènes</strong> que les vaccins standard, ce qui compense la réponse immunitaire diminuée par l'immunosénescence. Il est remboursé pour cette tranche d'âge."},
+  {theme:"Zona",text:"À quel âge s'arrête la recommandation vaccinale pour le zona chez l'adulte sain ?",options:["75 ans","80 ans","85 ans","Pas d'âge limite supérieur"],correct:3,
+   explanation:"Il n'y a <strong>pas d'âge limite supérieur</strong> pour la vaccination Shingrix® chez l'adulte sain. La vaccination reste recommandée et bénéfique à tout âge car le risque de zona et de complications (douleurs post-zostériennes) augmente avec l'âge. L'efficacité de Shingrix® se maintient même chez les très âgés grâce à son système adjuvant."},
+  {theme:"Co-administration",text:"La co-administration Grippe et Covid-19 est-elle possible chez un patient de 70 ans ?",options:["Non, un intervalle de 15 jours est nécessaire","Oui, dans le même bras","Oui, sur deux sites d'injection différents","Seulement sur prescription médicale"],correct:2,
+   explanation:"La co-administration grippe + Covid-19 est <strong>possible et recommandée</strong> chez les seniors pour simplifier le parcours vaccinal. Les deux vaccins doivent être injectés sur <strong>deux sites d'injection différents</strong> (bras différents de préférence). Cette co-administration peut être réalisée en pharmacie."},
+  {theme:"Vaccination officinale",text:"En 2026, un pharmacien peut-il prescrire et administrer le vaccin Shingrix® à un patient de 68 ans ?",options:["Non, prescription médicale obligatoire","Oui, le pharmacien peut prescrire et vacciner","Uniquement si le patient est en ALD","Uniquement pour le 2e rappel"],correct:1,
+   explanation:"Depuis 2023, les <strong>pharmaciens peuvent prescrire et administrer</strong> tous les vaccins du calendrier vaccinal aux personnes de 11 ans et plus, y compris Shingrix®. Un pharmacien peut donc prescrire, délivrer et injecter ce vaccin à un patient de 68 ans sans ordonnance médicale préalable."},
+  {theme:"Covid-19",text:"Quelle est la recommandation actuelle de rappel Covid-19 pour les plus de 65 ans ?",options:["Tous les 6 mois","Annuel, en période automnale","Tous les 2 ans","Plus de rappel recommandé"],correct:1,
+   explanation:"Pour les personnes de 65 ans et plus, un rappel Covid-19 est recommandé chaque année en période automnale (<strong>rappel annuel</strong>), avant la saison hivernale. Ce rappel est co-administrable avec la grippe. La vaccination annuelle vise à maintenir une protection suffisante face à l'évolution des variants."},
+  {theme:"Grippe — accès",text:"En 2026, un patient de 65 ans peut-il se faire vacciner contre la grippe en pharmacie sans bon de l'Assurance Maladie reçu par courrier ?",options:["Non, le bon est obligatoire","Oui, le pharmacien édite le bon et vaccine directement","Uniquement sur prescription médicale","Uniquement après 75 ans"],correct:1,
+   explanation:"Depuis 2019, les patients éligibles à la vaccination grippe gratuite peuvent se rendre directement en pharmacie : le <strong>pharmacien édite lui-même le bon de vaccination</strong> et peut vacciner sur place. Il n'est plus nécessaire d'attendre le bon envoyé par courrier par l'Assurance Maladie."},
+  {theme:"Vaccin adulte — valence réduite",text:"Pourquoi la valence diphtérique est-elle dosée plus faiblement ("d") dans les vaccins adultes ?",options:["Pour réduire les coûts","Pour limiter les réactions locales d'hypersensibilité chez les adultes pré-immunisés","Parce que l'adulte est totalement immunisé","Pour une meilleure conservation"],correct:1,
+   explanation:"Les adultes pré-immunisés par les vaccinations antérieures réagiraient de façon exagérée (érythème, douleur, induration importantes) à une dose complète d'anatoxine diphtérique. La <strong>dose réduite "d"</strong> permet une réponse immunitaire suffisante pour le rappel tout en <strong>limitant les réactions locales</strong> d'hypersensibilité."}
+];
+
+
+let current=0,score=0,userAnswers=[];
+let shuffledQuestions=[];
+let shuffledOptions=[];
+
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function prepareQuiz(){
+  shuffledQuestions=shuffle(QUESTIONS);
+  shuffledOptions=shuffledQuestions.map(q=>{
+    const opts=q.options.map((text,origIndex)=>({text,origIndex}));
+    return shuffle(opts);
+  });
+}
+
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+
+function startQuiz(){current=0;score=0;userAnswers=[];prepareQuiz();showScreen('screen-quiz');renderQuestion()}
+
+function renderQuestion(){
+  const q=shuffledQuestions[current],opts=shuffledOptions[current],total=shuffledQuestions.length;
+  document.getElementById('progress-bar').style.width=((current/total)*100)+'%';
+  document.getElementById('progress-label').textContent=`${current+1} / ${total}`;
+  document.getElementById('score-display').textContent=`Score : ${score}`;
+  document.getElementById('q-num').textContent=current+1;
+  document.getElementById('q-theme').textContent=q.theme;
+  document.getElementById('q-text').textContent=q.text;
+  const grid=document.getElementById('options-grid');grid.innerHTML='';
+  const letters=['A','B','C','D'];
+  opts.forEach((opt,di)=>{
+    const btn=document.createElement('button');
+    btn.className='option-btn';
+    btn.innerHTML=`<span class="opt-letter">${letters[di]}</span><span>${opt.text}</span>`;
+    btn.onclick=()=>selectAnswer(opt.origIndex);
+    grid.appendChild(btn);
+  });
+  document.getElementById('feedback-box').className='feedback-box';
+  document.getElementById('next-btn').className='next-btn';
+}
+
+function selectAnswer(chosenOrig){
+  const q=shuffledQuestions[current],opts=shuffledOptions[current];
+  document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+  const ok=chosenOrig===q.correct;if(ok)score++;userAnswers[current]=chosenOrig;
+  document.querySelectorAll('.option-btn').forEach((btn,di)=>{
+    const orig=opts[di].origIndex;
+    if(orig===q.correct)btn.classList.add('correct');
+    else if(orig===chosenOrig&&!ok)btn.classList.add('wrong');
+    else btn.classList.add('dimmed');
+  });
+  const fb=document.getElementById('feedback-box');
+  document.getElementById('fb-title').textContent=ok?'✓ Bonne réponse !':'✗ Pas tout à fait…';
+  document.getElementById('fb-body').innerHTML=q.explanation;
+  fb.className='feedback-box show '+(ok?'correct-fb':'wrong-fb');
+  const nb=document.getElementById('next-btn');nb.className='next-btn show';
+  nb.textContent=current<shuffledQuestions.length-1?'Question suivante →':'Voir mes résultats →';
+}
+
+function nextQuestion(){current++;if(current>=shuffledQuestions.length)showResults();else renderQuestion()}
+
+function showResults(){
+  showScreen('screen-results');
+  const total=shuffledQuestions.length,pct=Math.round((score/total)*100);
+  document.getElementById('res-score').textContent=`${score}/${total}`;
+  document.getElementById('res-pct').textContent=`${pct}%`;
+  document.getElementById('result-circle').style.setProperty('--pct',pct+'%');
+  const t=['🔁 À retravailler','📚 Des lacunes à combler','👍 Très bon niveau','🏆 Expertise confirmée !'];
+  const m=['Les fondamentaux ne sont pas encore acquis. Recommencez après révision.','Niveau intermédiaire. Certains points méritent une révision.','Bonne maîtrise. Relisez les points manqués pour consolider.','Résultat parfait. Votre maîtrise est solide.'];
+  const idx=pct===100?3:pct>=75?2:pct>=50?1:0;
+  document.getElementById('res-title').textContent=t[idx];document.getElementById('res-msg').textContent=m[idx];
+  const list=document.getElementById('review-list');list.innerHTML='';
+  shuffledQuestions.forEach((q,i)=>{
+    const ok=userAnswers[i]===q.correct;
+    const item=document.createElement('div');item.className='review-item';
+    item.innerHTML=`<span class="review-icon">${ok?'✅':'❌'}</span><div><div class="review-q">${q.text}</div>${!ok?`<div class="review-ans">Bonne réponse : <strong>${q.options[q.correct]}</strong></div>`:''}</div>`;
+    list.appendChild(item);
+  });
+}
+
+function restartQuiz(){startQuiz()}
+
+</script>
+</body>
+</html>

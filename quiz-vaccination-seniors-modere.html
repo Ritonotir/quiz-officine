@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Vaccination Seniors 65+ – Modéré</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--green:#1a9e6e;--green-dark:#0f7a53;--green-light:#e6f7f1;--red:#e84040;--red-light:#fdeaea;--bg:#f4f6f3;--text:#1a1f1c;--muted:#6b7672;--border:#dde5e0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px}
+  .screen{display:none;width:100%;max-width:680px}
+  .screen.active{display:flex;flex-direction:column;align-items:center}
+  #screen-intro{text-align:center;gap:20px}
+  .badge{display:inline-block;background:var(--green);color:white;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:8px}
+  #screen-intro h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,6vw,3rem);font-weight:800;line-height:1.1}
+  #screen-intro h1 span{color:var(--green)}
+  #screen-intro p{color:var(--muted);font-size:1rem;max-width:460px}
+  .intro-stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .stat-pill{background:white;border:1px solid var(--border);border-radius:12px;padding:14px 22px;text-align:center;min-width:100px}
+  .stat-pill strong{display:block;font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--green)}
+  .stat-pill span{font-size:.82rem;color:var(--muted)}
+  .btn-start{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;border:none;padding:18px 48px;border-radius:14px;cursor:pointer;transition:background .2s,transform .15s;box-shadow:0 4px 20px rgba(26,158,110,.3)}
+  .btn-start:hover{background:var(--green-dark);transform:translateY(-2px)}
+  #screen-quiz{gap:20px}
+  .progress-row{width:100%;display:flex;align-items:center;gap:12px}
+  .progress-bar-track{flex:1;height:6px;background:var(--border);border-radius:100px;overflow:hidden}
+  .progress-bar-fill{height:100%;background:var(--green);border-radius:100px;transition:width .4s ease;width:0%}
+  .progress-label{font-size:.82rem;color:var(--muted);white-space:nowrap;font-weight:500}
+  .score-badge{background:var(--green-light);color:var(--green-dark);font-size:.82rem;font-weight:500;padding:5px 12px;border-radius:100px;white-space:nowrap}
+  .question-card{background:white;border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;box-shadow:0 2px 12px rgba(0,0,0,.06);animation:fadeIn .3s ease}
+  .q-meta{font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+  .q-meta em{background:var(--green-light);color:var(--green-dark);padding:2px 8px;border-radius:6px;font-style:normal;margin-left:6px}
+  .question-text{font-family:'Syne',sans-serif;font-size:clamp(1.05rem,2.5vw,1.22rem);font-weight:700;line-height:1.4;margin-bottom:24px}
+  .options-grid{display:flex;flex-direction:column;gap:10px}
+  .option-btn{width:100%;text-align:left;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;font-family:'DM Sans',sans-serif;font-size:.95rem;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:12px;line-height:1.4}
+  .option-btn .opt-letter{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:white;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;color:var(--muted);transition:all .18s}
+  .option-btn:hover:not(:disabled){border-color:var(--green);background:var(--green-light)}
+  .option-btn:hover:not(:disabled) .opt-letter{background:var(--green);border-color:var(--green);color:white}
+  .option-btn:disabled{cursor:default}
+  .option-btn.correct{background:var(--green-light);border-color:var(--green);color:var(--green-dark);font-weight:500}
+  .option-btn.correct .opt-letter{background:var(--green);border-color:var(--green);color:white}
+  .option-btn.wrong{background:var(--red-light);border-color:var(--red);color:var(--red)}
+  .option-btn.wrong .opt-letter{background:var(--red);border-color:var(--red);color:white}
+  .option-btn.dimmed{opacity:.45}
+  .feedback-box{margin-top:20px;padding:18px 20px;border-radius:12px;font-size:.9rem;line-height:1.6;display:none;animation:fadeIn .3s ease}
+  .feedback-box.show{display:block}
+  .feedback-box.correct-fb{background:var(--green-light);border-left:4px solid var(--green);color:#0f5c3c}
+  .feedback-box.wrong-fb{background:var(--red-light);border-left:4px solid var(--red);color:#8c1a1a}
+  .feedback-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:5px}
+  .next-btn{width:100%;background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px;border-radius:12px;cursor:pointer;transition:background .2s;display:none}
+  .next-btn.show{display:block}
+  .next-btn:hover{background:var(--green-dark)}
+  #screen-results{text-align:center;gap:24px}
+  .result-circle{width:140px;height:140px;border-radius:50%;background:conic-gradient(var(--green) 0%,var(--green) var(--pct),var(--border) var(--pct));display:flex;align-items:center;justify-content:center;position:relative}
+  .result-circle::before{content:'';position:absolute;width:110px;height:110px;border-radius:50%;background:white}
+  .result-inner{position:relative;z-index:1;text-align:center}
+  .result-score{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--green);line-height:1}
+  .result-total{font-size:.8rem;color:var(--muted)}
+  #screen-results h2{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800}
+  #screen-results .result-msg{color:var(--muted);max-width:420px;font-size:.95rem;line-height:1.6}
+  .review-list{width:100%;display:flex;flex-direction:column;gap:10px;text-align:left}
+  .review-item{background:white;border:1px solid var(--border);border-radius:12px;padding:14px 18px;font-size:.88rem;display:flex;gap:12px;align-items:flex-start;line-height:1.5}
+  .review-icon{flex-shrink:0;font-size:1rem;margin-top:1px}
+  .review-q{font-weight:500;color:var(--text)}
+  .review-ans{color:var(--muted);margin-top:2px}
+  .review-ans strong{color:var(--green-dark)}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .retry-btn{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px 40px;border-radius:14px;cursor:pointer;transition:background .2s;box-shadow:0 4px 20px rgba(26,158,110,.3)}
+  .retry-btn:hover{background:var(--green-dark)}
+  .home-btn{background:white;color:var(--green);font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;border:1.5px solid var(--green);padding:12px 28px;border-radius:14px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
+  .home-btn:hover{background:var(--green-light)}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div id="screen-intro" class="screen active">
+  <div><div class="badge">Formation Officine</div>
+  <h1>Vaccination<br><span>Seniors 65+ – Modéré</span></h1></div>
+  <p>Pratique et cas particuliers : Shingrix, immunodépression, anticoagulants, remboursement.</p>
+  <div class="intro-stats">
+    <div class="stat-pill"><strong>12</strong><span>questions</span></div>
+    <div class="stat-pill"><strong>QCM</strong><span>format</span></div>
+    <div class="stat-pill"><strong>~6 min</strong><span>durée</span></div>
+  </div>
+  <button class="btn-start" onclick="startQuiz()">Commencer →</button>
+</div>
+<div id="screen-quiz" class="screen">
+  <div class="progress-row">
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    <span class="progress-label" id="progress-label">1 / 12</span>
+    <span class="score-badge" id="score-display">Score : 0</span>
+  </div>
+  <div class="question-card">
+    <div class="q-meta">Question <span id="q-num">1</span> <em id="q-theme"></em></div>
+    <div class="question-text" id="q-text"></div>
+    <div class="options-grid" id="options-grid"></div>
+    <div class="feedback-box" id="feedback-box">
+      <div class="feedback-title" id="fb-title"></div>
+      <div id="fb-body"></div>
+    </div>
+  </div>
+  <button class="next-btn" id="next-btn" onclick="nextQuestion()">Question suivante →</button>
+</div>
+<div id="screen-results" class="screen">
+  <div class="result-circle" id="result-circle">
+    <div class="result-inner">
+      <div class="result-score" id="res-score">0/12</div>
+      <div class="result-total" id="res-pct">0%</div>
+    </div>
+  </div>
+  <h2 id="res-title"></h2>
+  <p class="result-msg" id="res-msg"></p>
+  <div class="review-list" id="review-list"></div>
+  <div class="btn-row">
+    <button class="retry-btn" onclick="restartQuiz()">🔄 Recommencer</button>
+    <a class="home-btn" href="home.html">← Accueil</a>
+  </div>
+</div>
+<script>
+
+const QUESTIONS = [
+  {theme:"Zona",text:"Quel est le schéma vaccinal complet du vaccin Shingrix® en population générale ?",options:["1 dose unique","2 doses (M0 et entre M2 et M6)","3 doses (M0, M1, M6)","2 doses à 1 an d'écart"],correct:1,
+   explanation:"Le schéma Shingrix® standard est <strong>2 doses</strong> : M0 puis entre <strong>M2 et M6</strong>. L'intervalle minimal est de 2 mois, l'intervalle maximal de 6 mois. Chez l'immunodéprimé, l'intervalle est réduit à 1-2 mois. Il n'existe pas de schéma à 3 doses ni de dose de rappel après ce schéma complet."},
+  {theme:"DTP senior",text:"Pourquoi les rappels DTP sont-ils plus rapprochés (tous les 10 ans) après 65 ans ?",options:["Immunodépression iatrogène systématique","Immunosénescence : déclin naturel de l'immunité avec l'âge","Utilisation de doses pédiatriques","Risque de tétanos tellurique accru"],correct:1,
+   explanation:"L'<strong>immunosénescence</strong> est le déclin progressif et naturel des fonctions immunitaires avec l'âge. Ce phénomène réduit la durée de protection conférée par les vaccinations. C'est pourquoi les rappels DTP passent de tous les 20 ans (adulte) à <strong>tous les 10 ans</strong> après 65 ans pour maintenir une protection suffisante."},
+  {theme:"Zona",text:"Quel délai minimal faut-il respecter après un épisode de zona avant de vacciner avec Shingrix® ?",options:["15 jours","1 mois","1 an","5 ans"],correct:2,
+   explanation:"Il est recommandé d'attendre <strong>au moins 1 an</strong> après un épisode de zona avant d'administrer Shingrix®. Ce délai permet à l'immunité naturelle post-zona de se stabiliser. Vacciner trop tôt après l'épisode n'est pas dangereux mais pourrait être moins efficace car l'immunité est alors déjà stimulée."},
+  {theme:"Zona — immunodéprimé",text:"Peut-on injecter Shingrix® à un patient sous corticoïdes ou immunosuppresseurs ?",options:["Non, c'est un vaccin vivant contre-indiqué","Oui, car c'est un vaccin inactivé recombinant","Uniquement après l'arrêt du traitement","À demi-dose"],correct:1,
+   explanation:"Shingrix® est un vaccin <strong>inactivé recombinant</strong> — il ne contient pas de virus vivant. Il est donc <strong>utilisable chez les immunodéprimés</strong>, y compris sous corticoïdes ou immunosuppresseurs. C'est une différence majeure avec l'ancien Zostavax® (vivant, contre-indiqué sous immunosuppresseurs). La réponse immunitaire peut être réduite mais la vaccination reste bénéfique."},
+  {theme:"Zona",text:"Doit-on revacciner avec Shingrix® une personne ayant déjà reçu le vaccin Zostavax® ?",options:["Non, la vaccination est définitive","Oui, Shingrix® est recommandé même après Zostavax®","Uniquement après 80 ans","Seulement si immunodéprimée"],correct:1,
+   explanation:"Oui — Shingrix® est recommandé même chez les personnes ayant déjà reçu Zostavax® (ancien vaccin vivant). L'<strong>efficacité nettement supérieure</strong> de Shingrix® (>90% vs ~50% pour Zostavax® chez les 70+) justifie la revaccination. Un délai d'au moins 1 an après Zostavax® est souhaitable."},
+  {theme:"Anticoagulants",text:"Un patient de 70 ans sous anticoagulants oraux (AOD) peut-il être vacciné par voie IM ?",options:["Non, voie sous-cutanée obligatoire","Oui, avec une aiguille fine et compression prolongée de 2 minutes","Uniquement à l'hôpital","Contre-indiqué"],correct:1,
+   explanation:"La vaccination IM est possible chez un patient sous anticoagulants oraux. La technique recommandée : utiliser une <strong>aiguille fine (23G ou 25G)</strong> et appliquer une <strong>compression ferme de 2 minutes</strong> après l'injection sans masser. Aucun arrêt de l'anticoagulant n'est nécessaire. La voie SC n'est pas recommandée car elle peut réduire l'immunogénicité pour certains vaccins."},
+  {theme:"Zona",text:"Quelle est la complication majeure du zona que la vaccination vise principalement à prévenir ?",options:["La paralysie faciale","Les douleurs post-zostériennes (DPZ)","La cécité","La surdité"],correct:1,
+   explanation:"La complication la plus redoutée du zona est la <strong>névralgie post-zostérienne (NPZ)</strong> ou douleurs post-zostériennes : des douleurs neuropathiques intenses, chroniques et invalidantes. Leur fréquence et leur sévérité augmentent avec l'âge. Shingrix® réduit ce risque de plus de <strong>85%</strong>, en plus de réduire l'incidence du zona lui-même."},
+  {theme:"Pneumocoque",text:"Un patient à risque a reçu VPC13 à 65 ans et VPP23 à 66 ans. Doit-il recevoir le VPC20 ?",options:["Non, le schéma séquentiel est définitif","Oui, une dose de VPC20 est préconisée 5 ans après le VPP23","Oui, tous les ans","Non, jamais après un schéma séquentiel"],correct:1,
+   explanation:"Selon les recommandations actuelles, une dose de <strong>VPC20 peut être préconisée 5 ans après le VPP23</strong> chez les patients à risque élevé, pour élargir la couverture sérotypique. Le délai de 5 ans après VPP23 est nécessaire pour éviter une hyporéponse. Cette recommandation s'applique aux patients immunodéprimés et à certaines situations à risque."},
+  {theme:"Remboursement",text:"Quelle est la prise en charge du vaccin Shingrix® pour les 65 ans et plus en 2026 ?",options:["Non remboursé — à la charge du patient","Remboursé par l'Assurance Maladie","Uniquement remboursé pour les ALD","Gratuit uniquement pour les plus de 80 ans"],correct:1,
+   explanation:"Depuis 2024, Shingrix® est <strong>remboursé par l'Assurance Maladie</strong> pour les personnes de 65 ans et plus (remboursement à 65% par l'AM, complément par la mutuelle). Cette prise en charge a considérablement amélioré l'accès à ce vaccin pour les seniors. Il est également remboursé pour les immunodéprimés dès 18 ans."},
+  {theme:"Zona — mécanisme",text:"Pourquoi Shingrix® est-il plus efficace que l'ancien vaccin vivant Zostavax® chez le senior ?",options:["Il contient plus de virus actif","Son système adjuvant AS01B active puissamment les cellules T cytotoxiques","Il est administré en 2 doses","Sa meilleure stabilité thermique"],correct:1,
+   explanation:"La supériorité de Shingrix® est liée à son <strong>système adjuvant AS01B</strong>, qui contient deux composants immunostimulants (QS-21 et MPL). Ce système active puissamment les <strong>lymphocytes T cytotoxiques</strong>, essentiels pour le contrôle du VZV latent. C'est crucial chez le senior dont l'immunité cellulaire est diminuée par l'immunosénescence."},
+  {theme:"Co-administration",text:"Peut-on injecter Shingrix® en même temps qu'un vaccin pneumococcique ?",options:["Non, un intervalle de 15 jours est obligatoire","Oui, sur deux sites d'injection différents","Seulement si le patient n'est pas fatigué","Non, 1 mois d'intervalle requis"],correct:1,
+   explanation:"La co-administration de Shingrix® avec le vaccin pneumococcique est <strong>possible et validée</strong>. Les vaccins sont injectés sur <strong>deux sites différents</strong> (bras différents de préférence). Cette co-administration est utile pour réduire le nombre de visites et améliorer la couverture vaccinale chez les seniors."},
+  {theme:"Zona",text:"Quel est l'intervalle minimal entre les deux doses de Shingrix® pour une protection rapide ?",options:["15 jours","1 mois","2 mois","6 mois"],correct:1,
+   explanation:"L'intervalle <strong>minimal</strong> entre les deux doses de Shingrix® est de <strong>1 mois</strong>. En pratique, l'intervalle recommandé est de 2 à 6 mois pour une immunogénicité optimale. En cas d'immunodépression (où une protection rapide est souhaitée), un intervalle de 1 à 2 mois est préférable."}
+];
+
+
+let current=0,score=0,userAnswers=[];
+let shuffledQuestions=[];
+let shuffledOptions=[];
+
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function prepareQuiz(){
+  shuffledQuestions=shuffle(QUESTIONS);
+  shuffledOptions=shuffledQuestions.map(q=>{
+    const opts=q.options.map((text,origIndex)=>({text,origIndex}));
+    return shuffle(opts);
+  });
+}
+
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+
+function startQuiz(){current=0;score=0;userAnswers=[];prepareQuiz();showScreen('screen-quiz');renderQuestion()}
+
+function renderQuestion(){
+  const q=shuffledQuestions[current],opts=shuffledOptions[current],total=shuffledQuestions.length;
+  document.getElementById('progress-bar').style.width=((current/total)*100)+'%';
+  document.getElementById('progress-label').textContent=`${current+1} / ${total}`;
+  document.getElementById('score-display').textContent=`Score : ${score}`;
+  document.getElementById('q-num').textContent=current+1;
+  document.getElementById('q-theme').textContent=q.theme;
+  document.getElementById('q-text').textContent=q.text;
+  const grid=document.getElementById('options-grid');grid.innerHTML='';
+  const letters=['A','B','C','D'];
+  opts.forEach((opt,di)=>{
+    const btn=document.createElement('button');
+    btn.className='option-btn';
+    btn.innerHTML=`<span class="opt-letter">${letters[di]}</span><span>${opt.text}</span>`;
+    btn.onclick=()=>selectAnswer(opt.origIndex);
+    grid.appendChild(btn);
+  });
+  document.getElementById('feedback-box').className='feedback-box';
+  document.getElementById('next-btn').className='next-btn';
+}
+
+function selectAnswer(chosenOrig){
+  const q=shuffledQuestions[current],opts=shuffledOptions[current];
+  document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+  const ok=chosenOrig===q.correct;if(ok)score++;userAnswers[current]=chosenOrig;
+  document.querySelectorAll('.option-btn').forEach((btn,di)=>{
+    const orig=opts[di].origIndex;
+    if(orig===q.correct)btn.classList.add('correct');
+    else if(orig===chosenOrig&&!ok)btn.classList.add('wrong');
+    else btn.classList.add('dimmed');
+  });
+  const fb=document.getElementById('feedback-box');
+  document.getElementById('fb-title').textContent=ok?'✓ Bonne réponse !':'✗ Pas tout à fait…';
+  document.getElementById('fb-body').innerHTML=q.explanation;
+  fb.className='feedback-box show '+(ok?'correct-fb':'wrong-fb');
+  const nb=document.getElementById('next-btn');nb.className='next-btn show';
+  nb.textContent=current<shuffledQuestions.length-1?'Question suivante →':'Voir mes résultats →';
+}
+
+function nextQuestion(){current++;if(current>=shuffledQuestions.length)showResults();else renderQuestion()}
+
+function showResults(){
+  showScreen('screen-results');
+  const total=shuffledQuestions.length,pct=Math.round((score/total)*100);
+  document.getElementById('res-score').textContent=`${score}/${total}`;
+  document.getElementById('res-pct').textContent=`${pct}%`;
+  document.getElementById('result-circle').style.setProperty('--pct',pct+'%');
+  const t=['🔁 À retravailler','📚 Des lacunes à combler','👍 Très bon niveau','🏆 Expertise confirmée !'];
+  const m=['Les fondamentaux ne sont pas encore acquis. Recommencez après révision.','Niveau intermédiaire. Certains points méritent une révision.','Bonne maîtrise. Relisez les points manqués pour consolider.','Résultat parfait. Votre maîtrise est solide.'];
+  const idx=pct===100?3:pct>=75?2:pct>=50?1:0;
+  document.getElementById('res-title').textContent=t[idx];document.getElementById('res-msg').textContent=m[idx];
+  const list=document.getElementById('review-list');list.innerHTML='';
+  shuffledQuestions.forEach((q,i)=>{
+    const ok=userAnswers[i]===q.correct;
+    const item=document.createElement('div');item.className='review-item';
+    item.innerHTML=`<span class="review-icon">${ok?'✅':'❌'}</span><div><div class="review-q">${q.text}</div>${!ok?`<div class="review-ans">Bonne réponse : <strong>${q.options[q.correct]}</strong></div>`:''}</div>`;
+    list.appendChild(item);
+  });
+}
+
+function restartQuiz(){startQuiz()}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Vaccination Adultes 7-64 ans – Facile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--green:#1a9e6e;--green-dark:#0f7a53;--green-light:#e6f7f1;--red:#e84040;--red-light:#fdeaea;--bg:#f4f6f3;--text:#1a1f1c;--muted:#6b7672;--border:#dde5e0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px}
+  .screen{display:none;width:100%;max-width:680px}
+  .screen.active{display:flex;flex-direction:column;align-items:center}
+  #screen-intro{text-align:center;gap:20px}
+  .badge{display:inline-block;background:var(--green);color:white;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:8px}
+  #screen-intro h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,6vw,3rem);font-weight:800;line-height:1.1}
+  #screen-intro h1 span{color:var(--green)}
+  #screen-intro p{color:var(--muted);font-size:1rem;max-width:460px}
+  .intro-stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .stat-pill{background:white;border:1px solid var(--border);border-radius:12px;padding:14px 22px;text-align:center;min-width:100px}
+  .stat-pill strong{display:block;font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--green)}
+  .stat-pill span{font-size:.82rem;color:var(--muted)}
+  .btn-start{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;border:none;padding:18px 48px;border-radius:14px;cursor:pointer;transition:background .2s,transform .15s;box-shadow:0 4px 20px rgba(26,158,110,.3)}
+  .btn-start:hover{background:var(--green-dark);transform:translateY(-2px)}
+  #screen-quiz{gap:20px}
+  .progress-row{width:100%;display:flex;align-items:center;gap:12px}
+  .progress-bar-track{flex:1;height:6px;background:var(--border);border-radius:100px;overflow:hidden}
+  .progress-bar-fill{height:100%;background:var(--green);border-radius:100px;transition:width .4s ease;width:0%}
+  .progress-label{font-size:.82rem;color:var(--muted);white-space:nowrap;font-weight:500}
+  .score-badge{background:var(--green-light);color:var(--green-dark);font-size:.82rem;font-weight:500;padding:5px 12px;border-radius:100px;white-space:nowrap}
+  .question-card{background:white;border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;box-shadow:0 2px 12px rgba(0,0,0,.06);animation:fadeIn .3s ease}
+  .q-meta{font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+  .q-meta em{background:var(--green-light);color:var(--green-dark);padding:2px 8px;border-radius:6px;font-style:normal;margin-left:6px}
+  .question-text{font-family:'Syne',sans-serif;font-size:clamp(1.05rem,2.5vw,1.22rem);font-weight:700;line-height:1.4;margin-bottom:24px}
+  .options-grid{display:flex;flex-direction:column;gap:10px}
+  .option-btn{width:100%;text-align:left;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;font-family:'DM Sans',sans-serif;font-size:.95rem;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:12px;line-height:1.4}
+  .option-btn .opt-letter{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:white;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;color:var(--muted);transition:all .18s}
+  .option-btn:hover:not(:disabled){border-color:var(--green);background:var(--green-light)}
+  .option-btn:hover:not(:disabled) .opt-letter{background:var(--green);border-color:var(--green);color:white}
+  .option-btn:disabled{cursor:default}
+  .option-btn.correct{background:var(--green-light);border-color:var(--green);color:var(--green-dark);font-weight:500}
+  .option-btn.correct .opt-letter{background:var(--green);border-color:var(--green);color:white}
+  .option-btn.wrong{background:var(--red-light);border-color:var(--red);color:var(--red)}
+  .option-btn.wrong .opt-letter{background:var(--red);border-color:var(--red);color:white}
+  .option-btn.dimmed{opacity:.45}
+  .feedback-box{margin-top:20px;padding:18px 20px;border-radius:12px;font-size:.9rem;line-height:1.6;display:none;animation:fadeIn .3s ease}
+  .feedback-box.show{display:block}
+  .feedback-box.correct-fb{background:var(--green-light);border-left:4px solid var(--green);color:#0f5c3c}
+  .feedback-box.wrong-fb{background:var(--red-light);border-left:4px solid var(--red);color:#8c1a1a}
+  .feedback-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:5px}
+  .next-btn{width:100%;background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px;border-radius:12px;cursor:pointer;transition:background .2s;display:none}
+  .next-btn.show{display:block}
+  .next-btn:hover{background:var(--green-dark)}
+  #screen-results{text-align:center;gap:24px}
+  .result-circle{width:140px;height:140px;border-radius:50%;background:conic-gradient(var(--green) 0%,var(--green) var(--pct),var(--border) var(--pct));display:flex;align-items:center;justify-content:center;position:relative}
+  .result-circle::before{content:'';position:absolute;width:110px;height:110px;border-radius:50%;background:white}
+  .result-inner{position:relative;z-index:1;text-align:center}
+  .result-score{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--green);line-height:1}
+  .result-total{font-size:.8rem;color:var(--muted)}
+  #screen-results h2{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800}
+  #screen-results .result-msg{color:var(--muted);max-width:420px;font-size:.95rem;line-height:1.6}
+  .review-list{width:100%;display:flex;flex-direction:column;gap:10px;text-align:left}
+  .review-item{background:white;border:1px solid var(--border);border-radius:12px;padding:14px 18px;font-size:.88rem;display:flex;gap:12px;align-items:flex-start;line-height:1.5}
+  .review-icon{flex-shrink:0;font-size:1rem;margin-top:1px}
+  .review-q{font-weight:500;color:var(--text)}
+  .review-ans{color:var(--muted);margin-top:2px}
+  .review-ans strong{color:var(--green-dark)}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .retry-btn{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px 40px;border-radius:14px;cursor:pointer;transition:background .2s;box-shadow:0 4px 20px rgba(26,158,110,.3)}
+  .retry-btn:hover{background:var(--green-dark)}
+  .home-btn{background:white;color:var(--green);font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;border:1.5px solid var(--green);padding:12px 28px;border-radius:14px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
+  .home-btn:hover{background:var(--green-light)}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div id="screen-intro" class="screen active">
+  <div><div class="badge">Formation Officine</div>
+  <h1>Vaccination<br><span>Adultes 7-64 ans – Facile</span></h1></div>
+  <p>Réflexes pharmaceutiques : calendrier DTP, HPV, méningocoques, grippe.</p>
+  <div class="intro-stats">
+    <div class="stat-pill"><strong>12</strong><span>questions</span></div>
+    <div class="stat-pill"><strong>QCM</strong><span>format</span></div>
+    <div class="stat-pill"><strong>~5 min</strong><span>durée</span></div>
+  </div>
+  <button class="btn-start" onclick="startQuiz()">Commencer →</button>
+</div>
+<div id="screen-quiz" class="screen">
+  <div class="progress-row">
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    <span class="progress-label" id="progress-label">1 / 12</span>
+    <span class="score-badge" id="score-display">Score : 0</span>
+  </div>
+  <div class="question-card">
+    <div class="q-meta">Question <span id="q-num">1</span> <em id="q-theme"></em></div>
+    <div class="question-text" id="q-text"></div>
+    <div class="options-grid" id="options-grid"></div>
+    <div class="feedback-box" id="feedback-box">
+      <div class="feedback-title" id="fb-title"></div>
+      <div id="fb-body"></div>
+    </div>
+  </div>
+  <button class="next-btn" id="next-btn" onclick="nextQuestion()">Question suivante →</button>
+</div>
+<div id="screen-results" class="screen">
+  <div class="result-circle" id="result-circle">
+    <div class="result-inner">
+      <div class="result-score" id="res-score">0/12</div>
+      <div class="result-total" id="res-pct">0%</div>
+    </div>
+  </div>
+  <h2 id="res-title"></h2>
+  <p class="result-msg" id="res-msg"></p>
+  <div class="review-list" id="review-list"></div>
+  <div class="btn-row">
+    <button class="retry-btn" onclick="restartQuiz()">🔄 Recommencer</button>
+    <a class="home-btn" href="home.html">← Accueil</a>
+  </div>
+</div>
+<script>
+
+const QUESTIONS = [
+  {theme:"Calendrier vaccinal",text:"À quel âge fixe propose-t-on le premier rappel DTP-Coqueluche de l'adulte ?",options:["18 ans","25 ans","30 ans","45 ans"],correct:1,
+   explanation:"Le calendrier vaccinal prévoit un rappel <strong>dTcaP à 25 ans</strong> (diphtérie doses réduites, tétanos, coqueluche acellulaire, polio). C'est le premier rappel adulte, qui inclut la valence coqueluche. Il s'inscrit dans la série : 6 ans (DTCaP), 11-13 ans (dTcaP), 25 ans (dTcaP), puis tous les 20 ans jusqu'à 65 ans, puis tous les 10 ans."},
+  {theme:"HPV",text:"Quel est l'âge recommandé pour débuter la vaccination HPV (garçons et filles) ?",options:["9 ans","11 ans","14 ans","15 ans"],correct:1,
+   explanation:"La vaccination HPV est recommandée à <strong>11 ans</strong> pour les garçons et les filles. À cet âge, le schéma est à <strong>2 doses</strong> (M0 et M6-13). La vaccination avant tout contact avec le virus est la plus efficace. Un rattrapage est possible jusqu'à <strong>26 ans révolus</strong>, avec un schéma à 3 doses après 15 ans."},
+  {theme:"HPV",text:"Jusqu'à quel âge le rattrapage HPV est-il recommandé et remboursé pour tous ?",options:["19 ans","21 ans","26 ans révolus","30 ans"],correct:2,
+   explanation:"Depuis 2023, le rattrapage HPV est recommandé et remboursé jusqu'à <strong>26 ans révolus</strong> pour les garçons et les filles non vaccinés. Au-delà, la vaccination peut être proposée au cas par cas mais n'est plus remboursée en dehors de situations particulières. Le schéma de rattrapage après 15 ans est de <strong>3 doses</strong> (M0, M2, M6)."},
+  {theme:"DTP seniors",text:"À partir de 65 ans, quelle est la fréquence des rappels DTP ?",options:["Tous les 20 ans","Une seule fois","Tous les 10 ans","Tous les 5 ans"],correct:2,
+   explanation:"Après 65 ans, les rappels DTP sont recommandés <strong>tous les 10 ans</strong> (aux âges fixes : 65, 75, 85, 95 ans), contre tous les 20 ans chez l'adulte de moins de 65 ans. Cette fréquence accrue est liée à l'immunosénescence : le déclin naturel de l'immunité avec l'âge rend les rappels plus fréquents nécessaires."},
+  {theme:"HPV",text:"Quel est le schéma HPV recommandé pour un adolescent de 13 ans ?",options:["1 dose","2 doses à M0 et M6-13","3 doses","2 doses à 1 mois d'intervalle"],correct:1,
+   explanation:"Pour un adolescent de <strong>11 à 14 ans révolus</strong>, le schéma HPV est de <strong>2 doses</strong> espacées de 6 à 13 mois (M0 et M6-13). Ce schéma simplifié est aussi efficace que 3 doses car la réponse immunitaire est meilleure à cet âge. À partir de 15 ans ou en cas d'immunodépression, le schéma passe à 3 doses (M0, M2, M6)."},
+  {theme:"Méningocoques",text:"Quel vaccin contre le méningocoque est désormais la norme en rappel à 11-14 ans ?",options:["Méningocoque C seul","Méningocoque B","Méningocoque ACWY","Méningocoque A"],correct:2,
+   explanation:"Depuis le calendrier vaccinal 2025, le rappel méningocoque à 11-14 ans se fait avec le vaccin <strong>tétravalent ACWY</strong>, qui protège contre les sérogroupes A, C, W et Y. Il remplace l'ancien rappel méningocoque C seul. Un rattrapage est recommandé jusqu'à 24 ans. Le méningocoque B (Bexsero) peut également être proposé à cet âge."},
+  {theme:"Hépatite B",text:"Quelle preuve suffit à valider l'immunité hépatite B d'un étudiant en santé sans dosage d'anticorps ?",options:["3 doses à n'importe quel âge","3 doses reçues avant l'âge de 13 ans","Sérologie négative","Déclaration sur l'honneur"],correct:1,
+   explanation:"Pour les étudiants en santé, <strong>3 doses d'hépatite B reçues avant 13 ans</strong> sont considérées comme suffisantes sans nécessité de dosage des anticorps anti-HBs. En revanche, pour une primo-vaccination réalisée à l'âge adulte, un contrôle sérologique est requis pour vérifier la réponse immunitaire, notamment pour les soignants."},
+  {theme:"Grippe",text:"Le vaccin contre la grippe est-il recommandé chez la femme enceinte ?",options:["Non","Oui, quel que soit le trimestre","Uniquement au 3e trimestre","Uniquement si comorbidité"],correct:1,
+   explanation:"La vaccination grippe est recommandée <strong>à tous les trimestres de la grossesse</strong>. Les femmes enceintes présentent un risque accru de formes graves de grippe. La vaccination protège la mère et indirectement le nourrisson par transfert d'anticorps maternels. Elle peut être co-administrée avec les autres vaccins recommandés pendant la grossesse."},
+  {theme:"HPV",text:"Un homme de 24 ans jamais vacciné contre le HPV doit recevoir combien de doses ?",options:["1 dose","2 doses","3 doses (M0, M2, M6)","C'est trop tard pour vacciner"],correct:2,
+   explanation:"Chez une personne de <strong>15 ans et plus</strong> non vaccinée, le schéma HPV est de <strong>3 doses : M0, M2, M6</strong>. À 24 ans, la vaccination reste indiquée et remboursée jusqu'à 26 ans révolus. Ce schéma à 3 doses est nécessaire car la réponse immunitaire est moins forte qu'avant 15 ans."},
+  {theme:"HPV",text:"Quel est l'intervalle minimal recommandé entre les 2 doses de HPV chez l'enfant de 11-14 ans ?",options:["1 mois","3 mois","6 mois","1 an"],correct:2,
+   explanation:"L'intervalle minimal entre les 2 doses de HPV dans le schéma à 2 doses (11-14 ans) est de <strong>6 mois</strong>. L'intervalle peut aller jusqu'à 13 mois. Cet espacement est important pour obtenir une réponse immunitaire optimale. Si l'intervalle est inférieur à 6 mois, une 3ème dose est nécessaire."},
+  {theme:"DTP adulte",text:"Un patient de 45 ans a eu son dernier rappel DTP à 25 ans. Que lui proposez-vous ?",options:["3 doses complètes","Rien, il est à jour","1 dose de dTcaP immédiatement","Une sérologie préalable"],correct:2,
+   explanation:"Après 25 ans et jusqu'à 65 ans, les rappels DTP sont espacés de <strong>20 ans</strong>. Un patient à jour à 25 ans doit faire son prochain rappel à <strong>45 ans</strong>, puis à 65 ans. On propose donc <strong>1 dose de dTcaP</strong> (Boostrix Tetra® ou Repevax®) immédiatement. Pas besoin de sérologie préalable."},
+  {theme:"Méningocoques",text:"La vaccination contre le méningocoque B est obligatoire depuis 2025 pour :",options:["Les adolescents","Les nourrissons","Les personnes de plus de 65 ans","Les HSH uniquement"],correct:1,
+   explanation:"Depuis le <strong>1er janvier 2025</strong>, la vaccination contre le méningocoque B (Bexsero®) est <strong>obligatoire pour tous les nourrissons</strong> selon le schéma M3, M5 et M12. Elle est recommandée (mais non obligatoire) pour les adolescents et jeunes adultes de 15-24 ans, et pour certaines populations à risque (asplénie, déficit en complément)."}
+];
+
+
+let current=0,score=0,userAnswers=[];
+let shuffledQuestions=[];
+let shuffledOptions=[];
+
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function prepareQuiz(){
+  shuffledQuestions=shuffle(QUESTIONS);
+  shuffledOptions=shuffledQuestions.map(q=>{
+    const opts=q.options.map((text,origIndex)=>({text,origIndex}));
+    return shuffle(opts);
+  });
+}
+
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+
+function startQuiz(){current=0;score=0;userAnswers=[];prepareQuiz();showScreen('screen-quiz');renderQuestion()}
+
+function renderQuestion(){
+  const q=shuffledQuestions[current],opts=shuffledOptions[current],total=shuffledQuestions.length;
+  document.getElementById('progress-bar').style.width=((current/total)*100)+'%';
+  document.getElementById('progress-label').textContent=`${current+1} / ${total}`;
+  document.getElementById('score-display').textContent=`Score : ${score}`;
+  document.getElementById('q-num').textContent=current+1;
+  document.getElementById('q-theme').textContent=q.theme;
+  document.getElementById('q-text').textContent=q.text;
+  const grid=document.getElementById('options-grid');grid.innerHTML='';
+  const letters=['A','B','C','D'];
+  opts.forEach((opt,di)=>{
+    const btn=document.createElement('button');
+    btn.className='option-btn';
+    btn.innerHTML=`<span class="opt-letter">${letters[di]}</span><span>${opt.text}</span>`;
+    btn.onclick=()=>selectAnswer(opt.origIndex);
+    grid.appendChild(btn);
+  });
+  document.getElementById('feedback-box').className='feedback-box';
+  document.getElementById('next-btn').className='next-btn';
+}
+
+function selectAnswer(chosenOrig){
+  const q=shuffledQuestions[current],opts=shuffledOptions[current];
+  document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+  const ok=chosenOrig===q.correct;if(ok)score++;userAnswers[current]=chosenOrig;
+  document.querySelectorAll('.option-btn').forEach((btn,di)=>{
+    const orig=opts[di].origIndex;
+    if(orig===q.correct)btn.classList.add('correct');
+    else if(orig===chosenOrig&&!ok)btn.classList.add('wrong');
+    else btn.classList.add('dimmed');
+  });
+  const fb=document.getElementById('feedback-box');
+  document.getElementById('fb-title').textContent=ok?'✓ Bonne réponse !':'✗ Pas tout à fait…';
+  document.getElementById('fb-body').innerHTML=q.explanation;
+  fb.className='feedback-box show '+(ok?'correct-fb':'wrong-fb');
+  const nb=document.getElementById('next-btn');nb.className='next-btn show';
+  nb.textContent=current<shuffledQuestions.length-1?'Question suivante →':'Voir mes résultats →';
+}
+
+function nextQuestion(){current++;if(current>=shuffledQuestions.length)showResults();else renderQuestion()}
+
+function showResults(){
+  showScreen('screen-results');
+  const total=shuffledQuestions.length,pct=Math.round((score/total)*100);
+  document.getElementById('res-score').textContent=`${score}/${total}`;
+  document.getElementById('res-pct').textContent=`${pct}%`;
+  document.getElementById('result-circle').style.setProperty('--pct',pct+'%');
+  const t=['🔁 À retravailler','📚 Des lacunes à combler','👍 Très bon niveau','🏆 Expertise confirmée !'];
+  const m=['Les fondamentaux ne sont pas encore acquis. Recommencez après révision.','Niveau intermédiaire. Certains points méritent une révision.','Bonne maîtrise. Relisez les points manqués pour consolider.','Résultat parfait. Votre maîtrise est solide.'];
+  const idx=pct===100?3:pct>=75?2:pct>=50?1:0;
+  document.getElementById('res-title').textContent=t[idx];document.getElementById('res-msg').textContent=m[idx];
+  const list=document.getElementById('review-list');list.innerHTML='';
+  shuffledQuestions.forEach((q,i)=>{
+    const ok=userAnswers[i]===q.correct;
+    const item=document.createElement('div');item.className='review-item';
+    item.innerHTML=`<span class="review-icon">${ok?'✅':'❌'}</span><div><div class="review-q">${q.text}</div>${!ok?`<div class="review-ans">Bonne réponse : <strong>${q.options[q.correct]}</strong></div>`:''}</div>`;
+    list.appendChild(item);
+  });
+}
+
+function restartQuiz(){startQuiz()}
+
+</script>
+</body>
+</html>
