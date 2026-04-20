@@ -40,8 +40,8 @@
     "emoji": "💉"
   },
   {
-    "titre": "Vaccination Jeunes Enfants – Intermédiaire",
-    "fichier": "quiz-vaccination-jeunes-enfants-intermediaire.html",
+    "titre": "Vaccination Jeunes Enfants – Modéré",
+    "fichier": "quiz-vaccination-jeunes-enfants-modere.html",
     "theme": "Vaccination",
     "questions": 12,
     "difficulte": "Intermédiaire",
@@ -54,5 +54,29 @@
     "questions": 12,
     "difficulte": "Avancé",
     "emoji": "💉"
+  },
+  {
+    "titre": "Vaccination Femme Enceinte – Facile",
+    "fichier": "quiz-vaccination-femme-enceinte-facile.html",
+    "theme": "Vaccination",
+    "questions": 12,
+    "difficulte": "Facile",
+    "emoji": "🤰"
+  },
+  {
+    "titre": "Vaccination Femme Enceinte – Modéré",
+    "fichier": "quiz-vaccination-femme-enceinte-modere.html",
+    "theme": "Vaccination",
+    "questions": 12,
+    "difficulte": "Intermédiaire",
+    "emoji": "🤰"
+  },
+  {
+    "titre": "Vaccination Femme Enceinte – Difficile",
+    "fichier": "quiz-vaccination-femme-enceinte-difficile.html",
+    "theme": "Vaccination",
+    "questions": 12,
+    "difficulte": "Avancé",
+    "emoji": "🤰"
   }
 ]

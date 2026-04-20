@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Vaccination Femme Enceinte – Facile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--green:#1a9e6e;--green-dark:#0f7a53;--green-light:#e6f7f1;--red:#e84040;--red-light:#fdeaea;--bg:#f4f6f3;--text:#1a1f1c;--muted:#6b7672;--border:#dde5e0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px}
+  .screen{display:none;width:100%;max-width:680px}
+  .screen.active{display:flex;flex-direction:column;align-items:center}
+  #screen-intro{text-align:center;gap:20px}
+  .badge{display:inline-block;background:var(--green);color:white;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:8px}
+  #screen-intro h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,6vw,3rem);font-weight:800;line-height:1.1}
+  #screen-intro h1 span{color:var(--green)}
+  #screen-intro p{color:var(--muted);font-size:1rem;max-width:460px}
+  .intro-stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .stat-pill{background:white;border:1px solid var(--border);border-radius:12px;padding:14px 22px;text-align:center;min-width:100px}
+  .stat-pill strong{display:block;font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--green)}
+  .stat-pill span{font-size:.82rem;color:var(--muted)}
+  .btn-start{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;border:none;padding:18px 48px;border-radius:14px;cursor:pointer;transition:background .2s,transform .15s;box-shadow:0 4px 20px rgba(26,158,110,.3)}
+  .btn-start:hover{background:var(--green-dark);transform:translateY(-2px)}
+  #screen-quiz{gap:20px}
+  .progress-row{width:100%;display:flex;align-items:center;gap:12px}
+  .progress-bar-track{flex:1;height:6px;background:var(--border);border-radius:100px;overflow:hidden}
+  .progress-bar-fill{height:100%;background:var(--green);border-radius:100px;transition:width .4s ease;width:0%}
+  .progress-label{font-size:.82rem;color:var(--muted);white-space:nowrap;font-weight:500}
+  .score-badge{background:var(--green-light);color:var(--green-dark);font-size:.82rem;font-weight:500;padding:5px 12px;border-radius:100px;white-space:nowrap}
+  .question-card{background:white;border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;box-shadow:0 2px 12px rgba(0,0,0,.06);animation:fadeIn .3s ease}
+  .q-meta{font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+  .q-meta em{background:var(--green-light);color:var(--green-dark);padding:2px 8px;border-radius:6px;font-style:normal;margin-left:6px}
+  .question-text{font-family:'Syne',sans-serif;font-size:clamp(1.05rem,2.5vw,1.22rem);font-weight:700;line-height:1.4;margin-bottom:24px}
+  .options-grid{display:flex;flex-direction:column;gap:10px}
+  .option-btn{width:100%;text-align:left;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;font-family:'DM Sans',sans-serif;font-size:.95rem;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:12px;line-height:1.4}
+  .option-btn .opt-letter{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:white;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;color:var(--muted);transition:all .18s}
+  .option-btn:hover:not(:disabled){border-color:var(--green);background:var(--green-light)}
+  .option-btn:hover:not(:disabled) .opt-letter{background:var(--green);border-color:var(--green);color:white}
+  .option-btn:disabled{cursor:default}
+  .option-btn.correct{background:var(--green-light);border-color:var(--green);color:var(--green-dark);font-weight:500}
+  .option-btn.correct .opt-letter{background:var(--green);border-color:var(--green);color:white}
+  .option-btn.wrong{background:var(--red-light);border-color:var(--red);color:var(--red)}
+  .option-btn.wrong .opt-letter{background:var(--red);border-color:var(--red);color:white}
+  .option-btn.dimmed{opacity:.45}
+  .feedback-box{margin-top:20px;padding:18px 20px;border-radius:12px;font-size:.9rem;line-height:1.6;display:none;animation:fadeIn .3s ease}
+  .feedback-box.show{display:block}
+  .feedback-box.correct-fb{background:var(--green-light);border-left:4px solid var(--green);color:#0f5c3c}
+  .feedback-box.wrong-fb{background:var(--red-light);border-left:4px solid var(--red);color:#8c1a1a}
+  .feedback-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:5px}
+  .next-btn{width:100%;background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px;border-radius:12px;cursor:pointer;transition:background .2s;display:none}
+  .next-btn.show{display:block}
+  .next-btn:hover{background:var(--green-dark)}
+  #screen-results{text-align:center;gap:24px}
+  .result-circle{width:140px;height:140px;border-radius:50%;background:conic-gradient(var(--green) 0%,var(--green) var(--pct),var(--border) var(--pct));display:flex;align-items:center;justify-content:center;position:relative}
+  .result-circle::before{content:'';position:absolute;width:110px;height:110px;border-radius:50%;background:white}
+  .result-inner{position:relative;z-index:1;text-align:center}
+  .result-score{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--green);line-height:1}
+  .result-total{font-size:.8rem;color:var(--muted)}
+  #screen-results h2{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800}
+  #screen-results .result-msg{color:var(--muted);max-width:420px;font-size:.95rem;line-height:1.6}
+  .review-list{width:100%;display:flex;flex-direction:column;gap:10px;text-align:left}
+  .review-item{background:white;border:1px solid var(--border);border-radius:12px;padding:14px 18px;font-size:.88rem;display:flex;gap:12px;align-items:flex-start;line-height:1.5}
+  .review-icon{flex-shrink:0;font-size:1rem;margin-top:1px}
+  .review-q{font-weight:500;color:var(--text)}
+  .review-ans{color:var(--muted);margin-top:2px}
+  .review-ans strong{color:var(--green-dark)}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .retry-btn{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px 40px;border-radius:14px;cursor:pointer;transition:background .2s;box-shadow:0 4px 20px rgba(26,158,110,.3)}
+  .retry-btn:hover{background:var(--green-dark)}
+  .home-btn{background:white;color:var(--green);font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;border:1.5px solid var(--green);padding:12px 28px;border-radius:14px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
+  .home-btn:hover{background:var(--green-light)}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div id="screen-intro" class="screen active">
+  <div><div class="badge">Formation Officine</div>
+  <h1>Vaccination<br><span>Femme Enceinte – Facile</span></h1></div>
+  <p>Les fondamentaux : vaccins recommandés pendant la grossesse, objectifs, principes de base.</p>
+  <div class="intro-stats">
+    <div class="stat-pill"><strong>12</strong><span>questions</span></div>
+    <div class="stat-pill"><strong>QCM</strong><span>format</span></div>
+    <div class="stat-pill"><strong>~5 min</strong><span>durée</span></div>
+  </div>
+  <button class="btn-start" onclick="startQuiz()">Commencer →</button>
+</div>
+
+<div id="screen-quiz" class="screen">
+  <div class="progress-row">
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    <span class="progress-label" id="progress-label">1 / 12</span>
+    <span class="score-badge" id="score-display">Score : 0</span>
+  </div>
+  <div class="question-card">
+    <div class="q-meta">Question <span id="q-num">1</span> <em id="q-theme"></em></div>
+    <div class="question-text" id="q-text"></div>
+    <div class="options-grid" id="options-grid"></div>
+    <div class="feedback-box" id="feedback-box">
+      <div class="feedback-title" id="fb-title"></div>
+      <div id="fb-body"></div>
+    </div>
+  </div>
+  <button class="next-btn" id="next-btn" onclick="nextQuestion()">Question suivante →</button>
+</div>
+
+<div id="screen-results" class="screen">
+  <div class="result-circle" id="result-circle">
+    <div class="result-inner">
+      <div class="result-score" id="res-score">0/12</div>
+      <div class="result-total" id="res-pct">0%</div>
+    </div>
+  </div>
+  <h2 id="res-title"></h2>
+  <p class="result-msg" id="res-msg"></p>
+  <div class="review-list" id="review-list"></div>
+  <div class="btn-row">
+    <button class="retry-btn" onclick="restartQuiz()">🔄 Recommencer</button>
+    <a class="home-btn" href="home.html">← Accueil</a>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    theme:"Coqueluche",
+    text:"À quel moment de la grossesse la vaccination contre la coqueluche est-elle recommandée ?",
+    options:["Au 1er trimestre","Au 2e trimestre uniquement","Entre 20 et 36 SA, à chaque grossesse","Après l'accouchement uniquement"],
+    correct:2,
+    explanation:"La vaccination coqueluche est recommandée <strong>entre 20 et 36 SA</strong>, à partir du 2ème trimestre. Cette fenêtre permet un transfert transplacentaire optimal des anticorps maternels vers le fœtus, assurant une protection du nouveau-né dès la naissance. Elle doit être réalisée <strong>à chaque grossesse</strong>, même si la mère a été vaccinée récemment."
+  },
+  {
+    theme:"Coqueluche",
+    text:"Quel est l'objectif principal de la vaccination coqueluche chez la femme enceinte ?",
+    options:["Protéger uniquement la mère contre la forme grave","Protéger le nourrisson via le transfert transplacentaire des anticorps maternels","Éviter une hospitalisation maternelle","Éviter un accouchement prématuré"],
+    correct:1,
+    explanation:"L'objectif principal est de <strong>protéger le nourrisson</strong> dans ses premiers mois de vie, avant qu'il soit lui-même vacciné (primovaccination débutant à 2 mois). Les anticorps maternels anti-coqueluche traversent le placenta et confèrent une protection passive au nouveau-né, réduisant les formes graves et les décès de plus de <strong>90%</strong> selon les données internationales."
+  },
+  {
+    theme:"Vaccins vivants",
+    text:"Les vaccins vivants atténués sont-ils autorisés pendant la grossesse ?",
+    options:["Oui, sans restriction","Oui, au 2e trimestre uniquement","Non, ils sont contre-indiqués","Seulement en cas d'urgence épidémique"],
+    correct:2,
+    explanation:"Les vaccins vivants atténués (ROR, varicelle, fièvre jaune, BCG, rotavirus…) sont <strong>contre-indiqués pendant la grossesse</strong> en raison d'un risque infectieux théorique pour le fœtus : le pathogène atténué pourrait théoriquement franchir la barrière placentaire. On privilégie les vaccins <strong>inactivés</strong> (coqueluche, grippe, hépatite B…), qui ne présentent pas ce risque."
+  },
+  {
+    theme:"Grippe",
+    text:"La vaccination contre la grippe est-elle recommandée pendant la grossesse ?",
+    options:["Non, elle est contre-indiquée","Oui, quel que soit le trimestre","Seulement au 3e trimestre","Seulement en cas de comorbidité"],
+    correct:1,
+    explanation:"La vaccination contre la grippe est <strong>recommandée à tous les trimestres</strong> de la grossesse. Les femmes enceintes présentent un risque accru de formes graves de grippe. La vaccination protège également le nourrisson indirectement par transfert d'anticorps maternels."
+  },
+  {
+    theme:"Conseil au comptoir",
+    text:"Peut-on vacciner une femme enceinte qui présente un rhume léger sans fièvre élevée ?",
+    options:["Non, tout symptôme impose un report","Oui, une infection mineure sans fièvre élevée ne contre-indique pas la vaccination","Seulement après traitement antibiotique","Non, jamais pendant la grossesse"],
+    correct:1,
+    explanation:"Les <strong>infections mineures</strong> (rhinopharyngite, légère toux) sans fièvre élevée <strong>ne doivent pas entraîner le report de la vaccination</strong>. Seule une maladie fébrile aiguë sévère justifie un report temporaire. Ce point est important au comptoir pour ne pas faire perdre une opportunité vaccinale."
+  },
+  {
+    theme:"Vaccins vivants",
+    text:"Pourquoi évite-t-on les vaccins vivants atténués pendant la grossesse ?",
+    options:["Parce qu'ils sont inefficaces chez la femme enceinte","En raison d'un risque infectieux théorique pour le fœtus","En raison d'une mauvaise tolérance maternelle","Parce qu'ils sont trop coûteux"],
+    correct:1,
+    explanation:"Le risque principal est <strong>théorique mais documenté</strong> : le pathogène vivant atténué pourrait traverser la barrière placentaire et infecter le fœtus. C'est pourquoi les vaccins comme le ROR, la varicelle ou la fièvre jaune sont contre-indiqués. En pratique, si un vaccin vivant est administré par erreur, cela ne justifie pas une interruption de grossesse — mais la vaccination doit être évitée."
+  },
+  {
+    theme:"Coqueluche",
+    text:"Quel est le principal mode de transmission de la coqueluche au nouveau-né ?",
+    options:["Transmission alimentaire","Transmission par l'eau","Transmission respiratoire via l'entourage","Transmission transplacentaire"],
+    correct:2,
+    explanation:"La coqueluche se transmet principalement par voie <strong>respiratoire</strong> via les gouttelettes émises lors de la toux. Le nouveau-né est contaminé par son <strong>entourage proche</strong> (parents, fratrie, grands-parents) — d'où l'importance de vacciner la mère pendant la grossesse ET l'entourage (cocooning) pour créer un bouclier protecteur autour du nourrisson."
+  },
+  {
+    theme:"Coqueluche",
+    text:"Pourquoi le nourrisson est-il particulièrement vulnérable à la coqueluche avant 2 mois ?",
+    options:["Son système digestif immature ne permet pas d'absorber les médicaments","Sa primovaccination n'a pas encore débuté","Sa mère n'a pas d'immunité naturelle","Il ne produit pas encore ses propres anticorps contre la coqueluche"],
+    correct:1,
+    explanation:"La primovaccination du nourrisson contre la coqueluche ne débute qu'à <strong>2 mois</strong>. Avant cet âge, le nourrisson est totalement dépendant des <strong>anticorps maternels</strong> transmis in utero. Si la mère n'a pas été vaccinée pendant la grossesse, le nourrisson se retrouve sans protection pendant ses premières semaines de vie — période où la coqueluche est la plus dangereuse."
+  },
+  {
+    theme:"Grippe",
+    text:"La vaccination contre la grippe pendant la grossesse protège :",
+    options:["Uniquement la mère","La mère et indirectement le nourrisson via le transfert d'anticorps","Uniquement le nourrisson","Aucun des deux de manière significative"],
+    correct:1,
+    explanation:"La vaccination grippe pendant la grossesse protège <strong>doublement</strong> : la <strong>mère</strong> contre les formes graves (risque accru en grossesse) et <strong>indirectement le nourrisson</strong> via le transfert d'anticorps maternels. Le nourrisson bénéficie ainsi d'une protection dans ses premiers mois, avant de pouvoir être vacciné lui-même (à partir de 6 mois)."
+  },
+  {
+    theme:"VRS",
+    text:"Concernant la prévention du VRS (bronchiolite) chez le nourrisson, quelle affirmation est exacte ?",
+    options:["Elle repose uniquement sur la vaccination du nourrisson","Elle peut reposer sur la vaccination de la mère pendant la grossesse","Elle est inutile chez le nourrisson sain","Elle ne concerne que les prématurés"],
+    correct:1,
+    explanation:"La prévention du VRS peut reposer sur la <strong>vaccination maternelle pendant la grossesse</strong> (vaccin Abrysvo® entre 32 et 36 SA), qui permet le transfert d'anticorps au fœtus. Il existe également une stratégie d'immunisation directe du nourrisson par anticorps monoclonal (nirsévimab/Beyfortus®). Les parents peuvent choisir l'une ou l'autre stratégie selon leur situation."
+  },
+  {
+    theme:"Généralités",
+    text:"Quels professionnels de santé peuvent prescrire et administrer les vaccins recommandés pendant la grossesse ?",
+    options:["Uniquement le médecin gynécologue","Uniquement le médecin traitant","Gynécologue, sage-femme, médecin traitant, infirmier ou pharmacien","Uniquement le médecin en milieu hospitalier"],
+    correct:2,
+    explanation:"Depuis les évolutions réglementaires récentes, plusieurs professionnels peuvent prescrire et administrer les vaccins recommandés pendant la grossesse : le <strong>gynécologue, la sage-femme, le médecin traitant, l'infirmier</strong> (sur prescription) et le <strong>pharmacien</strong>. C'est un point important au comptoir : rassurer les patientes sur l'accessibilité de la vaccination."
+  },
+  {
+    theme:"Généralités",
+    text:"En 2025, combien de vaccins sont recommandés aux femmes enceintes ?",
+    options:["1 seul (coqueluche)","2 (coqueluche et grippe)","4 (coqueluche, grippe, Covid-19 et VRS)","Tous les vaccins du calendrier vaccinal"],
+    correct:2,
+    explanation:"En 2025, <strong>4 vaccins</strong> sont recommandés aux femmes enceintes : la <strong>coqueluche</strong> (20-36 SA), la <strong>grippe</strong> (en période épidémique), la <strong>Covid-19</strong> et le vaccin contre le <strong>VRS</strong> (Abrysvo® entre 32-36 SA pour protéger le nourrisson). Ces vaccins sont tous inactivés et peuvent être co-administrés lors de la même consultation."
+  }
+];
+
+let current=0,score=0,userAnswers=[];
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function startQuiz(){current=0;score=0;userAnswers=[];showScreen('screen-quiz');renderQuestion()}
+function renderQuestion(){
+  const q=QUESTIONS[current],total=QUESTIONS.length;
+  document.getElementById('progress-bar').style.width=((current/total)*100)+'%';
+  document.getElementById('progress-label').textContent=`${current+1} / ${total}`;
+  document.getElementById('score-display').textContent=`Score : ${score}`;
+  document.getElementById('q-num').textContent=current+1;
+  document.getElementById('q-theme').textContent=q.theme;
+  document.getElementById('q-text').textContent=q.text;
+  const grid=document.getElementById('options-grid');grid.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{const btn=document.createElement('button');btn.className='option-btn';btn.innerHTML=`<span class="opt-letter">${l}</span><span>${q.options[i]}</span>`;btn.onclick=()=>selectAnswer(i);grid.appendChild(btn)});
+  document.getElementById('feedback-box').className='feedback-box';
+  document.getElementById('next-btn').className='next-btn';
+}
+function selectAnswer(chosen){
+  const q=QUESTIONS[current];
+  document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+  const ok=chosen===q.correct;if(ok)score++;userAnswers[current]=chosen;
+  document.querySelectorAll('.option-btn').forEach((btn,i)=>{if(i===q.correct)btn.classList.add('correct');else if(i===chosen&&!ok)btn.classList.add('wrong');else btn.classList.add('dimmed')});
+  const fb=document.getElementById('feedback-box');
+  document.getElementById('fb-title').textContent=ok?'✓ Bonne réponse !':'✗ Pas tout à fait…';
+  document.getElementById('fb-body').innerHTML=q.explanation;
+  fb.className='feedback-box show '+(ok?'correct-fb':'wrong-fb');
+  const nb=document.getElementById('next-btn');nb.className='next-btn show';
+  nb.textContent=current<QUESTIONS.length-1?'Question suivante →':'Voir mes résultats →';
+}
+function nextQuestion(){current++;if(current>=QUESTIONS.length)showResults();else renderQuestion()}
+function showResults(){
+  showScreen('screen-results');
+  const total=QUESTIONS.length,pct=Math.round((score/total)*100);
+  document.getElementById('res-score').textContent=`${score}/${total}`;
+  document.getElementById('res-pct').textContent=`${pct}%`;
+  document.getElementById('result-circle').style.setProperty('--pct',pct+'%');
+  const t=['🔁 À retravailler','📚 Des lacunes à combler','👍 Très bon niveau','🏆 Expertise confirmée !'];
+  const m=['Les fondamentaux ne sont pas encore acquis. Recommencez après révision.','Niveau intermédiaire. Certains points méritent une révision.','Bonne maîtrise générale. Relisez les points manqués.','Résultat parfait. Votre conseil en vaccination de la femme enceinte est solide.'];
+  const idx=pct===100?3:pct>=75?2:pct>=50?1:0;
+  document.getElementById('res-title').textContent=t[idx];document.getElementById('res-msg').textContent=m[idx];
+  const list=document.getElementById('review-list');list.innerHTML='';
+  QUESTIONS.forEach((q,i)=>{const ok=userAnswers[i]===q.correct;const item=document.createElement('div');item.className='review-item';item.innerHTML=`<span class="review-icon">${ok?'✅':'❌'}</span><div><div class="review-q">${q.text}</div>${!ok?`<div class="review-ans">Bonne réponse : <strong>${q.options[q.correct]}</strong></div>`:''}</div>`;list.appendChild(item)});
+}
+function restartQuiz(){startQuiz()}
+</script>
+</body>
+</html>
