@@ -116,13 +116,13 @@
   </div>
   <p>12 questions tirées aléatoirement. Répondez vite — chaque seconde compte sur votre score !</p>
   <div class="intro-stats">
-    <div class="stat-pill"><strong>12</strong><span>questions</span></div>
+    <div class="stat-pill"><strong>15</strong><span>questions</span></div>
     <div class="stat-pill"><strong>100</strong><span>pts/question</span></div>
     <div class="stat-pill"><strong>⏱</strong><span>chrono</span></div>
   </div>
   <div class="composition">
     <strong>Composition du challenge :</strong><br>
-    🟢 6 questions faciles · 🟡 4 questions modérées · 🔴 2 questions difficiles<br>
+    🟢 7 questions faciles · 🟡 5 questions modérées · 🔴 3 questions difficiles<br>
     <span style="font-size:.82rem">Score : 100 pts si répondu en moins de 4s · −1 pt par seconde supplémentaire · 0 pt si faux</span>
   </div>
   <button class="btn-start" onclick="startQuiz()">Lancer le challenge →</button>
@@ -158,7 +158,7 @@
   <div class="score-circle" id="score-circle">
     <div class="score-inner">
       <div class="score-pts" id="res-score">0</div>
-      <div class="score-label">/ 1200 pts</div>
+      <div class="score-label">/ 1500 pts</div>
     </div>
   </div>
   <h2 id="res-title"></h2>
@@ -189,12 +189,12 @@
 // ══════════════════════════════════════════════
 // CONFIG — remplacer BIN_ID et API_KEY après création sur jsonbin.io
 // ══════════════════════════════════════════════
-const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/69e8731aaaba882197256035';
-const JSONBIN_KEY = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
+const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/VOTRE_BIN_ID';
+const JSONBIN_KEY = 'VOTRE_API_KEY';
 // ══════════════════════════════════════════════
 
-const TOTAL_Q = 12;
-const FACILE_N = 6, MODERE_N = 4, DIFFICILE_N = 2;
+const TOTAL_Q = 15;
+const FACILE_N = 7, MODERE_N = 5, DIFFICILE_N = 3;
 const MAX_PTS = 100;
 const GRACE_SEC = 4; // Full points if answered within this time
 
@@ -214,7 +214,7 @@ function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classL
 
 // ── Build quiz ──
 function startQuiz(){
-  questions = pickQuestions(QUESTION_POOL, FACILE_N, MODERE_N, DIFFICILE_N);
+  questions = pickChallenge(FACILE_N, MODERE_N, DIFFICILE_N);
   shuffledOptions = questions.map(q=>{
     return shuffle(q.options.map((text,origIndex)=>({text,origIndex})));
   });
@@ -348,7 +348,7 @@ function nextQuestion(){
 // ── Results ──
 function showResults(){
   showScreen('screen-results');
-  const maxPossible = TOTAL_Q * MAX_PTS; // 1200
+  const maxPossible = TOTAL_Q * MAX_PTS; // 1500
   const pct = Math.round((totalScore/maxPossible)*100);
   document.getElementById('res-score').textContent = totalScore;
   document.getElementById('score-circle').style.setProperty('--pct', pct+'%');

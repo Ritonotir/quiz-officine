@@ -1,21 +1,66 @@
 [
-  {"titre":"Le Rhume au Comptoir","fichier":"quiz-rhume.html","theme":"ORL","questions":12,"difficulte":"Intermédiaire","emoji":"🤧"},
-  {"titre":"Allergies Saisonnières","fichier":"quiz-allergies.html","theme":"Allergologie","questions":12,"difficulte":"Intermédiaire","emoji":"🌿"},
-  {"titre":"Contraception – Vol. 1","fichier":"quiz-contraception-1.html","theme":"Contraception","questions":12,"difficulte":"Intermédiaire","emoji":"💊"},
-  {"titre":"Contraception – Vol. 2","fichier":"quiz-contraception-2.html","theme":"Contraception","questions":12,"difficulte":"Intermédiaire","emoji":"🔵"},
-  {"titre":"Vaccination Jeunes Enfants – Facile","fichier":"quiz-vaccination-jeunes-enfants-facile.html","theme":"Vaccination","questions":12,"difficulte":"Facile","emoji":"💉"},
-  {"titre":"Vaccination Jeunes Enfants – Modéré","fichier":"quiz-vaccination-jeunes-enfants-modere.html","theme":"Vaccination","questions":12,"difficulte":"Intermédiaire","emoji":"💉"},
-  {"titre":"Vaccination Jeunes Enfants – Difficile","fichier":"quiz-vaccination-jeunes-enfants-difficile.html","theme":"Vaccination","questions":12,"difficulte":"Avancé","emoji":"💉"},
-  {"titre":"Vaccination Femme Enceinte – Facile","fichier":"quiz-vaccination-femme-enceinte-facile.html","theme":"Vaccination","questions":12,"difficulte":"Facile","emoji":"🤰"},
-  {"titre":"Vaccination Femme Enceinte – Modéré","fichier":"quiz-vaccination-femme-enceinte-modere.html","theme":"Vaccination","questions":12,"difficulte":"Intermédiaire","emoji":"🤰"},
-  {"titre":"Vaccination Femme Enceinte – Difficile","fichier":"quiz-vaccination-femme-enceinte-difficile.html","theme":"Vaccination","questions":12,"difficulte":"Avancé","emoji":"🤰"},
-  {"titre":"Vaccination Adultes 7-64 ans – Facile","fichier":"quiz-vaccination-adultes-facile.html","theme":"Vaccination","questions":12,"difficulte":"Facile","emoji":"💉"},
-  {"titre":"Vaccination Adultes 7-64 ans – Modéré","fichier":"quiz-vaccination-adultes-modere.html","theme":"Vaccination","questions":12,"difficulte":"Intermédiaire","emoji":"💉"},
-  {"titre":"Vaccination Adultes 7-64 ans – Difficile","fichier":"quiz-vaccination-adultes-difficile.html","theme":"Vaccination","questions":12,"difficulte":"Avancé","emoji":"💉"},
-  {"titre":"Vaccination Seniors 65+ – Facile","fichier":"quiz-vaccination-seniors-facile.html","theme":"Vaccination","questions":12,"difficulte":"Facile","emoji":"🧓"},
-  {"titre":"Vaccination Seniors 65+ – Modéré","fichier":"quiz-vaccination-seniors-modere.html","theme":"Vaccination","questions":12,"difficulte":"Intermédiaire","emoji":"🧓"},
-  {"titre":"Vaccination Seniors 65+ – Difficile","fichier":"quiz-vaccination-seniors-difficile.html","theme":"Vaccination","questions":12,"difficulte":"Avancé","emoji":"🧓"},
-  {"titre":"Pratique Officinale – Facile","fichier":"quiz-pratique-officinale-facile.html","theme":"Pratique Officinale","questions":12,"difficulte":"Facile","emoji":"🏥"},
-  {"titre":"Pratique Officinale – Modéré","fichier":"quiz-pratique-officinale-modere.html","theme":"Pratique Officinale","questions":12,"difficulte":"Intermédiaire","emoji":"🏥"},
-  {"titre":"Pratique Officinale – Difficile","fichier":"quiz-pratique-officinale-difficile.html","theme":"Pratique Officinale","questions":12,"difficulte":"Avancé","emoji":"🏥"}
+  {
+    "titre": "Le Rhume au Comptoir",
+    "fichier": "quiz-rhume.html",
+    "theme": "ORL",
+    "questions": 12,
+    "difficulte": "Facile",
+    "emoji": "🤧"
+  },
+  {
+    "titre": "Allergies Saisonnières",
+    "fichier": "quiz-allergies.html",
+    "theme": "ORL",
+    "questions": 12,
+    "difficulte": "Facile",
+    "emoji": "🌿"
+  },
+  {
+    "titre": "Contraception",
+    "fichier": "quiz-contraception.html",
+    "theme": "Contraception",
+    "questions": 12,
+    "difficulte": "Intermédiaire",
+    "emoji": "💊"
+  },
+  {
+    "titre": "Vaccination Jeunes Enfants",
+    "fichier": "quiz-vaccination-jeunes-enfants.html",
+    "theme": "Vaccination",
+    "questions": 12,
+    "difficulte": "Tous niveaux",
+    "emoji": "💉"
+  },
+  {
+    "titre": "Vaccination Femme Enceinte",
+    "fichier": "quiz-vaccination-femme-enceinte.html",
+    "theme": "Vaccination",
+    "questions": 12,
+    "difficulte": "Tous niveaux",
+    "emoji": "🤰"
+  },
+  {
+    "titre": "Vaccination Adultes 7-64 ans",
+    "fichier": "quiz-vaccination-adultes.html",
+    "theme": "Vaccination",
+    "questions": 12,
+    "difficulte": "Tous niveaux",
+    "emoji": "💉"
+  },
+  {
+    "titre": "Vaccination Seniors 65+",
+    "fichier": "quiz-vaccination-seniors.html",
+    "theme": "Vaccination",
+    "questions": 12,
+    "difficulte": "Tous niveaux",
+    "emoji": "🧓"
+  },
+  {
+    "titre": "Pratique Vaccinale",
+    "fichier": "quiz-pratique-vaccinale.html",
+    "theme": "Vaccination",
+    "questions": 12,
+    "difficulte": "Tous niveaux",
+    "emoji": "🏥"
+  }
 ]
