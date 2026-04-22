@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Challenge – Formation Officine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<script src="questions-pool.js"></script>
+<style>
+  :root{--green:#1a9e6e;--green-dark:#0f7a53;--green-light:#e6f7f1;--red:#e84040;--red-light:#fdeaea;--gold:#f5a623;--gold-light:#fef9ee;--bg:#f4f6f3;--text:#1a1f1c;--muted:#6b7672;--border:#dde5e0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px}
+  .screen{display:none;width:100%;max-width:680px}
+  .screen.active{display:flex;flex-direction:column;align-items:center}
+
+  /* ── INTRO ── */
+  #screen-intro{text-align:center;gap:20px}
+  .badge-challenge{display:inline-block;background:var(--gold);color:white;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:8px}
+  #screen-intro h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,6vw,3rem);font-weight:800;line-height:1.1}
+  #screen-intro h1 span{color:var(--gold)}
+  #screen-intro p{color:var(--muted);font-size:1rem;max-width:460px}
+  .intro-stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .stat-pill{background:white;border:1px solid var(--border);border-radius:12px;padding:14px 22px;text-align:center;min-width:100px}
+  .stat-pill strong{display:block;font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--gold)}
+  .stat-pill span{font-size:.82rem;color:var(--muted)}
+  .composition{background:white;border:1px solid var(--border);border-radius:12px;padding:16px 20px;font-size:.88rem;color:var(--muted);line-height:1.8;text-align:left;width:100%}
+  .composition strong{color:var(--text)}
+  .btn-start{background:var(--gold);color:white;font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;border:none;padding:18px 48px;border-radius:14px;cursor:pointer;transition:background .2s,transform .15s;box-shadow:0 4px 20px rgba(245,166,35,.35)}
+  .btn-start:hover{background:#d4891a;transform:translateY(-2px)}
+
+  /* ── QUIZ ── */
+  #screen-quiz{gap:20px}
+  .progress-row{width:100%;display:flex;align-items:center;gap:12px}
+  .progress-bar-track{flex:1;height:6px;background:var(--border);border-radius:100px;overflow:hidden}
+  .progress-bar-fill{height:100%;background:var(--gold);border-radius:100px;transition:width .4s ease;width:0%}
+  .progress-label{font-size:.82rem;color:var(--muted);white-space:nowrap;font-weight:500}
+  .score-badge{background:var(--gold-light);color:#a06b00;font-size:.82rem;font-weight:500;padding:5px 12px;border-radius:100px;white-space:nowrap}
+
+  /* Timer bar */
+  .timer-row{width:100%;height:4px;background:var(--border);border-radius:100px;overflow:hidden}
+  .timer-bar{height:100%;background:var(--green);border-radius:100px;width:100%;transition:width .1s linear,background .5s}
+
+  .question-card{background:white;border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;box-shadow:0 2px 12px rgba(0,0,0,.06);animation:fadeIn .3s ease}
+  .q-meta{font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .q-meta em{background:var(--green-light);color:var(--green-dark);padding:2px 8px;border-radius:6px;font-style:normal}
+  .diff-badge{padding:2px 8px;border-radius:6px;font-style:normal}
+  .diff-facile{background:#e8f8f0;color:#0f7a53}
+  .diff-modere{background:#e6f7f1;color:#1a9e6e}
+  .diff-difficile{background:#fdeaea;color:#c0392b}
+  .question-text{font-family:'Syne',sans-serif;font-size:clamp(1.05rem,2.5vw,1.22rem);font-weight:700;line-height:1.4;margin-bottom:24px}
+  .options-grid{display:flex;flex-direction:column;gap:10px}
+  .option-btn{width:100%;text-align:left;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;font-family:'DM Sans',sans-serif;font-size:.95rem;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:12px;line-height:1.4}
+  .option-btn .opt-letter{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:white;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;color:var(--muted);transition:all .18s}
+  .option-btn:hover:not(:disabled){border-color:var(--gold);background:var(--gold-light)}
+  .option-btn:hover:not(:disabled) .opt-letter{background:var(--gold);border-color:var(--gold);color:white}
+  .option-btn:disabled{cursor:default}
+  .option-btn.correct{background:var(--green-light);border-color:var(--green);color:var(--green-dark);font-weight:500}
+  .option-btn.correct .opt-letter{background:var(--green);border-color:var(--green);color:white}
+  .option-btn.wrong{background:var(--red-light);border-color:var(--red);color:var(--red)}
+  .option-btn.wrong .opt-letter{background:var(--red);border-color:var(--red);color:white}
+  .option-btn.dimmed{opacity:.45}
+  .pts-awarded{font-size:.78rem;font-weight:600;margin-top:10px;text-align:right}
+  .pts-awarded.good{color:var(--green-dark)}
+  .pts-awarded.bad{color:var(--red)}
+  .feedback-box{margin-top:12px;padding:14px 18px;border-radius:12px;font-size:.88rem;line-height:1.6;display:none}
+  .feedback-box.show{display:block}
+  .feedback-box.correct-fb{background:var(--green-light);border-left:4px solid var(--green);color:#0f5c3c}
+  .feedback-box.wrong-fb{background:var(--red-light);border-left:4px solid var(--red);color:#8c1a1a}
+  .feedback-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;margin-bottom:4px}
+  .next-btn{width:100%;background:var(--gold);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px;border-radius:12px;cursor:pointer;transition:background .2s;display:none}
+  .next-btn.show{display:block}
+  .next-btn:hover{background:#d4891a}
+
+  /* ── RESULTS ── */
+  #screen-results{text-align:center;gap:24px}
+  .score-circle{width:160px;height:160px;border-radius:50%;background:conic-gradient(var(--gold) 0%,var(--gold) var(--pct),var(--border) var(--pct));display:flex;align-items:center;justify-content:center;position:relative}
+  .score-circle::before{content:'';position:absolute;width:124px;height:124px;border-radius:50%;background:white}
+  .score-inner{position:relative;z-index:1;text-align:center}
+  .score-pts{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:var(--gold);line-height:1}
+  .score-label{font-size:.75rem;color:var(--muted)}
+  #screen-results h2{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800}
+  #screen-results .result-msg{color:var(--muted);max-width:420px;font-size:.95rem;line-height:1.6}
+
+  /* Leaderboard form */
+  .lb-form{background:white;border:1px solid var(--border);border-radius:16px;padding:24px;width:100%;text-align:left}
+  .lb-form h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:12px}
+  .lb-form p{font-size:.85rem;color:var(--muted);margin-bottom:16px;line-height:1.5}
+  .pseudo-input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.95rem;margin-bottom:12px;outline:none}
+  .pseudo-input:focus{border-color:var(--gold)}
+  .radio-group{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+  .radio-group label{display:flex;align-items:flex-start;gap:10px;font-size:.85rem;cursor:pointer;line-height:1.4}
+  .radio-group input{margin-top:2px;accent-color:var(--gold)}
+  .btn-submit-lb{background:var(--gold);color:white;font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;border:none;padding:13px 28px;border-radius:10px;cursor:pointer;width:100%;transition:background .2s}
+  .btn-submit-lb:hover{background:#d4891a}
+  .btn-skip{background:none;border:none;color:var(--muted);font-size:.82rem;cursor:pointer;margin-top:8px;text-decoration:underline;width:100%}
+
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .retry-btn{background:var(--gold);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px 40px;border-radius:14px;cursor:pointer;transition:background .2s;box-shadow:0 4px 20px rgba(245,166,35,.3)}
+  .retry-btn:hover{background:#d4891a}
+  .home-btn{background:white;color:var(--green);font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;border:1.5px solid var(--green);padding:12px 28px;border-radius:14px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
+  .home-btn:hover{background:var(--green-light)}
+
+  .lb-status{font-size:.85rem;color:var(--muted);margin-top:8px;min-height:20px}
+
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="screen-intro" class="screen active">
+  <div>
+    <div class="badge-challenge">⚡ Challenge Semaine</div>
+    <h1>Quiz<br><span>Challenge</span></h1>
+  </div>
+  <p>12 questions tirées aléatoirement. Répondez vite — chaque seconde compte sur votre score !</p>
+  <div class="intro-stats">
+    <div class="stat-pill"><strong>12</strong><span>questions</span></div>
+    <div class="stat-pill"><strong>100</strong><span>pts/question</span></div>
+    <div class="stat-pill"><strong>⏱</strong><span>chrono</span></div>
+  </div>
+  <div class="composition">
+    <strong>Composition du challenge :</strong><br>
+    🟢 6 questions faciles · 🟡 4 questions modérées · 🔴 2 questions difficiles<br>
+    <span style="font-size:.82rem">Score : 100 pts si répondu en moins de 4s · −1 pt par seconde supplémentaire · 0 pt si faux</span>
+  </div>
+  <button class="btn-start" onclick="startQuiz()">Lancer le challenge →</button>
+</div>
+
+<!-- QUIZ -->
+<div id="screen-quiz" class="screen">
+  <div class="progress-row">
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    <span class="progress-label" id="progress-label">1 / 12</span>
+    <span class="score-badge" id="score-display">Score : 0</span>
+  </div>
+  <div class="timer-row"><div class="timer-bar" id="timer-bar"></div></div>
+  <div class="question-card">
+    <div class="q-meta">
+      Question <span id="q-num">1</span>
+      <em id="q-theme"></em>
+      <span class="diff-badge" id="q-diff"></span>
+    </div>
+    <div class="question-text" id="q-text"></div>
+    <div class="options-grid" id="options-grid"></div>
+    <div class="pts-awarded" id="pts-awarded"></div>
+    <div class="feedback-box" id="feedback-box">
+      <div class="feedback-title" id="fb-title"></div>
+      <div id="fb-body"></div>
+    </div>
+  </div>
+  <button class="next-btn" id="next-btn" onclick="nextQuestion()">Question suivante →</button>
+</div>
+
+<!-- RESULTS -->
+<div id="screen-results" class="screen">
+  <div class="score-circle" id="score-circle">
+    <div class="score-inner">
+      <div class="score-pts" id="res-score">0</div>
+      <div class="score-label">/ 1200 pts</div>
+    </div>
+  </div>
+  <h2 id="res-title"></h2>
+  <p class="result-msg" id="res-msg"></p>
+
+  <div class="lb-form" id="lb-form">
+    <h3>🏆 Intégrer le classement</h3>
+    <p>Entrez un pseudo pour soumettre votre score au classement de la semaine.</p>
+    <input class="pseudo-input" id="pseudo-input" type="text" placeholder="Votre pseudo (ex: Pharmaco_Pro)" maxlength="20">
+    <div class="radio-group">
+      <label><input type="radio" name="lb-opt" value="best" checked>
+        Afficher mon score uniquement si c'est le meilleur de la semaine <em style="font-size:.78rem">(rêve toujours 😄)</em></label>
+      <label><input type="radio" name="lb-opt" value="always">
+        Afficher le score quel que soit mon classement <em style="font-size:.78rem">(je suis nul(le) et j'assume 💪)</em></label>
+    </div>
+    <button class="btn-submit-lb" onclick="submitScore()">Soumettre mon score</button>
+    <div class="lb-status" id="lb-status"></div>
+    <button class="btn-skip" onclick="showFinalButtons()">Passer sans soumettre</button>
+  </div>
+
+  <div class="btn-row" id="final-buttons" style="display:none">
+    <button class="retry-btn" onclick="startQuiz()">🔄 Nouveau challenge</button>
+    <a class="home-btn" href="home.html">← Accueil</a>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+// CONFIG — remplacer BIN_ID et API_KEY après création sur jsonbin.io
+// ══════════════════════════════════════════════
+const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/69e8731aaaba882197256035';
+const JSONBIN_KEY = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
+// ══════════════════════════════════════════════
+
+const TOTAL_Q = 12;
+const FACILE_N = 6, MODERE_N = 4, DIFFICILE_N = 2;
+const MAX_PTS = 100;
+const GRACE_SEC = 4; // Full points if answered within this time
+
+let questions = [];
+let shuffledOptions = [];
+let current = 0;
+let totalScore = 0;
+let totalTime = 0; // ms
+let questionScores = [];
+let timerInterval = null;
+let questionStart = 0;
+
+// ── Shuffle ──
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+
+// ── Build quiz ──
+function startQuiz(){
+  questions = pickQuestions(QUESTION_POOL, FACILE_N, MODERE_N, DIFFICILE_N);
+  shuffledOptions = questions.map(q=>{
+    return shuffle(q.options.map((text,origIndex)=>({text,origIndex})));
+  });
+  current = 0; totalScore = 0; totalTime = 0; questionScores = [];
+  document.getElementById('lb-form').style.display = 'block';
+  document.getElementById('final-buttons').style.display = 'none';
+  document.getElementById('lb-status').textContent = '';
+  showScreen('screen-quiz');
+  renderQuestion();
+}
+
+// ── Render ──
+function renderQuestion(){
+  const q = questions[current];
+  const opts = shuffledOptions[current];
+  const total = questions.length;
+
+  document.getElementById('progress-bar').style.width = ((current/total)*100)+'%';
+  document.getElementById('progress-label').textContent = `${current+1} / ${total}`;
+  document.getElementById('score-display').textContent = `Score : ${totalScore}`;
+  document.getElementById('q-num').textContent = current+1;
+  document.getElementById('q-theme').textContent = q.theme;
+
+  const diffEl = document.getElementById('q-diff');
+  const diffLabels = {facile:'🟢 Facile', modere:'🟡 Modéré', difficile:'🔴 Difficile'};
+  diffEl.textContent = diffLabels[q.difficulte] || q.difficulte;
+  diffEl.className = 'diff-badge diff-'+q.difficulte;
+
+  document.getElementById('q-text').textContent = q.text;
+
+  const grid = document.getElementById('options-grid');
+  grid.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  opts.forEach((opt,di)=>{
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="opt-letter">${letters[di]}</span><span>${opt.text}</span>`;
+    btn.onclick = ()=>selectAnswer(opt.origIndex);
+    grid.appendChild(btn);
+  });
+
+  document.getElementById('feedback-box').className = 'feedback-box';
+  document.getElementById('pts-awarded').textContent = '';
+  document.getElementById('next-btn').className = 'next-btn';
+
+  // Start timer
+  startTimer();
+}
+
+// ── Timer ──
+function startTimer(){
+  clearInterval(timerInterval);
+  questionStart = Date.now();
+  const bar = document.getElementById('timer-bar');
+  bar.style.width = '100%';
+  bar.style.background = 'var(--green)';
+
+  const MAX_DISPLAY = 20000; // 20s display window
+  timerInterval = setInterval(()=>{
+    const elapsed = Date.now() - questionStart;
+    const pct = Math.max(0, 100 - (elapsed/MAX_DISPLAY)*100);
+    bar.style.width = pct+'%';
+    // Color: green → orange → red
+    if(pct < 25) bar.style.background = 'var(--red)';
+    else if(pct < 50) bar.style.background = 'var(--gold)';
+    else bar.style.background = 'var(--green)';
+  }, 100);
+}
+
+function stopTimer(){
+  clearInterval(timerInterval);
+  const elapsed = Date.now() - questionStart;
+  return elapsed;
+}
+
+// ── Answer ──
+function selectAnswer(chosenOrig){
+  const elapsed = stopTimer();
+  const q = questions[current];
+  const opts = shuffledOptions[current];
+
+  document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+
+  const ok = chosenOrig === q.correct;
+  let pts = 0;
+  if(ok){
+    const secs = elapsed / 1000;
+    pts = secs <= GRACE_SEC ? MAX_PTS : Math.max(0, MAX_PTS - Math.floor(secs - GRACE_SEC));
+  }
+  totalScore += pts;
+  totalTime += elapsed;
+  questionScores.push({ok, pts, elapsed});
+
+  // Highlight
+  document.querySelectorAll('.option-btn').forEach((btn,di)=>{
+    const orig = opts[di].origIndex;
+    if(orig===q.correct) btn.classList.add('correct');
+    else if(orig===chosenOrig&&!ok) btn.classList.add('wrong');
+    else btn.classList.add('dimmed');
+  });
+
+  // Points display
+  const ptsEl = document.getElementById('pts-awarded');
+  if(ok){
+    ptsEl.textContent = `+${pts} pts (${(elapsed/1000).toFixed(1)}s)`;
+    ptsEl.className = 'pts-awarded good';
+  } else {
+    ptsEl.textContent = `0 pts`;
+    ptsEl.className = 'pts-awarded bad';
+  }
+
+  // Feedback
+  const fb = document.getElementById('feedback-box');
+  document.getElementById('fb-title').textContent = ok ? '✓ Bonne réponse !' : '✗ Pas tout à fait…';
+  document.getElementById('fb-body').innerHTML = q.explanation;
+  fb.className = 'feedback-box show '+(ok?'correct-fb':'wrong-fb');
+
+  document.getElementById('score-display').textContent = `Score : ${totalScore}`;
+
+  const nb = document.getElementById('next-btn');
+  nb.className = 'next-btn show';
+  nb.textContent = current < questions.length-1 ? 'Question suivante →' : 'Voir mon score →';
+}
+
+function nextQuestion(){
+  current++;
+  if(current >= questions.length) showResults();
+  else renderQuestion();
+}
+
+// ── Results ──
+function showResults(){
+  showScreen('screen-results');
+  const maxPossible = TOTAL_Q * MAX_PTS; // 1200
+  const pct = Math.round((totalScore/maxPossible)*100);
+  document.getElementById('res-score').textContent = totalScore;
+  document.getElementById('score-circle').style.setProperty('--pct', pct+'%');
+
+  const titles = ['🔁 On s\'entraîne encore !','📚 Bon effort !','👍 Solide !','🏆 Excellent !'];
+  const msgs = [
+    'Continuez à pratiquer — la rapidité et la précision s\'améliorent avec l\'entraînement.',
+    'Bon score ! Quelques réponses tardives ont pesé sur le total.',
+    'Très bon score ! Répondre plus vite vous permettra de grimper dans le classement.',
+    'Score remarquable ! Vitesse et précision au rendez-vous.'
+  ];
+  const idx = pct>=85?3:pct>=65?2:pct>=40?1:0;
+  document.getElementById('res-title').textContent = titles[idx];
+  document.getElementById('res-msg').textContent = msgs[idx];
+}
+
+// ── Leaderboard ──
+async function fetchLeaderboard(){
+  try {
+    const r = await fetch(JSONBIN_URL+'/latest', {
+      headers:{'X-Master-Key': JSONBIN_KEY}
+    });
+    if(!r.ok) return [];
+    const d = await r.json();
+    return d.record?.scores || [];
+  } catch(e){ return []; }
+}
+
+async function saveLeaderboard(scores){
+  try {
+    await fetch(JSONBIN_URL, {
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
+      body: JSON.stringify({scores})
+    });
+  } catch(e){}
+}
+
+function getWeekKey(){
+  const now = new Date();
+  const d = new Date(Date.UTC(now.getFullYear(),now.getMonth(),now.getDate()));
+  const day = d.getUTCDay()||7;
+  d.setUTCDate(d.getUTCDate()+4-day);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+  const week = Math.ceil((((d-yearStart)/86400000)+1)/7);
+  return `${d.getUTCFullYear()}-W${week}`;
+}
+
+async function submitScore(){
+  const pseudo = document.getElementById('pseudo-input').value.trim();
+  if(!pseudo){
+    document.getElementById('lb-status').textContent = 'Merci d\'entrer un pseudo.';
+    return;
+  }
+  const opt = document.querySelector('input[name="lb-opt"]:checked').value;
+  const weekKey = getWeekKey();
+  const status = document.getElementById('lb-status');
+  status.textContent = 'Envoi en cours…';
+
+  const scores = await fetchLeaderboard();
+
+  // Filter current week
+  const thisWeek = scores.filter(s=>s.week===weekKey);
+  const bestThisWeek = thisWeek.length>0 ? Math.max(...thisWeek.map(s=>s.score)) : 0;
+
+  const entry = {pseudo, score:totalScore, time:totalTime, week:weekKey, opt, ts:Date.now()};
+
+  let shouldSave = false;
+  if(opt==='always') shouldSave = true;
+  if(opt==='best' && totalScore >= bestThisWeek) shouldSave = true;
+
+  if(shouldSave){
+    // Remove previous entry from same pseudo this week
+    const filtered = scores.filter(s=>!(s.week===weekKey && s.pseudo===pseudo));
+    filtered.push(entry);
+    // Keep only last 4 weeks
+    const cutoff = Date.now() - 28*24*3600*1000;
+    const cleaned = filtered.filter(s=>s.ts>cutoff);
+    await saveLeaderboard(cleaned);
+    status.textContent = '✅ Score soumis ! Bonne chance dans le classement.';
+  } else {
+    status.textContent = opt==='best'
+      ? '😅 Votre score n\'est pas le meilleur cette semaine — non soumis.'
+      : '✅ Score enregistré !';
+  }
+
+  setTimeout(showFinalButtons, 1500);
+}
+
+function showFinalButtons(){
+  document.getElementById('lb-form').style.display = 'none';
+  document.getElementById('final-buttons').style.display = 'flex';
+}
+</script>
+</body>
+</html>
