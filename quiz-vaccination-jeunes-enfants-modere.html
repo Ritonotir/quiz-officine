@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz Contraception Vol.1 – Formation Officine</title>
+<title>Quiz Vaccination Jeunes Enfants – Intermédiaire</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root { --green:#1a9e6e; --green-dark:#0f7a53; --green-light:#e6f7f1; --red:#e84040; --red-light:#fdeaea; --bg:#f4f6f3; --text:#1a1f1c; --muted:#6b7672; --border:#dde5e0; }
+  :root{--green:#1a9e6e;--green-dark:#0f7a53;--green-light:#e6f7f1;--red:#e84040;--red-light:#fdeaea;--bg:#f4f6f3;--text:#1a1f1c;--muted:#6b7672;--border:#dde5e0}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px}
   .screen{display:none;width:100%;max-width:680px}
@@ -75,13 +75,10 @@
 </style>
 </head>
 <body>
-
 <div id="screen-intro" class="screen active">
-  <div>
-    <div class="badge">Formation Officine</div>
-    <h1>Contraception<br><span>Vol. 1</span></h1>
-  </div>
-  <p>Oublis de pilule, contre-indications OP, contraception d'urgence, vomissements et effets indésirables.</p>
+  <div><div class="badge">Formation Officine</div>
+  <h1>Vaccination<br><span>Jeunes Enfants – Intermédiaire</span></h1></div>
+  <p>Schémas vaccinaux détaillés : hexavalent, pneumocoque, ROR, rotavirus, méningocoques, hépatite B.</p>
   <div class="intro-stats">
     <div class="stat-pill"><strong>12</strong><span>questions</span></div>
     <div class="stat-pill"><strong>QCM</strong><span>format</span></div>
@@ -96,7 +93,7 @@
     <span class="progress-label" id="progress-label">1 / 12</span>
     <span class="score-badge" id="score-display">Score : 0</span>
   </div>
-  <div class="question-card" id="question-card">
+  <div class="question-card">
     <div class="q-meta">Question <span id="q-num">1</span> <em id="q-theme"></em></div>
     <div class="question-text" id="q-text"></div>
     <div class="options-grid" id="options-grid"></div>
@@ -127,152 +124,95 @@
 <script>
 const QUESTIONS = [
   {
-    theme: "Oubli de pilule OP",
-    text: "Une patiente a oublié son comprimé OP il y a 14 heures. Elle n'a pas eu de rapport sexuel depuis 6 jours. Que conseillez-vous ?",
-    options: [
-      "Prendre le comprimé oublié immédiatement + préservatif 7 jours",
-      "Ne rien faire, l'oubli est inférieur à 24h",
-      "Prendre une contraception d'urgence sans attendre",
-      "Sauter le comprimé oublié et continuer normalement"
-    ],
-    correct: 0,
-    explanation: "L'oubli dépasse <strong>12 heures</strong> : prendre le comprimé oublié dès que possible + <strong>préservatif 7 jours</strong>. Pas de contraception d'urgence ici car aucun rapport dans les 5 jours précédant l'oubli. Si l'oubli concerne les 7 derniers comprimés actifs, enchaîner directement avec la plaquette suivante sans placebo."
+    theme:"Hexavalent",
+    text:"Quel est le schéma de primovaccination de l'hexavalent selon le calendrier vaccinal français ?",
+    options:["3 doses à 2, 3 et 4 mois sans rappel","2 doses à 2 et 4 mois + rappel à 11 mois","2 doses à 2 et 3 mois + rappel à 12 mois","3 doses à 2, 4 et 6 mois + rappel à 18 mois"],
+    correct:1,
+    explanation:"Le schéma standard de l'hexavalent est le schéma <strong>2+1</strong> : dose à <strong>2 mois</strong>, dose à <strong>4 mois</strong>, et rappel à <strong>11 mois</strong>. Ce schéma s'applique aux nourrissons nés à terme sans facteur de risque. Pour les prématurés, un schéma 3+1 (doses à 2, 3 et 4 mois + rappel à 11 mois) est recommandé. Des rappels ultérieurs sont prévus à 6 ans (DTCaP) et 11-13 ans (dTcaP)."
   },
   {
-    theme: "Oubli de pilule OP",
-    text: "Quelles sont les 3 informations clés à recueillir systématiquement face à un oubli de pilule OP ?",
-    options: [
-      "Génération de la pilule, heure de l'oubli, poids de la patiente",
-      "Date de l'oubli, position du comprimé dans la plaquette, rapports sexuels dans les jours précédents",
-      "Date des dernières règles, nombre de plaquettes prises, traitement associé",
-      "Délai depuis l'oubli, nausées éventuelles, heure habituelle de prise"
-    ],
-    correct: 1,
-    explanation: "Les <strong>3 informations indispensables</strong> : la <strong>date et l'heure de l'oubli</strong> (délai > ou < 12h), la <strong>position du comprimé dans la plaquette</strong> (un oubli en fin de plaquette est plus à risque), et l'<strong>existence de rapports dans les 5 jours précédents</strong> (pour décider d'une contraception d'urgence)."
+    theme:"Pneumocoque",
+    text:"Quel est le schéma de vaccination anti-pneumococcique chez le nourrisson sans facteur de risque ?",
+    options:["3 doses à 2, 4 et 6 mois","2 doses à 2 et 4 mois + rappel à 11 mois","1 dose unique à 12 mois","2 doses à 3 et 5 mois + rappel à 12 mois"],
+    correct:1,
+    explanation:"Le vaccin anti-pneumococcique (Prevenar 13®) suit le même schéma <strong>2+1</strong> que l'hexavalent : doses à <strong>2 mois</strong>, <strong>4 mois</strong> et rappel à <strong>11 mois</strong>. Il est souvent co-administré avec l'hexavalent. Au-delà de 2 ans, la vaccination n'est recommandée qu'en présence de facteurs de risque."
   },
   {
-    theme: "Contre-indications OP",
-    text: "Une patiente de 38 ans, fumeuse à 20 cigarettes/jour, migraineuse avec aura, vient renouveler sa pilule OP. Quelle est votre attitude ?",
-    options: [
-      "Délivrer normalement, ces facteurs sont juste à surveiller",
-      "Délivrer en conseillant fortement l'arrêt du tabac",
-      "Refuser la délivrance et orienter vers le médecin",
-      "Proposer une pilule moins dosée en œstrogènes"
-    ],
-    correct: 2,
-    explanation: "Le <strong>tabagisme > 15 cig/jour chez une femme > 35 ans</strong> et les <strong>migraines avec aura</strong> sont chacun des <strong>contre-indications absolues</strong> aux OP. Leur association renforce l'impossibilité de délivrer. Orienter vers le prescripteur pour une alternative (microprogestatif, DIU)."
+    theme:"ROR",
+    text:"À quel âge est administrée la deuxième dose de ROR, et quel est son objectif principal ?",
+    options:["À 12 mois — pour renforcer l'immunité avant l'entrée en collectivité","Entre 16 et 18 mois — principalement pour protéger les enfants chez qui la première dose n'a pas eu d'effet (non-répondeurs)","À 24 mois — pour coïncider avec les examens médicaux obligatoires","À 6 ans — lors du rappel DTCaP"],
+    correct:1,
+    explanation:"La 2ème dose de ROR est administrée <strong>entre 16 et 18 mois</strong>. Contrairement à un rappel classique, son objectif principal est de <strong>couvrir les non-répondeurs</strong> à la 1ère dose — environ 5 à 7% des enfants ne développent pas une immunité suffisante après la 1ère injection. Elle renforce également l'immunité chez les répondeurs. L'intervalle minimum entre les deux doses est d'<strong>un mois</strong>."
   },
   {
-    theme: "Contre-indications OP",
-    text: "Combien de facteurs de risque modérés équivalent à une contre-indication absolue aux œstroprogestatifs ?",
-    options: ["1 seul suffit", "2 facteurs modérés", "3 facteurs modérés", "Cela dépend des facteurs"],
-    correct: 1,
-    explanation: "<strong>2 facteurs de risque modérés = 1 contre-indication absolue.</strong> Facteurs modérés : migraine simple, tabagisme modéré, HTA contrôlée, diabète type 2, surpoids, certaines maladies auto-immunes. À surveiller à chaque renouvellement : évolution de l'âge, nouveaux traitements, nouveaux facteurs de risque."
+    theme:"ROR",
+    text:"Quel est l'intervalle minimal à respecter entre les deux doses de ROR ?",
+    options:["2 semaines","1 mois","3 mois","6 mois"],
+    correct:1,
+    explanation:"L'intervalle minimal entre les deux doses de ROR est de <strong>1 mois (4 semaines)</strong>. En rattrapage vaccinal, les 2 doses peuvent être administrées à tout âge en respectant cet intervalle minimum, sans nécessité de sérologie préalable. Ce délai permet au système immunitaire de monter une réponse primaire suffisante avant la 2ème dose."
   },
   {
-    theme: "Contre-indications OP",
-    text: "Parmi ces situations, laquelle est une contre-indication absolue aux pilules OP ?",
-    options: [
-      "Diabète de type 2 équilibré",
-      "Surpoids (IMC 27)",
-      "Antécédent personnel de phlébite",
-      "Migraine simple sans aura"
-    ],
-    correct: 2,
-    explanation: "Un <strong>antécédent de phlébite (thrombose veineuse)</strong> est une contre-indication absolue aux OP — risque de récidive thromboembolique majeur. Les autres propositions sont des <strong>facteurs de risque modérés</strong> qui nécessitent une vigilance mais ne contre-indiquent pas seuls les OP. Rappel : embolie pulmonaire, AVC, IDM, thrombophilie sont également des CI absolues."
+    theme:"Rotavirus",
+    text:"Quelle est la différence clé entre Rotarix® et RotaTeq® en termes de nombre de doses ?",
+    options:["Rotarix® : 3 doses / RotaTeq® : 2 doses","Rotarix® : 2 doses / RotaTeq® : 3 doses","Les deux vaccins comportent 2 doses","Les deux vaccins comportent 3 doses"],
+    correct:1,
+    explanation:"<strong>Rotarix®</strong> : vaccin monovalent, <strong>2 doses</strong> à 2 et 3 mois de vie. <strong>RotaTeq®</strong> : vaccin pentavalent, <strong>3 doses</strong> à 2, 3 et 4 mois de vie. L'intervalle minimal entre chaque dose est de 4 semaines. Les deux sont remboursés et aussi efficaces, mais le schéma ne doit pas être interrompu avec un changement de vaccin en cours de route."
   },
   {
-    theme: "Contraception d'urgence",
-    text: "Une patiente se présente 60 heures après un rapport non protégé. Quelle contraception d'urgence privilégier ?",
-    options: [
-      "Lévonorgestrel — encore dans les 72h théoriques",
-      "Ulipristal — efficace jusqu'à 5 jours, recommandé en 1ère intention",
-      "Les deux sont équivalents à ce délai",
-      "Il est trop tard, seul le DIU au cuivre est possible"
-    ],
-    correct: 1,
-    explanation: "L'<strong>ulipristal</strong> est recommandé en <strong>1ère intention</strong> par les gynécologues : efficace jusqu'à <strong>5 jours (120h)</strong>, avec une efficacité supérieure au lévonorgestrel passé 72h. Le lévonorgestrel est optimal dans les <strong>12-24h</strong>. Le DIU au cuivre reste une option, surtout si contraception au long cours souhaitée ensuite."
+    theme:"Rotavirus",
+    text:"Jusqu'à quel âge maximum peut-on administrer la dernière dose de RotaTeq® ?",
+    options:["20 semaines (5 mois)","24 semaines (6 mois)","32 semaines (8 mois)","12 mois"],
+    correct:2,
+    explanation:"La dernière dose de <strong>RotaTeq®</strong> peut être administrée jusqu'à <strong>32 semaines (8 mois)</strong> de vie. Pour <strong>Rotarix®</strong>, la limite est de <strong>24 semaines (6 mois)</strong>. Ces limites sont strictes car le risque d'invagination intestinale aiguë augmente avec l'âge. La première dose ne doit pas être administrée après 12 semaines de vie."
   },
   {
-    theme: "Contraception d'urgence",
-    text: "Après la prise d'ulipristal, la patiente reprend sa pilule OP le soir même. Que lui précisez-vous ?",
-    options: [
-      "Aucune précaution, la pilule reprend son efficacité immédiatement",
-      "Utiliser une protection complémentaire pendant 12 jours ou jusqu'aux prochaines règles",
-      "Attendre les prochaines règles avant de reprendre la pilule",
-      "Doubler la dose de pilule pendant 7 jours"
-    ],
-    correct: 1,
-    explanation: "Après ulipristal, la reprise d'une contraception hormonale nécessite une <strong>protection complémentaire pendant 12 jours</strong> (ou jusqu'aux prochaines règles). L'ulipristal module les récepteurs à la progestérone : une pilule reprise trop tôt peut réduire son efficacité. Point spécifique à l'ulipristal — ne s'applique pas au lévonorgestrel. Penser aussi au <strong>dépistage des IST</strong> après un rapport non protégé."
+    theme:"Rotavirus",
+    text:"Quelle est la fenêtre d'administration de la première dose de Rotarix® ?",
+    options:["À partir de la naissance jusqu'à 2 mois","À partir de 6 semaines et au plus tard à 12 semaines (3 mois)","À partir de 2 mois sans limite d'âge supérieure","Entre 2 et 6 mois exclusivement"],
+    correct:1,
+    explanation:"La première dose de <strong>Rotarix®</strong> (et de RotaTeq®) doit être administrée <strong>à partir de 6 semaines</strong> de vie et <strong>au plus tard à 12 semaines</strong> (3 mois). Cette fenêtre étroite est liée au risque d'invagination intestinale aiguë : plus la première dose est tardive, plus le risque augmente. C'est une contre-indication définitive si la fenêtre est dépassée."
   },
   {
-    theme: "Contraception d'urgence",
-    text: "Une patiente allaitante a pris du lévonorgestrel en contraception d'urgence. Quel conseil donner pour l'allaitement ?",
-    options: [
-      "Suspendre l'allaitement 8 heures après la prise",
-      "Suspendre l'allaitement 7 jours",
-      "Aucune précaution, le lévonorgestrel est compatible avec l'allaitement sans restriction",
-      "Arrêter définitivement l'allaitement"
-    ],
-    correct: 0,
-    explanation: "Après lévonorgestrel : <strong>suspendre l'allaitement 8 heures</strong>. Après ulipristal, selon le CRAT, la suspension de 7 jours initialement recommandée n'est plus nécessaire — <strong>8 heures suffisent également</strong>. Ces données pratiques sont importantes à délivrer car elles lèvent une crainte fréquente qui peut conduire à un abandon injustifié de l'allaitement."
+    theme:"Méningocoques",
+    text:"Quel est le schéma vaccinal contre les méningocoques B et ACWY chez un nourrisson selon le calendrier 2025 ?",
+    options:["Méningocoque B : 2 et 4 mois / ACWY : 5 et 12 mois","Méningocoque B : 3, 5 et 12 mois / ACWY : 6 mois + rappel 12 mois","Méningocoque B et ACWY : schéma identique à 3, 5 et 12 mois","Méningocoque B : 2, 4 et 11 mois / ACWY : 6 mois uniquement"],
+    correct:1,
+    explanation:"Depuis janvier 2025 : <strong>Méningocoque B (Bexsero®)</strong> : doses à <strong>3 mois, 5 mois</strong> et rappel à <strong>12 mois</strong>. <strong>Méningocoque ACWY (Nimenrix®)</strong> : dose à <strong>6 mois</strong> + rappel à <strong>12 mois</strong>. Les deux vaccinations sont désormais <strong>obligatoires</strong>. Le vaccin méningocoque C seul ne fait plus l'objet de recommandations dans le calendrier vaccinal — il est remplacé par l'ACWY."
   },
   {
-    theme: "Diarrhées / Vomissements",
-    text: "Une patiente a vomi 2 heures après sa prise de pilule OP et a eu des diarrhées. Elle a eu un rapport ce matin. Quelle est la conduite à tenir ?",
-    options: [
-      "Rien — les vomissements après 1h n'affectent pas l'absorption",
-      "Comprimé supplémentaire + préservatif 7 jours + envisager contraception d'urgence",
-      "Arrêter la plaquette et attendre les prochaines règles",
-      "Uniquement un préservatif, pas besoin de comprimé supplémentaire"
-    ],
-    correct: 1,
-    explanation: "Vomissement <strong>dans les 4 heures</strong> = assimilé à un <strong>oubli de pilule</strong>. Prendre un comprimé supplémentaire + préservatif 7 jours. Rapport dans les 5 jours : envisager une <strong>contraception d'urgence</strong>. Si incident en dernière semaine : enchaîner avec la plaquette suivante. Conseil pratique : avoir une <strong>plaquette de secours</strong> à disposition."
+    theme:"Méningocoques",
+    text:"Quelle est la particularité de l'intervalle entre les doses de Bexsero® (méningocoque B) ?",
+    options:["L'intervalle est plus court que les autres vaccins : 4 semaines suffisent","Un intervalle d'au moins 2 mois est une exigence immunologique : la réponse immunitaire est meilleure avec cet espacement","Il n'y a pas de particularité, l'intervalle est librement choisi par le médecin","Bexsero® ne peut jamais être co-administré avec d'autres vaccins"],
+    correct:1,
+    explanation:"Pour Bexsero®, un intervalle d'<strong>au moins 2 mois</strong> entre les doses est une <strong>exigence immunologique documentée</strong> : les données cliniques montrent que la réponse immunitaire est significativement meilleure lorsque cet intervalle est respecté. Ce n'est pas un simple choix de calendrier, mais une contrainte pharmacologique inscrite dans les données du vaccin. C'est pourquoi le schéma est 3 mois, 5 mois et 12 mois."
   },
   {
-    theme: "Diarrhées / Vomissements",
-    text: "Une patiente sous pilule OP a eu des vomissements 5 heures après sa prise. Faut-il adapter la contraception ?",
-    options: [
-      "Oui — tout vomissement impose un comprimé supplémentaire",
-      "Non — au-delà de 4 heures, l'absorption est correcte, pas d'impact",
-      "Oui — mais uniquement si les vomissements se répètent",
-      "Non — sauf si elle est en fin de plaquette"
-    ],
-    correct: 1,
-    explanation: "Si le vomissement survient <strong>après 4 heures</strong> : l'absorption du comprimé est considérée comme correcte, <strong>pas d'impact sur l'efficacité contraceptive</strong>. Aucune mesure supplémentaire n'est nécessaire. La règle des 4 heures est le seuil clé à retenir — en dessous, on gère comme un oubli."
+    theme:"Méningocoques",
+    text:"Pourquoi recommande-t-on de prévenir les parents d'une possible fièvre élevée après la co-administration de Bexsero® avec d'autres vaccins ?",
+    options:["Bexsero® est contre-indiqué avec tous les autres vaccins","La co-administration de Bexsero® avec l'hexavalent et le pneumocoque augmente significativement le risque de fièvre élevée","Bexsero® réduit l'efficacité des autres vaccins administrés simultanément","Il n'y a pas de risque particulier, c'est une simple précaution administrative"],
+    correct:1,
+    explanation:"La co-administration de <strong>Bexsero®</strong> avec d'autres vaccins, notamment l'hexavalent et le pneumocoque, augmente significativement le risque de <strong>fièvre élevée</strong> (> 38,5°C). Une antipyrexie prophylactique (paracétamol) peut être envisagée. Ce n'est pas une contre-indication absolue, mais un point de vigilance à anticiper et à expliquer aux parents pour éviter une inquiétude inutile."
   },
   {
-    theme: "Effets indésirables OP",
-    text: "Une patiente débute une pilule OP depuis 5 semaines. Elle se plaint de spotting et de nausées. Elle veut changer de pilule. Que lui conseillez-vous ?",
-    options: [
-      "Changer de pilule immédiatement pour une mieux tolérée",
-      "Patienter jusqu'à 3 mois — période d'adaptation normale",
-      "Arrêter la pilule et passer à un DIU",
-      "Prendre la pilule à jeun et doubler si spotting"
-    ],
-    correct: 1,
-    explanation: "Les <strong>3 premiers mois</strong> sont une <strong>période d'adaptation</strong> : spotting, nausées et mastodynies sont fréquents et s'estompent souvent spontanément. Changer trop tôt est inutile. Conseils : pilule <strong>au repas ou au coucher</strong> pour les nausées, régularité des prises pour le spotting. Consulter si persistance après 3 mois. Signes d'alarme qui imposent l'arrêt : migraine avec aura, troubles visuels, signes de phlébite."
+    theme:"Haemophilus influenzae b",
+    text:"À partir de quel âge la vaccination contre l'Haemophilus influenzae b n'est-elle plus nécessaire si l'enfant n'a pas été vacciné ?",
+    options:["12 mois","2 ans","5 ans","6 ans"],
+    correct:2,
+    explanation:"Au-delà de <strong>5 ans</strong>, la vaccination contre l'Haemophilus influenzae b (Hib) n'est plus nécessaire chez un enfant non vacciné : l'immunité naturelle acquise par les infections asymptomatiques répétées assure généralement une protection suffisante. Avant 5 ans, un rattrapage est recommandé selon l'âge et les doses déjà reçues."
   },
   {
-    theme: "Effets indésirables OP",
-    text: "Parmi ces effets indésirables signalés sous pilule OP, lequel impose l'arrêt immédiat et une consultation médicale ?",
-    options: [
-      "Spotting en milieu de cycle",
-      "Légère augmentation du volume des seins",
-      "Nausées matinales les premières semaines",
-      "Apparition d'une migraine avec aura"
-    ],
-    correct: 3,
-    explanation: "La <strong>migraine avec aura</strong> sous pilule OP est un signal d'alarme grave : elle devient une <strong>contre-indication absolue</strong> et impose l'arrêt immédiat. Autres signaux graves : troubles visuels, douleur/rougeur/chaleur d'une jambe (signe de phlébite). Le spotting, les mastodynies légères et les nausées sont des effets courants de la période d'adaptation, sans danger immédiat."
+    theme:"Hépatite B",
+    text:"Les parents d'un enfant de 5 ans non vacciné contre l'hépatite B vous consultent. Quel schéma de rattrapage leur expliquez-vous ?",
+    options:["1 dose unique suffit après 2 ans","2 doses espacées de 6 mois","3 doses selon le schéma 0, 1 et 6 mois","4 doses selon le schéma nourrisson habituel"],
+    correct:2,
+    explanation:"Chez un enfant non vacciné de plus de 2 ans, le rattrapage hépatite B suit le schéma classique <strong>3 doses : J0, M1 et M6</strong>. La protection complète n'est acquise qu'après les 3 doses. Le schéma nourrisson (doses incluses dans l'hexavalent à 2, 4 et 11 mois) ne s'applique plus après 2 ans."
   }
 ];
 
 let current=0,score=0,userAnswers=[];
-
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
 function startQuiz(){current=0;score=0;userAnswers=[];showScreen('screen-quiz');prepareQuiz();
   renderQuestion()}
-
 
 // ── RANDOMIZATION ──
 let shuffledQuestions = [];
@@ -349,7 +289,6 @@ function selectAnswer(chosenOrigIndex) {
 }
 
 function nextQuestion(){current++;if(current>=QUESTIONS.length)showResults();else renderQuestion()}
-
 function showResults(){
   showScreen('screen-results');
   const total=QUESTIONS.length,pct=Math.round((score/total)*100);
@@ -357,21 +296,12 @@ function showResults(){
   document.getElementById('res-pct').textContent=`${pct}%`;
   document.getElementById('result-circle').style.setProperty('--pct',pct+'%');
   const t=['🔁 À retravailler','📚 Des lacunes à combler','👍 Très bon niveau','🏆 Expertise confirmée !'];
-  const m=['Les fondamentaux ne sont pas encore acquis. Recommencez après révision.','Niveau intermédiaire. Certains points clés méritent une révision.','Bonne maîtrise. Relisez les points manqués pour consolider.','Résultat parfait. Votre conseil en contraception est solide.'];
+  const m=['Les schémas vaccinaux ne sont pas encore maîtrisés. Recommencez après révision.','Niveau intermédiaire. Certains schémas méritent une révision.','Bonne maîtrise des schémas. Relisez les points manqués.','Parfait. Vous maîtrisez les schémas vaccinaux du nourrisson.'];
   const idx=pct===100?3:pct>=75?2:pct>=50?1:0;
-  document.getElementById('res-title').textContent=t[idx];
-  document.getElementById('res-msg').textContent=m[idx];
-  const list=document.getElementById('review-list');
-  list.innerHTML='';
-  shuffledQuestions.forEach((q,i)=>{
-    const ok=userAnswers[i]===q.correct;
-    const item=document.createElement('div');
-    item.className='review-item';
-    item.innerHTML=`<span class="review-icon">${ok?'✅':'❌'}</span><div><div class="review-q">${q.text}</div>${!ok?`<div class="review-ans">Bonne réponse : <strong>${q.options[q.correct]}</strong></div>`:''}</div>`;
-    list.appendChild(item);
-  });
+  document.getElementById('res-title').textContent=t[idx];document.getElementById('res-msg').textContent=m[idx];
+  const list=document.getElementById('review-list');list.innerHTML='';
+  shuffledQuestions.forEach((q,i)=>{const ok=userAnswers[i]===q.correct;const item=document.createElement('div');item.className='review-item';item.innerHTML=`<span class="review-icon">${ok?'✅':'❌'}</span><div><div class="review-q">${q.text}</div>${!ok?`<div class="review-ans">Bonne réponse : <strong>${q.options[q.correct]}</strong></div>`:''}</div>`;list.appendChild(item)});
 }
-
 function restartQuiz(){startQuiz()}
 </script>
 </body>

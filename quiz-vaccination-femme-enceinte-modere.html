@@ -211,32 +211,83 @@ const QUESTIONS = [
 
 let current=0,score=0,userAnswers=[];
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
-function startQuiz(){current=0;score=0;userAnswers=[];showScreen('screen-quiz');renderQuestion()}
-function renderQuestion(){
-  const q=QUESTIONS[current],total=QUESTIONS.length;
-  document.getElementById('progress-bar').style.width=((current/total)*100)+'%';
-  document.getElementById('progress-label').textContent=`${current+1} / ${total}`;
-  document.getElementById('score-display').textContent=`Score : ${score}`;
-  document.getElementById('q-num').textContent=current+1;
-  document.getElementById('q-theme').textContent=q.theme;
-  document.getElementById('q-text').textContent=q.text;
-  const grid=document.getElementById('options-grid');grid.innerHTML='';
-  ['A','B','C','D'].forEach((l,i)=>{const btn=document.createElement('button');btn.className='option-btn';btn.innerHTML=`<span class="opt-letter">${l}</span><span>${q.options[i]}</span>`;btn.onclick=()=>selectAnswer(i);grid.appendChild(btn)});
-  document.getElementById('feedback-box').className='feedback-box';
-  document.getElementById('next-btn').className='next-btn';
+function startQuiz(){current=0;score=0;userAnswers=[];showScreen('screen-quiz');prepareQuiz();
+  renderQuestion()}
+
+// ── RANDOMIZATION ──
+let shuffledQuestions = [];
+let shuffledOptions = []; // per question: array of {text, origIndex}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
-function selectAnswer(chosen){
-  const q=QUESTIONS[current];
-  document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
-  const ok=chosen===q.correct;if(ok)score++;userAnswers[current]=chosen;
-  document.querySelectorAll('.option-btn').forEach((btn,i)=>{if(i===q.correct)btn.classList.add('correct');else if(i===chosen&&!ok)btn.classList.add('wrong');else btn.classList.add('dimmed')});
-  const fb=document.getElementById('feedback-box');
-  document.getElementById('fb-title').textContent=ok?'✓ Bonne réponse !':'✗ Pas tout à fait…';
-  document.getElementById('fb-body').innerHTML=q.explanation;
-  fb.className='feedback-box show '+(ok?'correct-fb':'wrong-fb');
-  const nb=document.getElementById('next-btn');nb.className='next-btn show';
-  nb.textContent=current<QUESTIONS.length-1?'Question suivante →':'Voir mes résultats →';
+
+function prepareQuiz() {
+  shuffledQuestions = shuffle(QUESTIONS);
+  shuffledOptions = shuffledQuestions.map(q => {
+    const opts = q.options.map((text, origIndex) => ({ text, origIndex }));
+    return shuffle(opts);
+  });
 }
+
+function renderQuestion() {
+  const q = shuffledQuestions[current];
+  const opts = shuffledOptions[current];
+  const total = shuffledQuestions.length;
+
+  document.getElementById('progress-bar').style.width = ((current / total) * 100) + '%';
+  document.getElementById('progress-label').textContent = `${current + 1} / ${total}`;
+  document.getElementById('score-display').textContent = `Score : ${score}`;
+  document.getElementById('q-num').textContent = current + 1;
+  document.getElementById('q-theme').textContent = q.theme;
+  document.getElementById('q-text').textContent = q.text;
+
+  const grid = document.getElementById('options-grid');
+  grid.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+  opts.forEach((opt, displayIndex) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="opt-letter">${letters[displayIndex]}</span><span>${opt.text}</span>`;
+    btn.onclick = () => selectAnswer(opt.origIndex);
+    grid.appendChild(btn);
+  });
+
+  document.getElementById('feedback-box').className = 'feedback-box';
+  document.getElementById('next-btn').className = 'next-btn';
+}
+
+function selectAnswer(chosenOrigIndex) {
+  const q = shuffledQuestions[current];
+  const opts = shuffledOptions[current];
+  document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+
+  const isCorrect = chosenOrigIndex === q.correct;
+  if (isCorrect) score++;
+  userAnswers[current] = chosenOrigIndex;
+
+  document.querySelectorAll('.option-btn').forEach((btn, displayIndex) => {
+    const origIndex = opts[displayIndex].origIndex;
+    if (origIndex === q.correct) btn.classList.add('correct');
+    else if (origIndex === chosenOrigIndex && !isCorrect) btn.classList.add('wrong');
+    else btn.classList.add('dimmed');
+  });
+
+  const fb = document.getElementById('feedback-box');
+  document.getElementById('fb-title').textContent = isCorrect ? '✓ Bonne réponse !' : '✗ Pas tout à fait…';
+  document.getElementById('fb-body').innerHTML = q.explanation;
+  fb.className = 'feedback-box show ' + (isCorrect ? 'correct-fb' : 'wrong-fb');
+
+  const nb = document.getElementById('next-btn');
+  nb.className = 'next-btn show';
+  nb.textContent = current < shuffledQuestions.length - 1 ? 'Question suivante →' : 'Voir mes résultats →';
+}
+
 function nextQuestion(){current++;if(current>=QUESTIONS.length)showResults();else renderQuestion()}
 function showResults(){
   showScreen('screen-results');
@@ -249,7 +300,7 @@ function showResults(){
   const idx=pct===100?3:pct>=75?2:pct>=50?1:0;
   document.getElementById('res-title').textContent=t[idx];document.getElementById('res-msg').textContent=m[idx];
   const list=document.getElementById('review-list');list.innerHTML='';
-  QUESTIONS.forEach((q,i)=>{const ok=userAnswers[i]===q.correct;const item=document.createElement('div');item.className='review-item';item.innerHTML=`<span class="review-icon">${ok?'✅':'❌'}</span><div><div class="review-q">${q.text}</div>${!ok?`<div class="review-ans">Bonne réponse : <strong>${q.options[q.correct]}</strong></div>`:''}</div>`;list.appendChild(item)});
+  shuffledQuestions.forEach((q,i)=>{const ok=userAnswers[i]===q.correct;const item=document.createElement('div');item.className='review-item';item.innerHTML=`<span class="review-icon">${ok?'✅':'❌'}</span><div><div class="review-q">${q.text}</div>${!ok?`<div class="review-ans">Bonne réponse : <strong>${q.options[q.correct]}</strong></div>`:''}</div>`;list.appendChild(item)});
 }
 function restartQuiz(){startQuiz()}
 </script>

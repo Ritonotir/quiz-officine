@@ -422,12 +422,37 @@ function showScreen(id) {
 function startQuiz() {
   current = 0; score = 0; userAnswers = [];
   showScreen('screen-quiz');
+  prepareQuiz();
   renderQuestion();
 }
 
+
+// ── RANDOMIZATION ──
+let shuffledQuestions = [];
+let shuffledOptions = []; // per question: array of {text, origIndex}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function prepareQuiz() {
+  shuffledQuestions = shuffle(QUESTIONS);
+  shuffledOptions = shuffledQuestions.map(q => {
+    const opts = q.options.map((text, origIndex) => ({ text, origIndex }));
+    return shuffle(opts);
+  });
+}
+
 function renderQuestion() {
-  const q = QUESTIONS[current];
-  const total = QUESTIONS.length;
+  const q = shuffledQuestions[current];
+  const opts = shuffledOptions[current];
+  const total = shuffledQuestions.length;
+
   document.getElementById('progress-bar').style.width = ((current / total) * 100) + '%';
   document.getElementById('progress-label').textContent = `${current + 1} / ${total}`;
   document.getElementById('score-display').textContent = `Score : ${score}`;
@@ -437,11 +462,12 @@ function renderQuestion() {
 
   const grid = document.getElementById('options-grid');
   grid.innerHTML = '';
-  ['A','B','C','D'].forEach((l, i) => {
+  const letters = ['A', 'B', 'C', 'D'];
+  opts.forEach((opt, displayIndex) => {
     const btn = document.createElement('button');
     btn.className = 'option-btn';
-    btn.innerHTML = `<span class="opt-letter">${l}</span><span>${q.options[i]}</span>`;
-    btn.onclick = () => selectAnswer(i);
+    btn.innerHTML = `<span class="opt-letter">${letters[displayIndex]}</span><span>${opt.text}</span>`;
+    btn.onclick = () => selectAnswer(opt.origIndex);
     grid.appendChild(btn);
   });
 
@@ -449,17 +475,19 @@ function renderQuestion() {
   document.getElementById('next-btn').className = 'next-btn';
 }
 
-function selectAnswer(chosen) {
-  const q = QUESTIONS[current];
-  const buttons = document.querySelectorAll('.option-btn');
-  buttons.forEach(b => b.disabled = true);
-  const isCorrect = chosen === q.correct;
-  if (isCorrect) score++;
-  userAnswers[current] = chosen;
+function selectAnswer(chosenOrigIndex) {
+  const q = shuffledQuestions[current];
+  const opts = shuffledOptions[current];
+  document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
 
-  buttons.forEach((btn, i) => {
-    if (i === q.correct) btn.classList.add('correct');
-    else if (i === chosen && !isCorrect) btn.classList.add('wrong');
+  const isCorrect = chosenOrigIndex === q.correct;
+  if (isCorrect) score++;
+  userAnswers[current] = chosenOrigIndex;
+
+  document.querySelectorAll('.option-btn').forEach((btn, displayIndex) => {
+    const origIndex = opts[displayIndex].origIndex;
+    if (origIndex === q.correct) btn.classList.add('correct');
+    else if (origIndex === chosenOrigIndex && !isCorrect) btn.classList.add('wrong');
     else btn.classList.add('dimmed');
   });
 
@@ -470,12 +498,12 @@ function selectAnswer(chosen) {
 
   const nb = document.getElementById('next-btn');
   nb.className = 'next-btn show';
-  nb.textContent = current < QUESTIONS.length - 1 ? 'Question suivante →' : 'Voir mes résultats →';
+  nb.textContent = current < shuffledQuestions.length - 1 ? 'Question suivante →' : 'Voir mes résultats →';
 }
 
 function nextQuestion() {
   current++;
-  if (current >= QUESTIONS.length) showResults();
+  if (current >= shuffledQuestions.length) showResults();
   else renderQuestion();
 }
 
@@ -500,7 +528,7 @@ function showResults() {
 
   const list = document.getElementById('review-list');
   list.innerHTML = '';
-  QUESTIONS.forEach((q, i) => {
+  shuffledQuestions.forEach((q, i) => {
     const ok = userAnswers[i] === q.correct;
     const item = document.createElement('div');
     item.className = 'review-item';
