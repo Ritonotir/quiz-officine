@@ -7,226 +7,96 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --green: #1a9e6e;
-    --green-dark: #0f7a53;
-    --green-light: #e6f7f1;
-    --gold: #f5a623;
-    --gold-light: #fef9ee;
-    --bg: #f4f6f3;
-    --text: #1a1f1c;
-    --muted: #6b7672;
-    --border: #dde5e0;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 40px 20px 60px;
-  }
+  :root{--green:#1a9e6e;--green-dark:#0f7a53;--green-light:#e6f7f1;--gold:#f5a623;--gold-light:#fef9ee;--bg:#f4f6f3;--text:#1a1f1c;--muted:#6b7672;--border:#dde5e0;--blue:#4285f4;--blue-light:#e8f0fe}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:40px 20px 60px}
 
-  /* ── LAYOUT ── */
-  .page-layout {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 280px;
-    gap: 32px;
-    align-items: start;
-  }
-  @media(max-width:820px){
-    .page-layout { grid-template-columns: 1fr; }
-    .sidebar { order: -1; }
-  }
+  .page-layout{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 280px;gap:32px;align-items:start}
+  @media(max-width:820px){.page-layout{grid-template-columns:1fr}.sidebar{order:-1}}
 
-  /* ── HEADER ── */
-  header {
-    max-width: 1100px;
-    margin: 0 auto 40px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  .header-left .badge {
-    display: inline-block;
-    background: var(--green);
-    color: white;
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 5px 12px;
-    border-radius: 100px;
-    margin-bottom: 10px;
-  }
-  header h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(1.8rem, 5vw, 2.6rem);
-    font-weight: 800;
-    line-height: 1.1;
-  }
-  header h1 span { color: var(--green); }
-  .header-right { text-align: right; }
-  #quiz-count {
-    font-family: 'Syne', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: var(--green);
-    line-height: 1;
-  }
-  .header-right p { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+  header{max-width:1100px;margin:0 auto 40px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .header-left .badge{display:inline-block;background:var(--green);color:white;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:10px}
+  header h1{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,5vw,2.6rem);font-weight:800;line-height:1.1}
+  header h1 span{color:var(--green)}
+  .header-right{text-align:right}
+  #quiz-count{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:var(--green);line-height:1}
+  .header-right p{font-size:.82rem;color:var(--muted);margin-top:2px}
 
-  /* ── CHALLENGE CARD ── */
-  .challenge-card {
-    background: linear-gradient(135deg, #1a1f1c 0%, #2d3530 100%);
-    border-radius: 20px;
-    padding: 28px;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    position: relative;
-    overflow: hidden;
-  }
-  .challenge-card::before {
-    content: '';
-    position: absolute;
-    top: -30px; right: -30px;
-    width: 160px; height: 160px;
-    background: radial-gradient(circle, rgba(245,166,35,0.15) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-  .challenge-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
-  .challenge-icon { font-size: 3rem; flex-shrink: 0; filter: drop-shadow(0 2px 8px rgba(245,166,35,0.4)); }
-  .challenge-info { flex: 1; }
-  .challenge-badge {
-    display: inline-block;
-    background: var(--gold);
-    color: white;
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 100px;
-    margin-bottom: 8px;
-  }
-  .challenge-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: white;
-    line-height: 1.2;
-    margin-bottom: 6px;
-  }
-  .challenge-sub { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-bottom: 10px; }
-  .winner-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(245,166,35,0.15);
-    border: 1px solid rgba(245,166,35,0.3);
-    border-radius: 8px;
-    padding: 5px 10px;
-    font-size: 0.78rem;
-    color: var(--gold);
-    font-weight: 500;
-  }
-  .challenge-arrow { color: var(--gold); font-size: 1.5rem; flex-shrink: 0; }
+  /* Challenge card */
+  .challenge-card{background:linear-gradient(135deg,#1a1f1c 0%,#2d3530 100%);border-radius:20px;padding:28px;margin-bottom:16px;display:flex;align-items:center;gap:24px;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,0,0,.15);position:relative;overflow:hidden}
+  .challenge-card::before{content:'';position:absolute;top:-30px;right:-30px;width:160px;height:160px;background:radial-gradient(circle,rgba(245,166,35,.15) 0%,transparent 70%);border-radius:50%}
+  .challenge-card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.2)}
+  .challenge-icon{font-size:3rem;flex-shrink:0;filter:drop-shadow(0 2px 8px rgba(245,166,35,.4))}
+  .challenge-info{flex:1}
+  .challenge-badge{display:inline-block;background:var(--gold);color:white;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px;margin-bottom:8px}
+  .challenge-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:white;line-height:1.2;margin-bottom:6px}
+  .challenge-sub{font-size:.82rem;color:rgba(255,255,255,.6);margin-bottom:10px}
+  .winner-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);border-radius:8px;padding:5px 10px;font-size:.78rem;color:var(--gold);font-weight:500}
+  .challenge-arrow{color:var(--gold);font-size:1.5rem;flex-shrink:0}
 
-  /* ── FILTERS ── */
-  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-  .filter-btn {
-    background: white;
-    border: 1.5px solid var(--border);
-    border-radius: 100px;
-    padding: 7px 16px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all 0.15s;
-    color: var(--muted);
-    font-weight: 500;
-  }
-  .filter-btn:hover, .filter-btn.active { background: var(--green); border-color: var(--green); color: white; }
+  /* Filters */
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+  .filter-btn{background:white;border:1.5px solid var(--border);border-radius:100px;padding:7px 16px;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:all .15s;color:var(--muted);font-weight:500}
+  .filter-btn:hover,.filter-btn.active{background:var(--green);border-color:var(--green);color:white}
 
-  /* ── QUIZ GRID ── */
-  #quiz-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 14px;
-  }
-  .quiz-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 22px;
-    text-decoration: none;
-    color: var(--text);
-    transition: all 0.2s;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    animation: fadeUp 0.4s ease both;
-  }
-  .quiz-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,158,110,0.12); }
-  .card-top { display: flex; justify-content: space-between; align-items: flex-start; }
-  .card-emoji { font-size: 1.8rem; line-height: 1; }
-  .card-theme {
-    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
-    background: var(--green-light); color: var(--green-dark); padding: 3px 8px; border-radius: 100px;
-  }
-  .card-title { font-family: 'Syne', sans-serif; font-size: 0.98rem; font-weight: 700; line-height: 1.3; }
-  .card-meta { display: flex; gap: 10px; margin-top: auto; }
-  .meta-item { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; color: var(--muted); }
-  .meta-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
-  .diff-facile { background: #27ae60; }
-  .diff-intermédiaire { background: var(--green); }
-  .diff-avancé { background: #e67e22; }
-  .card-arrow {
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 0.8rem; font-weight: 500; color: var(--green);
-    border-top: 1px solid var(--border); padding-top: 10px; margin-top: 4px;
-  }
-  #empty-state { display: none; text-align: center; padding: 60px 20px; color: var(--muted); }
+  /* Quiz grid */
+  #quiz-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+  .quiz-card{background:white;border:1px solid var(--border);border-radius:18px;padding:22px;text-decoration:none;color:var(--text);transition:all .2s;display:flex;flex-direction:column;gap:12px;animation:fadeUp .4s ease both}
+  .quiz-card:hover{border-color:var(--green);transform:translateY(-3px);box-shadow:0 8px 24px rgba(26,158,110,.12)}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start}
+  .card-emoji{font-size:1.8rem;line-height:1}
+  .card-theme{font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;background:var(--green-light);color:var(--green-dark);padding:3px 8px;border-radius:100px}
+  .card-title{font-family:'Syne',sans-serif;font-size:.98rem;font-weight:700;line-height:1.3}
+  .card-meta{display:flex;gap:10px;margin-top:auto}
+  .meta-item{display:flex;align-items:center;gap:5px;font-size:.78rem;color:var(--muted)}
+  .meta-dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0}
+  .diff-facile{background:#27ae60}
+  .diff-intermédiaire{background:var(--green)}
+  .diff-avancé{background:#e67e22}
+  .diff-tous\ niveaux{background:var(--blue)}
+  .card-arrow{display:flex;align-items:center;justify-content:space-between;font-size:.8rem;font-weight:500;color:var(--green);border-top:1px solid var(--border);padding-top:10px;margin-top:4px}
+  #empty-state{display:none;text-align:center;padding:60px 20px;color:var(--muted)}
 
-  /* ── SIDEBAR ── */
-  .sidebar { display: flex; flex-direction: column; gap: 20px; }
-  .lb-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 20px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-  }
-  .lb-card h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1rem; font-weight: 800;
-    margin-bottom: 4px;
-  }
-  .lb-week { font-size: 0.75rem; color: var(--muted); margin-bottom: 16px; }
-  .lb-entry {
-    display: flex; align-items: center; gap: 10px;
-    padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem;
-  }
-  .lb-entry:last-child { border-bottom: none; }
-  .lb-rank { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; width: 24px; text-align: center; flex-shrink: 0; }
-  .lb-rank.gold { color: #f5a623; }
-  .lb-rank.silver { color: #8a9ba8; }
-  .lb-rank.bronze { color: #c0834e; }
-  .lb-pseudo { flex: 1; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .lb-score { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--gold); font-size: 0.88rem; }
-  .lb-time { font-size: 0.72rem; color: var(--muted); }
-  .lb-empty { font-size: 0.85rem; color: var(--muted); text-align: center; padding: 16px 0; line-height: 1.6; }
+  /* Sidebar */
+  .sidebar{display:flex;flex-direction:column;gap:16px}
 
-  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  /* Leaderboard card */
+  .lb-card{background:white;border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+  .lb-card h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;margin-bottom:4px}
+  .lb-week{font-size:.75rem;color:var(--muted);margin-bottom:16px}
+  .lb-entry{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:.85rem}
+  .lb-entry:last-child{border-bottom:none}
+  .lb-rank{font-family:'Syne',sans-serif;font-weight:800;font-size:.9rem;width:24px;text-align:center;flex-shrink:0}
+  .lb-rank.gold{color:#f5a623}.lb-rank.silver{color:#8a9ba8}.lb-rank.bronze{color:#c0834e}
+  .lb-pseudo{flex:1;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .lb-score{font-family:'Syne',sans-serif;font-weight:700;color:var(--gold);font-size:.88rem}
+  .lb-time{font-size:.72rem;color:var(--muted)}
+  .lb-empty{font-size:.85rem;color:var(--muted);text-align:center;padding:16px 0;line-height:1.6}
+
+  /* Flux card */
+  .flux-card{background:white;border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+  .flux-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+  .flux-card h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800}
+  .flux-date{font-size:.75rem;color:var(--muted);margin-bottom:14px}
+  .flux-planning-link{font-size:.75rem;color:var(--green);font-weight:500;text-decoration:none}
+  .flux-planning-link:hover{text-decoration:underline}
+
+  .flux-slot{margin-bottom:10px}
+  .flux-slot:last-child{margin-bottom:0}
+  .flux-slot-label{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+  .flux-slot-row{display:flex;align-items:center;gap:8px}
+  .flux-person{flex:1;background:var(--green-light);border:1px solid var(--border);border-radius:10px;padding:8px 12px;font-size:.9rem;font-weight:500;color:var(--green-dark);display:flex;align-items:center;justify-content:space-between}
+  .flux-person.modified{background:#fff3cd;border-color:var(--gold);color:#7a5000}
+  .flux-person .mod-badge{font-size:.65rem;background:var(--gold);color:white;padding:1px 5px;border-radius:4px;font-weight:700}
+  .flux-nav{display:flex;gap:4px}
+  .flux-nav-btn{background:white;border:1.5px solid var(--border);border-radius:8px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:.9rem;cursor:pointer;transition:all .15s;color:var(--muted)}
+  .flux-nav-btn:hover:not(:disabled){border-color:var(--green);color:var(--green);background:var(--green-light)}
+  .flux-nav-btn.back:hover:not(:disabled){border-color:var(--gold);color:var(--gold);background:#fff3cd}
+  .flux-nav-btn:disabled{opacity:.3;cursor:default}
+  .flux-loading{font-size:.85rem;color:var(--muted);text-align:center;padding:16px 0}
+  .flux-unavailable{font-size:.82rem;color:var(--muted);text-align:center;padding:12px 0;line-height:1.6}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
@@ -243,11 +113,8 @@
 </header>
 
 <div class="page-layout">
-
-  <!-- ── MAIN CONTENT ── -->
   <div class="main-content">
 
-    <!-- Challenge card -->
     <a class="challenge-card" href="quiz-challenge.html">
       <div class="challenge-icon">⚡</div>
       <div class="challenge-info">
@@ -259,165 +126,274 @@
       <div class="challenge-arrow">→</div>
     </a>
 
-    <!-- Filters -->
     <div class="filters" id="filters"></div>
-
-    <!-- Grid -->
     <div id="quiz-grid"></div>
-    <div id="empty-state">
-      <div style="font-size:2rem">🔍</div>
-      <p>Aucun quiz dans cette catégorie.</p>
-    </div>
+    <div id="empty-state"><div style="font-size:2rem">🔍</div><p>Aucun quiz dans cette catégorie.</p></div>
   </div>
 
-  <!-- ── SIDEBAR ── -->
   <div class="sidebar">
+
+    <!-- Leaderboard -->
     <div class="lb-card">
       <h3>🏆 Classement</h3>
       <div class="lb-week" id="lb-week">Semaine en cours</div>
-      <div id="lb-list">
-        <div class="lb-empty">Chargement…</div>
-      </div>
+      <div id="lb-list"><div class="lb-empty">Chargement…</div></div>
     </div>
+
+    <!-- Flux widget (controlled by FLUX_VISIBLE) -->
+    <div class="flux-card" id="flux-card" style="display:none">
+      <div class="flux-card-header">
+        <h3>🔄 Flux du jour</h3>
+        <a class="flux-planning-link" href="flux-planning.html">Planning complet →</a>
+      </div>
+      <div class="flux-date" id="flux-date">—</div>
+      <div id="flux-content"><div class="flux-loading">Chargement…</div></div>
+    </div>
+
   </div>
 </div>
 
 <script>
 // ══════════════════════════════════════════════════════
-// CONFIG JSONBin — remplacer après création sur jsonbin.io
-const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/69e8731aaaba882197256035';
-const JSONBIN_KEY = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
+// CONFIG
+const JSONBIN_URL      = 'https://api.jsonbin.io/v3/b/69e8731aaaba882197256035';
+const JSONBIN_URL_FLUX = 'https://api.jsonbin.io/v3/b/VOTRE_BIN_ID_FLUX';
+const JSONBIN_KEY      = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
+
+const FLUX_VISIBLE         = true;   // ← mettre false pour masquer la vignette flux
+const CHALLENGE_DISPENSE   = false;  // ← mettre true pour activer la dispense du vainqueur
 // ══════════════════════════════════════════════════════
 
-let allQuizzes = [];
+const PEOPLE = ['Antho','Cha R','Cha M','Georges','Nico','Anaïs A','Anaïs B','Ines','Cynthia','Clem','Marina','Fabienne','Nath'];
+const SLOTS = ['am','pm'];
+const SLOT_LABELS = {am:'Matin', pm:'Après-midi'};
 
-// ── Load quiz list ──
-async function loadQuizzes() {
-  try {
-    const res = await fetch('quizzes.json');
-    allQuizzes = await res.json();
-    document.getElementById('quiz-count').textContent = allQuizzes.length;
-    buildFilters();
-    renderCards(allQuizzes);
-  } catch(e) {}
+let allQuizzes=[], fluxData=null;
+let undoStack={};
+
+// ── Week helpers ──
+function getWeekKey(offsetWeeks=0){
+  const now=new Date();
+  const d=new Date(Date.UTC(now.getFullYear(),now.getMonth(),now.getDate()-offsetWeeks*7));
+  const day=d.getUTCDay()||7;
+  d.setUTCDate(d.getUTCDate()+4-day);
+  const ys=new Date(Date.UTC(d.getUTCFullYear(),0,1));
+  const w=Math.ceil((((d-ys)/86400000)+1)/7);
+  return d.getUTCFullYear()+'-W'+String(w).padStart(2,'0');
 }
 
-function buildFilters() {
-  const themes = ['tous', ...new Set(allQuizzes.map(q => q.theme))];
-  const el = document.getElementById('filters');
-  el.innerHTML = '';
-  themes.forEach(t => {
-    const btn = document.createElement('button');
-    btn.className = 'filter-btn' + (t === 'tous' ? ' active' : '');
-    btn.textContent = t === 'tous' ? 'Tous' : t;
-    btn.onclick = () => filterBy(t, btn);
-    el.appendChild(btn);
+function dateStr(d){return d.toISOString().slice(0,10)}
+function todayStr(){return dateStr(new Date())}
+
+// ── Load quizzes ──
+async function loadQuizzes(){
+  try{
+    const res=await fetch('quizzes.json');
+    allQuizzes=await res.json();
+    document.getElementById('quiz-count').textContent=allQuizzes.length;
+    buildFilters(); renderCards(allQuizzes);
+  }catch(e){}
+}
+function buildFilters(){
+  const themes=['tous',...new Set(allQuizzes.map(q=>q.theme))];
+  const el=document.getElementById('filters'); el.innerHTML='';
+  themes.forEach(t=>{
+    const btn=document.createElement('button');
+    btn.className='filter-btn'+(t==='tous'?' active':'');
+    btn.textContent=t==='tous'?'Tous':t;
+    btn.onclick=()=>filterBy(t,btn); el.appendChild(btn);
   });
 }
-
-function filterBy(theme, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+function filterBy(theme,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  const filtered = theme === 'tous' ? allQuizzes : allQuizzes.filter(q => q.theme === theme);
-  renderCards(filtered);
+  renderCards(theme==='tous'?allQuizzes:allQuizzes.filter(q=>q.theme===theme));
 }
-
-function renderCards(list) {
-  const grid = document.getElementById('quiz-grid');
-  const empty = document.getElementById('empty-state');
-  if (!list.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
-  grid.innerHTML = '';
-  list.forEach((q, i) => {
-    const card = document.createElement('a');
-    card.href = q.fichier;
-    card.className = 'quiz-card';
-    card.style.animationDelay = (i * 0.04) + 's';
-    const diff = (q.difficulte || 'Intermédiaire').toLowerCase();
-    card.innerHTML = `
-      <div class="card-top">
-        <span class="card-emoji">${q.emoji || '📋'}</span>
-        <span class="card-theme">${q.theme || ''}</span>
-      </div>
+function renderCards(list){
+  const grid=document.getElementById('quiz-grid');
+  const empty=document.getElementById('empty-state');
+  if(!list.length){grid.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none'; grid.innerHTML='';
+  list.forEach((q,i)=>{
+    const card=document.createElement('a'); card.href=q.fichier; card.className='quiz-card';
+    card.style.animationDelay=(i*.04)+'s';
+    const diff=(q.difficulte||'Intermédiaire').toLowerCase();
+    card.innerHTML=`<div class="card-top"><span class="card-emoji">${q.emoji||'📋'}</span><span class="card-theme">${q.theme||''}</span></div>
       <div class="card-title">${q.titre}</div>
-      <div class="card-meta">
-        <div class="meta-item"><div class="meta-dot diff-${diff}"></div>${q.difficulte || 'Intermédiaire'}</div>
-        <div class="meta-item"><div class="meta-dot"></div>${q.questions || '?'} questions</div>
-      </div>
+      <div class="card-meta"><div class="meta-item"><div class="meta-dot diff-${diff}"></div>${q.difficulte||'Intermédiaire'}</div>
+      <div class="meta-item"><div class="meta-dot"></div>${q.questions||'?'} questions</div></div>
       <div class="card-arrow"><span>Commencer</span><span>→</span></div>`;
     grid.appendChild(card);
   });
 }
 
-// ── Week helpers ──
-function getWeekKey(offsetWeeks = 0) {
-  const now = new Date();
-  const d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate() - offsetWeeks * 7));
-  const day = d.getUTCDay() || 7;
-  d.setUTCDate(d.getUTCDate() + 4 - day);
-  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  const week = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
-  return `${d.getUTCFullYear()}-W${String(week).padStart(2,'0')}`;
-}
+// ── Leaderboard ──
+async function loadLeaderboard(){
+  const weekKey=getWeekKey(0), prevKey=getWeekKey(1);
+  document.getElementById('lb-week').textContent='Semaine '+weekKey;
+  try{
+    const r=await fetch(JSONBIN_URL+'/latest',{headers:{'X-Master-Key':JSONBIN_KEY}});
+    if(!r.ok) throw new Error();
+    const d=await r.json(); const scores=d.record?.scores||[];
+    const thisWeek=scores.filter(s=>s.week===weekKey).sort((a,b)=>b.score-a.score||a.time-b.time);
+    const prevWinner=scores.filter(s=>s.week===prevKey).sort((a,b)=>b.score-a.score||a.time-b.time)[0];
+    const tag=document.getElementById('winner-tag');
+    tag.textContent=prevWinner?'🏆 Vainqueur S-1 : '+prevWinner.pseudo+' — '+prevWinner.score+' pts':'🏆 Soyez le premier vainqueur !';
 
-// ── Load leaderboard ──
-async function loadLeaderboard() {
-  const weekKey = getWeekKey(0);
-  const prevKey = getWeekKey(1);
-  document.getElementById('lb-week').textContent = `Semaine ${weekKey}`;
-
-  try {
-    const r = await fetch(JSONBIN_URL + '/latest', {
-      headers: { 'X-Master-Key': JSONBIN_KEY }
-    });
-    if (!r.ok) throw new Error('fetch failed');
-    const d = await r.json();
-    const scores = d.record?.scores || [];
-
-    // Current week — sorted by score desc, then total time asc (tiebreak)
-    const thisWeek = scores
-      .filter(s => s.week === weekKey)
-      .sort((a, b) => b.score - a.score || a.time - b.time);
-
-    // Previous week winner
-    const prevWinner = scores
-      .filter(s => s.week === prevKey)
-      .sort((a, b) => b.score - a.score || a.time - b.time)[0];
-
-    // Winner tag on challenge card
-    const tag = document.getElementById('winner-tag');
-    if (prevWinner) {
-      tag.textContent = `🏆 Vainqueur S-1 : ${prevWinner.pseudo} — ${prevWinner.score} pts`;
-    } else {
-      tag.textContent = '🏆 Soyez le premier vainqueur !';
+    // Challenge dispense
+    if(CHALLENGE_DISPENSE && prevWinner && fluxData){
+      fluxData.champion_dispense={person:prevWinner.pseudo, week:getWeekKey(-1)};
     }
 
-    // Leaderboard list
-    const lbList = document.getElementById('lb-list');
-    if (!thisWeek.length) {
-      lbList.innerHTML = '<div class="lb-empty">Aucun score cette semaine.<br>Lancez le challenge !</div>';
-      return;
-    }
-    const medals = ['gold', 'silver', 'bronze'];
-    lbList.innerHTML = thisWeek.slice(0, 10).map((s, i) => `
+    const lbList=document.getElementById('lb-list');
+    if(!thisWeek.length){lbList.innerHTML='<div class="lb-empty">Aucun score cette semaine.<br>Lancez le challenge !</div>';return;}
+    const medals=['gold','silver','bronze'];
+    lbList.innerHTML=thisWeek.slice(0,10).map((s,i)=>`
       <div class="lb-entry">
-        <div class="lb-rank ${medals[i] || ''}">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1}</div>
+        <div class="lb-rank ${medals[i]||''}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}</div>
         <div class="lb-pseudo">${s.pseudo}</div>
-        <div>
-          <div class="lb-score">${s.score} pts</div>
-          <div class="lb-time">${(s.time / 1000).toFixed(1)}s total</div>
-        </div>
+        <div><div class="lb-score">${s.score} pts</div><div class="lb-time">${(s.time/1000).toFixed(1)}s</div></div>
       </div>`).join('');
-
-  } catch(e) {
-    document.getElementById('winner-tag').textContent = '🏆 Lancez le challenge !';
-    document.getElementById('lb-list').innerHTML =
-      '<div class="lb-empty">Classement indisponible.<br>Vérifiez la config JSONBin.</div>';
+  }catch(e){
+    document.getElementById('winner-tag').textContent='🏆 Lancez le challenge !';
+    document.getElementById('lb-list').innerHTML='<div class="lb-empty">Classement indisponible.</div>';
   }
 }
 
+// ── Flux ──
+function getSlotKey(date,slot){return date+'_'+slot}
+
+async function saveFluxData(){
+  try{
+    await fetch(JSONBIN_URL_FLUX,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
+      body:JSON.stringify(fluxData)
+    });
+  }catch(e){}
+}
+
+function computeWeight(person,dateIso,slot,history,dispenseInfo,weekAssignments){
+  let daysSinceLast=999;
+  const ph=history.filter(h=>h.person===person).sort((a,b)=>b.date.localeCompare(a.date));
+  if(ph.length>0){
+    const last=new Date(ph[0].date), today=new Date(dateIso);
+    daysSinceLast=Math.max(0,Math.round((today-last)/(1000*86400)));
+  }
+  let weight=daysSinceLast;
+  const wk=getWeekKey_from(dateIso);
+  if(weekAssignments[wk]&&weekAssignments[wk][person]) weight*=0.05;
+  if(dispenseInfo&&dispenseInfo.person===person&&dispenseInfo.week===wk) weight*=0.01;
+  return Math.max(weight,0.001);
+}
+
+function getWeekKey_from(dateIso){
+  const d=new Date(dateIso+'T00:00:00Z');
+  const day=d.getUTCDay()||7;
+  d.setUTCDate(d.getUTCDate()+4-day);
+  const ys=new Date(Date.UTC(d.getUTCFullYear(),0,1));
+  const w=Math.ceil((((d-ys)/86400000)+1)/7);
+  return d.getUTCFullYear()+'-W'+String(w).padStart(2,'0');
+}
+
+function weightedPick(people,weights){
+  const total=weights.reduce((s,w)=>s+w,0);
+  let r=Math.random()*total;
+  for(let i=0;i<people.length;i++){r-=weights[i];if(r<=0)return people[i];}
+  return people[people.length-1];
+}
+
+async function changeFluxPerson(date,slot,direction){
+  const key=getSlotKey(date,slot);
+  const current=fluxData.planning[date][slot];
+  if(direction==='back'){
+    const stack=undoStack[key]||[];
+    if(!stack.length) return;
+    const prev=stack.pop();
+    undoStack[key]=stack;
+    fluxData.planning[date][slot]=prev;
+    fluxData.planning[date][slot+'_modified']=(stack.length>0);
+  } else {
+    if(!undoStack[key]) undoStack[key]=[];
+    undoStack[key].push(current);
+    const candidates=PEOPLE.filter(p=>p!==current);
+    const wk=getWeekKey_from(date);
+    const wa={};
+    if(fluxData.planning[date]){
+      SLOTS.forEach(s=>{
+        if(!(s===slot)){const p=fluxData.planning[date][s];if(p)wa[p]=(wa[p]||0)+1;}
+      });
+    }
+    const di=fluxData.champion_dispense||{person:null,week:null};
+    const weights=candidates.map(p=>computeWeight(p,date,slot,fluxData.history,di,{[wk]:wa}));
+    const chosen=weightedPick(candidates,weights);
+    fluxData.planning[date][slot]=chosen;
+    fluxData.planning[date][slot+'_modified']=true;
+    fluxData.history.push({person:chosen,date,slot});
+  }
+  await saveFluxData();
+  renderFluxWidget();
+}
+
+function renderFluxWidget(){
+  if(!FLUX_VISIBLE) return;
+  const today=todayStr();
+  const dt=new Date(today);
+  const dayN=dt.getDay();
+  const content=document.getElementById('flux-content');
+  document.getElementById('flux-date').textContent=dt.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+
+  // Weekend check (0=Sun, 6=Sat is ok, but Sun=0 is off)
+  if(dayN===0){
+    content.innerHTML='<div class="flux-unavailable">Pas de flux le dimanche 🌞</div>';
+    return;
+  }
+  if(!fluxData||!fluxData.planning||!fluxData.planning[today]){
+    content.innerHTML='<div class="flux-unavailable">Planning non disponible.<br><a href="flux-planning.html" style="color:var(--green)">Générer →</a></div>';
+    return;
+  }
+  const dayData=fluxData.planning[today];
+  content.innerHTML='';
+  SLOTS.forEach(slot=>{
+    const person=dayData[slot]||'—';
+    const modified=dayData[slot+'_modified']||false;
+    const key=getSlotKey(today,slot);
+    const canUndo=(undoStack[key]||[]).length>0;
+    const div=document.createElement('div');
+    div.className='flux-slot';
+    div.innerHTML=`<div class="flux-slot-label">${SLOT_LABELS[slot]}</div>
+      <div class="flux-slot-row">
+        <div class="flux-person${modified?' modified':''}">
+          <span>${person}</span>
+          ${modified?'<span class="mod-badge">modifié</span>':''}
+        </div>
+        <div class="flux-nav">
+          <button class="flux-nav-btn back" onclick="changeFluxPerson('${today}','${slot}','back')"
+            ${!canUndo?'disabled':''} title="Revenir en arrière">←</button>
+          <button class="flux-nav-btn" onclick="changeFluxPerson('${today}','${slot}','next')"
+            title="Changer la personne">→</button>
+        </div>
+      </div>`;
+    content.appendChild(div);
+  });
+}
+
+async function initFlux(){
+  if(!FLUX_VISIBLE) return;
+  document.getElementById('flux-card').style.display='block';
+  try{
+    const r=await fetch(JSONBIN_URL_FLUX+'/latest',{headers:{'X-Master-Key':JSONBIN_KEY}});
+    if(!r.ok) throw new Error();
+    const d=await r.json();
+    fluxData=d.record||null;
+  }catch(e){fluxData=null;}
+  renderFluxWidget();
+}
+
+// ── Init ──
 loadQuizzes();
 loadLeaderboard();
+initFlux();
 </script>
 </body>
 </html>
