@@ -157,7 +157,7 @@
 // ══════════════════════════════════════════════════════
 // CONFIG
 const JSONBIN_URL      = 'https://api.jsonbin.io/v3/b/69e8731aaaba882197256035';
-const JSONBIN_URL_FLUX = 'https://api.jsonbin.io/v3/b/VOTRE_BIN_ID_FLUX';
+const JSONBIN_URL_FLUX = 'https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08';
 const JSONBIN_KEY      = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
 
 const FLUX_VISIBLE         = true;   // ← mettre false pour masquer la vignette flux
@@ -183,7 +183,7 @@ function getWeekKey(offsetWeeks=0){
 }
 
 function dateStr(d){return d.toISOString().slice(0,10)}
-function todayStr(){return dateStr(new Date())}
+function todayStr(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
 
 // ── Load quizzes ──
 async function loadQuizzes(){
@@ -348,8 +348,12 @@ function renderFluxWidget(){
     content.innerHTML='<div class="flux-unavailable">Pas de flux le dimanche 🌞</div>';
     return;
   }
-  if(!fluxData||!fluxData.planning||!fluxData.planning[today]){
-    content.innerHTML='<div class="flux-unavailable">Planning non disponible.<br><a href="flux-planning.html" style="color:var(--green)">Générer →</a></div>';
+  if(!fluxData){
+    content.innerHTML='<div class="flux-unavailable">JSONBin flux non configuré ou inaccessible.<br>Vérifiez 69e935c1856a68218960ce08.</div>';
+    return;
+  }
+  if(!fluxData.planning||!fluxData.planning[today]){
+    content.innerHTML='<div class="flux-unavailable">Aucun planning pour aujourd'hui.<br><a href="flux-planning.html" style="color:var(--green)">Générer le planning →</a></div>';
     return;
   }
   const dayData=fluxData.planning[today];
