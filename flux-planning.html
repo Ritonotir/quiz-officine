@@ -100,8 +100,8 @@ const SLOT_LABELS = {am:'Matin', pm:'Après-midi'};
 const WEEK_DAYS = [1,2,3,4,5,6]; // Mon-Sat
 
 let planningData = null;
-// History of changes per slot for undo: {slotKey: [person0, person1, ...]}
-let undoStack = {};
+// Global undo stack: array of full {planning, history} snapshots
+let undoStack = [];
 
 // ── Date helpers ──
 function getMonday(d){
@@ -237,111 +237,50 @@ async function saveData(data){
 // ── Slot change ──
 function getSlotKey(date,slot){return date+'_'+slot;}
 
+function deepClone(obj){return JSON.parse(JSON.stringify(obj));}
+
 function changePerson(date, slot, direction){
-  // direction: 'next' or 'back'
-  const key = getSlotKey(date,slot);
-  const current = planningData.planning[date][slot];
-
   if(direction==='back'){
-    const stack = undoStack[key]||[];
-    if(stack.length===0) return;
-    const prev = stack.pop();
-    undoStack[key]=stack;
-    planningData.planning[date][slot]=prev;
-    planningData.planning[date][slot+'_modified']=(stack.length>0);
-    // Remove last history entry for this slot
-    planningData.history=planningData.history.filter(
-      h=>!(h.date===date&&h.slot===slot&&h.person===current)
-    );
-    // Recalculate subsequent non-modified slots
-    recalculateFrom(date, slot);
+    if(undoStack.length===0) return;
+    // Restore previous snapshot
+    const snapshot = undoStack.pop();
+    planningData.planning = snapshot.planning;
+    planningData.history = snapshot.history;
   } else {
-    // Next: pick a new person (avoiding current if possible)
-    if(!undoStack[key]) undoStack[key]=[];
-    undoStack[key].push(current);
+    // Save full snapshot before change
+    undoStack.push({
+      planning: deepClone(planningData.planning),
+      history: deepClone(planningData.history)
+    });
 
-    const wk=getWeekKey(date);
-    const weekAssignments={};
-    // Build week assignments excluding this slot
-    Object.entries(planningData.planning).forEach(([d,dayData])=>{
+    // Pick a new person (avoiding current)
+    const current = planningData.planning[date][slot];
+    const wk = getWeekKey(date);
+    const weekAssignments = {};
+    Object.entries(planningData.planning).forEach(([d,dd])=>{
       if(getWeekKey(d)===wk){
         SLOTS.forEach(s=>{
           if(!(d===date&&s===slot)){
-            const p=dayData[s];
-            if(p&&p!=='—'){weekAssignments[p]=(weekAssignments[p]||0)+1;}
+            const p=dd[s]; if(p&&p!=='—'){weekAssignments[p]=(weekAssignments[p]||0)+1;}
           }
         });
       }
     });
+    const candidates = PEOPLE.filter(p=>p!==current);
+    const dispenseInfo = planningData.champion_dispense||{person:null,week:null};
+    const weights = candidates.map(p=>computeWeight(p,date,slot,planningData.history,dispenseInfo,{[wk]:weekAssignments}));
+    const chosen = weightedPick(candidates,weights);
 
-    // Compute weights, excluding current person
-    const candidates=PEOPLE.filter(p=>p!==current);
-    const dispenseInfo=planningData.champion_dispense||{person:null,week:null};
-    const wkMap={[wk]:weekAssignments};
-    const weights=candidates.map(p=>computeWeight(p,date,slot,planningData.history,dispenseInfo,wkMap));
-    const chosen=weightedPick(candidates,weights);
-
-    planningData.planning[date][slot]=chosen;
-    planningData.planning[date][slot+'_modified']=true;
+    planningData.planning[date][slot] = chosen;
+    planningData.planning[date][slot+'_modified'] = true;
     planningData.history.push({person:chosen,date,slot});
 
-    // Recalculate subsequent slots
+    // Recalculate subsequent non-modified slots
     recalculateFrom(date, slot);
   }
 
   saveData(planningData);
   renderPlanning();
-}
-
-function recalculateFrom(fromDate, fromSlot){
-  const weeks=get4WeekDates();
-  const allSlots=[];
-  weeks.flat().forEach(d=>{
-    SLOTS.forEach(s=>allSlots.push({date:d,slot:s}));
-  });
-
-  // Find index of the slot AFTER the changed one
-  let startIdx=0;
-  for(let i=0;i<allSlots.length;i++){
-    if(allSlots[i].date===fromDate&&allSlots[i].slot===fromSlot){
-      startIdx=i+1; break;
-    }
-  }
-
-  // Rebuild week assignments from scratch up to startIdx
-  const weekAssignments={};
-  for(let i=0;i<startIdx;i++){
-    const {date,slot}=allSlots[i];
-    const p=planningData.planning[date][slot];
-    const wk=getWeekKey(date);
-    if(!weekAssignments[wk]) weekAssignments[wk]={};
-    if(p&&p!=='—') weekAssignments[wk][p]=(weekAssignments[wk][p]||0)+1;
-  }
-
-  // Recalculate non-manually-modified slots from startIdx
-  const dispenseInfo=planningData.champion_dispense||{person:null,week:null};
-  for(let i=startIdx;i<allSlots.length;i++){
-    const {date,slot}=allSlots[i];
-    const wk=getWeekKey(date);
-    if(!weekAssignments[wk]) weekAssignments[wk]={};
-
-    if(!planningData.planning[date][slot+'_modified']){
-      // Remove old history entry for this slot
-      const oldPerson=planningData.planning[date][slot];
-      planningData.history=planningData.history.filter(
-        h=>!(h.date===date&&h.slot===slot&&h.person===oldPerson)
-      );
-      const wkMap={};
-      Object.entries(weekAssignments).forEach(([w,v])=>wkMap[w]=v);
-      const weights=PEOPLE.map(p=>computeWeight(p,date,slot,planningData.history,dispenseInfo,wkMap));
-      const chosen=weightedPick(PEOPLE,weights);
-      planningData.planning[date][slot]=chosen;
-      planningData.history.push({person:chosen,date,slot});
-    }
-
-    const p=planningData.planning[date][slot];
-    if(p&&p!=='—') weekAssignments[wk][p]=(weekAssignments[wk][p]||0)+1;
-  }
 }
 
 // ── Render ──
@@ -381,7 +320,7 @@ function renderPlanning(){
         const person=dayData[slot]||'—';
         const modified=dayData[slot+'_modified']||false;
         const key=getSlotKey(date,slot);
-        const canUndo=(undoStack[key]||[]).length>0;
+        const canUndo=undoStack.length>0;
 
         slotsHtml+=`<div class="slot">
           <div class="slot-label">${SLOT_LABELS[slot]}</div>
