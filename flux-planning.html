@@ -111,8 +111,8 @@ function getMonday(d){
   dt.setHours(0,0,0,0);
   return dt;
 }
-function dateStr(d){ return d.toISOString().slice(0,10); }
-function addDays(d,n){ const r=new Date(d); r.setDate(r.getDate()+n); return r; }
+function dateStr(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function addDays(d,n){ const r=new Date(typeof d==='string'?d+'T00:00:00':d); r.setDate(r.getDate()+n); return r; }
 function getWeekKey(d){
   const dt=new Date(d);
   const day=dt.getUTCDay()||7;
@@ -138,8 +138,8 @@ function computeWeight(person, dateIso, slot, history, dispenseInfo, weekAssignm
   // Find last assignment
   const personHistory = history.filter(h=>h.person===person).sort((a,b)=>b.date.localeCompare(a.date));
   if(personHistory.length>0){
-    const lastDate = new Date(personHistory[0].date);
-    const today = new Date(dateIso);
+    const lastDate = new Date(personHistory[0].date+'T00:00:00');
+    const today = new Date(dateIso+'T00:00:00');
     daysSinceLast = Math.max(0, Math.round((today-lastDate)/(1000*86400)));
   }
 
@@ -253,6 +253,8 @@ function changePerson(date, slot, direction){
     planningData.history=planningData.history.filter(
       h=>!(h.date===date&&h.slot===slot&&h.person===current)
     );
+    // Recalculate subsequent non-modified slots
+    recalculateFrom(date, slot);
   } else {
     // Next: pick a new person (avoiding current if possible)
     if(!undoStack[key]) undoStack[key]=[];
@@ -354,8 +356,8 @@ function renderPlanning(){
     const block=document.createElement('div');
     block.className='week-block';
 
-    const d0=new Date(weekDates[0]);
-    const d5=new Date(weekDates[5]);
+    const d0=new Date(weekDates[0]+'T00:00:00');
+    const d5=new Date(weekDates[5]+'T00:00:00');
     const label=d0.toLocaleDateString('fr-FR',{day:'numeric',month:'long'})
       +' – '+d5.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
 
@@ -365,7 +367,7 @@ function renderPlanning(){
 
     const grid=document.getElementById('week-'+wi);
     weekDates.forEach(date=>{
-      const dt=new Date(date);
+      const dt=new Date(date+'T00:00:00');
       const isPast=date<today;
       const isToday=date===today;
       const dayData=planningData.planning[date]||{am:null,pm:null};
