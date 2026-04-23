@@ -90,7 +90,7 @@
     <div class="stat-pill"><strong>QCM</strong><span>format</span></div>
     <div class="stat-pill"><strong>~7 min</strong><span>durée</span></div>
   </div>
-  <div class="pool-info">🎲 Tirage aléatoire — 12 questions disponibles dans ce thème</div>
+  <div class="pool-info">🎲 Tirage aléatoire — 12 questions disponibles</div>
   <button class="btn-start" onclick="startQuiz()">Commencer →</button>
 </div>
 <div id="screen-quiz" class="screen">
@@ -139,7 +139,7 @@ const QUESTION_POOL = [
    text:"Un patient sous traitement au long cours demande un antihistaminique pour sa rhinite allergique printanière. Lequel conseillez-vous en priorité ?",
    options:["Polaramine® (dexchlorphéniramine) — efficace et éprouvé", "Cétirizine 10 mg — non sédatif, prise unique quotidienne", "Prométhazine — bonne durée d'action", "Peu importe, tous les antihistaminiques sont équivalents"],correct:1,
    explanation:"La <strong>cétirizine</strong> (ou loratadine, bilastine) est le choix de référence en traitement continu : non sédatif, une prise par jour, bonne tolérance au long cours. Polaramine et prométhazine sont des H1 de 1ère génération : leur sédation les rend inadaptés à un usage quotidien prolongé, surtout chez un actif."},
-  {quiz:"allergies",theme:"Antihistaminiques",difficulte:"intermédiaire",
+  {quiz:"allergies",theme:"Antihistaminiques",difficulte:"modere",
    text:"La bilastine (Bilaska®, Inorial®) présente une particularité importante à communiquer au patient. Laquelle ?",
    options:["Elle est contre-indiquée en cas d'insuffisance rénale", "Elle doit être prise à distance des repas (1h avant ou 2h après)", "Elle ne peut pas être associée aux corticoïdes nasaux", "Elle est réservée aux plus de 18 ans"],correct:1,
    explanation:"La <strong>bilastine</strong> a une biodisponibilité réduite de 30% si prise avec de la nourriture ou du jus de pamplemousse. Elle doit être prise <strong>à jeun</strong> : 1h avant ou 2h après un repas. C'est un point de conseil souvent oublié qui explique certains échecs thérapeutiques."},
@@ -155,7 +155,7 @@ const QUESTION_POOL = [
    text:"Quelle est la technique d'instillation correcte d'un spray nasal corticoïde ?",
    options:["Tête penchée en arrière, vaporiser vers le haut de la narine", "Tête légèrement penchée en avant, orienter le spray vers la paroi externe de la narine", "Tête droite, vaporiser au centre de la narine", "Technique libre, l'orientation n'a pas d'impact clinique"],correct:1,
    explanation:"La technique correcte : <strong>tête légèrement penchée en avant</strong>, orienter l'embout vers la <strong>paroi externe</strong> (vers l'oreille, pas vers la cloison nasale). Vaporiser vers la cloison favorise les épistaxis et l'irritation septale. C'est un conseil pratique concret à délivrer systématiquement, souvent ignoré des patients."},
-  {quiz:"allergies",theme:"Contre-indications",difficulte:"intermédiaire",
+  {quiz:"allergies",theme:"Contre-indications",difficulte:"modere",
    text:"Parmi ces patients, lequel nécessite le plus de précautions avant de délivrer un antihistaminique H1 de 1ère génération ?",
    options:["Femme de 35 ans, sans antécédent, allergie aux graminées", "Homme de 70 ans, hypertrophie bénigne de la prostate", "Adolescent de 16 ans, rhinite allergique saisonnière", "Femme enceinte au 2ème trimestre"],correct:1,
    explanation:"L'<strong>hypertrophie bénigne de la prostate</strong> est une contre-indication aux H1 de 1ère génération : leur effet <strong>anticholinergique</strong> peut provoquer une rétention urinaire aiguë. À retenir également : glaucome à angle fermé, constipation sévère, troubles cognitifs chez le sujet âgé. Chez ce patient, orienter vers un H1 de 2ème génération."},
@@ -171,7 +171,7 @@ const QUESTION_POOL = [
    text:"Un patient traité depuis 3 semaines par antihistaminique + corticoïde nasal revient : ses symptômes sont toujours très invalidants. Que faites-vous ?",
    options:["Doubler la dose du corticoïde nasal", "Ajouter un vasoconstricteur nasal pour déboucher", "Orienter vers le médecin pour bilan allergologique et éventuelle désensibilisation", "Changer d'antihistaminique en espérant un meilleur résultat"],correct:2,
    explanation:"Un échec d'un traitement bien conduit pendant 3 semaines doit orienter vers le <strong>médecin</strong> pour : confirmer le diagnostic, réaliser un <strong>bilan allergologique</strong> (tests cutanés, IgE spécifiques), et évaluer l'indication d'une <strong>immunothérapie allergénique (désensibilisation)</strong> — seul traitement modifiant le terrain allergique à long terme."},
-  {quiz:"allergies",theme:"Orientation médecin",difficulte:"intermédiaire",
+  {quiz:"allergies",theme:"Orientation médecin",difficulte:"modere",
    text:"Lequel de ces signes doit vous amener à orienter immédiatement vers le médecin ?",
    options:["Éternuements matinaux répétés pendant la saison pollinique", "Nez qui coule avec yeux rouges et larmoiements", "Sifflement respiratoire et gêne thoracique associés à la rhinite", "Légère fatigue pendant les pics polliniques"],correct:2,
    explanation:"<strong>Sifflements et gêne thoracique</strong> évoquent une atteinte des voies aériennes inférieures — possible <strong>asthme allergique</strong>. C'est un drapeau rouge absolu : orientation médicale sans délai. À retenir : 30% des rhinites allergiques non traitées évoluent vers l'asthme (concept de la « marche allergique »). Les autres signes décrits sont classiques de la rhinite saisonnière non compliquée."},
@@ -181,30 +181,16 @@ const QUESTION_POOL = [
    explanation:"La combinaison de référence est <strong>antihistaminique H1 de 2ème génération + corticoïde nasal</strong>. Idéalement, le corticoïde nasal est débuté <strong>1 à 2 semaines avant le début de la saison pollinique</strong> pour que l'effet anti-inflammatoire soit installé à l'exposition. L'antihistaminique couvre les symptômes aigus (yeux, nez qui coule) pendant la montée en charge du corticoïde."}
 ];
 
-function shuffleArray(a){
-  const b=[...a];
-  for(let i=b.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [b[i],b[j]]=[b[j],b[i]];
-  }
-  return b;
-}
-
-// Pick 12 questions: tries 4F+4M+4D, fills gaps from remaining pool
+function shuffleArray(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 function pickQuizQuestions(quizId){
-  const pool = shuffleArray(QUESTION_POOL.filter(q=>q.quiz===quizId));
-  const f = pool.filter(q=>q.difficulte==='facile');
-  const m = pool.filter(q=>q.difficulte==='modere');
-  const d = pool.filter(q=>q.difficulte==='difficile');
-  let selected = [...f.slice(0,4), ...m.slice(0,4), ...d.slice(0,4)];
-  if(selected.length < 12){
-    const used = new Set(selected.map(q=>q.text));
-    const remaining = shuffleArray(pool.filter(q=>!used.has(q.text)));
-    selected = [...selected, ...remaining.slice(0, 12-selected.length)];
-  }
-  return shuffleArray(selected.slice(0,12));
+  const pool=shuffleArray(QUESTION_POOL.filter(q=>q.quiz===quizId));
+  const f=pool.filter(q=>q.difficulte==='facile');
+  const m=pool.filter(q=>q.difficulte==='modere');
+  const d=pool.filter(q=>q.difficulte==='difficile');
+  let sel=[...f.slice(0,4),...m.slice(0,4),...d.slice(0,4)];
+  if(sel.length<12){const used=new Set(sel.map(q=>q.text));const rem=shuffleArray(pool.filter(q=>!used.has(q.text)));sel=[...sel,...rem.slice(0,12-sel.length)];}
+  return shuffleArray(sel.slice(0,12));
 }
-
 
 const DIFF_LABELS = {facile:'🟢 Facile', modere:'🟡 Modéré', difficile:'🔴 Difficile'};
 const DIFF_CLASSES = {facile:'diff-facile', modere:'diff-modere', difficile:'diff-difficile'};
@@ -214,36 +200,26 @@ let shuffledQuestions=[], shuffledOptions=[];
 
 function startQuiz(){
   current=0; score=0; userAnswers=[];
-  shuffledQuestions = pickQuizQuestions(QUIZ_ID);
-  shuffledOptions = shuffledQuestions.map(q =>
-    shuffleArray(q.options.map((text,origIndex)=>({text,origIndex})))
-  );
-  showScreen('screen-quiz');
-  renderQuestion();
+  shuffledQuestions=pickQuizQuestions(QUIZ_ID);
+  shuffledOptions=shuffledQuestions.map(q=>shuffleArray(q.options.map((text,origIndex)=>({text,origIndex}))));
+  showScreen('screen-quiz'); renderQuestion();
 }
-
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 function renderQuestion(){
-  const q=shuffledQuestions[current], opts=shuffledOptions[current], total=shuffledQuestions.length;
+  const q=shuffledQuestions[current],opts=shuffledOptions[current],total=shuffledQuestions.length;
   document.getElementById('progress-bar').style.width=((current/total)*100)+'%';
-  document.getElementById('progress-label').textContent=current+1+' / '+total;
+  document.getElementById('progress-label').textContent=(current+1)+' / '+total;
   document.getElementById('score-display').textContent='Score : '+score;
   document.getElementById('q-num').textContent=current+1;
   document.getElementById('q-theme').textContent=q.theme;
-  const diffEl=document.getElementById('q-diff');
-  diffEl.textContent=DIFF_LABELS[q.difficulte]||q.difficulte;
-  diffEl.className='diff-tag '+(DIFF_CLASSES[q.difficulte]||'');
+  const de=document.getElementById('q-diff');
+  de.textContent=DIFF_LABELS[q.difficulte]||q.difficulte;
+  de.className='diff-tag '+(DIFF_CLASSES[q.difficulte]||'');
   document.getElementById('q-text').textContent=q.text;
-  const grid=document.getElementById('options-grid');
-  grid.innerHTML='';
+  const grid=document.getElementById('options-grid'); grid.innerHTML='';
   const letters=['A','B','C','D'];
-  opts.forEach(function(opt,di){
-    const btn=document.createElement('button');
-    btn.className='option-btn';
+  opts.forEach((opt,di)=>{
+    const btn=document.createElement('button'); btn.className='option-btn';
     btn.innerHTML='<span class="opt-letter">'+letters[di]+'</span><span>'+opt.text+'</span>';
     btn.onclick=(function(o){return function(){selectAnswer(o.origIndex);};})(opt);
     grid.appendChild(btn);
@@ -251,37 +227,27 @@ function renderQuestion(){
   document.getElementById('feedback-box').className='feedback-box';
   document.getElementById('next-btn').className='next-btn';
 }
-
 function selectAnswer(chosenOrig){
-  const q=shuffledQuestions[current], opts=shuffledOptions[current];
-  document.querySelectorAll('.option-btn').forEach(function(b){b.disabled=true;});
-  const ok=chosenOrig===q.correct;
-  if(ok) score++;
-  userAnswers[current]=chosenOrig;
-  document.querySelectorAll('.option-btn').forEach(function(btn,di){
+  const q=shuffledQuestions[current],opts=shuffledOptions[current];
+  document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+  const ok=chosenOrig===q.correct; if(ok)score++; userAnswers[current]=chosenOrig;
+  document.querySelectorAll('.option-btn').forEach((btn,di)=>{
     const orig=opts[di].origIndex;
-    if(orig===q.correct) btn.classList.add('correct');
-    else if(orig===chosenOrig&&!ok) btn.classList.add('wrong');
+    if(orig===q.correct)btn.classList.add('correct');
+    else if(orig===chosenOrig&&!ok)btn.classList.add('wrong');
     else btn.classList.add('dimmed');
   });
   const fb=document.getElementById('feedback-box');
   document.getElementById('fb-title').textContent=ok?'✓ Bonne réponse !':'✗ Pas tout à fait…';
   document.getElementById('fb-body').innerHTML=q.explanation;
   fb.className='feedback-box show '+(ok?'correct-fb':'wrong-fb');
-  const nb=document.getElementById('next-btn');
-  nb.className='next-btn show';
+  const nb=document.getElementById('next-btn'); nb.className='next-btn show';
   nb.textContent=current<shuffledQuestions.length-1?'Question suivante →':'Voir mes résultats →';
 }
-
-function nextQuestion(){
-  current++;
-  if(current>=shuffledQuestions.length) showResults();
-  else renderQuestion();
-}
-
+function nextQuestion(){current++;if(current>=shuffledQuestions.length)showResults();else renderQuestion();}
 function showResults(){
   showScreen('screen-results');
-  const total=shuffledQuestions.length, pct=Math.round((score/total)*100);
+  const total=shuffledQuestions.length,pct=Math.round((score/total)*100);
   document.getElementById('res-score').textContent=score+'/'+total;
   document.getElementById('res-pct').textContent=pct+'%';
   document.getElementById('result-circle').style.setProperty('--pct',pct+'%');
@@ -293,12 +259,10 @@ function showResults(){
   const idx=pct===100?3:pct>=75?2:pct>=50?1:0;
   document.getElementById('res-title').textContent=t[idx];
   document.getElementById('res-msg').textContent=m[idx];
-  const list=document.getElementById('review-list');
-  list.innerHTML='';
-  shuffledQuestions.forEach(function(q,i){
+  const list=document.getElementById('review-list'); list.innerHTML='';
+  shuffledQuestions.forEach((q,i)=>{
     const ok=userAnswers[i]===q.correct;
-    const item=document.createElement('div');
-    item.className='review-item';
+    const item=document.createElement('div'); item.className='review-item';
     item.innerHTML='<span class="review-icon">'+(ok?'✅':'❌')+'</span><div>'
       +'<div class="review-q">'+q.text+'</div>'
       +'<div class="review-diff '+(DIFF_CLASSES[q.difficulte]||'')+'">'+( DIFF_LABELS[q.difficulte]||'')+'</div>'
@@ -307,8 +271,7 @@ function showResults(){
     list.appendChild(item);
   });
 }
-
-function restartQuiz(){ startQuiz(); }
+function restartQuiz(){startQuiz();}
 
 </script>
 </body>

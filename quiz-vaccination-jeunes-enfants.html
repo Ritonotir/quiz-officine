@@ -90,7 +90,7 @@
     <div class="stat-pill"><strong>QCM</strong><span>format</span></div>
     <div class="stat-pill"><strong>~7 min</strong><span>durée</span></div>
   </div>
-  <div class="pool-info">🎲 Tirage aléatoire — 36 questions disponibles dans ce thème</div>
+  <div class="pool-info">🎲 Tirage aléatoire — 36 questions disponibles</div>
   <button class="btn-start" onclick="startQuiz()">Commencer →</button>
 </div>
 <div id="screen-quiz" class="screen">
@@ -277,30 +277,16 @@ const QUESTION_POOL = [
    explanation:"Le <strong>cocooning</strong> consiste à vacciner l'<strong>entourage immédiat</strong> du nourrisson (parents, fratrie, grands-parents, assistante maternelle) pour créer un « bouclier » protecteur avant qu'il soit lui-même immunisé. Il est particulièrement recommandé pour la <strong>coqueluche</strong> : le nourrisson est très vulnérable avant 2 mois (pas encore vacciné) et la coqueluche peut être mortelle dans les premières semaines de vie. La vaccination maternelle pendant la grossesse (stratégie complémentaire) est également recommandée."}
 ];
 
-function shuffleArray(a){
-  const b=[...a];
-  for(let i=b.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [b[i],b[j]]=[b[j],b[i]];
-  }
-  return b;
-}
-
-// Pick 12 questions: tries 4F+4M+4D, fills gaps from remaining pool
+function shuffleArray(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 function pickQuizQuestions(quizId){
-  const pool = shuffleArray(QUESTION_POOL.filter(q=>q.quiz===quizId));
-  const f = pool.filter(q=>q.difficulte==='facile');
-  const m = pool.filter(q=>q.difficulte==='modere');
-  const d = pool.filter(q=>q.difficulte==='difficile');
-  let selected = [...f.slice(0,4), ...m.slice(0,4), ...d.slice(0,4)];
-  if(selected.length < 12){
-    const used = new Set(selected.map(q=>q.text));
-    const remaining = shuffleArray(pool.filter(q=>!used.has(q.text)));
-    selected = [...selected, ...remaining.slice(0, 12-selected.length)];
-  }
-  return shuffleArray(selected.slice(0,12));
+  const pool=shuffleArray(QUESTION_POOL.filter(q=>q.quiz===quizId));
+  const f=pool.filter(q=>q.difficulte==='facile');
+  const m=pool.filter(q=>q.difficulte==='modere');
+  const d=pool.filter(q=>q.difficulte==='difficile');
+  let sel=[...f.slice(0,4),...m.slice(0,4),...d.slice(0,4)];
+  if(sel.length<12){const used=new Set(sel.map(q=>q.text));const rem=shuffleArray(pool.filter(q=>!used.has(q.text)));sel=[...sel,...rem.slice(0,12-sel.length)];}
+  return shuffleArray(sel.slice(0,12));
 }
-
 
 const DIFF_LABELS = {facile:'🟢 Facile', modere:'🟡 Modéré', difficile:'🔴 Difficile'};
 const DIFF_CLASSES = {facile:'diff-facile', modere:'diff-modere', difficile:'diff-difficile'};
@@ -310,36 +296,26 @@ let shuffledQuestions=[], shuffledOptions=[];
 
 function startQuiz(){
   current=0; score=0; userAnswers=[];
-  shuffledQuestions = pickQuizQuestions(QUIZ_ID);
-  shuffledOptions = shuffledQuestions.map(q =>
-    shuffleArray(q.options.map((text,origIndex)=>({text,origIndex})))
-  );
-  showScreen('screen-quiz');
-  renderQuestion();
+  shuffledQuestions=pickQuizQuestions(QUIZ_ID);
+  shuffledOptions=shuffledQuestions.map(q=>shuffleArray(q.options.map((text,origIndex)=>({text,origIndex}))));
+  showScreen('screen-quiz'); renderQuestion();
 }
-
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 function renderQuestion(){
-  const q=shuffledQuestions[current], opts=shuffledOptions[current], total=shuffledQuestions.length;
+  const q=shuffledQuestions[current],opts=shuffledOptions[current],total=shuffledQuestions.length;
   document.getElementById('progress-bar').style.width=((current/total)*100)+'%';
-  document.getElementById('progress-label').textContent=current+1+' / '+total;
+  document.getElementById('progress-label').textContent=(current+1)+' / '+total;
   document.getElementById('score-display').textContent='Score : '+score;
   document.getElementById('q-num').textContent=current+1;
   document.getElementById('q-theme').textContent=q.theme;
-  const diffEl=document.getElementById('q-diff');
-  diffEl.textContent=DIFF_LABELS[q.difficulte]||q.difficulte;
-  diffEl.className='diff-tag '+(DIFF_CLASSES[q.difficulte]||'');
+  const de=document.getElementById('q-diff');
+  de.textContent=DIFF_LABELS[q.difficulte]||q.difficulte;
+  de.className='diff-tag '+(DIFF_CLASSES[q.difficulte]||'');
   document.getElementById('q-text').textContent=q.text;
-  const grid=document.getElementById('options-grid');
-  grid.innerHTML='';
+  const grid=document.getElementById('options-grid'); grid.innerHTML='';
   const letters=['A','B','C','D'];
-  opts.forEach(function(opt,di){
-    const btn=document.createElement('button');
-    btn.className='option-btn';
+  opts.forEach((opt,di)=>{
+    const btn=document.createElement('button'); btn.className='option-btn';
     btn.innerHTML='<span class="opt-letter">'+letters[di]+'</span><span>'+opt.text+'</span>';
     btn.onclick=(function(o){return function(){selectAnswer(o.origIndex);};})(opt);
     grid.appendChild(btn);
@@ -347,37 +323,27 @@ function renderQuestion(){
   document.getElementById('feedback-box').className='feedback-box';
   document.getElementById('next-btn').className='next-btn';
 }
-
 function selectAnswer(chosenOrig){
-  const q=shuffledQuestions[current], opts=shuffledOptions[current];
-  document.querySelectorAll('.option-btn').forEach(function(b){b.disabled=true;});
-  const ok=chosenOrig===q.correct;
-  if(ok) score++;
-  userAnswers[current]=chosenOrig;
-  document.querySelectorAll('.option-btn').forEach(function(btn,di){
+  const q=shuffledQuestions[current],opts=shuffledOptions[current];
+  document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+  const ok=chosenOrig===q.correct; if(ok)score++; userAnswers[current]=chosenOrig;
+  document.querySelectorAll('.option-btn').forEach((btn,di)=>{
     const orig=opts[di].origIndex;
-    if(orig===q.correct) btn.classList.add('correct');
-    else if(orig===chosenOrig&&!ok) btn.classList.add('wrong');
+    if(orig===q.correct)btn.classList.add('correct');
+    else if(orig===chosenOrig&&!ok)btn.classList.add('wrong');
     else btn.classList.add('dimmed');
   });
   const fb=document.getElementById('feedback-box');
   document.getElementById('fb-title').textContent=ok?'✓ Bonne réponse !':'✗ Pas tout à fait…';
   document.getElementById('fb-body').innerHTML=q.explanation;
   fb.className='feedback-box show '+(ok?'correct-fb':'wrong-fb');
-  const nb=document.getElementById('next-btn');
-  nb.className='next-btn show';
+  const nb=document.getElementById('next-btn'); nb.className='next-btn show';
   nb.textContent=current<shuffledQuestions.length-1?'Question suivante →':'Voir mes résultats →';
 }
-
-function nextQuestion(){
-  current++;
-  if(current>=shuffledQuestions.length) showResults();
-  else renderQuestion();
-}
-
+function nextQuestion(){current++;if(current>=shuffledQuestions.length)showResults();else renderQuestion();}
 function showResults(){
   showScreen('screen-results');
-  const total=shuffledQuestions.length, pct=Math.round((score/total)*100);
+  const total=shuffledQuestions.length,pct=Math.round((score/total)*100);
   document.getElementById('res-score').textContent=score+'/'+total;
   document.getElementById('res-pct').textContent=pct+'%';
   document.getElementById('result-circle').style.setProperty('--pct',pct+'%');
@@ -389,12 +355,10 @@ function showResults(){
   const idx=pct===100?3:pct>=75?2:pct>=50?1:0;
   document.getElementById('res-title').textContent=t[idx];
   document.getElementById('res-msg').textContent=m[idx];
-  const list=document.getElementById('review-list');
-  list.innerHTML='';
-  shuffledQuestions.forEach(function(q,i){
+  const list=document.getElementById('review-list'); list.innerHTML='';
+  shuffledQuestions.forEach((q,i)=>{
     const ok=userAnswers[i]===q.correct;
-    const item=document.createElement('div');
-    item.className='review-item';
+    const item=document.createElement('div'); item.className='review-item';
     item.innerHTML='<span class="review-icon">'+(ok?'✅':'❌')+'</span><div>'
       +'<div class="review-q">'+q.text+'</div>'
       +'<div class="review-diff '+(DIFF_CLASSES[q.difficulte]||'')+'">'+( DIFF_LABELS[q.difficulte]||'')+'</div>'
@@ -403,8 +367,7 @@ function showResults(){
     list.appendChild(item);
   });
 }
-
-function restartQuiz(){ startQuiz(); }
+function restartQuiz(){startQuiz();}
 
 </script>
 </body>
