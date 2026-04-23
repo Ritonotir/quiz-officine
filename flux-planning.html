@@ -204,7 +204,7 @@ function generatePlanning(existingData){
         const weights = PEOPLE.map(p=>computeWeight(p,date,slot,history,dispenseInfo,weekAssignments));
         const chosen = weightedPick(PEOPLE,weights);
         planning[date][slot]=chosen;
-        planning[date][slot+'_modified']=false;
+        planning[date][slot+'_modified']= true;
         weekAssignments[wk][chosen]=(weekAssignments[wk][chosen]||0)+1;
         history.push({person:chosen,date,slot});
       }
