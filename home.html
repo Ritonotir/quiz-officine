@@ -79,11 +79,10 @@
   .lb-empty { font-size: .84rem; color: var(--muted); text-align: center; padding: 14px 0; line-height: 1.6; }
 
   .flux-card { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 20px; }
-  .flux-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
-  .flux-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; }
-  .flux-link { font-size: .75rem; color: var(--green); font-weight: 500; text-decoration: none; }
-  .flux-link:hover { text-decoration: underline; }
+  .flux-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
   .flux-date { font-size: .75rem; color: var(--muted); margin-bottom: 14px; }
+  .flux-planning-btn { display: block; width: 100%; text-align: center; margin-top: 14px; background: var(--green-light); color: var(--green-dark); font-family: 'Syne', sans-serif; font-size: .82rem; font-weight: 700; padding: 9px 0; border-radius: 10px; text-decoration: none; transition: background .2s; }
+  .flux-planning-btn:hover { background: var(--green); color: white; }
   .flux-slot { margin-bottom: 10px; }
   .flux-slot:last-child { margin-bottom: 0; }
   .flux-slot-label { font-size: .68rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 4px; }
@@ -134,12 +133,10 @@
       <div id="lb-list"><div class="lb-empty">Chargement…</div></div>
     </div>
     <div class="flux-card" id="flux-card" style="display:none">
-      <div class="flux-header">
-        <h3>🔄 Flux du jour</h3>
-        <a class="flux-link" href="flux-planning.html">Planning →</a>
-      </div>
+      <h3>🔄 Flux du jour</h3>
       <div class="flux-date" id="flux-date"></div>
       <div id="flux-content"><div class="flux-msg">Chargement…</div></div>
+      <a class="flux-planning-btn" href="flux-planning.html">📅 Voir le planning complet</a>
     </div>
   </div>
 </div>
