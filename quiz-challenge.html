@@ -186,7 +186,8 @@
 
 <script>
 const QUESTION_POOL = [
-   {quiz:"rhume",theme:"Généralités",difficulte:"facile",
+  //Quiz Rhume 
+  {quiz:"rhume",theme:"Généralités",difficulte:"facile",
    text:"Quelle est la durée habituelle d'un rhume banal non compliqué ?",
    options:["2 à 4 jours", "7 à 10 jours", "12 à 15 jours", "Variable selon l'antiviral prescrit"],correct:1,
    explanation:"<strong>7 à 10 jours</strong>, sans traitement spécifique. Le traitement est purement symptomatique : on n'agit pas sur le virus, on attend la guérison naturelle tout en améliorant le confort du patient."},
@@ -202,7 +203,7 @@ const QUESTION_POOL = [
    text:"Parmi ces profils, lequel peut recevoir un vasoconstricteur nasal (ex. Aturgyl) ?",
    options:["Femme enceinte de 6 mois avec rhume sévère", "Homme de 40 ans, normotendu, sans antécédent particulier", "Enfant de 12 ans avec rhume depuis 3 jours", "Patient hypertendu bien équilibré sous traitement"],correct:1,
    explanation:"Les 3 contre-indications <strong>absolues</strong> des vasoconstricteurs sont : l'<strong>âge < 15 ans</strong>, l'<strong>hypertension artérielle</strong> (même traitée et équilibrée) et la <strong>grossesse</strong>. Risque d'AVC ou d'infarctus (recommandation ANSM). Seul le profil de l'homme normotendu de 40 ans est éligible."},
-  {quiz:"rhume",theme:"Vasoconstricteurs",difficulte:"intermédiaire",
+  {quiz:"rhume",theme:"Vasoconstricteurs",difficulte:"modere",
    text:"Quelle est la durée maximale d'utilisation d'un spray vasoconstricteur nasal ?",
    options:["3 jours", "5 jours", "7 jours", "10 jours"],correct:1,
    explanation:"<strong>5 jours maximum.</strong> Au-delà, on risque la <em>rhinite médicamenteuse</em> (ou effet rebond) : la muqueuse devient dépendante du produit et le nez reste bouché dès l'arrêt. C'est un point de conseil systématique à délivrer lors de la dispensation."},
@@ -214,7 +215,7 @@ const QUESTION_POOL = [
    text:"Un patient achète une boîte de Fervex. Quel risque devez-vous systématiquement vérifier ?",
    options:["Une interaction avec les AINS qu'il prendrait à côté", "Un surdosage en paracétamol si prise concomitante d'un autre antalgique", "Un risque de dépendance aux antihistaminiques", "Une interaction avec les antibiotiques en cours"],correct:1,
    explanation:"Les spécialités « rhume » (Fervex, Actifed…) contiennent souvent <strong>500 mg à 1 g de paracétamol</strong> par prise. Si le patient prend en parallèle du Doliprane, un Efferalgan ou un autre AINS contenant du paracétamol, le seuil hépatotoxique peut être atteint rapidement. Vérification systématique obligatoire."},
-  {quiz:"rhume",theme:"Corticoïdes locaux",difficulte:"intermédiaire",
+  {quiz:"rhume",theme:"Corticoïdes locaux",difficulte:"modere",
    text:"Pourquoi la mométasone (Nasonex®) est-elle peu pertinente dans le rhume viral aigu ?",
    options:["Elle est trop puissante et risque de provoquer une immunodépression locale", "Son pic d'efficacité est atteint en 24 à 48h, souvent après la résolution du rhume", "Elle est contre-indiquée en cas d'infection virale active", "Elle interagit avec les vasoconstricteurs"],correct:1,
    explanation:"La mométasone est une molécule de <strong>fond</strong> dont l'effet maximal s'installe en <strong>24 à 48 heures</strong>. Sur un rhume de 3 jours, elle commence à agir au moment où le patient guérit naturellement. Le <strong>Pivalone</strong> (liste I) est plus cohérent : action locale et quasi-immédiate."},
@@ -226,7 +227,7 @@ const QUESTION_POOL = [
    text:"Concernant les produits à base d'eucalyptol ou de camphre (baumes, inhalations), quelle contre-indication est souvent sous-estimée ?",
    options:["Hypertension artérielle", "Diabète de type 2", "Antécédents de convulsions ou épilepsie", "Insuffisance rénale légère"],correct:2,
    explanation:"L'eucalyptol, le camphre et les terpènes apparentés sont <strong>neurotoxiques</strong> à doses élevées et peuvent abaisser le seuil épileptogène. Ils sont contre-indiqués chez les patients avec <strong>antécédents de convulsions ou d'épilepsie</strong>, et également chez les asthmatiques (bronchospasme possible)."},
-  {quiz:"rhume",theme:"Orientation",difficulte:"intermédiaire",
+  {quiz:"rhume",theme:"Orientation",difficulte:"modere",
    text:"Lequel de ces signes doit vous orienter vers un médecin sans délai ?",
    options:["Rhume depuis 5 jours avec nez qui coule", "Légère fatigue et éternuements fréquents", "Douleur unilatérale intense sous l'orbite depuis 48h", "Gorge légèrement irritée sans fièvre"],correct:2,
    explanation:"Une <strong>douleur unilatérale intense sous l'œil</strong> évoque une <strong>sinusite maxillaire</strong> (possible surinfection bactérienne). Les autres drapeaux rouges à mémoriser : fièvre > 39 °C persistante au-delà de 48h, gêne respiratoire, sibilants, ou symptômes persistant au-delà de <strong>10 jours</strong>."},
@@ -234,7 +235,9 @@ const QUESTION_POOL = [
    text:"Un patient demande le conseil le plus efficace pour soulager son rhume rapidement. Que lui proposez-vous en priorité absolue ?",
    options:["Un vasoconstricteur nasal pour désengorger immédiatement", "Un antihistaminique H1 pour stopper la rhinorrhée", "Des lavages nasaux fréquents à l'eau hypertonique", "Un corticoïde local pour réduire l'inflammation"],correct:2,
    explanation:"Le <strong>lavage nasal hypertonique fréquent</strong> reste la pierre angulaire : sans risque, sans contre-indication majeure, efficace, et prépare la muqueuse à tout traitement complémentaire. C'est le message de conseil prioritaire à délivrer systématiquement."},
-   {quiz:"allergies",theme:"Antihistaminiques",difficulte:"facile",
+  
+  //Quiz Allergies 
+  {quiz:"allergies",theme:"Antihistaminiques",difficulte:"facile",
    text:"Quelle est la différence principale entre un antihistaminique H1 de 1ère et de 2ème génération ?",
    options:["La 2ème génération est plus efficace sur les symptômes nasaux", "La 1ère génération est sédative et anticholinergique, la 2ème est non sédative", "La 2ème génération agit plus vite mais dure moins longtemps", "La 1ère génération est réservée aux enfants"],correct:1,
    explanation:"Les H1 de <strong>1ère génération</strong> (dexchlorphéniramine, prométhazine…) traversent la barrière hémato-encéphalique : sédation marquée + effet anticholinergique (bouche sèche, rétention urinaire…). Les H1 de <strong>2ème génération</strong> (cétirizine, loratadine, bilastine…) ne la traversent pas (ou peu) : pas de somnolence significative, pas d'effet anticholinergique. Ce sont ceux à privilégier en conseil de premier recours."},
@@ -242,7 +245,7 @@ const QUESTION_POOL = [
    text:"Un patient sous traitement au long cours demande un antihistaminique pour sa rhinite allergique printanière. Lequel conseillez-vous en priorité ?",
    options:["Polaramine® (dexchlorphéniramine) — efficace et éprouvé", "Cétirizine 10 mg — non sédatif, prise unique quotidienne", "Prométhazine — bonne durée d'action", "Peu importe, tous les antihistaminiques sont équivalents"],correct:1,
    explanation:"La <strong>cétirizine</strong> (ou loratadine, bilastine) est le choix de référence en traitement continu : non sédatif, une prise par jour, bonne tolérance au long cours. Polaramine et prométhazine sont des H1 de 1ère génération : leur sédation les rend inadaptés à un usage quotidien prolongé, surtout chez un actif."},
-  {quiz:"allergies",theme:"Antihistaminiques",difficulte:"intermédiaire",
+  {quiz:"allergies",theme:"Antihistaminiques",difficulte:"modere",
    text:"La bilastine (Bilaska®, Inorial®) présente une particularité importante à communiquer au patient. Laquelle ?",
    options:["Elle est contre-indiquée en cas d'insuffisance rénale", "Elle doit être prise à distance des repas (1h avant ou 2h après)", "Elle ne peut pas être associée aux corticoïdes nasaux", "Elle est réservée aux plus de 18 ans"],correct:1,
    explanation:"La <strong>bilastine</strong> a une biodisponibilité réduite de 30% si prise avec de la nourriture ou du jus de pamplemousse. Elle doit être prise <strong>à jeun</strong> : 1h avant ou 2h après un repas. C'est un point de conseil souvent oublié qui explique certains échecs thérapeutiques."},
@@ -258,7 +261,7 @@ const QUESTION_POOL = [
    text:"Quelle est la technique d'instillation correcte d'un spray nasal corticoïde ?",
    options:["Tête penchée en arrière, vaporiser vers le haut de la narine", "Tête légèrement penchée en avant, orienter le spray vers la paroi externe de la narine", "Tête droite, vaporiser au centre de la narine", "Technique libre, l'orientation n'a pas d'impact clinique"],correct:1,
    explanation:"La technique correcte : <strong>tête légèrement penchée en avant</strong>, orienter l'embout vers la <strong>paroi externe</strong> (vers l'oreille, pas vers la cloison nasale). Vaporiser vers la cloison favorise les épistaxis et l'irritation septale. C'est un conseil pratique concret à délivrer systématiquement, souvent ignoré des patients."},
-  {quiz:"allergies",theme:"Contre-indications",difficulte:"intermédiaire",
+  {quiz:"allergies",theme:"Contre-indications",difficulte:"modere",
    text:"Parmi ces patients, lequel nécessite le plus de précautions avant de délivrer un antihistaminique H1 de 1ère génération ?",
    options:["Femme de 35 ans, sans antécédent, allergie aux graminées", "Homme de 70 ans, hypertrophie bénigne de la prostate", "Adolescent de 16 ans, rhinite allergique saisonnière", "Femme enceinte au 2ème trimestre"],correct:1,
    explanation:"L'<strong>hypertrophie bénigne de la prostate</strong> est une contre-indication aux H1 de 1ère génération : leur effet <strong>anticholinergique</strong> peut provoquer une rétention urinaire aiguë. À retenir également : glaucome à angle fermé, constipation sévère, troubles cognitifs chez le sujet âgé. Chez ce patient, orienter vers un H1 de 2ème génération."},
@@ -274,7 +277,7 @@ const QUESTION_POOL = [
    text:"Un patient traité depuis 3 semaines par antihistaminique + corticoïde nasal revient : ses symptômes sont toujours très invalidants. Que faites-vous ?",
    options:["Doubler la dose du corticoïde nasal", "Ajouter un vasoconstricteur nasal pour déboucher", "Orienter vers le médecin pour bilan allergologique et éventuelle désensibilisation", "Changer d'antihistaminique en espérant un meilleur résultat"],correct:2,
    explanation:"Un échec d'un traitement bien conduit pendant 3 semaines doit orienter vers le <strong>médecin</strong> pour : confirmer le diagnostic, réaliser un <strong>bilan allergologique</strong> (tests cutanés, IgE spécifiques), et évaluer l'indication d'une <strong>immunothérapie allergénique (désensibilisation)</strong> — seul traitement modifiant le terrain allergique à long terme."},
-  {quiz:"allergies",theme:"Orientation médecin",difficulte:"intermédiaire",
+  {quiz:"allergies",theme:"Orientation médecin",difficulte:"modere",
    text:"Lequel de ces signes doit vous amener à orienter immédiatement vers le médecin ?",
    options:["Éternuements matinaux répétés pendant la saison pollinique", "Nez qui coule avec yeux rouges et larmoiements", "Sifflement respiratoire et gêne thoracique associés à la rhinite", "Légère fatigue pendant les pics polliniques"],correct:2,
    explanation:"<strong>Sifflements et gêne thoracique</strong> évoquent une atteinte des voies aériennes inférieures — possible <strong>asthme allergique</strong>. C'est un drapeau rouge absolu : orientation médicale sans délai. À retenir : 30% des rhinites allergiques non traitées évoluent vers l'asthme (concept de la « marche allergique »). Les autres signes décrits sont classiques de la rhinite saisonnière non compliquée."},
@@ -282,6 +285,8 @@ const QUESTION_POOL = [
    text:"Quelle association représente la prise en charge optimale d'une rhinite allergique saisonnière modérée à sévère ?",
    options:["Antihistaminique H1 1ère génération + vasoconstricteur nasal", "Antihistaminique H1 2ème génération seul, en cure courte", "Antihistaminique H1 2ème génération + corticoïde nasal débuté avant la saison", "Corticoïde nasal seul, les antihistaminiques sont inutiles si corticoïde bien utilisé"],correct:2,
    explanation:"La combinaison de référence est <strong>antihistaminique H1 de 2ème génération + corticoïde nasal</strong>. Idéalement, le corticoïde nasal est débuté <strong>1 à 2 semaines avant le début de la saison pollinique</strong> pour que l'effet anti-inflammatoire soit installé à l'exposition. L'antihistaminique couvre les symptômes aigus (yeux, nez qui coule) pendant la montée en charge du corticoïde."},
+  
+  //Quiz Contraception
   {quiz:"contraception",theme:"Oubli de pilule OP",difficulte:"modere",
    text:"Une patiente a oublié son comprimé OP il y a 14 heures. Elle n'a pas eu de rapport sexuel depuis 6 jours. Que conseillez-vous ?",
    options:["Prendre le comprimé oublié immédiatement + préservatif 7 jours", "Ne rien faire, l'oubli est inférieur à 24h", "Prendre une contraception d'urgence sans attendre", "Sauter le comprimé oublié et continuer normalement"],correct:0,
@@ -378,6 +383,8 @@ const QUESTION_POOL = [
    text:"Un patient demande s'il peut utiliser de la vaseline comme lubrifiant avec ses préservatifs. Que lui répondez-vous ?",
    options:["Oui, la vaseline est un lubrifiant adapté aux préservatifs", "Non — les lubrifiants huileux fragilisent le latex et réduisent la protection", "Oui, mais uniquement avec des préservatifs épais", "Non, mais uniquement en cas de rapport prolongé"],correct:1,
    explanation:"Les <strong>lubrifiants huileux</strong> (vaseline, huiles végétales, crèmes hydratantes) sont <strong>incompatibles avec les préservatifs en latex</strong> : ils augmentent le risque de rupture et de porosité, réduisant significativement la protection contre les IST et les grossesses non désirées, notamment contre le VIH. Conseiller des <strong>lubrifiants à base d'eau ou de silicone</strong>, compatibles avec le latex."},
+  
+   //Quiz Pratique Vaccinale
   {quiz:"pratique-vaccinale",theme:"Nombre d'injections",difficulte:"facile",
    text:"Combien d'injections peuvent être réalisées au maximum au cours d'une même séance de vaccination ?",
    options:["Une seule", "Deux", "Trois", "Pas de limite théorique, selon les sites disponibles"],correct:3,
@@ -522,6 +529,8 @@ const QUESTION_POOL = [
    text:"Pour un patient traité par rituximab, quel est le moment optimal pour la vaccination grippe ?",
    options:["N'importe quand, l'efficacité est maintenue", "Juste avant la perfusion de rituximab", "Au moins 4 mois après la dernière cure (repopulation des lymphocytes B)", "Pendant la perfusion pour effet synergique"],correct:2,
    explanation:"Le rituximab (anti-CD20) détruit les lymphocytes B pendant plusieurs mois, rendant la réponse vaccinale insuffisante. Le moment optimal est <strong>au moins 4 mois après la dernière cure</strong>, quand la repopulation des lymphocytes B est suffisante. Vacciner trop tôt après rituximab aboutit à une protection inadéquate. Cette règle des 4 mois s'applique également aux autres vaccins."},
+  
+   //Quiz Vaccination enfants & adultes
   {quiz:"vaccination-adultes",theme:"Calendrier vaccinal",difficulte:"facile",
    text:"À quel âge fixe propose-t-on le premier rappel DTP-Coqueluche de l'adulte ?",
    options:["18 ans", "25 ans", "30 ans", "45 ans"],correct:1,
@@ -666,6 +675,8 @@ const QUESTION_POOL = [
    text:"Quel vaccin pneumocoque pour un adulte de 35 ans débutant une chimiothérapie ?",
    options:["VPC13 + VPP23 séquentiel", "VPC20 dose unique avant le traitement", "VPP23 seul", "Pas de vaccination — immunodéprimé"],correct:1,
    explanation:"Chez un adulte débutant une chimiothérapie, il faut vacciner <strong>avant le début du traitement</strong> (idéalement au moins 2 semaines avant). Le <strong>VPC20 en dose unique</strong> est désormais recommandé. Il est préférable d'anticiper la vaccination en amont de l'immunodépression pour obtenir une réponse immunitaire optimale."},
+  
+   //Quiz vaccination femme enceinte
   {quiz:"vaccination-femme-enceinte",theme:"Coqueluche",difficulte:"facile",
    text:"À quel moment de la grossesse la vaccination contre la coqueluche est-elle recommandée ?",
    options:["Au 1er trimestre", "Au 2e trimestre uniquement", "Entre 20 et 36 SA, à chaque grossesse", "Après l'accouchement uniquement"],correct:2,
@@ -696,8 +707,8 @@ const QUESTION_POOL = [
    explanation:"La coqueluche se transmet principalement par voie <strong>respiratoire</strong> via les gouttelettes émises lors de la toux. Le nouveau-né est contaminé par son <strong>entourage proche</strong> (parents, fratrie, grands-parents) — d'où l'importance de vacciner la mère pendant la grossesse ET l'entourage (cocooning) pour créer un bouclier protecteur autour du nourrisson."},
   {quiz:"vaccination-femme-enceinte",theme:"Coqueluche",difficulte:"facile",
    text:"Pourquoi le nourrisson est-il particulièrement vulnérable à la coqueluche avant 2 mois ?",
-   options:["Son système digestif immature ne permet pas d'absorber les médicaments", "Sa primovaccination n'a pas encore débuté", "Sa mère n'a pas d'immunité naturelle", "Il ne produit pas encore ses propres anticorps contre la coqueluche"],correct:1,
-   explanation:"La primovaccination du nourrisson contre la coqueluche ne débute qu'à <strong>2 mois</strong>. Avant cet âge, le nourrisson est totalement dépendant des <strong>anticorps maternels</strong> transmis in utero. Si la mère n'a pas été vaccinée pendant la grossesse, le nourrisson se retrouve sans protection pendant ses premières semaines de vie — période où la coqueluche est la plus dangereuse."},
+   options:["Son système digestif immature ne permet pas d'absorber les médicaments", "Il ne possède pas d'anticorps protecteurs si la mère n'a pas été vaccinée durant la grossesse, et sa propre production est encore insuffisante", "La coqueluche est une maladie exclusivement infantile qui ne peut pas être transmise par les adultes de son entourage", "Le surfactant pulmonaire, indispensable à la respiration, n'est produit par le nourrisson qu'à partir du troisième mois de vie"],correct:1,
+   explanation:"Le nourrisson est sans défense car son système immunitaire est immature et les anticorps maternels résiduels sont insuffisants. Sans vaccination durant la grossesse pour transférer une protection immédiate, il reste exposé à une forme potentiellement mortelle jusqu'à sa première dose à 2 mois."},
   {quiz:"vaccination-femme-enceinte",theme:"Grippe",difficulte:"facile",
    text:"La vaccination contre la grippe pendant la grossesse protège :",
    options:["Uniquement la mère", "La mère et indirectement le nourrisson via le transfert d'anticorps", "Uniquement le nourrisson", "Aucun des deux de manière significative"],correct:1,
@@ -810,6 +821,8 @@ const QUESTION_POOL = [
    text:"Un parent vous demande pourquoi ses parents âgés devraient se faire vacciner contre la coqueluche avant la naissance du bébé, alors qu'ils ont été vaccinés enfants. Que lui expliquez-vous ?",
    options:["Pour protéger les grands-parents eux-mêmes contre une forme grave", "Pour réduire le risque de transmission de la coqueluche au nourrisson, car l'immunité vaccinale s'estompe après 5 à 10 ans", "Pour respecter une obligation légale", "Pour remplacer la vaccination maternelle insuffisante"],correct:1,
    explanation:"L'objectif du cocooning est de <strong>réduire le risque de transmission au nourrisson</strong>. L'immunité vaccinale contre la coqueluche dure <strong>5 à 10 ans</strong> : des personnes vaccinées dans l'enfance ou il y a plus de 5 ans peuvent être porteuses et transmettre la bactérie sans le savoir. Un rappel dTcaP est recommandé si la dernière vaccination remonte à plus de 5 ans (contexte épidémique actuel), quel que soit l'âge."},
+  
+   //Quiz vaccination jeunes enfants
   {quiz:"vaccination-jeunes-enfants",theme:"Généralités",difficulte:"facile",
    text:"Pourquoi commence-t-on la vaccination dès l'âge de 2 mois ?",
    options:["Le système immunitaire est mature à 2 mois et répond mieux aux vaccins", "Les anticorps maternels transmis à la naissance disparaissent progressivement, laissant le nourrisson vulnérable", "Les vaccins sont contre-indiqués avant 2 mois en raison de la fragilité du nouveau-né", "La HAS a fixé cet âge arbitrairement pour simplifier le calendrier"],correct:1,
@@ -954,6 +967,8 @@ const QUESTION_POOL = [
    text:"Quelle est la stratégie de « cocooning » et pour quel vaccin est-elle particulièrement recommandée en France ?",
    options:["C'est la vaccination du nourrisson en plusieurs doses rapprochées pour créer une immunité rapide", "C'est la vaccination de l'entourage du nourrisson pour le protéger indirectement avant qu'il soit lui-même vacciné — particulièrement recommandée pour la coqueluche", "C'est la stratégie qui consiste à vacciner en priorité les enfants vivant en collectivité", "C'est la vaccination préventive avant un voyage à l'étranger"],correct:1,
    explanation:"Le <strong>cocooning</strong> consiste à vacciner l'<strong>entourage immédiat</strong> du nourrisson (parents, fratrie, grands-parents, assistante maternelle) pour créer un « bouclier » protecteur avant qu'il soit lui-même immunisé. Il est particulièrement recommandé pour la <strong>coqueluche</strong> : le nourrisson est très vulnérable avant 2 mois (pas encore vacciné) et la coqueluche peut être mortelle dans les premières semaines de vie. La vaccination maternelle pendant la grossesse (stratégie complémentaire) est également recommandée."},
+  
+   //Quiz vaccination séniors
   {quiz:"vaccination-seniors",theme:"DTP senior",difficulte:"facile",
    text:"Quels sont les âges fixes des rappels DTP recommandés chez le senior ?",
    options:["70, 80, 90 ans", "75, 85, 95 ans", "65, 75, 85, 95 ans", "Tous les 20 ans, pas d'âge fixe"],correct:1,
