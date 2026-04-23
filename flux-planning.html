@@ -10,56 +10,50 @@
   :root{--green:#1a9e6e;--green-dark:#0f7a53;--green-light:#e6f7f1;--bg:#f4f6f3;--text:#1a1f1c;--muted:#6b7672;--border:#dde5e0;--gold:#f5a623;--red:#e84040}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:32px 20px 60px}
-  .page{max-width:900px;margin:0 auto}
+  .page{max-width:960px;margin:0 auto}
   header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
   .badge{display:inline-block;background:var(--green);color:white;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:8px}
   h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800}
   h1 span{color:var(--green)}
   .home-btn{background:white;color:var(--green);font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;border:1.5px solid var(--green);padding:10px 20px;border-radius:12px;cursor:pointer;text-decoration:none;transition:all .2s}
   .home-btn:hover{background:var(--green-light)}
-
+  .top-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+  .btn{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;border:none;padding:10px 20px;border-radius:12px;cursor:pointer;transition:all .2s}
+  .btn-green{background:var(--green);color:white}
+  .btn-green:hover{background:var(--green-dark)}
+  .status-bar{background:white;border:1px solid var(--border);border-radius:12px;padding:12px 16px;margin-bottom:20px;font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:8px}
+  .status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--green)}
+  .status-dot.saving{background:var(--gold)}
+  .status-dot.error{background:var(--red)}
   .legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;font-size:.82rem;color:var(--muted)}
   .legend-item{display:flex;align-items:center;gap:6px}
-  .legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
-  .dot-normal{background:var(--green-light);border:1px solid var(--green)}
-  .dot-modified{background:#fff3cd;border:1px solid var(--gold)}
-  .dot-today{background:#e8f0fe;border:1px solid #4285f4}
-
+  .leg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+  .leg-official{background:var(--green-light);border:1px solid var(--green)}
+  .leg-pending{background:#fff3cd;border:1px solid var(--gold)}
+  .leg-today{background:#e8f0fe;border:1px solid #4285f4}
   .week-block{margin-bottom:32px}
-  .week-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
-  .week-title span{color:var(--green);font-size:.85rem;font-weight:500;margin-left:8px}
-
+  .week-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:800;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+  .week-title span{color:var(--green);font-size:.82rem;font-weight:500;margin-left:8px}
   .days-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
-
-  .day-card{background:white;border:1px solid var(--border);border-radius:14px;padding:14px;transition:box-shadow .2s}
+  .day-card{background:white;border:1px solid var(--border);border-radius:14px;padding:14px}
   .day-card.today{border-color:#4285f4;box-shadow:0 0 0 2px rgba(66,133,244,.15)}
-  .day-card.past{opacity:.55}
-  .day-name{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:10px}
+  .day-card.past{opacity:.5}
+  .day-name{font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:10px}
   .day-name.today-label{color:#4285f4}
-
   .slot{margin-bottom:8px}
   .slot:last-child{margin-bottom:0}
-  .slot-label{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:3px}
-
-  .slot-person{background:var(--green-light);border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:.82rem;font-weight:500;color:var(--green-dark);display:flex;align-items:center;justify-content:space-between;gap:4px;min-height:32px}
-  .slot-person.modified{background:#fff3cd;border-color:var(--gold);color:#7a5000}
-  .slot-person .person-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .slot-person .mod-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;display:none}
-  .slot-person.modified .mod-dot{display:block}
-
-  .slot-btns{display:flex;gap:4px;margin-top:4px}
-  .slot-btn{background:white;border:1px solid var(--border);border-radius:6px;padding:3px 7px;font-size:.72rem;cursor:pointer;color:var(--muted);transition:all .15s;flex:1;text-align:center}
-  .slot-btn:hover{border-color:var(--green);color:var(--green);background:var(--green-light)}
-  .slot-btn.back-btn:hover{border-color:var(--gold);color:var(--gold);background:#fff3cd}
-  .slot-btn:disabled{opacity:.35;cursor:default}
-
-  .loading{text-align:center;padding:60px;color:var(--muted);font-size:.95rem}
-  .error-box{background:#fdeaea;border:1px solid #f5c6c6;border-radius:12px;padding:20px;color:#8c1a1a;font-size:.9rem;margin-top:20px}
-  .error-box strong{display:block;font-family:'Syne',sans-serif;margin-bottom:6px}
-
-  .regen-btn{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;border:none;padding:10px 20px;border-radius:12px;cursor:pointer;transition:background .2s}
-  .regen-btn:hover{background:var(--green-dark)}
-  .top-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+  .slot-label{font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:3px}
+  .slot-person{border-radius:8px;padding:5px 9px;font-size:.82rem;font-weight:500;min-height:30px;display:flex;align-items:center;justify-content:space-between}
+  .slot-person.official{background:var(--green-light);color:var(--green-dark);border:1px solid var(--border)}
+  .slot-person.pending{background:#fff3cd;color:#7a5000;border:1px solid var(--gold)}
+  .slot-btns{display:flex;gap:3px;margin-top:4px}
+  .slot-btn{background:white;border:1px solid var(--border);border-radius:6px;padding:3px 0;font-size:.72rem;cursor:pointer;color:var(--muted);transition:all .15s;flex:1;text-align:center}
+  .slot-btn:hover:not(:disabled){border-color:var(--green);color:var(--green);background:var(--green-light)}
+  .slot-btn.ok:hover:not(:disabled){border-color:var(--green-dark);background:var(--green);color:white}
+  .slot-btn.no:hover:not(:disabled){border-color:var(--red);color:var(--red);background:#fdeaea}
+  .slot-btn.next:hover:not(:disabled){border-color:var(--gold);color:var(--gold);background:#fff3cd}
+  .slot-btn:disabled{opacity:.3;cursor:default}
+  .loading{text-align:center;padding:60px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -71,369 +65,279 @@
     </div>
     <a class="home-btn" href="home.html">← Accueil</a>
   </header>
-
   <div class="top-actions">
-    <button class="regen-btn" onclick="regeneratePlanning()">🔄 Régénérer le planning</button>
+    <button class="btn btn-green" onclick="regenerate()">🔄 Régénérer</button>
   </div>
-
+  <div class="status-bar">
+    <div class="status-dot" id="sdot"></div>
+    <span id="stxt">Chargement…</span>
+  </div>
   <div class="legend">
-    <div class="legend-item"><div class="legend-dot dot-normal"></div> Attribution automatique</div>
-    <div class="legend-item"><div class="legend-dot dot-modified"></div> Modifié manuellement</div>
-    <div class="legend-item"><div class="legend-dot dot-today"></div> Aujourd'hui</div>
+    <div class="legend-item"><div class="leg-dot leg-official"></div>Officiel</div>
+    <div class="legend-item"><div class="leg-dot leg-pending"></div>En attente de validation</div>
+    <div class="legend-item"><div class="leg-dot leg-today"></div>Aujourd'hui</div>
   </div>
-
-  <div id="planning-content"><div class="loading">Chargement du planning…</div></div>
+  <div id="planning-content"><div class="loading">Chargement…</div></div>
 </div>
 
 <script>
-// ══════════════════════════════════════════════════════
-// CONFIG — même valeurs que home.html
-const JSONBIN_URL_FLUX = 'https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08';
-const JSONBIN_KEY      = 'VOTRE_API_KEY';
-// ══════════════════════════════════════════════════════
+const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08';
+const JSONBIN_KEY = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
 
 const PEOPLE = ['Antho','Cha R','Cha M','Georges','Nico','Anaïs A','Anaïs B','Ines','Cynthia','Clem','Marina','Fabienne','Nath'];
-const DAY_NAMES = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
-const DAY_SHORT = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
 const SLOTS = ['am','pm'];
 const SLOT_LABELS = {am:'Matin', pm:'Après-midi'};
-const WEEK_DAYS = [1,2,3,4,5,6]; // Mon-Sat
+const DAY_SHORT = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
 
-let planningData = null;
-// Global undo stack: array of full {planning, history} snapshots
-let undoStack = [];
+// SOURCE DE VÉRITÉ : officialData = ce qui est dans JSONBin
+// pendingData = copie de travail avec les propositions non validées
+// pendingSlots = Set des clés "date_slot" avec une proposition en attente
+let officialData = null;
+let pendingData  = null;
+let pendingSlots = new Set();
 
-// ── Date helpers ──
-function getMonday(d){
-  const dt = new Date(d);
-  const day = dt.getDay()||7;
-  dt.setDate(dt.getDate()-day+1);
-  dt.setHours(0,0,0,0);
-  return dt;
+// ── Dates ──
+function localStr(d) {
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 }
-function dateStr(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
-function addDays(d,n){ const r=new Date(typeof d==='string'?d+'T00:00:00':d); r.setDate(r.getDate()+n); return r; }
-function getWeekKey(d){
-  const dt=new Date(d);
-  const day=dt.getUTCDay()||7;
-  dt.setUTCDate(dt.getUTCDate()+4-day);
-  const ys=new Date(Date.UTC(dt.getUTCFullYear(),0,1));
-  const w=Math.ceil((((dt-ys)/86400000)+1)/7);
-  return dt.getUTCFullYear()+'-W'+String(w).padStart(2,'0');
+function todayStr() { return localStr(new Date()); }
+function getMonday() {
+  const d = new Date(), day = d.getDay()||7;
+  d.setDate(d.getDate()-day+1); d.setHours(0,0,0,0); return d;
 }
-function get4WeekDates(){
-  const monday = getMonday(new Date());
-  const dates = [];
-  for(let w=0;w<4;w++){
-    const weekDates=[];
-    for(let d=0;d<6;d++) weekDates.push(dateStr(addDays(monday,w*7+d)));
-    dates.push(weekDates);
-  }
-  return dates;
+function get4Weeks() {
+  const mon = getMonday(), out = [];
+  for (let w=0; w<4; w++)
+    for (let dd=0; dd<6; dd++) {
+      const dt = new Date(mon); dt.setDate(dt.getDate()+w*7+dd);
+      out.push(localStr(dt));
+    }
+  return out;
+}
+function weekKey(dateStr) {
+  const d = new Date(dateStr+'T00:00:00'), day = d.getDay()||7;
+  d.setDate(d.getDate()+4-day);
+  const ys = new Date(d.getFullYear(),0,1);
+  const w = Math.ceil((((d-ys)/86400000)+1)/7);
+  return d.getFullYear()+'-W'+String(w).padStart(2,'0');
 }
 
 // ── Algorithm ──
-function computeWeight(person, dateIso, slot, history, dispenseInfo, weekAssignments){
-  let daysSinceLast = 999;
-  // Find last assignment
-  const personHistory = history.filter(h=>h.person===person).sort((a,b)=>b.date.localeCompare(a.date));
-  if(personHistory.length>0){
-    const lastDate = new Date(personHistory[0].date+'T00:00:00');
-    const today = new Date(dateIso+'T00:00:00');
-    daysSinceLast = Math.max(0, Math.round((today-lastDate)/(1000*86400)));
-  }
-
-  let weight = daysSinceLast;
-
-  // Soft constraint: already assigned this week
-  const thisWeek = getWeekKey(dateIso);
-  if(weekAssignments[thisWeek] && weekAssignments[thisWeek][person]){
-    weight *= 0.05;
-  }
-
-  // Champion dispense for next week
-  if(dispenseInfo && dispenseInfo.person===person){
-    const dispenseWeek = dispenseInfo.week;
-    if(getWeekKey(dateIso)===dispenseWeek) weight *= 0.01;
-  }
-
-  return Math.max(weight, 0.001);
+function weight(person, date, history, dispense, wa) {
+  let ds = 999;
+  const ph = history.filter(h=>h.person===person).sort((a,b)=>b.date.localeCompare(a.date));
+  if (ph.length) ds = Math.max(0, Math.round((new Date(date+'T00:00:00')-new Date(ph[0].date+'T00:00:00'))/86400000));
+  let w = ds;
+  const wk = weekKey(date);
+  if (wa[wk]?.[person]) w *= 0.05;
+  if (dispense?.person===person && dispense?.week===wk) w *= 0.01;
+  return Math.max(w, 0.001);
 }
-
-function weightedPick(people, weights){
+function pick(people, weights) {
   const total = weights.reduce((s,w)=>s+w,0);
   let r = Math.random()*total;
-  for(let i=0;i<people.length;i++){
-    r-=weights[i];
-    if(r<=0) return people[i];
-  }
+  for (let i=0; i<people.length; i++) { r-=weights[i]; if(r<=0) return people[i]; }
   return people[people.length-1];
 }
+function generate(data) {
+  const planning = data?.planning || {};
+  const history  = data?.history  || [];
+  const dispense = data?.champion_dispense || {person:null,week:null};
+  const dates    = get4Weeks();
+  const wa       = {};
 
-function generatePlanning(existingData){
-  const weeks = get4WeekDates();
-  const planning = existingData?.planning || {};
-  const history = existingData?.history || [];
-  const dispenseInfo = existingData?.champion_dispense || {person:null,week:null};
-
-  // Build week assignment tracker from existing planning
-  const weekAssignments = {};
-  const allDates = weeks.flat();
-
-  allDates.forEach(date=>{
-    const wk = getWeekKey(date);
-    if(!weekAssignments[wk]) weekAssignments[wk]={};
-    if(planning[date]){
-      SLOTS.forEach(slot=>{
-        const p=planning[date][slot];
-        if(p && p!=='—'){
-          weekAssignments[wk][p]=(weekAssignments[wk][p]||0)+1;
-        }
-      });
-    }
+  // Count existing assignments for week-constraint
+  dates.forEach(date => {
+    const wk = weekKey(date);
+    if (!wa[wk]) wa[wk]={};
+    if (planning[date]) SLOTS.forEach(s => { const p=planning[date][s]; if(p) wa[wk][p]=(wa[wk][p]||0)+1; });
   });
 
-  // Generate missing slots
-  allDates.forEach(date=>{
-    if(!planning[date]) planning[date]={am:null,pm:null,am_modified:false,pm_modified:false};
-    const wk=getWeekKey(date);
-    if(!weekAssignments[wk]) weekAssignments[wk]={};
-
-    SLOTS.forEach(slot=>{
-      if(!planning[date][slot]){
-        const weights = PEOPLE.map(p=>computeWeight(p,date,slot,history,dispenseInfo,weekAssignments));
-        const chosen = weightedPick(PEOPLE,weights);
-        planning[date][slot]=chosen;
-        planning[date][slot+'_modified']= true;
-        weekAssignments[wk][chosen]=(weekAssignments[wk][chosen]||0)+1;
+  // Fill missing
+  dates.forEach(date => {
+    const wk = weekKey(date);
+    if (!wa[wk]) wa[wk]={};
+    if (!planning[date]) planning[date]={am:null,pm:null};
+    SLOTS.forEach(slot => {
+      if (!planning[date][slot]) {
+        const weights = PEOPLE.map(p=>weight(p,date,history,dispense,wa));
+        const chosen  = pick(PEOPLE, weights);
+        planning[date][slot] = chosen;
+        wa[wk][chosen] = (wa[wk][chosen]||0)+1;
         history.push({person:chosen,date,slot});
       }
     });
   });
+  return {planning, history, champion_dispense:dispense};
+}
 
-  return {planning, history, champion_dispense:dispenseInfo};
+// Recalculate non-pending slots after fromDate/fromSlot
+function recalcAfter(fromDate, fromSlot) {
+  const all = [];
+  get4Weeks().forEach(d => SLOTS.forEach(s => all.push({date:d,slot:s})));
+  let si = 0;
+  for (let i=0; i<all.length; i++) {
+    if (all[i].date===fromDate && all[i].slot===fromSlot) { si=i+1; break; }
+  }
+  const wa={};
+  for (let i=0; i<si; i++) {
+    const {date,slot}=all[i], p=pendingData.planning[date]?.[slot], wk=weekKey(date);
+    if (!wa[wk]) wa[wk]={};
+    if (p) wa[wk][p]=(wa[wk][p]||0)+1;
+  }
+  const hist = pendingData.history.filter(h => {
+    const idx=all.findIndex(s=>s.date===h.date&&s.slot===h.slot);
+    return idx<si;
+  });
+  const dispense = pendingData.champion_dispense||{person:null,week:null};
+  for (let i=si; i<all.length; i++) {
+    const {date,slot}=all[i], wk=weekKey(date);
+    if (!wa[wk]) wa[wk]={};
+    if (!pendingData.planning[date]) pendingData.planning[date]={am:null,pm:null};
+    if (!pendingSlots.has(date+'_'+slot)) {
+      const weights=PEOPLE.map(p=>weight(p,date,hist,dispense,wa));
+      const chosen=pick(PEOPLE,weights);
+      pendingData.planning[date][slot]=chosen;
+      hist.push({person:chosen,date,slot});
+    }
+    const p=pendingData.planning[date][slot];
+    if(p) wa[wk][p]=(wa[wk][p]||0)+1;
+  }
+  pendingData.history=hist;
 }
 
 // ── API ──
-async function loadData(){
-  try{
-    const r=await fetch(JSONBIN_URL_FLUX+'/latest',{headers:{'X-Master-Key':JSONBIN_KEY}});
-    if(!r.ok) throw new Error('fetch');
-    const d=await r.json();
-    return d.record||null;
-  }catch(e){return null;}
+function setStatus(state, txt) {
+  document.getElementById('sdot').className='status-dot '+state;
+  document.getElementById('stxt').textContent=txt;
 }
-
-async function saveData(data){
-  try{
-    await fetch(JSONBIN_URL_FLUX,{
+async function load() {
+  setStatus('saving','Chargement…');
+  try {
+    const r = await fetch(JSONBIN_URL+'/latest',{headers:{'X-Master-Key':JSONBIN_KEY}});
+    if (!r.ok) throw new Error();
+    const d = await r.json();
+    officialData = d.record || {planning:{},history:[],champion_dispense:{person:null,week:null}};
+    setStatus('','Planning chargé');
+    return true;
+  } catch(e) { setStatus('error','Erreur de chargement'); return false; }
+}
+async function save() {
+  setStatus('saving','Sauvegarde…');
+  try {
+    await fetch(JSONBIN_URL,{
       method:'PUT',
       headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
-      body:JSON.stringify(data)
+      body:JSON.stringify(officialData)
     });
-  }catch(e){console.error('Save failed',e);}
+    setStatus('','Sauvegardé ✓');
+  } catch(e) { setStatus('error','Erreur de sauvegarde'); }
 }
 
-function recalculateFrom(fromDate, fromSlot) {
-  const weeks = get4WeekDates();
-  const allSlots = [];
-  weeks.flat().forEach(d => {
-    SLOTS.forEach(s => allSlots.push({date:d, slot:s}));
-  });
+function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
 
-  // Find index of slot AFTER the changed one
-  let startIdx = 0;
-  for (let i = 0; i < allSlots.length; i++) {
-    if (allSlots[i].date === fromDate && allSlots[i].slot === fromSlot) {
-      startIdx = i + 1;
-      break;
-    }
-  }
-
-  // Rebuild weekAssignments from scratch up to startIdx
-  const weekAssignments = {};
-  for (let i = 0; i < startIdx; i++) {
-    const {date, slot} = allSlots[i];
-    const p = planningData.planning[date] && planningData.planning[date][slot];
-    const wk = getWeekKey(date);
-    if (!weekAssignments[wk]) weekAssignments[wk] = {};
-    if (p && p !== '—') weekAssignments[wk][p] = (weekAssignments[wk][p]||0) + 1;
-  }
-
-  // Rebuild clean history up to startIdx (keep manually modified ones)
-  const baseHistory = planningData.history.filter(h => {
-    const idx = allSlots.findIndex(s => s.date===h.date && s.slot===h.slot);
-    return idx < startIdx;
-  });
-
-  const dispenseInfo = planningData.champion_dispense || {person:null, week:null};
-
-  // Recalculate non-modified slots from startIdx onward
-  for (let i = startIdx; i < allSlots.length; i++) {
-    const {date, slot} = allSlots[i];
-    const wk = getWeekKey(date);
-    if (!weekAssignments[wk]) weekAssignments[wk] = {};
-    if (!planningData.planning[date]) planningData.planning[date] = {am:null,pm:null,am_modified:false,pm_modified:false};
-
-    if (!planningData.planning[date][slot+'_modified']) {
-      const weights = PEOPLE.map(p => computeWeight(p, date, slot, baseHistory, dispenseInfo, weekAssignments));
-      const chosen = weightedPick(PEOPLE, weights);
-      planningData.planning[date][slot] = chosen;
-      baseHistory.push({person:chosen, date, slot});
-    }
-    const p = planningData.planning[date][slot];
-    if (p && p !== '—') weekAssignments[wk][p] = (weekAssignments[wk][p]||0) + 1;
-  }
-
-  // Rebuild full history: base + recalculated
-  planningData.history = baseHistory;
+// ── Actions ──
+// Propose: change slot in pendingData, recalc downstream, do NOT save
+function propose(date, slot) {
+  const cur = pendingData.planning[date][slot];
+  const cands = PEOPLE.filter(p=>p!==cur);
+  const wk = weekKey(date);
+  const wa = {[wk]:{}};
+  SLOTS.forEach(s=>{ if(s!==slot&&pendingData.planning[date]?.[s]){const p=pendingData.planning[date][s];wa[wk][p]=(wa[wk][p]||0)+1;} });
+  const dispense=pendingData.champion_dispense||{person:null,week:null};
+  const weights=cands.map(p=>weight(p,date,pendingData.history,dispense,wa));
+  const chosen=pick(cands,weights);
+  pendingData.planning[date][slot]=chosen;
+  pendingSlots.add(date+'_'+slot);
+  recalcAfter(date,slot);
+  renderPlanning();
 }
 
-// ── Slot change ──
-function getSlotKey(date,slot){return date+'_'+slot;}
+// Validate: promote pendingData to official, save, clear pending for this slot
+async function validate(date, slot) {
+  officialData = clone(pendingData);
+  pendingSlots.delete(date+'_'+slot);
+  await save();
+  renderPlanning();
+}
 
-function deepClone(obj){return JSON.parse(JSON.stringify(obj));}
-
-function changePerson(date, slot, direction){
-  if(direction==='back'){
-    if(undoStack.length===0) return;
-    // Restore previous snapshot
-    const snapshot = undoStack.pop();
-    planningData.planning = snapshot.planning;
-    planningData.history = snapshot.history;
-  } else {
-    // Save full snapshot before change
-    undoStack.push({
-      planning: deepClone(planningData.planning),
-      history: deepClone(planningData.history)
-    });
-
-    // Pick a new person (avoiding current)
-    const current = planningData.planning[date][slot];
-    const wk = getWeekKey(date);
-    const weekAssignments = {};
-    Object.entries(planningData.planning).forEach(([d,dd])=>{
-      if(getWeekKey(d)===wk){
-        SLOTS.forEach(s=>{
-          if(!(d===date&&s===slot)){
-            const p=dd[s]; if(p&&p!=='—'){weekAssignments[p]=(weekAssignments[p]||0)+1;}
-          }
-        });
-      }
-    });
-    const candidates = PEOPLE.filter(p=>p!==current);
-    const dispenseInfo = planningData.champion_dispense||{person:null,week:null};
-    const weights = candidates.map(p=>computeWeight(p,date,slot,planningData.history,dispenseInfo,{[wk]:weekAssignments}));
-    const chosen = weightedPick(candidates,weights);
-
-    planningData.planning[date][slot] = chosen;
-    planningData.planning[date][slot+'_modified'] = false;
-    planningData.history.push({person:chosen,date,slot});
-
-    // Recalculate subsequent non-modified slots
-    recalculateFrom(date, slot);
-  }
-
-  saveData(planningData);
+// Cancel: discard all pending changes, revert pendingData to official
+function cancel() {
+  pendingData  = clone(officialData);
+  pendingSlots = new Set();
   renderPlanning();
 }
 
 // ── Render ──
-function renderPlanning(){
-  const today=dateStr(new Date());
-  const weeks=get4WeekDates();
-  const container=document.getElementById('planning-content');
-  container.innerHTML='';
+function renderPlanning() {
+  const today = todayStr();
+  const dates = get4Weeks();
+  const el    = document.getElementById('planning-content');
+  el.innerHTML='';
 
-  weeks.forEach((weekDates,wi)=>{
-    const wk=getWeekKey(weekDates[0]);
-    const block=document.createElement('div');
-    block.className='week-block';
+  for (let w=0; w<4; w++) {
+    const wd = dates.slice(w*6, w*6+6);
+    const d0 = new Date(wd[0]+'T00:00:00'), d5=new Date(wd[5]+'T00:00:00');
+    const lbl = d0.toLocaleDateString('fr-FR',{day:'numeric',month:'long'})+' – '+d5.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+    const blk = document.createElement('div'); blk.className='week-block';
+    blk.innerHTML=`<div class="week-title">Semaine ${w+1} <span>${lbl}</span></div><div class="days-grid" id="wg-${w}"></div>`;
+    el.appendChild(blk);
 
-    const d0=new Date(weekDates[0]+'T00:00:00');
-    const d5=new Date(weekDates[5]+'T00:00:00');
-    const label=d0.toLocaleDateString('fr-FR',{day:'numeric',month:'long'})
-      +' – '+d5.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
-
-    block.innerHTML=`<div class="week-title">Semaine ${wi+1} <span>${label}</span></div>
-      <div class="days-grid" id="week-${wi}"></div>`;
-    container.appendChild(block);
-
-    const grid=document.getElementById('week-'+wi);
-    weekDates.forEach(date=>{
+    const grid=document.getElementById('wg-'+w);
+    wd.forEach(date=>{
       const dt=new Date(date+'T00:00:00');
-      const isPast=date<today;
-      const isToday=date===today;
-      const dayData=planningData.planning[date]||{am:null,pm:null};
-      const dayN=dt.getDay();
-
+      const isPast=date<today, isToday=date===today;
+      const dd=pendingData.planning[date]||{am:null,pm:null};
       const card=document.createElement('div');
       card.className='day-card'+(isToday?' today':'')+(isPast?' past':'');
 
-      let slotsHtml='';
+      let html=`<div class="day-name${isToday?' today-label':''}">${DAY_SHORT[dt.getDay()]} ${dt.getDate()}</div>`;
+
       SLOTS.forEach(slot=>{
-        const person=dayData[slot]||'—';
-        const modified=dayData[slot+'_modified']||false;
-        const key=getSlotKey(date,slot);
-        const canUndo=undoStack.length>0;
-
-        slotsHtml+=`<div class="slot">
+        const person=dd[slot]||'—';
+        const isPend=pendingSlots.has(date+'_'+slot);
+        const cls=isPend?'pending':'official';
+        html+=`<div class="slot">
           <div class="slot-label">${SLOT_LABELS[slot]}</div>
-          <div class="slot-person${modified?' modified':''}">
-            <span class="person-name">${person}</span>
-            <span class="mod-dot" title="Modifié manuellement"></span>
-          </div>
-          <div class="slot-btns">
-            <button class="slot-btn back-btn" onclick="changePerson('${date}','${slot}','back')"
-              ${(!canUndo||isPast)?'disabled':''} title="Revenir en arrière">←</button>
-            <button class="slot-btn" onclick="changePerson('${date}','${slot}','next')"
-              ${isPast?'disabled':''} title="Changer la personne">→</button>
-          </div>
-        </div>`;
+          <div class="slot-person ${cls}">${person}${isPend?' ⏳':''}</div>
+          <div class="slot-btns">`;
+        if (!isPast) {
+          if (isPend) {
+            html+=`<button class="slot-btn ok"   onclick="validate('${date}','${slot}')" title="Valider">✓</button>
+                   <button class="slot-btn no"   onclick="cancel()"                     title="Annuler">✗</button>`;
+          }
+          html+=`<button class="slot-btn next" onclick="propose('${date}','${slot}')" title="Proposer un autre">→</button>`;
+        }
+        html+=`</div></div>`;
       });
-
-      card.innerHTML=`<div class="day-name${isToday?' today-label':''}">${DAY_SHORT[dayN]} ${dt.getDate()}</div>${slotsHtml}`;
+      card.innerHTML=html;
       grid.appendChild(card);
     });
-  });
+  }
 }
 
-async function regeneratePlanning(){
-  if(!confirm('Régénérer le planning effacera les assignations automatiques non modifiées. Continuer ?')) return;
-  // Clear non-modified slots
-  Object.keys(planningData.planning).forEach(date=>{
-    SLOTS.forEach(slot=>{
-      if(!planningData.planning[date][slot+'_modified']){
-        planningData.planning[date][slot]=null;
-      }
-    });
-  });
-  planningData.history=planningData.history.filter(h=>{
-    const d=planningData.planning[h.date];
-    return d&&d[h.slot+'_modified'];
-  });
-  planningData=generatePlanning(planningData);
-  await saveData(planningData);
+// ── Regenerate ──
+async function regenerate() {
+  if (!confirm('Régénérer le planning ? Les affectations actuelles seront effacées.')) return;
+  officialData = generate({champion_dispense: officialData?.champion_dispense||{person:null,week:null}});
+  await save();
+  pendingData  = clone(officialData);
+  pendingSlots = new Set();
   renderPlanning();
 }
 
 // ── Init ──
-async function init(){
-  let data=await loadData();
-  if(!data||!data.planning){
-    data=generatePlanning(null);
-    await saveData(data);
-  } else {
-    // Check if we need to generate more slots
-    const weeks=get4WeekDates();
-    const lastDate=weeks[3][5];
-    const hasAll=weeks.flat().every(d=>data.planning[d]);
-    if(!hasAll){
-      data=generatePlanning(data);
-      await saveData(data);
-    }
+async function init() {
+  const ok = await load();
+  if (!ok) return;
+  const dates  = get4Weeks();
+  const needsGen = dates.some(d=>!officialData.planning?.[d]);
+  if (needsGen) {
+    officialData = generate(officialData);
+    await save();
   }
-  planningData=data;
+  pendingData  = clone(officialData);
+  pendingSlots = new Set();
   renderPlanning();
 }
 

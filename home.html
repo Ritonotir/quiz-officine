@@ -91,11 +91,7 @@
   .flux-person { flex: 1; background: var(--green-light); border: 1px solid var(--border); border-radius: 10px; padding: 7px 12px; font-size: .88rem; font-weight: 500; color: var(--green-dark); display: flex; align-items: center; justify-content: space-between; }
   .flux-person.modified { background: #fff3cd; border-color: var(--gold); color: #7a5000; }
   .flux-mod { font-size: .62rem; background: var(--gold); color: white; padding: 1px 5px; border-radius: 4px; font-weight: 700; }
-  .flux-btns { display: flex; gap: 4px; }
-  .flux-btn { background: white; border: 1.5px solid var(--border); border-radius: 8px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .9rem; cursor: pointer; transition: all .15s; color: var(--muted); }
-  .flux-btn:hover:not([disabled]) { border-color: var(--green); color: var(--green); background: var(--green-light); }
-  .flux-btn.back:hover:not([disabled]) { border-color: var(--gold); color: var(--gold); background: #fff3cd; }
-  .flux-btn[disabled] { opacity: .3; cursor: default; }
+
   .flux-msg { font-size: .82rem; color: var(--muted); text-align: center; padding: 12px 0; }
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
@@ -152,14 +148,13 @@
 var JSONBIN_URL      = 'https://api.jsonbin.io/v3/b/69e8731aaaba882197256035';
 var JSONBIN_URL_FLUX = 'https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08';
 var JSONBIN_KEY      = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
-var FLUX_VISIBLE       = false;
+var FLUX_VISIBLE       = true;
 var CHALLENGE_DISPENSE = false;
 
 var PEOPLE = ['Antho','Cha R','Cha M','Georges','Nico','Anaïs A','Anaïs B','Ines','Cynthia','Clem','Marina','Fabienne','Nath'];
 var SLOT_LABELS = {am:'Matin', pm:'Après-midi'};
 var allQuizzes = [];
 var fluxData = null;
-var fluxUndoStack = []; // snapshot stack
 
 // ── Quizzes ──
 async function loadQuizzes() {
@@ -266,72 +261,26 @@ async function loadLeaderboard() {
   }
 }
 
-// ── Flux ──
-function computeWeight(person, date, history, dispense, wa) {
-  var ds = 999;
-  var ph = history.filter(function(h){ return h.person === person; }).sort(function(a,b){ return a.date > b.date ? -1 : 1; });
-  if (ph.length > 0) { ds = Math.max(0, Math.round((new Date(date+'T00:00:00') - new Date(ph[0].date+'T00:00:00')) / 86400000)); }
-  var w = ds;
-  if (wa && wa[person]) w *= 0.05;
-  if (dispense && dispense.person === person) w *= 0.01;
-  return Math.max(w, 0.001);
-}
-
-function weightedPick(people, weights) {
-  var t = weights.reduce(function(s,w){ return s+w; }, 0), r = Math.random()*t;
-  for (var i=0; i<people.length; i++) { r -= weights[i]; if (r<=0) return people[i]; }
-  return people[people.length-1];
-}
-
-async function saveFlux() {
-  try { await fetch(JSONBIN_URL_FLUX, {method:'PUT', headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY}, body:JSON.stringify(fluxData)}); } catch(e) {}
-}
-
-function deepCloneFlux(obj) { return JSON.parse(JSON.stringify(obj)); }
-
-async function changeFluxPerson(date, slot, dir) {
-  if (dir === 'back') {
-    if (!fluxUndoStack.length) return;
-    var snap = fluxUndoStack.pop();
-    fluxData.planning = snap.planning;
-    fluxData.history = snap.history;
-  } else {
-    // Save snapshot
-    fluxUndoStack.push({
-      planning: deepCloneFlux(fluxData.planning),
-      history: deepCloneFlux(fluxData.history)
-    });
-    var cur = fluxData.planning[date][slot];
-    var cands = PEOPLE.filter(function(p){return p!==cur;});
-    var wa={}, disp=fluxData.champion_dispense||{person:null};
-    ['am','pm'].forEach(function(s){
-      if(s!==slot && fluxData.planning[date] && fluxData.planning[date][s]){
-        var p=fluxData.planning[date][s]; wa[p]=(wa[p]||0)+1;
-      }
-    });
-    var weights = cands.map(function(p){return computeWeight(p,date,fluxData.history,disp,wa);});
-    var chosen = weightedPick(cands, weights);
-    fluxData.planning[date][slot]=chosen;
-    fluxData.planning[date][slot+'_modified']=true;
-    fluxData.history.push({person:chosen,date:date,slot:slot});
-  }
-  await saveFlux();
-  renderFlux();
-}
-
+// ── Flux : lecture seule du JSONBin ──
 function renderFlux() {
   if (!FLUX_VISIBLE) return;
-  var today = todayStr(), dt = new Date(today+'T00:00:00');
-  document.getElementById('flux-date').textContent = dt.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
-  var content = document.getElementById('flux-content');
-  if (dt.getDay()===0) { content.innerHTML='<div class="flux-msg">Pas de flux le dimanche 🌞</div>'; return; }
-  if (!fluxData||!fluxData.planning||!fluxData.planning[today]) {
-    content.innerHTML='<div class="flux-msg">Pas de planning.<br><a href="flux-planning.html" style="color:var(--green)">Générer →</a></div>'; return;
+  var today = todayStr();
+  var dt = new Date(today+"T00:00:00");
+  document.getElementById("flux-date").textContent = dt.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
+  var content = document.getElementById("flux-content");
+  if (dt.getDay()===0) {
+    content.innerHTML = "<div class=\"flux-msg\">Pas de flux le dimanche 🌞</div>";
+    return;
   }
-  var dd = fluxData.planning[today], html='';
-  ['am','pm'].forEach(function(slot){
-    var p=dd[slot]||'—', mod=dd[slot+'_modified']||false, canUndo=fluxUndoStack.length>0;
-    html+='<div class="flux-slot"><div class="flux-slot-label">'+SLOT_LABELS[slot]+'</div><div class="flux-row"><div class="flux-person'+(mod?' modified':'')+'"><span>'+p+'</span>'+(mod?'<span class="flux-mod">modifié</span>':'')+'</div><div class="flux-btns"><button class="flux-btn back" onclick="changeFluxPerson(\''+today+'\',\''+slot+'\',\'back\')"'+(canUndo?'':' disabled')+'>←</button><button class="flux-btn" onclick="changeFluxPerson(\''+today+'\',\''+slot+'\',\'next\')">→</button></div></div></div>';
+  if (!fluxData || !fluxData.planning || !fluxData.planning[today]) {
+    content.innerHTML = "<div class=\"flux-msg\">Planning non disponible.<br><a href=\"flux-planning.html\" style=\"color:var(--green)\">Ouvrir le planning →</a></div>";
+    return;
+  }
+  var dd = fluxData.planning[today];
+  var html = "";
+  ["am","pm"].forEach(function(slot){
+    var p = dd[slot] || "—";
+    html += "<div class=\"flux-slot\"><div class=\"flux-slot-label\">" + SLOT_LABELS[slot] + "</div><div class=\"flux-person\"><span>" + p + "</span></div></div>";
   });
   content.innerHTML = html;
 }
@@ -341,7 +290,7 @@ async function initFlux() {
   document.getElementById('flux-card').style.display = 'block';
   try {
     var r = await fetch(JSONBIN_URL_FLUX+'/latest', {headers:{'X-Master-Key':JSONBIN_KEY}});
-    if (!r.ok) throw new Error('flux');
+    if (!r.ok) throw new Error();
     var d = await r.json();
     fluxData = d.record || null;
   } catch(e) { fluxData = null; }
