@@ -327,7 +327,7 @@ function changePerson(date, slot, direction){
     const chosen = weightedPick(candidates,weights);
 
     planningData.planning[date][slot] = chosen;
-    planningData.planning[date][slot+'_modified'] = true;
+    planningData.planning[date][slot+'_modified'] = false;
     planningData.history.push({person:chosen,date,slot});
 
     // Recalculate subsequent non-modified slots
