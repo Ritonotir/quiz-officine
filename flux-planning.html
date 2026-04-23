@@ -234,6 +234,61 @@ async function saveData(data){
   }catch(e){console.error('Save failed',e);}
 }
 
+function recalculateFrom(fromDate, fromSlot) {
+  const weeks = get4WeekDates();
+  const allSlots = [];
+  weeks.flat().forEach(d => {
+    SLOTS.forEach(s => allSlots.push({date:d, slot:s}));
+  });
+
+  // Find index of slot AFTER the changed one
+  let startIdx = 0;
+  for (let i = 0; i < allSlots.length; i++) {
+    if (allSlots[i].date === fromDate && allSlots[i].slot === fromSlot) {
+      startIdx = i + 1;
+      break;
+    }
+  }
+
+  // Rebuild weekAssignments from scratch up to startIdx
+  const weekAssignments = {};
+  for (let i = 0; i < startIdx; i++) {
+    const {date, slot} = allSlots[i];
+    const p = planningData.planning[date] && planningData.planning[date][slot];
+    const wk = getWeekKey(date);
+    if (!weekAssignments[wk]) weekAssignments[wk] = {};
+    if (p && p !== '—') weekAssignments[wk][p] = (weekAssignments[wk][p]||0) + 1;
+  }
+
+  // Rebuild clean history up to startIdx (keep manually modified ones)
+  const baseHistory = planningData.history.filter(h => {
+    const idx = allSlots.findIndex(s => s.date===h.date && s.slot===h.slot);
+    return idx < startIdx;
+  });
+
+  const dispenseInfo = planningData.champion_dispense || {person:null, week:null};
+
+  // Recalculate non-modified slots from startIdx onward
+  for (let i = startIdx; i < allSlots.length; i++) {
+    const {date, slot} = allSlots[i];
+    const wk = getWeekKey(date);
+    if (!weekAssignments[wk]) weekAssignments[wk] = {};
+    if (!planningData.planning[date]) planningData.planning[date] = {am:null,pm:null,am_modified:false,pm_modified:false};
+
+    if (!planningData.planning[date][slot+'_modified']) {
+      const weights = PEOPLE.map(p => computeWeight(p, date, slot, baseHistory, dispenseInfo, weekAssignments));
+      const chosen = weightedPick(PEOPLE, weights);
+      planningData.planning[date][slot] = chosen;
+      baseHistory.push({person:chosen, date, slot});
+    }
+    const p = planningData.planning[date][slot];
+    if (p && p !== '—') weekAssignments[wk][p] = (weekAssignments[wk][p]||0) + 1;
+  }
+
+  // Rebuild full history: base + recalculated
+  planningData.history = baseHistory;
+}
+
 // ── Slot change ──
 function getSlotKey(date,slot){return date+'_'+slot;}
 

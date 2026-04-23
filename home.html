@@ -336,63 +336,6 @@ function renderFlux() {
   content.innerHTML = html;
 }
 
-function fluxGetMonday() {
-  var d = new Date();
-  var day = d.getDay() || 7;
-  d.setDate(d.getDate() - day + 1);
-  d.setHours(0,0,0,0);
-  return d;
-}
-
-function fluxGet4Weeks() {
-  var monday = fluxGetMonday();
-  var dates = [];
-  for (var w = 0; w < 4; w++) {
-    for (var dd = 0; dd < 6; dd++) {
-      var dt = new Date(monday);
-      dt.setDate(dt.getDate() + w * 7 + dd);
-      dates.push(dt.getFullYear() + '-' + String(dt.getMonth()+1).padStart(2,'0') + '-' + String(dt.getDate()).padStart(2,'0'));
-    }
-  }
-  return dates;
-}
-
-function fluxGetWeekKey(dateStr) {
-  var d = new Date(dateStr + 'T00:00:00');
-  var day = d.getDay() || 7;
-  d.setDate(d.getDate() + 4 - day);
-  var ys = new Date(d.getFullYear(), 0, 1);
-  var w = Math.ceil((((d - ys) / 86400000) + 1) / 7);
-  return d.getFullYear() + '-W' + String(w).padStart(2, '0');
-}
-
-function generateFluxPlanning(existing) {
-  var planning = (existing && existing.planning) ? existing.planning : {};
-  var history = (existing && existing.history) ? existing.history : [];
-  var dispense = (existing && existing.champion_dispense) ? existing.champion_dispense : {person:null, week:null};
-  var dates = fluxGet4Weeks();
-  var weekAssign = {};
-  dates.forEach(function(date) {
-    var wk = fluxGetWeekKey(date);
-    if (!weekAssign[wk]) weekAssign[wk] = {};
-    if (!planning[date]) planning[date] = {am:null, pm:null, am_modified:false, pm_modified:false};
-    ['am','pm'].forEach(function(slot) {
-      if (!planning[date][slot]) {
-        var weights = PEOPLE.map(function(p) { return computeWeight(p, date, history, dispense, weekAssign[wk]); });
-        var chosen = weightedPick(PEOPLE, weights);
-        planning[date][slot] = chosen;
-        planning[date][slot+'_modified'] = false;
-        weekAssign[wk][chosen] = (weekAssign[wk][chosen]||0) + 1;
-        history.push({person:chosen, date:date, slot:slot});
-      } else {
-        var p = planning[date][slot];
-        if (p) weekAssign[wk][p] = (weekAssign[wk][p]||0) + 1;
-      }
-    });
-  });
-  return {planning:planning, history:history, champion_dispense:dispense};
-}
-
 async function initFlux() {
   if (!FLUX_VISIBLE) return;
   document.getElementById('flux-card').style.display = 'block';
@@ -402,12 +345,6 @@ async function initFlux() {
     var d = await r.json();
     fluxData = d.record || null;
   } catch(e) { fluxData = null; }
-  // Auto-generate if planning missing for today
-  var today = todayStr();
-  if (!fluxData || !fluxData.planning || !fluxData.planning[today]) {
-    fluxData = generateFluxPlanning(fluxData);
-    saveFlux();
-  }
   renderFlux();
 }
 
