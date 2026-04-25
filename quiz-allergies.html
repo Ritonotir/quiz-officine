@@ -84,13 +84,13 @@
 <div id="screen-intro" class="screen active">
   <div><div class="badge">Formation Officine</div>
   <h1><span>Allergies Saisonnières</span></h1></div>
-  <p>Rhinite allergique : antihistaminiques, corticoïdes nasaux, conseils.</p>
+  <p>Antihistaminiques, corticoïdes nasaux, allergie croisée, cas particuliers.</p>
   <div class="intro-stats">
     <div class="stat-pill"><strong>12</strong><span>questions</span></div>
     <div class="stat-pill"><strong>QCM</strong><span>format</span></div>
     <div class="stat-pill"><strong>~7 min</strong><span>durée</span></div>
   </div>
-  <div class="pool-info">🎲 Tirage aléatoire — 12 questions disponibles</div>
+  <div class="pool-info">🎲 Tirage aléatoire — 14 questions disponibles (7F / 3M / 4D)</div>
   <button class="btn-start" onclick="startQuiz()">Commencer →</button>
 </div>
 <div id="screen-quiz" class="screen">
@@ -135,11 +135,11 @@ const QUESTION_POOL = [
    text:"Quelle est la différence principale entre un antihistaminique H1 de 1ère et de 2ème génération ?",
    options:["La 2ème génération est plus efficace sur les symptômes nasaux", "La 1ère génération est sédative et anticholinergique, la 2ème est non sédative", "La 2ème génération agit plus vite mais dure moins longtemps", "La 1ère génération est réservée aux enfants"],correct:1,
    explanation:"Les H1 de <strong>1ère génération</strong> (dexchlorphéniramine, prométhazine…) traversent la barrière hémato-encéphalique : sédation marquée + effet anticholinergique (bouche sèche, rétention urinaire…). Les H1 de <strong>2ème génération</strong> (cétirizine, loratadine, bilastine…) ne la traversent pas (ou peu) : pas de somnolence significative, pas d'effet anticholinergique. Ce sont ceux à privilégier en conseil de premier recours."},
-  {quiz:"allergies",theme:"Antihistaminiques",difficulte:"facile",
+  {quiz:"allergies",theme:"Antihistaminiques",difficulte:"modere",
    text:"Un patient sous traitement au long cours demande un antihistaminique pour sa rhinite allergique printanière. Lequel conseillez-vous en priorité ?",
    options:["Polaramine® (dexchlorphéniramine) — efficace et éprouvé", "Cétirizine 10 mg — non sédatif, prise unique quotidienne", "Prométhazine — bonne durée d'action", "Peu importe, tous les antihistaminiques sont équivalents"],correct:1,
    explanation:"La <strong>cétirizine</strong> (ou loratadine, bilastine) est le choix de référence en traitement continu : non sédatif, une prise par jour, bonne tolérance au long cours. Polaramine et prométhazine sont des H1 de 1ère génération : leur sédation les rend inadaptés à un usage quotidien prolongé, surtout chez un actif."},
-  {quiz:"allergies",theme:"Antihistaminiques",difficulte:"modere",
+  {quiz:"allergies",theme:"Antihistaminiques",difficulte:"difficile",
    text:"La bilastine (Bilaska®, Inorial®) présente une particularité importante à communiquer au patient. Laquelle ?",
    options:["Elle est contre-indiquée en cas d'insuffisance rénale", "Elle doit être prise à distance des repas (1h avant ou 2h après)", "Elle ne peut pas être associée aux corticoïdes nasaux", "Elle est réservée aux plus de 18 ans"],correct:1,
    explanation:"La <strong>bilastine</strong> a une biodisponibilité réduite de 30% si prise avec de la nourriture ou du jus de pamplemousse. Elle doit être prise <strong>à jeun</strong> : 1h avant ou 2h après un repas. C'est un point de conseil souvent oublié qui explique certains échecs thérapeutiques."},
@@ -178,7 +178,15 @@ const QUESTION_POOL = [
   {quiz:"allergies",theme:"Conseil global",difficulte:"facile",
    text:"Quelle association représente la prise en charge optimale d'une rhinite allergique saisonnière modérée à sévère ?",
    options:["Antihistaminique H1 1ère génération + vasoconstricteur nasal", "Antihistaminique H1 2ème génération seul, en cure courte", "Antihistaminique H1 2ème génération + corticoïde nasal débuté avant la saison", "Corticoïde nasal seul, les antihistaminiques sont inutiles si corticoïde bien utilisé"],correct:2,
-   explanation:"La combinaison de référence est <strong>antihistaminique H1 de 2ème génération + corticoïde nasal</strong>. Idéalement, le corticoïde nasal est débuté <strong>1 à 2 semaines avant le début de la saison pollinique</strong> pour que l'effet anti-inflammatoire soit installé à l'exposition. L'antihistaminique couvre les symptômes aigus (yeux, nez qui coule) pendant la montée en charge du corticoïde."}
+   explanation:"La combinaison de référence est <strong>antihistaminique H1 de 2ème génération + corticoïde nasal</strong>. Idéalement, le corticoïde nasal est débuté <strong>1 à 2 semaines avant le début de la saison pollinique</strong> pour que l'effet anti-inflammatoire soit installé à l'exposition. L'antihistaminique couvre les symptômes aigus (yeux, nez qui coule) pendant la montée en charge du corticoïde."},
+  {quiz:"allergies",theme:"Allergie croisée",difficulte:"difficile",
+   text:"Un patient allergique aux pollens de bouleau signale que depuis le printemps, il ressent des picotements buccaux en mangeant des pommes crues. Quelle est l'explication ?",
+   options:["Allergie alimentaire vraie à la pomme, indépendante de son allergie au pollen", "Syndrome d'allergie orale par réactivité croisée entre protéines du bouleau et de la pomme", "Effets indésirables de son traitement antihistaminique sur la muqueuse buccale", "Déficit en DAO lié à l'histamine alimentaire de la pomme"],correct:1,
+   explanation:"Le <strong>syndrome d'allergie orale (SAO)</strong> est une réaction croisée fréquente entre pollens et aliments crus : bouleau → pomme, poire, pêche, noisette, céleri. Les symptômes sont locaux (picotements, prurit buccal) et disparaissent à la cuisson des aliments. À distinguer d'une allergie alimentaire vraie qui peut provoquer une réaction systémique. Orienter vers un allergologue pour bilan."},
+  {quiz:"allergies",theme:"Interactions médicamenteuses",difficulte:"difficile",
+   text:"Un patient sous métoprolol (bêtabloquant) fait une réaction allergique sévère et reçoit de l'adrénaline. Pourquoi l'effet de l'adrénaline peut-il être diminué ou paradoxal ?",
+   options:["Le métoprolol inhibe l'absorption digestive de l'adrénaline", "Les bêtabloquants bloquent les récepteurs bêta-adrénergiques, s'opposant à l'effet bronchodilatateur et vasopresseur de l'adrénaline", "Le métoprolol est un inducteur enzymatique qui accélère la dégradation de l'adrénaline", "Il n'y a pas d'interaction, l'adrénaline reste pleinement efficace"],correct:1,
+   explanation:"Les bêtabloquants bloquent les récepteurs β1 et β2, réduisant l'effet <strong>bronchodilatateur (β2)</strong> et inotrope/vasoconstricteur (β1) de l'adrénaline. La stimulation alpha-adrénergique reste active, pouvant provoquer une <strong>bradycardie réflexe paradoxale</strong>. Des doses plus élevées d'adrénaline ou du glucagon IV peuvent être nécessaires en cas d'anaphylaxie chez un patient sous bêtabloquants."}
 ];
 
 function shuffleArray(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
@@ -194,15 +202,22 @@ function pickQuizQuestions(quizId){
 
 const DIFF_LABELS = {facile:'🟢 Facile', modere:'🟡 Modéré', difficile:'🔴 Difficile'};
 const DIFF_CLASSES = {facile:'diff-facile', modere:'diff-modere', difficile:'diff-difficile'};
-
-let current=0, score=0, userAnswers=[];
-let shuffledQuestions=[], shuffledOptions=[];
-
+let current=0,score=0,userAnswers=[],shuffledQuestions=[],shuffledOptions=[];
+function shuffleArray(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function pickQuizQuestions(quizId){
+  const pool=shuffleArray(QUESTION_POOL.filter(q=>q.quiz===quizId));
+  const f=pool.filter(q=>q.difficulte==='facile');
+  const m=pool.filter(q=>q.difficulte==='modere');
+  const d=pool.filter(q=>q.difficulte==='difficile');
+  let sel=[...f.slice(0,4),...m.slice(0,4),...d.slice(0,4)];
+  if(sel.length<12){const used=new Set(sel.map(q=>q.text));const rem=shuffleArray(pool.filter(q=>!used.has(q.text)));sel=[...sel,...rem.slice(0,12-sel.length)];}
+  return shuffleArray(sel.slice(0,12));
+}
 function startQuiz(){
-  current=0; score=0; userAnswers=[];
+  current=0;score=0;userAnswers=[];
   shuffledQuestions=pickQuizQuestions(QUIZ_ID);
   shuffledOptions=shuffledQuestions.map(q=>shuffleArray(q.options.map((text,origIndex)=>({text,origIndex}))));
-  showScreen('screen-quiz'); renderQuestion();
+  showScreen('screen-quiz');renderQuestion();
 }
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 function renderQuestion(){
@@ -212,14 +227,12 @@ function renderQuestion(){
   document.getElementById('score-display').textContent='Score : '+score;
   document.getElementById('q-num').textContent=current+1;
   document.getElementById('q-theme').textContent=q.theme;
-  const de=document.getElementById('q-diff');
-  de.textContent=DIFF_LABELS[q.difficulte]||q.difficulte;
-  de.className='diff-tag '+(DIFF_CLASSES[q.difficulte]||'');
+  const de=document.getElementById('q-diff');de.textContent=DIFF_LABELS[q.difficulte]||q.difficulte;de.className='diff-tag '+(DIFF_CLASSES[q.difficulte]||'');
   document.getElementById('q-text').textContent=q.text;
-  const grid=document.getElementById('options-grid'); grid.innerHTML='';
+  const grid=document.getElementById('options-grid');grid.innerHTML='';
   const letters=['A','B','C','D'];
   opts.forEach((opt,di)=>{
-    const btn=document.createElement('button'); btn.className='option-btn';
+    const btn=document.createElement('button');btn.className='option-btn';
     btn.innerHTML='<span class="opt-letter">'+letters[di]+'</span><span>'+opt.text+'</span>';
     btn.onclick=(function(o){return function(){selectAnswer(o.origIndex);};})(opt);
     grid.appendChild(btn);
@@ -230,7 +243,7 @@ function renderQuestion(){
 function selectAnswer(chosenOrig){
   const q=shuffledQuestions[current],opts=shuffledOptions[current];
   document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
-  const ok=chosenOrig===q.correct; if(ok)score++; userAnswers[current]=chosenOrig;
+  const ok=chosenOrig===q.correct;if(ok)score++;userAnswers[current]=chosenOrig;
   document.querySelectorAll('.option-btn').forEach((btn,di)=>{
     const orig=opts[di].origIndex;
     if(orig===q.correct)btn.classList.add('correct');
@@ -241,7 +254,7 @@ function selectAnswer(chosenOrig){
   document.getElementById('fb-title').textContent=ok?'✓ Bonne réponse !':'✗ Pas tout à fait…';
   document.getElementById('fb-body').innerHTML=q.explanation;
   fb.className='feedback-box show '+(ok?'correct-fb':'wrong-fb');
-  const nb=document.getElementById('next-btn'); nb.className='next-btn show';
+  const nb=document.getElementById('next-btn');nb.className='next-btn show';
   nb.textContent=current<shuffledQuestions.length-1?'Question suivante →':'Voir mes résultats →';
 }
 function nextQuestion(){current++;if(current>=shuffledQuestions.length)showResults();else renderQuestion();}
@@ -252,22 +265,14 @@ function showResults(){
   document.getElementById('res-pct').textContent=pct+'%';
   document.getElementById('result-circle').style.setProperty('--pct',pct+'%');
   const t=['🔁 À retravailler','📚 Des lacunes à combler','👍 Très bon niveau','🏆 Expertise confirmée !'];
-  const m=['Les fondamentaux ne sont pas encore acquis. Recommencez après révision.',
-           'Niveau intermédiaire. Certains points méritent une révision.',
-           'Bonne maîtrise. Relisez les points manqués pour consolider.',
-           'Résultat parfait. Votre maîtrise est solide.'];
+  const msgs=['Les fondamentaux ne sont pas encore acquis. Recommencez après révision.','Niveau intermédiaire. Certains points méritent une révision.','Bonne maîtrise. Relisez les points manqués pour consolider.','Résultat parfait. Votre maîtrise est solide.'];
   const idx=pct===100?3:pct>=75?2:pct>=50?1:0;
-  document.getElementById('res-title').textContent=t[idx];
-  document.getElementById('res-msg').textContent=m[idx];
-  const list=document.getElementById('review-list'); list.innerHTML='';
+  document.getElementById('res-title').textContent=t[idx];document.getElementById('res-msg').textContent=msgs[idx];
+  const list=document.getElementById('review-list');list.innerHTML='';
   shuffledQuestions.forEach((q,i)=>{
     const ok=userAnswers[i]===q.correct;
-    const item=document.createElement('div'); item.className='review-item';
-    item.innerHTML='<span class="review-icon">'+(ok?'✅':'❌')+'</span><div>'
-      +'<div class="review-q">'+q.text+'</div>'
-      +'<div class="review-diff '+(DIFF_CLASSES[q.difficulte]||'')+'">'+( DIFF_LABELS[q.difficulte]||'')+'</div>'
-      +(!ok?'<div class="review-ans">Bonne réponse : <strong>'+q.options[q.correct]+'</strong></div>':'')
-      +'</div>';
+    const item=document.createElement('div');item.className='review-item';
+    item.innerHTML='<span class="review-icon">'+(ok?'✅':'❌')+'</span><div><div class="review-q">'+q.text+'</div><div class="review-diff '+(DIFF_CLASSES[q.difficulte]||'')+'">'+( DIFF_LABELS[q.difficulte]||'')+'</div>'+(!ok?'<div class="review-ans">Bonne réponse : <strong>'+q.options[q.correct]+'</strong></div>':'')+'</div>';
     list.appendChild(item);
   });
 }

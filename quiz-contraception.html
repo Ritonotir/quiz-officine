@@ -84,13 +84,13 @@
 <div id="screen-intro" class="screen active">
   <div><div class="badge">Formation Officine</div>
   <h1><span>Contraception</span></h1></div>
-  <p>Pilules, DIU, contraception d'urgence, oublis, interactions.</p>
+  <p>Pilules, DIU, contraception d'urgence, oublis, interactions, cas cliniques.</p>
   <div class="intro-stats">
     <div class="stat-pill"><strong>12</strong><span>questions</span></div>
     <div class="stat-pill"><strong>QCM</strong><span>format</span></div>
     <div class="stat-pill"><strong>~7 min</strong><span>durée</span></div>
   </div>
-  <div class="pool-info">🎲 Tirage aléatoire — 24 questions disponibles</div>
+  <div class="pool-info">🎲 Tirage aléatoire — 35 questions disponibles (18F / 7M / 10D)</div>
   <button class="btn-start" onclick="startQuiz()">Commencer →</button>
 </div>
 <div id="screen-quiz" class="screen">
@@ -131,7 +131,7 @@
 <script>
 const QUIZ_ID = 'contraception';
 const QUESTION_POOL = [
-  {quiz:"contraception",theme:"Oubli de pilule OP",difficulte:"modere",
+  {quiz:"contraception",theme:"Oubli de pilule OP",difficulte:"facile",
    text:"Une patiente a oublié son comprimé OP il y a 14 heures. Elle n'a pas eu de rapport sexuel depuis 6 jours. Que conseillez-vous ?",
    options:["Prendre le comprimé oublié immédiatement + préservatif 7 jours", "Ne rien faire, l'oubli est inférieur à 24h", "Prendre une contraception d'urgence sans attendre", "Sauter le comprimé oublié et continuer normalement"],correct:0,
    explanation:"L'oubli dépasse <strong>12 heures</strong> : prendre le comprimé oublié dès que possible + <strong>préservatif 7 jours</strong>. Pas de contraception d'urgence ici car aucun rapport dans les 5 jours précédant l'oubli. Si l'oubli concerne les 7 derniers comprimés actifs, enchaîner directement avec la plaquette suivante sans placebo."},
@@ -139,27 +139,27 @@ const QUESTION_POOL = [
    text:"Quelles sont les 3 informations clés à recueillir systématiquement face à un oubli de pilule OP ?",
    options:["Génération de la pilule, heure de l'oubli, poids de la patiente", "Date de l'oubli, position du comprimé dans la plaquette, rapports sexuels dans les jours précédents", "Date des dernières règles, nombre de plaquettes prises, traitement associé", "Délai depuis l'oubli, nausées éventuelles, heure habituelle de prise"],correct:1,
    explanation:"Les <strong>3 informations indispensables</strong> : la <strong>date et l'heure de l'oubli</strong> (délai > ou < 12h), la <strong>position du comprimé dans la plaquette</strong> (un oubli en fin de plaquette est plus à risque), et l'<strong>existence de rapports dans les 5 jours précédents</strong> (pour décider d'une contraception d'urgence)."},
-  {quiz:"contraception",theme:"Contre-indications OP",difficulte:"modere",
+  {quiz:"contraception",theme:"Contre-indications OP",difficulte:"difficile",
    text:"Une patiente de 38 ans, fumeuse à 20 cigarettes/jour, migraineuse avec aura, vient renouveler sa pilule OP. Quelle est votre attitude ?",
    options:["Délivrer normalement, ces facteurs sont juste à surveiller", "Délivrer en conseillant fortement l'arrêt du tabac", "Refuser la délivrance et orienter vers le médecin", "Proposer une pilule moins dosée en œstrogènes"],correct:2,
    explanation:"Le <strong>tabagisme > 15 cig/jour chez une femme > 35 ans</strong> et les <strong>migraines avec aura</strong> sont chacun des <strong>contre-indications absolues</strong> aux OP. Leur association renforce l'impossibilité de délivrer. Orienter vers le prescripteur pour une alternative (microprogestatif, DIU)."},
-  {quiz:"contraception",theme:"Contre-indications OP",difficulte:"modere",
+  {quiz:"contraception",theme:"Contre-indications OP",difficulte:"difficile",
    text:"Combien de facteurs de risque modérés équivalent à une contre-indication absolue aux œstroprogestatifs ?",
    options:["1 seul suffit", "2 facteurs modérés", "3 facteurs modérés", "Cela dépend des facteurs"],correct:1,
    explanation:"<strong>2 facteurs de risque modérés = 1 contre-indication absolue.</strong> Facteurs modérés : migraine simple, tabagisme modéré, HTA contrôlée, diabète type 2, surpoids, certaines maladies auto-immunes. À surveiller à chaque renouvellement : évolution de l'âge, nouveaux traitements, nouveaux facteurs de risque."},
-  {quiz:"contraception",theme:"Contre-indications OP",difficulte:"modere",
+  {quiz:"contraception",theme:"Contre-indications OP",difficulte:"difficile",
    text:"Parmi ces situations, laquelle est une contre-indication absolue aux pilules OP ?",
    options:["Diabète de type 2 équilibré", "Surpoids (IMC 27)", "Antécédent personnel de phlébite", "Migraine simple sans aura"],correct:2,
    explanation:"Un <strong>antécédent de phlébite (thrombose veineuse)</strong> est une contre-indication absolue aux OP — risque de récidive thromboembolique majeur. Les autres propositions sont des <strong>facteurs de risque modérés</strong> qui nécessitent une vigilance mais ne contre-indiquent pas seuls les OP. Rappel : embolie pulmonaire, AVC, IDM, thrombophilie sont également des CI absolues."},
-  {quiz:"contraception",theme:"Contraception d'urgence",difficulte:"modere",
+  {quiz:"contraception",theme:"Contraception d'urgence",difficulte:"difficile",
    text:"Une patiente se présente 60 heures après un rapport non protégé. Quelle contraception d'urgence privilégier ?",
    options:["Lévonorgestrel — encore dans les 72h théoriques", "Ulipristal — efficace jusqu'à 5 jours, recommandé en 1ère intention", "Les deux sont équivalents à ce délai", "Il est trop tard, seul le DIU au cuivre est possible"],correct:1,
    explanation:"L'<strong>ulipristal</strong> est recommandé en <strong>1ère intention</strong> par les gynécologues : efficace jusqu'à <strong>5 jours (120h)</strong>, avec une efficacité supérieure au lévonorgestrel passé 72h. Le lévonorgestrel est optimal dans les <strong>12-24h</strong>. Le DIU au cuivre reste une option, surtout si contraception au long cours souhaitée ensuite."},
-  {quiz:"contraception",theme:"Contraception d'urgence",difficulte:"modere",
+  {quiz:"contraception",theme:"Contraception d'urgence",difficulte:"difficile",
    text:"Après la prise d'ulipristal, la patiente reprend sa pilule OP le soir même. Que lui précisez-vous ?",
    options:["Aucune précaution, la pilule reprend son efficacité immédiatement", "Utiliser une protection complémentaire pendant 12 jours ou jusqu'aux prochaines règles", "Attendre les prochaines règles avant de reprendre la pilule", "Doubler la dose de pilule pendant 7 jours"],correct:1,
    explanation:"Après ulipristal, la reprise d'une contraception hormonale nécessite une <strong>protection complémentaire pendant 12 jours</strong> (ou jusqu'aux prochaines règles). L'ulipristal module les récepteurs à la progestérone : une pilule reprise trop tôt peut réduire son efficacité. Point spécifique à l'ulipristal — ne s'applique pas au lévonorgestrel. Penser aussi au <strong>dépistage des IST</strong> après un rapport non protégé."},
-  {quiz:"contraception",theme:"Contraception d'urgence",difficulte:"modere",
+  {quiz:"contraception",theme:"Contraception d'urgence",difficulte:"facile",
    text:"Une patiente allaitante a pris du lévonorgestrel en contraception d'urgence. Quel conseil donner pour l'allaitement ?",
    options:["Suspendre l'allaitement 8 heures après la prise", "Suspendre l'allaitement 7 jours", "Aucune précaution, le lévonorgestrel est compatible avec l'allaitement sans restriction", "Arrêter définitivement l'allaitement"],correct:0,
    explanation:"Après lévonorgestrel : <strong>suspendre l'allaitement 8 heures</strong>. Après ulipristal, selon le CRAT, la suspension de 7 jours initialement recommandée n'est plus nécessaire — <strong>8 heures suffisent également</strong>. Ces données pratiques sont importantes à délivrer car elles lèvent une crainte fréquente qui peut conduire à un abandon injustifié de l'allaitement."},
@@ -171,7 +171,7 @@ const QUESTION_POOL = [
    text:"Une patiente sous pilule OP a eu des vomissements 5 heures après sa prise. Faut-il adapter la contraception ?",
    options:["Oui — tout vomissement impose un comprimé supplémentaire", "Non — au-delà de 4 heures, l'absorption est correcte, pas d'impact", "Oui — mais uniquement si les vomissements se répètent", "Non — sauf si elle est en fin de plaquette"],correct:1,
    explanation:"Si le vomissement survient <strong>après 4 heures</strong> : l'absorption du comprimé est considérée comme correcte, <strong>pas d'impact sur l'efficacité contraceptive</strong>. Aucune mesure supplémentaire n'est nécessaire. La règle des 4 heures est le seuil clé à retenir — en dessous, on gère comme un oubli."},
-  {quiz:"contraception",theme:"Effets indésirables OP",difficulte:"modere",
+  {quiz:"contraception",theme:"Effets indésirables OP",difficulte:"facile",
    text:"Une patiente débute une pilule OP depuis 5 semaines. Elle se plaint de spotting et de nausées. Elle veut changer de pilule. Que lui conseillez-vous ?",
    options:["Changer de pilule immédiatement pour une mieux tolérée", "Patienter jusqu'à 3 mois — période d'adaptation normale", "Arrêter la pilule et passer à un DIU", "Prendre la pilule à jeun et doubler si spotting"],correct:1,
    explanation:"Les <strong>3 premiers mois</strong> sont une <strong>période d'adaptation</strong> : spotting, nausées et mastodynies sont fréquents et s'estompent souvent spontanément. Changer trop tôt est inutile. Conseils : pilule <strong>au repas ou au coucher</strong> pour les nausées, régularité des prises pour le spotting. Consulter si persistance après 3 mois. Signes d'alarme qui imposent l'arrêt : migraine avec aura, troubles visuels, signes de phlébite."},
@@ -179,11 +179,11 @@ const QUESTION_POOL = [
    text:"Parmi ces effets indésirables signalés sous pilule OP, lequel impose l'arrêt immédiat et une consultation médicale ?",
    options:["Spotting en milieu de cycle", "Légère augmentation du volume des seins", "Nausées matinales les premières semaines", "Apparition d'une migraine avec aura"],correct:3,
    explanation:"La <strong>migraine avec aura</strong> sous pilule OP est un signal d'alarme grave : elle devient une <strong>contre-indication absolue</strong> et impose l'arrêt immédiat. Autres signaux graves : troubles visuels, douleur/rougeur/chaleur d'une jambe (signe de phlébite). Le spotting, les mastodynies légères et les nausées sont des effets courants de la période d'adaptation, sans danger immédiat."},
-  {quiz:"contraception",theme:"Microprogestatifs",difficulte:"modere",
+  {quiz:"contraception",theme:"Microprogestatifs",difficulte:"difficile",
    text:"Quelle est la marge d'oubli tolérée pour le Microval® comparé au Slinda® ?",
    options:["3 heures pour Microval®, 12 heures pour Slinda®", "12 heures pour les deux", "3 heures pour les deux", "24 heures pour Slinda®, 12 heures pour Microval®"],correct:0,
    explanation:"<strong>Microval®</strong> (très faiblement dosé) : efficacité repose sur la coagulation de la glaire cervicale → marge de <strong>3 heures seulement</strong>. <strong>Slinda® et Optimizette®</strong> (antigonadotropes) : bloquent l'ovulation à > 95% → tolèrent un oubli jusqu'à <strong>12 heures</strong>, comme les OP. Cette distinction est fondamentale à expliquer à la patiente dès la première délivrance."},
-  {quiz:"contraception",theme:"Microprogestatifs",difficulte:"modere",
+  {quiz:"contraception",theme:"Microprogestatifs",difficulte:"difficile",
    text:"Une patiente sous Microval® part en voyage avec un décalage horaire de 7 heures. Que lui conseillez-vous ?",
    options:["Continuer à l'heure habituelle du pays d'origine, sans changement", "Prendre la première pilule dans le nouveau pays un peu plus tôt, puis reprendre le rythme habituel", "Passer temporairement au Slinda® pour la durée du voyage", "Prendre un préservatif pendant tout le voyage par sécurité"],correct:1,
    explanation:"Pour un <strong>décalage horaire important</strong> : prendre la première pilule dans le nouveau pays <strong>un peu plus tôt</strong>, puis reprendre le rythme habituel en respectant toujours l'intervalle de <strong>12 heures maximum</strong> entre deux prises. En Europe (décalage faible) : continuer à l'heure habituelle du pays d'origine. Les microprogestatifs antigonadotropes se gèrent comme les OP pour l'adaptation horaire."},
@@ -191,7 +191,7 @@ const QUESTION_POOL = [
    text:"Une patiente sous pilule OP souhaite passer à un microprogestatif. Elle prend son dernier comprimé actif demain. Quand débuter le microprogestatif ?",
    options:["Attendre les prochaines règles", "Le lendemain de la dernière pilule OP, sans intervalle libre", "7 jours après la dernière pilule OP", "N'importe quand, avec un préservatif 7 jours"],correct:1,
    explanation:"Pour un relais après OP : débuter le microprogestatif <strong>le lendemain de la dernière pilule active</strong> (sans prendre les placebos) → aucune protection supplémentaire nécessaire. Si la patiente tarde et ne le débute pas le lendemain, il faut ajouter un <strong>préservatif pendant 7 jours</strong>, le temps que le microprogestatif soit efficace. En résumé : <strong>lendemain = pas de préservatif / plus tard = préservatif 7 jours.</strong>"},
-  {quiz:"contraception",theme:"Quick start",difficulte:"modere",
+  {quiz:"contraception",theme:"Quick start",difficulte:"facile",
    text:"Le « quick start » permet de débuter une pilule OP à quel moment du cycle ?",
    options:["Uniquement le premier jour des règles", "À n'importe quel moment, sous deux conditions", "Uniquement en début ou en milieu de cycle", "Uniquement après un test de grossesse négatif"],correct:1,
    explanation:"Le <strong>quick start</strong> permet de débuter une pilule OP <strong>à n'importe quel moment du cycle</strong>, sous deux conditions : <strong>s'assurer que la femme n'est pas enceinte</strong> (un test urinaire n'exclut qu'une grossesse de plus de 2 semaines) et utiliser une <strong>protection complémentaire pendant 7 jours</strong>. Faire un test de grossesse une semaine après par précaution."},
@@ -199,7 +199,7 @@ const QUESTION_POOL = [
    text:"Une patiente a des cycles très irréguliers (SOPK) et souhaite débuter une pilule OP. Elle a eu un rapport il y a 4 jours. Quelle est la démarche correcte ?",
    options:["Attendre le début des prochaines règles avant de débuter", "Faire un test urinaire immédiatement, débuter la pilule, et refaire un test après 7 jours", "Ne pas démarrer — cycles irréguliers contre-indiquent le quick start", "Débuter uniquement si test de grossesse négatif confirmé à J14"],correct:1,
    explanation:"En cas de <strong>cycles irréguliers ou de rapports récents</strong> : faire un test urinaire immédiatement, débuter la pilule, et <strong>refaire un test après 7 jours</strong>. La pharmacovigilance est très rassurante sur la prise de pilule en tout début de grossesse. Pour le SOPK notamment, où les cycles sont très longs, attendre les règles serait délétère — le quick start est particulièrement indiqué."},
-  {quiz:"contraception",theme:"DIU cuivre",difficulte:"modere",
+  {quiz:"contraception",theme:"DIU cuivre",difficulte:"facile",
    text:"Une patiente vient de passer de la pilule OP au DIU cuivre. Elle est surprise d'avoir des pertes abondantes et translucides autour du 14e jour. Quelle est votre explication ?",
    options:["Signe d'infection — orienter vers le gynécologue", "Retour du cycle naturel avec glaire ovulatoire physiologique", "Effet indésirable du cuivre sur la muqueuse vaginale", "Leucorrhées pathologiques liées à une vaginose"],correct:1,
    explanation:"Le DIU cuivre entraîne le <strong>retour d'un cycle naturel</strong> : les femmes retrouvent la <strong>glaire ovulatoire</strong> physiologique, abondante, translucide et glissante autour de l'ovulation. Sous pilule OP, cette glaire était supprimée — sa réapparition peut surprendre. Les leucorrhées physiologiques sont <strong>inodores, translucides et non irritantes</strong>. Pertes malodorantes ou colorées → suspecter une vaginose."},
@@ -207,26 +207,70 @@ const QUESTION_POOL = [
    text:"Quel risque infectieux spécifique justifie un dépistage systématique lors de la pose d'un DIU chez les femmes de moins de 25 ans ?",
    options:["Mycose vaginale", "Vaginose bactérienne", "Chlamydia", "Trichomonase"],correct:2,
    explanation:"La <strong>chlamydia</strong> est la principale IST à dépister systématiquement avant ou lors de la pose d'un DIU chez les femmes < 25 ans. La pose peut entraîner une remontée de germes vers l'utérus et les trompes, majorant le risque d'<strong>infections génitales hautes</strong>. Les mycoses ne sont pas spécifiquement induites par le DIU et ne constituent pas une indication de dépistage systématique."},
-  {quiz:"contraception",theme:"DIU cuivre",difficulte:"modere",
+  {quiz:"contraception",theme:"DIU cuivre",difficulte:"facile",
    text:"Une patiente sous DIU cuivre signale des règles beaucoup plus abondantes et douloureuses depuis la pose. Que lui expliquez-vous ?",
    options:["C'est anormal — elle doit retirer son DIU", "C'est un effet attendu lié au retour du cycle naturel, à anticiper lors du conseil", "Les ménorragies sont liées au cuivre qui irrite l'endomètre de façon pathologique", "Proposer un traitement hormonal pour compenser"],correct:1,
    explanation:"Les <strong>ménorragies et dysménorrhées</strong> sont des effets indésirables <strong>attendus et fréquents</strong> du DIU cuivre, liés au retour du cycle naturel sans protection hormonale. Ce point doit être <strong>anticipé lors du conseil</strong> avant la pose pour éviter l'abandon prématuré. La patiente qui choisit le DIU cuivre pour éviter les hormones doit être informée de ces désagréments possibles."},
-  {quiz:"contraception",theme:"DIU LNG",difficulte:"modere",
+  {quiz:"contraception",theme:"DIU LNG",difficulte:"facile",
    text:"Après la pose d'un Mirena®, une patiente signale de petits saignements irréguliers 3 semaines après. Que lui répondez-vous ?",
    options:["Orienter en urgence — signe probable de déplacement", "C'est un spotting attendu lié à l'atrophie de l'endomètre, normal 3 à 6 semaines", "Proposer un traitement hémostatique", "Suspecter une infection et orienter vers le médecin"],correct:1,
    explanation:"Le <strong>spotting</strong> dans les semaines suivant la pose d'un DIU au lévonorgestrel est un <strong>effet indésirable attendu et fréquent</strong>, lié à l'atrophie progressive de l'endomètre. Il dure généralement <strong>3 à 6 semaines</strong>. Un <strong>contrôle médical à 6 semaines</strong> après la pose est recommandé. Signes d'alarme à distinguer : douleurs pelviennes persistantes, pertes suspectes, fièvre → gynécologue."},
-  {quiz:"contraception",theme:"DIU LNG",difficulte:"modere",
+  {quiz:"contraception",theme:"DIU LNG",difficulte:"difficile",
    text:"Une femme sous Mirena® depuis 2 mois signale une douleur pelvienne unilatérale intermittente. Que suspectez-vous en priorité ?",
    options:["Déplacement du DIU — diagnostic d'urgence", "Kyste fonctionnel ovarien — fréquent, souvent asymptomatique", "Infection génitale haute — orienter immédiatement", "Grossesse extra-utérine"],correct:1,
    explanation:"Environ <strong>30% des utilisatrices de DIU LNG</strong> présentent des <strong>kystes fonctionnels ovariens</strong>, le plus souvent asymptomatiques, parfois responsables de douleurs pelviennes unilatérales. C'est la première hypothèse à évoquer face à ce tableau. Les signes d'infection (fièvre, pertes suspectes, douleur bilatérale) ou de déplacement (perception du fil à l'extérieur, douleur aux rapports) ont une présentation différente."},
-  {quiz:"contraception",theme:"Préservatifs",difficulte:"modere",
+  {quiz:"contraception",theme:"Préservatifs",difficulte:"facile",
    text:"Une patiente se plaint d'irritations après chaque rapport avec préservatif et évoque une allergie au latex. Quelle est votre démarche prioritaire ?",
    options:["Confirmer l'allergie et orienter vers des préservatifs en polyuréthane", "Rechercher d'abord d'autres causes plus fréquentes : mycose, manque de lubrification, rapports rapprochés", "Proposer un antihistaminique local", "Déconseiller les préservatifs et proposer une alternative contraceptive"],correct:1,
    explanation:"L'<strong>allergie au latex</strong> est rare (0,04 à 1%). Les irritations post-coïtales sont le plus souvent dues à : <strong>mycose vulvovaginale</strong> réveillée par le rapport, rapports fréquents et rapprochés, ou <strong>manque de lubrification</strong> (notamment après la ménopause). Rechercher ces causes en priorité avant d'orienter vers une allergie. La mycose peut être traitée en automédication — le partenaire n'a pas besoin d'être traité si asymptomatique."},
-  {quiz:"contraception",theme:"Préservatifs",difficulte:"modere",
+  {quiz:"contraception",theme:"Préservatifs",difficulte:"facile",
    text:"Un patient demande s'il peut utiliser de la vaseline comme lubrifiant avec ses préservatifs. Que lui répondez-vous ?",
    options:["Oui, la vaseline est un lubrifiant adapté aux préservatifs", "Non — les lubrifiants huileux fragilisent le latex et réduisent la protection", "Oui, mais uniquement avec des préservatifs épais", "Non, mais uniquement en cas de rapport prolongé"],correct:1,
-   explanation:"Les <strong>lubrifiants huileux</strong> (vaseline, huiles végétales, crèmes hydratantes) sont <strong>incompatibles avec les préservatifs en latex</strong> : ils augmentent le risque de rupture et de porosité, réduisant significativement la protection contre les IST et les grossesses non désirées, notamment contre le VIH. Conseiller des <strong>lubrifiants à base d'eau ou de silicone</strong>, compatibles avec le latex."}
+   explanation:"Les <strong>lubrifiants huileux</strong> (vaseline, huiles végétales, crèmes hydratantes) sont <strong>incompatibles avec les préservatifs en latex</strong> : ils augmentent le risque de rupture et de porosité, réduisant significativement la protection contre les IST et les grossesses non désirées, notamment contre le VIH. Conseiller des <strong>lubrifiants à base d'eau ou de silicone</strong>, compatibles avec le latex."},
+  {quiz:"contraception",theme:"Mécanismes d'action",difficulte:"facile",
+   text:"Quelle est la différence principale de mécanisme d'action entre une pilule œstroprogestative (OP) et une pilule microprogestative ?",
+   options:["La pilule OP agit uniquement sur la glaire cervicale, la microprogestative bloque l'ovulation", "La pilule OP bloque l'ovulation et épaissit la glaire ; la microprogestative agit principalement sur la glaire cervicale (sauf Slinda® qui bloque aussi l'ovulation)", "Les deux mécanismes sont identiques, seul le dosage diffère", "La microprogestative agit uniquement sur l'endomètre"],correct:1,
+   explanation:"La pilule OP combine estrogène + progestatif pour <strong>bloquer l'ovulation</strong> et modifier la glaire cervicale. Les microprogestatifs classiques (Microval®) agissent surtout sur la glaire cervicale sans bloquer l'ovulation de manière fiable. Le <strong>Slinda® (drospirénone)</strong> est l'exception : il inhibe l'ovulation dans la grande majorité des cycles, avec une marge d'oubli de 24h contre 3h pour le Microval®."},
+  {quiz:"contraception",theme:"Initiation de la contraception",difficulte:"facile",
+   text:"Une patiente débute sa première plaquette de pilule OP le 2ème jour de ses règles. Quelle recommandation lui donnez-vous ?",
+   options:["Elle est protégée immédiatement, pas besoin de précaution supplémentaire", "Utiliser un préservatif en complément pendant les 7 premiers jours par sécurité", "Attendre le prochain cycle pour une protection fiable", "Doubler le premier comprimé pour compenser le démarrage tardif"],correct:1,
+   explanation:"Par mesure de sécurité, si la pilule OP n'est pas démarrée le <strong>1er jour des règles</strong>, une protection mécanique pendant <strong>7 jours</strong> est recommandée. Seul le démarrage le 1er jour des règles garantit une protection immédiate. Cette recommandation sécuritaire est à privilégier pour éviter tout risque de grossesse non désirée."},
+  {quiz:"contraception",theme:"Contraception d'urgence",difficulte:"facile",
+   text:"Une patiente se présente 4 jours après un rapport non protégé. Peut-on lui proposer un DIU cuivre en contraception d'urgence ?",
+   options:["Non, le DIU cuivre n'a aucune efficacité en contraception d'urgence", "Non, le délai est dépassé — seule l'ulipristal est encore efficace à J4", "Oui, le DIU cuivre est efficace jusqu'à 5 jours après le rapport et c'est la méthode la plus efficace", "Oui, mais uniquement si la patiente souhaite garder le DIU sur le long terme"],correct:2,
+   explanation:"Le <strong>DIU cuivre</strong> est la contraception d'urgence la plus efficace (>99%) et peut être posé jusqu'à <strong>5 jours</strong> après le rapport non protégé. Il peut ensuite être gardé comme contraception de longue durée ou retiré lors des prochaines règles. À J4, l'ulipristal (efficace jusqu'à 120h) reste une alternative orale, mais le DIU cuivre est supérieur en efficacité."},
+  {quiz:"contraception",theme:"Contraception et allaitement",difficulte:"facile",
+   text:"Une patiente qui allaite exclusivement souhaite une contraception hormonale. Quelle pilule lui conseiller ?",
+   options:["Une pilule OP standard, compatible avec l'allaitement", "Une pilule microprogestative (Microval®, Slinda®), compatible avec l'allaitement", "Aucune pilule n'est compatible avec l'allaitement", "L'ulipristal en continu"],correct:1,
+   explanation:"Les pilules OP sont <strong>déconseillées pendant l'allaitement</strong> : l'estrogène peut réduire la lactation et passer dans le lait maternel. Les <strong>microprogestatifs</strong> sont la référence : ils n'affectent pas la lactation et sont bien tolérés par le nourrisson. Le DIU (cuivre ou hormonal) est aussi une excellente option pour les patientes allaitantes."},
+  {quiz:"contraception",theme:"Quick start",difficulte:"facile",
+   text:"Le « quick start » permet de débuter une pilule OP à quel moment du cycle ?",
+   options:["Uniquement le 1er jour des règles", "Uniquement entre J1 et J5 du cycle", "N'importe quel jour du cycle, après avoir écarté une grossesse", "Uniquement après un test de grossesse négatif réalisé en laboratoire"],correct:2,
+   explanation:"Le <strong>quick start</strong> consiste à démarrer la pilule le jour même de la consultation, quel que soit le moment du cycle, après avoir écarté une grossesse (test urinaire suffisant). Un préservatif est nécessaire pendant <strong>7 jours</strong>. L'avantage est d'améliorer l'observance en évitant d'attendre les prochaines règles, réduisant ainsi le risque de grossesse non désirée dans l'intervalle."},
+  {quiz:"contraception",theme:"Effets indésirables",difficulte:"facile",
+   text:"Une patiente débute une pilule OP depuis 5 semaines. Elle se plaint de petits saignements entre ses règles (spotting). Que lui dites-vous ?",
+   options:["Arrêter immédiatement la pilule, signe d'inefficacité", "Changer de pilule immédiatement pour une pilule plus dosée", "Consulter en urgence, c'est un signe possible de grossesse", "C'est normal en début de traitement, cela disparaît généralement avant le 3ème cycle"],correct:3,
+   explanation:"Le <strong>spotting</strong> (saignements inter-menstruels) est fréquent lors des premiers cycles sous pilule OP — l'endomètre s'adapte au nouveau taux hormonal. Il est rassurant et disparaît spontanément dans la grande majorité des cas avant le 3ème cycle. Si les saignements persistent au-delà de 3 mois ou s'intensifient, une consultation médicale est alors justifiée."},
+  {quiz:"contraception",theme:"DIU et effets attendus",difficulte:"facile",
+   text:"Une patiente sous DIU cuivre depuis 2 mois signale des règles beaucoup plus abondantes et douloureuses. Que lui répondez-vous ?",
+   options:["Retirer immédiatement le DIU, signe de complication grave", "Faire un bilan sanguin en urgence pour écarter une anémie", "C'est un effet attendu du DIU cuivre — rassurer et conseiller AINS pendant les règles si besoin", "Changer pour un DIU hormonal sans consulter le médecin poseur"],correct:2,
+   explanation:"L'augmentation du volume et de la durée des règles est un <strong>effet connu et attendu du DIU cuivre</strong>, lié à la réaction inflammatoire locale. Cet effet tend à s'atténuer après quelques mois. Les <strong>AINS</strong> (ibuprofène) pendant les règles réduisent efficacement les douleurs et le flux. Si les saignements sont très importants ou persistent, une consultation médicale est justifiée pour écarter une complication."},
+  {quiz:"contraception",theme:"Allergie et contraception",difficulte:"facile",
+   text:"Une patiente se plaint d'irritations après chaque rapport avec préservatif et évoque une possible allergie. Quelle est votre première suggestion ?",
+   options:["Arrêter définitivement les préservatifs et passer à une contraception hormonale", "Orienter vers des préservatifs synthétiques (polyuréthane, polyisoprène) sans latex", "Prescrire un antihistaminique avant chaque rapport", "C'est une irritation mécanique normale, pas une allergie"],correct:1,
+   explanation:"L'<strong>allergie au latex</strong> se manifeste par des irritations, prurit ou urticaire au contact des préservatifs en latex. La solution simple est de passer à des <strong>préservatifs synthétiques</strong> (polyuréthane ou polyisoprène), disponibles sans ordonnance. Ils offrent la même protection contraceptive et contre les IST. En cas de réaction sévère, orienter vers un allergologue pour bilan."},
+  {quiz:"contraception",theme:"Lubrifiants et préservatifs",difficulte:"facile",
+   text:"Un patient demande s'il peut utiliser de la vaseline comme lubrifiant avec ses préservatifs en latex. Que lui répondez-vous ?",
+   options:["Oui, la vaseline est parfaitement compatible avec les préservatifs en latex", "Oui, mais uniquement en petite quantité", "Non, les corps gras (vaseline, huile) dégradent le latex et augmentent le risque de rupture", "Non, mais uniquement parce que cela réduit la sensation"],correct:2,
+   explanation:"Les <strong>corps gras</strong> (vaseline, huile de coco, crèmes grasses) <strong>dégradent le latex</strong> en quelques minutes, fragilisant le préservatif et augmentant considérablement le risque de rupture. Seuls les lubrifiants à base d'<strong>eau ou de silicone</strong> sont compatibles avec les préservatifs en latex. Les préservatifs en polyuréthane sont compatibles avec tous les types de lubrifiants."},
+  {quiz:"contraception",theme:"Interactions médicamenteuses",difficulte:"difficile",
+   text:"Une patiente sous pilule OP doit prendre de la rifampicine pour une tuberculose. Quelle est votre conduite ?",
+   options:["Continuer la pilule OP sans changement, la rifampicine n'interagit pas avec les contraceptifs", "Doubler la dose de pilule OP pendant le traitement par rifampicine", "Changer pour une contraception non hormonale (DIU cuivre) car la rifampicine rend la pilule inefficace", "Ajouter simplement un préservatif pendant 7 jours après la fin du traitement"],correct:2,
+   explanation:"La rifampicine est l'<strong>inducteur enzymatique le plus puissant</strong> — elle accélère le métabolisme des estrogènes et progestatifs via le CYP450, rendant la pilule OP <strong>inefficace même à doses doublées</strong>. Le <strong>DIU cuivre</strong> est la solution de référence pendant et jusqu'à 4 semaines après la fin du traitement. Cette interaction concerne aussi d'autres inducteurs : carbamazépine, phénytoïne, primidone, millepertuis."},
+  {quiz:"contraception",theme:"Interactions médicamenteuses",difficulte:"difficile",
+   text:"Une patiente épileptique sous carbamazépine (Tégrétol®) souhaite une contraception fiable. Que lui conseiller ?",
+   options:["Pilule OP standard — pas d'interaction significative avec les antiépileptiques", "Pilule microprogestative — non concernée par les inducteurs enzymatiques", "Implant contraceptif — efficace malgré les inducteurs enzymatiques", "DIU (cuivre ou hormonal Mirena®) — seule contraception fiable car non affectée par l'induction enzymatique"],correct:3,
+   explanation:"La carbamazépine est un <strong>inducteur enzymatique</strong> qui diminue l'efficacité de toutes les contraceptions hormonales orales et de l'implant. Le <strong>DIU cuivre ou le DIU hormonal (Mirena®)</strong> sont les seules contraceptions fiables car elles agissent localement et ne dépendent pas des concentrations sanguines hormonales. La pilule microprogestative est également inefficace sous carbamazépine, contrairement à ce que croient parfois les patients."}
 ];
 
 function shuffleArray(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
@@ -242,15 +286,22 @@ function pickQuizQuestions(quizId){
 
 const DIFF_LABELS = {facile:'🟢 Facile', modere:'🟡 Modéré', difficile:'🔴 Difficile'};
 const DIFF_CLASSES = {facile:'diff-facile', modere:'diff-modere', difficile:'diff-difficile'};
-
-let current=0, score=0, userAnswers=[];
-let shuffledQuestions=[], shuffledOptions=[];
-
+let current=0,score=0,userAnswers=[],shuffledQuestions=[],shuffledOptions=[];
+function shuffleArray(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function pickQuizQuestions(quizId){
+  const pool=shuffleArray(QUESTION_POOL.filter(q=>q.quiz===quizId));
+  const f=pool.filter(q=>q.difficulte==='facile');
+  const m=pool.filter(q=>q.difficulte==='modere');
+  const d=pool.filter(q=>q.difficulte==='difficile');
+  let sel=[...f.slice(0,4),...m.slice(0,4),...d.slice(0,4)];
+  if(sel.length<12){const used=new Set(sel.map(q=>q.text));const rem=shuffleArray(pool.filter(q=>!used.has(q.text)));sel=[...sel,...rem.slice(0,12-sel.length)];}
+  return shuffleArray(sel.slice(0,12));
+}
 function startQuiz(){
-  current=0; score=0; userAnswers=[];
+  current=0;score=0;userAnswers=[];
   shuffledQuestions=pickQuizQuestions(QUIZ_ID);
   shuffledOptions=shuffledQuestions.map(q=>shuffleArray(q.options.map((text,origIndex)=>({text,origIndex}))));
-  showScreen('screen-quiz'); renderQuestion();
+  showScreen('screen-quiz');renderQuestion();
 }
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 function renderQuestion(){
@@ -260,14 +311,12 @@ function renderQuestion(){
   document.getElementById('score-display').textContent='Score : '+score;
   document.getElementById('q-num').textContent=current+1;
   document.getElementById('q-theme').textContent=q.theme;
-  const de=document.getElementById('q-diff');
-  de.textContent=DIFF_LABELS[q.difficulte]||q.difficulte;
-  de.className='diff-tag '+(DIFF_CLASSES[q.difficulte]||'');
+  const de=document.getElementById('q-diff');de.textContent=DIFF_LABELS[q.difficulte]||q.difficulte;de.className='diff-tag '+(DIFF_CLASSES[q.difficulte]||'');
   document.getElementById('q-text').textContent=q.text;
-  const grid=document.getElementById('options-grid'); grid.innerHTML='';
+  const grid=document.getElementById('options-grid');grid.innerHTML='';
   const letters=['A','B','C','D'];
   opts.forEach((opt,di)=>{
-    const btn=document.createElement('button'); btn.className='option-btn';
+    const btn=document.createElement('button');btn.className='option-btn';
     btn.innerHTML='<span class="opt-letter">'+letters[di]+'</span><span>'+opt.text+'</span>';
     btn.onclick=(function(o){return function(){selectAnswer(o.origIndex);};})(opt);
     grid.appendChild(btn);
@@ -278,7 +327,7 @@ function renderQuestion(){
 function selectAnswer(chosenOrig){
   const q=shuffledQuestions[current],opts=shuffledOptions[current];
   document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
-  const ok=chosenOrig===q.correct; if(ok)score++; userAnswers[current]=chosenOrig;
+  const ok=chosenOrig===q.correct;if(ok)score++;userAnswers[current]=chosenOrig;
   document.querySelectorAll('.option-btn').forEach((btn,di)=>{
     const orig=opts[di].origIndex;
     if(orig===q.correct)btn.classList.add('correct');
@@ -289,7 +338,7 @@ function selectAnswer(chosenOrig){
   document.getElementById('fb-title').textContent=ok?'✓ Bonne réponse !':'✗ Pas tout à fait…';
   document.getElementById('fb-body').innerHTML=q.explanation;
   fb.className='feedback-box show '+(ok?'correct-fb':'wrong-fb');
-  const nb=document.getElementById('next-btn'); nb.className='next-btn show';
+  const nb=document.getElementById('next-btn');nb.className='next-btn show';
   nb.textContent=current<shuffledQuestions.length-1?'Question suivante →':'Voir mes résultats →';
 }
 function nextQuestion(){current++;if(current>=shuffledQuestions.length)showResults();else renderQuestion();}
@@ -300,22 +349,14 @@ function showResults(){
   document.getElementById('res-pct').textContent=pct+'%';
   document.getElementById('result-circle').style.setProperty('--pct',pct+'%');
   const t=['🔁 À retravailler','📚 Des lacunes à combler','👍 Très bon niveau','🏆 Expertise confirmée !'];
-  const m=['Les fondamentaux ne sont pas encore acquis. Recommencez après révision.',
-           'Niveau intermédiaire. Certains points méritent une révision.',
-           'Bonne maîtrise. Relisez les points manqués pour consolider.',
-           'Résultat parfait. Votre maîtrise est solide.'];
+  const msgs=['Les fondamentaux ne sont pas encore acquis. Recommencez après révision.','Niveau intermédiaire. Certains points méritent une révision.','Bonne maîtrise. Relisez les points manqués pour consolider.','Résultat parfait. Votre maîtrise est solide.'];
   const idx=pct===100?3:pct>=75?2:pct>=50?1:0;
-  document.getElementById('res-title').textContent=t[idx];
-  document.getElementById('res-msg').textContent=m[idx];
-  const list=document.getElementById('review-list'); list.innerHTML='';
+  document.getElementById('res-title').textContent=t[idx];document.getElementById('res-msg').textContent=msgs[idx];
+  const list=document.getElementById('review-list');list.innerHTML='';
   shuffledQuestions.forEach((q,i)=>{
     const ok=userAnswers[i]===q.correct;
-    const item=document.createElement('div'); item.className='review-item';
-    item.innerHTML='<span class="review-icon">'+(ok?'✅':'❌')+'</span><div>'
-      +'<div class="review-q">'+q.text+'</div>'
-      +'<div class="review-diff '+(DIFF_CLASSES[q.difficulte]||'')+'">'+( DIFF_LABELS[q.difficulte]||'')+'</div>'
-      +(!ok?'<div class="review-ans">Bonne réponse : <strong>'+q.options[q.correct]+'</strong></div>':'')
-      +'</div>';
+    const item=document.createElement('div');item.className='review-item';
+    item.innerHTML='<span class="review-icon">'+(ok?'✅':'❌')+'</span><div><div class="review-q">'+q.text+'</div><div class="review-diff '+(DIFF_CLASSES[q.difficulte]||'')+'">'+( DIFF_LABELS[q.difficulte]||'')+'</div>'+(!ok?'<div class="review-ans">Bonne réponse : <strong>'+q.options[q.correct]+'</strong></div>':'')+'</div>';
     list.appendChild(item);
   });
 }

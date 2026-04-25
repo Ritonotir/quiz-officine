@@ -19,7 +19,7 @@
     "titre": "Angines à l'Officine",
     "fichier": "quiz-angines.html",
     "theme": "ORL",
-    "questions": 18,
+    "questions": 12,
     "difficulte": "Tous niveaux",
     "emoji": "🦠"
   },
@@ -48,7 +48,7 @@
     "emoji": "🤰"
   },
   {
-    "titre": "Vaccination Adultes 7-64 ans",
+    "titre": "Vaccination Enfants & Adultes 7-64 ans",
     "fichier": "quiz-vaccination-adultes.html",
     "theme": "Vaccination",
     "questions": 12,
