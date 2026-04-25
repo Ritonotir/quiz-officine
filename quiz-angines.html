@@ -93,7 +93,7 @@
   <h1><span>Angines à l'Officine</span></h1></div>
   <p>Protocole TROD, score Mac Isaac, antibiothérapie, reconnaissance visuelle des types d'angines.</p>
   <div class="intro-stats">
-    <div class="stat-pill"><strong>18</strong><span>questions</span></div>
+    <div class="stat-pill"><strong>12</strong><span>questions</span></div>
     <div class="stat-pill"><strong>📷 6</strong><span>questions photo</span></div>
     <div class="stat-pill"><strong>~12 min</strong><span>durée</span></div>
   </div>
@@ -104,7 +104,7 @@
 <div id="screen-quiz" class="screen">
   <div class="progress-row">
     <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-bar"></div></div>
-    <span class="progress-label" id="progress-label">1 / 18</span>
+    <span class="progress-label" id="progress-label">1 / 12</span>
     <span class="score-badge" id="score-display">Score : 0</span>
   </div>
   <div class="question-card">
@@ -133,7 +133,7 @@
 <div id="screen-results" class="screen">
   <div class="result-circle" id="result-circle">
     <div class="result-inner">
-      <div class="result-score" id="res-score">0/18</div>
+      <div class="result-score" id="res-score">0/12</div>
       <div class="result-total" id="res-pct">0%</div>
     </div>
   </div>
@@ -612,20 +612,20 @@ function pickQuizQuestions(quizId){
   const text = all.filter(q=>!q.photo);
   const photo = all.filter(q=>q.photo);
 
-  // From text: 4F + 4M + 4D, fill gaps
+  // 1 photo question guaranteed (random pick among 6)
+  const photoSel = shuffleArray(photo).slice(0,1);
+
+  // 11 text questions: 4F + 4M + 3D, fill gaps if needed
   const f = shuffleArray(text.filter(q=>q.difficulte==='facile'));
   const m = shuffleArray(text.filter(q=>q.difficulte==='modere'));
   const d = shuffleArray(text.filter(q=>q.difficulte==='difficile'));
-  let sel = [...f.slice(0,4), ...m.slice(0,4), ...d.slice(0,4)];
-  if(sel.length < 12){
+  let sel = [...f.slice(0,4), ...m.slice(0,4), ...d.slice(0,3)];
+  if(sel.length < 11){
     const used = new Set(sel.map(q=>q.text));
     const rem = shuffleArray(text.filter(q=>!used.has(q.text)));
-    sel = [...sel, ...rem.slice(0, 12-sel.length)];
+    sel = [...sel, ...rem.slice(0, 11-sel.length)];
   }
-  sel = sel.slice(0,12);
-
-  // Add all photo questions (6), shuffled
-  const photoSel = shuffleArray(photo);
+  sel = sel.slice(0,11);
 
   return shuffleArray([...sel, ...photoSel]);
 }
