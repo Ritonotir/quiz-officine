@@ -70,5 +70,13 @@
     "questions": 12,
     "difficulte": "Tous niveaux",
     "emoji": "🏥"
+  },
+  {
+    "titre": "Cystite à l'Officine",
+    "fichier": "quiz-cystite.html",
+    "theme": "Urologie",
+    "questions": 12,
+    "difficulte": "Tous niveaux",
+    "emoji": "💧"
   }
 ]

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cystite à l'Officine – Formation Officine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--green:#1a9e6e;--green-dark:#0f7a53;--green-light:#e6f7f1;--red:#e84040;--red-light:#fdeaea;--bg:#f4f6f3;--text:#1a1f1c;--muted:#6b7672;--border:#dde5e0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px}
+  .screen{display:none;width:100%;max-width:680px}
+  .screen.active{display:flex;flex-direction:column;align-items:center}
+  #screen-intro{text-align:center;gap:20px}
+  .badge{display:inline-block;background:var(--green);color:white;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:8px}
+  #screen-intro h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,6vw,3rem);font-weight:800;line-height:1.1}
+  #screen-intro h1 span{color:var(--green)}
+  #screen-intro p{color:var(--muted);font-size:1rem;max-width:460px}
+  .intro-stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .stat-pill{background:white;border:1px solid var(--border);border-radius:12px;padding:14px 22px;text-align:center;min-width:100px}
+  .stat-pill strong{display:block;font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--green)}
+  .stat-pill span{font-size:.82rem;color:var(--muted)}
+  .pool-info{background:var(--green-light);border:1px solid var(--border);border-radius:12px;padding:12px 16px;font-size:.82rem;color:var(--green-dark);text-align:center;width:100%}
+  .btn-start{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;border:none;padding:18px 48px;border-radius:14px;cursor:pointer;transition:background .2s,transform .15s;box-shadow:0 4px 20px rgba(26,158,110,.3)}
+  .btn-start:hover{background:var(--green-dark);transform:translateY(-2px)}
+  #screen-quiz{gap:20px}
+  .progress-row{width:100%;display:flex;align-items:center;gap:12px}
+  .progress-bar-track{flex:1;height:6px;background:var(--border);border-radius:100px;overflow:hidden}
+  .progress-bar-fill{height:100%;background:var(--green);border-radius:100px;transition:width .4s ease;width:0%}
+  .progress-label{font-size:.82rem;color:var(--muted);white-space:nowrap;font-weight:500}
+  .score-badge{background:var(--green-light);color:var(--green-dark);font-size:.82rem;font-weight:500;padding:5px 12px;border-radius:100px;white-space:nowrap}
+  .question-card{background:white;border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;box-shadow:0 2px 12px rgba(0,0,0,.06);animation:fadeIn .3s ease}
+  .q-meta{font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .q-theme-tag{background:var(--green-light);color:var(--green-dark);padding:2px 8px;border-radius:6px;font-style:normal}
+  .diff-tag{padding:2px 8px;border-radius:6px;font-weight:600}
+  .diff-facile{background:#e8f8f0;color:#0a6640}
+  .diff-modere{background:#fff8e6;color:#7a5000}
+  .diff-difficile{background:#fdeaea;color:#8c1a1a}
+  .question-text{font-family:'Syne',sans-serif;font-size:clamp(1.05rem,2.5vw,1.22rem);font-weight:700;line-height:1.4;margin-bottom:24px}
+  .options-grid{display:flex;flex-direction:column;gap:10px}
+  .option-btn{width:100%;text-align:left;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;font-family:'DM Sans',sans-serif;font-size:.95rem;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:12px;line-height:1.4}
+  .option-btn .opt-letter{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:white;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;color:var(--muted);transition:all .18s}
+  .option-btn:hover:not(:disabled){border-color:var(--green);background:var(--green-light)}
+  .option-btn:hover:not(:disabled) .opt-letter{background:var(--green);border-color:var(--green);color:white}
+  .option-btn:disabled{cursor:default}
+  .option-btn.correct{background:var(--green-light);border-color:var(--green);color:var(--green-dark);font-weight:500}
+  .option-btn.correct .opt-letter{background:var(--green);border-color:var(--green);color:white}
+  .option-btn.wrong{background:var(--red-light);border-color:var(--red);color:var(--red)}
+  .option-btn.wrong .opt-letter{background:var(--red);border-color:var(--red);color:white}
+  .option-btn.dimmed{opacity:.45}
+  .feedback-box{margin-top:20px;padding:18px 20px;border-radius:12px;font-size:.9rem;line-height:1.6;display:none;animation:fadeIn .3s ease}
+  .feedback-box.show{display:block}
+  .feedback-box.correct-fb{background:var(--green-light);border-left:4px solid var(--green);color:#0f5c3c}
+  .feedback-box.wrong-fb{background:var(--red-light);border-left:4px solid var(--red);color:#8c1a1a}
+  .feedback-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:5px}
+  .next-btn{width:100%;background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px;border-radius:12px;cursor:pointer;transition:background .2s;display:none}
+  .next-btn.show{display:block}
+  .next-btn:hover{background:var(--green-dark)}
+  #screen-results{text-align:center;gap:24px}
+  .result-circle{width:140px;height:140px;border-radius:50%;background:conic-gradient(var(--green) 0%,var(--green) var(--pct),var(--border) var(--pct));display:flex;align-items:center;justify-content:center;position:relative}
+  .result-circle::before{content:'';position:absolute;width:110px;height:110px;border-radius:50%;background:white}
+  .result-inner{position:relative;z-index:1;text-align:center}
+  .result-score{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--green);line-height:1}
+  .result-total{font-size:.8rem;color:var(--muted)}
+  #screen-results h2{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800}
+  #screen-results .result-msg{color:var(--muted);max-width:420px;font-size:.95rem;line-height:1.6}
+  .review-list{width:100%;display:flex;flex-direction:column;gap:10px;text-align:left}
+  .review-item{background:white;border:1px solid var(--border);border-radius:12px;padding:14px 18px;font-size:.88rem;display:flex;gap:12px;align-items:flex-start;line-height:1.5}
+  .review-icon{flex-shrink:0;font-size:1rem;margin-top:1px}
+  .review-q{font-weight:500;color:var(--text)}
+  .review-diff{font-size:.72rem;font-weight:600;margin-top:2px}
+  .review-ans{color:var(--muted);margin-top:2px}
+  .review-ans strong{color:var(--green-dark)}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .retry-btn{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px 40px;border-radius:14px;cursor:pointer;transition:background .2s;box-shadow:0 4px 20px rgba(26,158,110,.3)}
+  .retry-btn:hover{background:var(--green-dark)}
+  .home-btn{background:white;color:var(--green);font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;border:1.5px solid var(--green);padding:12px 28px;border-radius:14px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
+  .home-btn:hover{background:var(--green-light)}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div id="screen-intro" class="screen active">
+  <div><div class="badge">Formation Officine</div>
+  <h1><span>Cystite à l'Officine</span></h1></div>
+  <p>Protocole BU, éligibilité, Fosfomycine, Pivmécillinam, conseils et prévention.</p>
+  <div class="intro-stats">
+    <div class="stat-pill"><strong>12</strong><span>questions</span></div>
+    <div class="stat-pill"><strong>QCM</strong><span>format</span></div>
+    <div class="stat-pill"><strong>~7 min</strong><span>durée</span></div>
+  </div>
+  <div class="pool-info">🎲 Tirage aléatoire — 83 questions disponibles (30F / 41M / 12D)</div>
+  <button class="btn-start" onclick="startQuiz()">Commencer →</button>
+</div>
+<div id="screen-quiz" class="screen">
+  <div class="progress-row">
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    <span class="progress-label" id="progress-label">1 / 12</span>
+    <span class="score-badge" id="score-display">Score : 0</span>
+  </div>
+  <div class="question-card">
+    <div class="q-meta">Question <span id="q-num">1</span>
+      <em class="q-theme-tag" id="q-theme"></em>
+      <span class="diff-tag" id="q-diff"></span>
+    </div>
+    <div class="question-text" id="q-text"></div>
+    <div class="options-grid" id="options-grid"></div>
+    <div class="feedback-box" id="feedback-box">
+      <div class="feedback-title" id="fb-title"></div>
+      <div id="fb-body"></div>
+    </div>
+  </div>
+  <button class="next-btn" id="next-btn" onclick="nextQuestion()">Question suivante →</button>
+</div>
+<div id="screen-results" class="screen">
+  <div class="result-circle" id="result-circle">
+    <div class="result-inner">
+      <div class="result-score" id="res-score">0/12</div>
+      <div class="result-total" id="res-pct">0%</div>
+    </div>
+  </div>
+  <h2 id="res-title"></h2>
+  <p class="result-msg" id="res-msg"></p>
+  <div class="review-list" id="review-list"></div>
+  <div class="btn-row">
+    <button class="retry-btn" onclick="restartQuiz()">🔄 Nouveau tirage</button>
+    <a class="home-btn" href="home.html">← Accueil</a>
+  </div>
+</div>
+<script>
+const QUESTION_POOL = [
+  {quiz:"cystite",theme:"Éligibilité",difficulte:"modere",
+   text:"Quel est le profil de patiente éligible à la prise en charge de la cystite à l'officine ?",
+   options:["Femme âgée de 16 à 65 ans", "Femme enceinte de tout âge", "Homme présentant des brûlures mictionnelles", "Enfant de plus de 12 ans"],correct:0,
+   explanation:"Le protocole officinal s'adresse aux <strong>femmes âgées de 16 à 65 ans</strong>, présentant des symptômes de cystite aiguë simple, sans critère d'exclusion. La grossesse, le sexe masculin et l'âge inférieur à 16 ans ou supérieur à 65 ans sont des critères d'exclusion."},
+  {quiz:"cystite",theme:"Éligibilité",difficulte:"modere",
+   text:"Pourquoi les hommes sont-ils exclus du protocole officinal pour la cystite ?",
+   options:["Parce que la BU est illisible chez l'homme", "Car toute infection urinaire masculine est considérée comme complexe d'emblée", "Parce que le traitement est uniquement injectable chez l'homme", "Parce qu'ils n'ont pas de vessie"],correct:1,
+   explanation:"Chez l'homme, toute infection urinaire est considérée comme <strong>compliquée d'emblée</strong> en raison de la longueur de l'urètre et du risque d'atteinte prostatique sous-jacente. Une consultation médicale est donc systématiquement nécessaire."},
+  {quiz:"cystite",theme:"Éligibilité",difficulte:"modere",
+   text:"Une patiente ayant eu une infection urinaire il y a 10 jours peut-elle être incluse dans le protocole ?",
+   options:["Oui, c'est une récidive classique", "Non, un épisode datant de moins de 15 jours est un critère d'exclusion", "Oui, mais sans faire de bandelette urinaire", "Uniquement si elle n'a pas pris d'antibiotiques"],correct:1,
+   explanation:"Un épisode de cystite dans les <strong>15 jours précédents</strong> est un critère d'exclusion du protocole officinal. Il peut s'agir d'un échec thérapeutique ou d'une récidive précoce nécessitant un bilan médical."},
+  {quiz:"cystite",theme:"Éligibilité",difficulte:"modere",
+   text:"Quel est le délai maximal entre l'apparition des premiers symptômes et la prise en charge à l'officine ?",
+   options:["24 heures", "7 jours", "15 jours", "1 mois"],correct:1,
+   explanation:"Les symptômes doivent évoluer depuis <strong>moins de 7 jours</strong>. Au-delà, la situation peut s'être complexifiée et une consultation médicale est nécessaire."},
+  {quiz:"cystite",theme:"Signes de gravité",difficulte:"facile",
+   text:"Quelle est la conduite à tenir si la patiente présente une fièvre supérieure à 38°C ?",
+   options:["Réaliser la BU immédiatement", "Orienter vers un médecin (suspicion de pyélonéphrite)", "Donner du paracétamol et attendre 2 heures", "Réduire la dose d'antibiotique"],correct:1,
+   explanation:"La fièvre > 38°C associée à des symptômes urinaires évoque une <strong>pyélonéphrite</strong> (infection haute). C'est un critère d'exclusion absolu — orientation médicale urgente obligatoire."},
+  {quiz:"cystite",theme:"Signes de gravité",difficulte:"facile",
+   text:"Que peut suggérer une douleur dans la fosse lombaire associée aux brûlures mictionnelles ?",
+   options:["Une simple cystite à SGA", "Une pyélonéphrite aiguë", "Une colique néphrétique uniquement", "Une infection vaginale"],correct:1,
+   explanation:"La douleur lombaire associée à des symptômes urinaires est un signe d'<strong>atteinte rénale (pyélonéphrite)</strong>. C'est un critère d'exclusion majeur — orientation médicale urgente. Une consultation dans les 24h est recommandée, immédiate en cas de fièvre associée."},
+  {quiz:"cystite",theme:"Signes de gravité",difficulte:"facile",
+   text:"Une femme enceinte peut-elle bénéficier du protocole à l'officine pour une cystite ?",
+   options:["Oui, si elle n'a pas de fièvre", "Non, la grossesse impose systématiquement un avis médical", "Uniquement au premier trimestre", "Uniquement si elle apporte une analyse d'urine"],correct:1,
+   explanation:"La <strong>grossesse est un critère d'exclusion absolu</strong> du protocole officinal pour la cystite. Toute infection urinaire pendant la grossesse (même asymptomatique) nécessite une prise en charge médicale en raison du risque de pyélonéphrite et de complications obstétricales."},
+  {quiz:"cystite",theme:"Signes de gravité",difficulte:"modere",
+   text:"Quel symptôme gynécologique impose d'orienter la patiente vers son médecin ?",
+   options:["Une envie fréquente d'uriner", "Des leucorrhées (pertes vaginales) ou un prurit vulvaire", "Une urine malodorante", "Une douleur à la vessie"],correct:1,
+   explanation:"Des <strong>leucorrhées ou un prurit vulvaire</strong> évoquent une infection gynécologique (vaginose, candidose, IST) qui peut mimer une cystite. Ces signes sont des critères d'exclusion — ils nécessitent un examen gynécologique pour ne pas traiter à tort."},
+  {quiz:"cystite",theme:"Signes de gravité",difficulte:"modere",
+   text:"La présence de sang dans les urines (hématurie) isolée, associée à une cystite simple, est-elle une exclusion ?",
+   options:["Oui, c'est toujours un signe de cancer", "Non, une hématurie isolée associée à une cystite simple n'est pas une exclusion, mais elle doit être mentionnée dans l'explication", "Oui, le pharmacien ne peut jamais traiter en cas de sang", "Uniquement chez la femme ménopausée"],correct:1,
+   explanation:"L'hématurie (cystite hémorragique) peut accompagner une cystite aiguë simple — elle n'est pas une exclusion dans ce contexte. Cependant, le pharmacien doit <strong>informer la patiente</strong> que si le sang persiste après le traitement, une consultation médicale est nécessaire pour écarter une autre cause (lithiase, tumeur vésicale)."},
+  {quiz:"cystite",theme:"Signes de gravité",difficulte:"modere",
+   text:"Pourquoi une immunodépression sévère est-elle un critère d'exclusion ?",
+   options:["Le risque de complications graves est trop élevé", "Les antibiotiques de l'officine ne fonctionnent pas sur ces patientes", "La BU est toujours négative chez ces patientes", "C'est une recommandation commerciale"],correct:0,
+   explanation:"Chez une patiente immunodéprimée (VIH, chimiothérapie, corticothérapie au long cours...), une infection urinaire simple peut rapidement évoluer vers une forme grave. Le risque de complications est trop élevé pour une prise en charge en autonomie à l'officine — <strong>consultation médicale systématique</strong>."},
+  {quiz:"cystite",theme:"Signes de gravité",difficulte:"facile",
+   text:"Que faire si la patiente décrit des frissons ou des sueurs ?",
+   options:["Réaliser une BU", "Orienter vers un médecin (signes de sepsis ou d'infection haute)", "Proposer une couverture chauffante", "Donner de la Fosfomycine immédiatement"],correct:1,
+   explanation:"Les frissons et sueurs sont des <strong>signes systémiques évocateurs de sepsis ou de pyélonéphrite</strong>. Ce sont des critères d'exclusion absolus — orientation médicale urgente, voire aux urgences en cas de tableau sévère."},
+  {quiz:"cystite",theme:"Bandelette urinaire",difficulte:"facile",
+   text:"Quels sont les deux paramètres principaux à analyser sur la BU pour la cystite ?",
+   options:["pH et Glucose", "Nitrites et Leucocytes", "Sang et Protéines", "Densité et Corps cétoniques"],correct:1,
+   explanation:"Pour le diagnostic de cystite à l'officine, seuls les <strong>nitrites et les leucocytes</strong> sont interprétés. Les nitrites signent la présence de bactéries à nitrate-réductase (E. coli principalement), les leucocytes témoignent de la réaction inflammatoire."},
+  {quiz:"cystite",theme:"Bandelette urinaire",difficulte:"modere",
+   text:"Quel est le temps d'attente optimal pour lire les leucocytes sur la bandelette ?",
+   options:["10 secondes", "30 secondes", "120 secondes (2 minutes)", "10 minutes"],correct:2,
+   explanation:"La lecture des leucocytes nécessite <strong>2 minutes (120 secondes)</strong> selon les recommandations. Une lecture trop précoce peut donner un faux négatif. Il faut toujours se référer à la fiche de lecture incluse dans la boîte de test."},
+  {quiz:"cystite",theme:"Bandelette urinaire",difficulte:"facile",
+   text:"Que signifie la présence de nitrites dans l'urine ?",
+   options:["Une infection par une bactérie possédant une nitrate-réductase (souvent E. coli)", "Une inflammation de la vessie sans bactérie", "Une consommation excessive de légumes", "Une défaillance rénale"],correct:0,
+   explanation:"Les nitrites résultent de la transformation des <strong>nitrates urinaires en nitrites par des bactéries possédant une nitrate-réductase</strong>, principalement Escherichia coli (80% des cystites). Certaines bactéries comme Staphylococcus saprophyticus ne produisent pas de nitrites."},
+  {quiz:"cystite",theme:"Bandelette urinaire",difficulte:"modere",
+   text:"Une BU est considérée comme positive si :",
+   options:["Seuls les nitrites sont positifs", "Seuls les leucocytes sont positifs", "L'un des deux (leucocytes ou nitrites) ou les deux sont positifs", "Les deux sont obligatoirement positifs"],correct:2,
+   explanation:"La BU est positive si <strong>les leucocytes et/ou les nitrites sont positifs</strong>. Les nitrites seuls peuvent être un faux positif (betterave, curcuma). Les leucocytes seuls peuvent évoquer une contamination. L'interprétation doit tenir compte du contexte clinique."},
+  {quiz:"cystite",theme:"Bandelette urinaire",difficulte:"modere",
+   text:"Pourquoi peut-on avoir des nitrites négatifs malgré une infection bactérienne ?",
+   options:["Certaines bactéries ne transforment pas les nitrates en nitrites", "La patiente a bu trop de café", "La bandelette est périmée", "Les urines ont séjourné trop longtemps dans la vessie"],correct:0,
+   explanation:"<strong>Certaines bactéries ne possèdent pas de nitrate-réductase</strong> et ne produisent donc pas de nitrites : c'est le cas de Staphylococcus saprophyticus (fréquent chez les jeunes femmes), des entérocoques et de Pseudomonas. Des urines trop fraîches (< 3h de rétention) peuvent aussi donner un faux négatif."},
+  {quiz:"cystite",theme:"Bandelette urinaire",difficulte:"facile",
+   text:"Quelle précaution de prélèvement donner à la patiente pour la BU ?",
+   options:["Prélever le premier jet", "Prélever le milieu de jet (milieu de miction)", "Peu importe le jet", "Utiliser un flacon stérile de laboratoire uniquement"],correct:1,
+   explanation:"Le <strong>prélèvement du milieu de jet</strong> est indispensable pour éviter la contamination par la flore périnéale présente dans le premier jet. La patiente doit également faire une toilette périnéale soigneuse avant le prélèvement."},
+  {quiz:"cystite",theme:"Thérapeutique",difficulte:"facile",
+   text:"Quel est l'antibiotique de première intention recommandé dans le protocole cystite à l'officine ?",
+   options:["Pivmécillinam", "Fosfomycine trométamol", "Ciprofloxacine", "Amoxicilline"],correct:1,
+   explanation:"La <strong>Fosfomycine trométamol (Monuril®)</strong> est l'antibiotique de première intention du protocole officinal pour la cystite simple. Elle s'administre en dose unique, ce qui favorise l'observance et limite l'impact sur le microbiote."},
+  {quiz:"cystite",theme:"Thérapeutique",difficulte:"facile",
+   text:"Quelle est la posologie standard de la Fosfomycine trométamol ?",
+   options:["1 sachet par jour pendant 3 jours", "Un sachet unique de 3 g", "2 sachets en une seule prise", "1 sachet tous les matins pendant 5 jours"],correct:1,
+   explanation:"La Fosfomycine trométamol s'administre en <strong>dose unique : 1 sachet de 3 g</strong>, à dissoudre dans un verre d'eau et à prendre immédiatement. Cette prise unique permet une concentration urinaire efficace pendant 36 à 48 heures."},
+  {quiz:"cystite",theme:"Thérapeutique",difficulte:"modere",
+   text:"Quel est le moment idéal pour prendre le sachet de Fosfomycine ?",
+   options:["Juste avant un repas copieux", "À distance des repas (2h avant ou après), de préférence le soir au coucher après une miction", "En mangeant des produits laitiers", "N'importe quand dans la journée"],correct:1,
+   explanation:"La Fosfomycine doit être prise <strong>à distance des repas (2h avant ou 2-3h après)</strong> pour optimiser son absorption. La prise le soir au coucher, après avoir vidé la vessie, favorise une concentration urinaire maximale pendant la nuit (mictions moins fréquentes)."},
+  {quiz:"cystite",theme:"Thérapeutique",difficulte:"facile",
+   text:"Quel est l'avantage majeur de la Fosfomycine en dose unique ?",
+   options:["Elle est moins chère", "Elle favorise l'observance et limite l'impact sur le microbiote", "Elle remplace l'hydratation", "Elle n'a aucun effet secondaire"],correct:1,
+   explanation:"La prise unique de Fosfomycine <strong>élimine les problèmes d'observance</strong> (oubli de doses) et réduit la pression de sélection sur le microbiote intestinal et vaginal par rapport à un traitement de plusieurs jours. C'est un avantage majeur en termes de santé publique."},
+  {quiz:"cystite",theme:"Thérapeutique",difficulte:"modere",
+   text:"Quel antibiotique est proposé en deuxième intention pour la cystite à l'officine ?",
+   options:["Pivmécillinam", "Nitrofurantoïne", "Triméthoprime", "Augmentin"],correct:0,
+   explanation:"Le <strong>Pivmécillinam (Selexid®)</strong> est l'antibiotique de deuxième intention, notamment si la Fosfomycine est contre-indiquée (allergie au saccharose) ou si la patiente ne veut pas attendre d'être à jeun. Il appartient à la famille des pénicillines à spectre élargi."},
+  {quiz:"cystite",theme:"Thérapeutique",difficulte:"modere",
+   text:"Quelle est la durée de traitement pour le Pivmécillinam dans la cystite simple ?",
+   options:["Dose unique", "3 jours", "5 jours", "10 jours"],correct:2,
+   explanation:"Le Pivmécillinam s'administre sur <strong>5 jours</strong> à raison de 400 mg 2 fois par jour. Contrairement à la Fosfomycine, il nécessite plusieurs prises mais reste bien toléré avec les repas."},
+  {quiz:"cystite",theme:"Thérapeutique",difficulte:"modere",
+   text:"Quelle est la posologie du Pivmécillinam chez l'adulte pour la cystite ?",
+   options:["400 mg 2 fois par jour", "200 mg 1 fois par jour", "400 mg 3 fois par jour", "1 g par jour"],correct:0,
+   explanation:"La posologie du Pivmécillinam est de <strong>400 mg 2 fois par jour pendant 5 jours</strong>. Les comprimés doivent être pris au milieu d'un repas avec un grand verre d'eau, et la patiente ne doit pas s'allonger dans les 30 minutes suivant la prise."},
+  {quiz:"cystite",theme:"Conseils",difficulte:"facile",
+   text:"Quel conseil d'hydratation donner à la patiente traitée pour une cystite ?",
+   options:["Boire 0,5 L par jour maximum", "Boire abondamment (1,5 à 2 L par jour) pour favoriser le lavage de la vessie", "Ne boire que du thé vert", "Boire uniquement si elle a soif"],correct:1,
+   explanation:"Une <strong>hydratation abondante (1,5 à 2 L/jour)</strong> favorise la dilution des bactéries dans la vessie et leur élimination par les mictions fréquentes. C'est un conseil simple mais efficace, à associer systématiquement au traitement antibiotique."},
+  {quiz:"cystite",theme:"Conseils",difficulte:"facile",
+   text:"Quel est le délai moyen pour ressentir une amélioration après la prise de Fosfomycine ?",
+   options:["1 heure", "24 à 48 heures", "5 jours", "Immédiatement"],correct:1,
+   explanation:"L'amélioration des symptômes est habituellement ressentie dans les <strong>24 à 48 heures</strong> après la prise de Fosfomycine. Si les symptômes persistent au-delà de 48h ou s'aggravent, une consultation médicale est nécessaire."},
+  {quiz:"cystite",theme:"Conseils",difficulte:"facile",
+   text:"Pourquoi faut-il éviter de se retenir d'uriner en cas de cystite ?",
+   options:["Cela favorise la stase urinaire et la multiplication bactérienne", "Cela abîme les reins directement", "Cela rend l'antibiotique inefficace", "Cela n'a aucun impact"],correct:0,
+   explanation:"La rétention urinaire favorise la <strong>stase des urines dans la vessie</strong>, créant un milieu propice à la multiplication bactérienne. Uriner fréquemment aide à éliminer mécaniquement les bactéries et accélère la guérison."},
+  {quiz:"cystite",theme:"Conseils",difficulte:"facile",
+   text:"Quel conseil d'hygiène intime donner pour prévenir les récidives de cystite ?",
+   options:["Utiliser un savon antiseptique puissant", "Faire une toilette de l'arrière vers l'avant", "Faire une toilette de l'avant vers l'arrière pour éviter la migration des bactéries fécales", "Faire une douche vaginale quotidienne"],correct:2,
+   explanation:"La toilette doit toujours se faire de l'<strong>avant vers l'arrière</strong> (de l'urètre vers l'anus) pour éviter la migration des bactéries fécales (E. coli) vers l'urètre. C'est l'un des conseils préventifs les plus importants à donner."},
+  {quiz:"cystite",theme:"Conseils",difficulte:"facile",
+   text:"Que doit faire la patiente si les symptômes persistent après 48h malgré le traitement ?",
+   options:["Reprendre un deuxième sachet de Fosfomycine", "Consulter un médecin sans tarder", "Attendre une semaine que ça passe", "Acheter des probiotiques"],correct:1,
+   explanation:"La persistance des symptômes après <strong>48h de traitement</strong> peut indiquer un échec thérapeutique (résistance bactérienne) ou une complication (pyélonéphrite débutante). Une consultation médicale s'impose pour réévaluer la situation et adapter le traitement si nécessaire."},
+  {quiz:"cystite",theme:"Conseils",difficulte:"modere",
+   text:"Peut-on recommander le jus de canneberge (cranberry) en traitement curatif d'une cystite ?",
+   options:["Oui, cela remplace l'antibiotique", "Non, il n'a qu'un intérêt potentiel en prévention des récidives, pas en curatif", "Oui, à condition d'en boire 3 litres", "Uniquement si la BU est négative"],correct:1,
+   explanation:"Le cranberry contient des proanthocyanidines qui <strong>réduisent l'adhérence d'E. coli à la paroi vésicale</strong>. Son intérêt est démontré en <strong>prévention des récidives</strong> chez certaines femmes, mais il n'a aucune efficacité curative. Il ne remplace en aucun cas un traitement antibiotique."},
+  {quiz:"cystite",theme:"Épidémiologie",difficulte:"modere",
+   text:"Une patiente de 70 ans présente des brûlures mictionnelles. Est-elle éligible au protocole officinal ?",
+   options:["Oui, l'âge n'est pas limité", "Non, le protocole s'arrête à 65 ans en raison du risque de comorbidités plus élevé", "Uniquement si elle n'est pas ménopausée", "Uniquement si elle apporte une ordonnance"],correct:1,
+   explanation:"Le protocole officinal est limité aux femmes de <strong>16 à 65 ans</strong>. Au-delà de 65 ans, les comorbidités sont plus fréquentes (diabète, insuffisance rénale, immunodépression) et le risque de complications est plus élevé — consultation médicale systématique."},
+  {quiz:"cystite",theme:"Épidémiologie",difficulte:"modere",
+   text:"La BU est négative mais la patiente a des symptômes intenses. Que faire ?",
+   options:["Donner l'antibiotique quand même", "Orienter vers un médecin (symptômes sans infection apparente à la BU)", "Lui dire qu'elle n'a rien", "Refaire le test 5 minutes plus tard"],correct:1,
+   explanation:"Une BU négative avec des symptômes importants peut indiquer un <strong>faux négatif</strong> (urines trop fraîches, bactérie sans nitrate-réductase) ou un autre diagnostic (cystite interstitielle, vaginite, lithiase). Le pharmacien ne peut pas délivrer un antibiotique sans BU positive — orientation médicale."},
+  {quiz:"cystite",theme:"Épidémiologie",difficulte:"modere",
+   text:"Quel est le risque de prendre des AINS seuls (ibuprofène) pour traiter une cystite ?",
+   options:["Masquer une pyélonéphrite naissante et aggraver l'infection", "Rendre les urines bleues", "Provoquer une allergie à la Fosfomycine", "Aucun, c'est même recommandé"],correct:0,
+   explanation:"Les AINS soulagent la douleur mais <strong>ne traitent pas l'infection</strong>. En masquant la fièvre et les symptômes, ils peuvent retarder le diagnostic d'une pyélonéphrite débutante et aggraver l'évolution. L'automédication par AINS seuls dans une cystite est déconseillée."},
+  {quiz:"cystite",theme:"Épidémiologie",difficulte:"modere",
+   text:"Le pharmacien peut-il prendre en charge une patiente qui a déjà eu 5 cystites cette année ?",
+   options:["Oui, elle connaît bien la pathologie", "Non, au-delà de 4 épisodes par an, c'est une cystite récidivante qui impose un bilan médical", "Oui, mais il faut lui donner 2 sachets", "Uniquement si elle paie le test"],correct:1,
+   explanation:"Au-delà de <strong>4 épisodes par an</strong>, on parle de cystites récidivantes. Ce contexte nécessite un bilan médical pour rechercher une anomalie anatomique ou fonctionnelle, une résistance bactérienne ou un facteur favorisant. C'est un critère d'exclusion du protocole officinal."},
+  {quiz:"cystite",theme:"Épidémiologie",difficulte:"facile",
+   text:"Quelle est la principale bactérie responsable des cystites simples ?",
+   options:["Staphylococcus saprophyticus", "Escherichia coli", "Klebsiella pneumoniae", "Proteus mirabilis"],correct:1,
+   explanation:"<strong>Escherichia coli</strong> est responsable d'environ <strong>80% des cystites simples</strong>. C'est une bactérie d'origine digestive qui remonte vers la vessie par voie ascendante via l'urètre. Sa sensibilité à la Fosfomycine justifie le choix de cet antibiotique en première intention."},
+  {quiz:"cystite",theme:"Épidémiologie",difficulte:"facile",
+   text:"Pourquoi les femmes sont-elles plus sujettes aux cystites que les hommes ?",
+   options:["Car elles boivent moins d'eau", "En raison d'un urètre plus court facilitant la remontée des bactéries", "Car leur vessie est plus petite", "À cause de l'acidité de leur peau"],correct:1,
+   explanation:"L'<strong>urètre féminin est beaucoup plus court</strong> (3-4 cm contre 15-20 cm chez l'homme) et sa proximité avec l'anus facilite la colonisation par les bactéries d'origine digestive. C'est la principale raison anatomique expliquant la forte prévalence des cystites chez la femme."},
+  {quiz:"cystite",theme:"Épidémiologie",difficulte:"modere",
+   text:"Que signifie le terme 'cystite simple' dans le cadre de ce protocole ?",
+   options:["Une infection qui ne fait pas mal", "Une infection chez une patiente sans facteur de risque de complication", "Une infection qui se soigne sans antibiotiques", "Une infection qui dure moins de 12 heures"],correct:1,
+   explanation:"La cystite \"simple\" désigne une infection urinaire basse chez une femme <strong>sans facteur de risque de complication</strong> (pas de grossesse, pas d'immunodépression, pas d'anomalie urologique, âge entre 16 et 65 ans). C'est la seule situation eligible au protocole officinal."},
+  {quiz:"cystite",theme:"Épidémiologie",difficulte:"facile",
+   text:"Quelle est la proportion de femmes qui présenteront au moins un épisode de cystite au cours de leur vie ?",
+   options:["Environ 10 %", "Environ 25 %", "Plus de 50 %", "100 %"],correct:2,
+   explanation:"Plus de <strong>50% des femmes</strong> auront au moins un épisode de cystite au cours de leur vie. L'incidence annuelle est estimée à environ 12%, soit une femme sur huit par an. C'est l'une des infections bactériennes les plus fréquentes en médecine ambulatoire."},
+  {quiz:"cystite",theme:"Épidémiologie",difficulte:"facile",
+   text:"Quel facteur lié à l'activité sexuelle peut favoriser la survenue d'une cystite ?",
+   options:["L'utilisation de préservatifs uniquement", "Les rapports sexuels (par migration mécanique des bactéries vers l'urètre)", "L'absence de rapports sexuels", "L'utilisation de lubrifiants à base d'eau"],correct:1,
+   explanation:"Les rapports sexuels peuvent favoriser la <strong>migration mécanique des bactéries périnéales vers l'urètre</strong>, puis vers la vessie. C'est pourquoi la miction post-coïtale est un conseil préventif clé. Les spermicides et diaphragmes aggravent ce risque en modifiant la flore locale."},
+  {quiz:"cystite",theme:"Pharmacologie",difficulte:"difficile",
+   text:"Quel est le mode d'action principal de la Fosfomycine ?",
+   options:["Elle bloque la synthèse de la paroi bactérienne", "Elle empêche la bactérie de respirer", "Elle détruit le noyau de la bactérie", "Elle empêche la bactérie de se diviser"],correct:0,
+   explanation:"La Fosfomycine inhibe la <strong>MurA (UDP-N-acétylglucosamine-1-carboxyvinyltransférase)</strong>, enzyme essentielle à la première étape de la synthèse du peptidoglycane (constituant de la paroi bactérienne). En bloquant la construction de la paroi, elle provoque la lyse des bactéries en croissance."},
+  {quiz:"cystite",theme:"Pharmacologie",difficulte:"difficile",
+   text:"La Fosfomycine trométamol est-elle efficace sur les bactéries de type Proteus ?",
+   options:["Non, jamais", "Oui, elle possède un large spectre sur les germes urinaires fréquents", "Uniquement si on la prend avec du jus d'orange", "Uniquement chez les patientes ménopausées"],correct:1,
+   explanation:"La Fosfomycine possède un <strong>large spectre antibactérien</strong> incluant E. coli, Proteus mirabilis, Citrobacter koseri et certaines souches de Klebsiella. Elle est naturellement résistante à Staphylococcus saprophyticus, mais les fortes concentrations urinaires compensent partiellement cette résistance."},
+  {quiz:"cystite",theme:"Pharmacologie",difficulte:"difficile",
+   text:"Quelle est la principale contre-indication de la Fosfomycine trométamol ?",
+   options:["L'hypertension artérielle", "L'hypersensibilité à la substance active ou au saccharose (excipient)", "Le diabète de type 2", "L'asthme"],correct:1,
+   explanation:"La Fosfomycine trométamol est contre-indiquée en cas d'<strong>hypersensibilité à la substance active ou au saccharose</strong> (excipient du sachet). Chez les patientes diabétiques ou suivant un régime sans sucre, cette contre-indication est particulièrement importante à vérifier."},
+  {quiz:"cystite",theme:"Pharmacologie",difficulte:"difficile",
+   text:"Le Pivmécillinam appartient à quelle famille d'antibiotiques ?",
+   options:["Les Macrolides", "Les Bêta-lactamines (sous-famille des pénicillines)", "Les Aminosides", "Les Fluoroquinolones"],correct:1,
+   explanation:"Le Pivmécillinam est une <strong>bêta-lactamine de la sous-famille des pénicillines</strong> (amidinopenicilline). Il est contre-indiqué chez les patients avec antécédent de réaction d'hypersensibilité sévère aux pénicillines ou aux céphalosporines."},
+  {quiz:"cystite",theme:"Pharmacologie",difficulte:"modere",
+   text:"Quelle est la consigne de prise pour le Pivmécillinam pour limiter les troubles digestifs ?",
+   options:["À jeun le matin", "Au milieu d'un repas, avec un grand verre d'eau", "En position allongée", "Juste avant de faire du sport"],correct:1,
+   explanation:"Le Pivmécillinam doit être pris <strong>au milieu d'un repas avec un grand verre d'eau</strong> pour limiter les effets indésirables digestifs (nausées, douleurs abdominales) et le risque d'ulcération œsophagienne."},
+  {quiz:"cystite",theme:"Pharmacologie",difficulte:"modere",
+   text:"Pourquoi faut-il éviter de s'allonger immédiatement après la prise de Pivmécillinam ?",
+   options:["Pour éviter le risque d'ulcération œsophagienne", "Car cela bloque l'absorption", "Pour éviter les vertiges", "Cela n'a aucune importance"],correct:0,
+   explanation:"Comme certaines autres bêta-lactamines en comprimés, le Pivmécillinam peut provoquer une <strong>ulcération œsophagienne</strong> s'il reste en contact prolongé avec la muqueuse de l'œsophage. La patiente doit rester en position verticale pendant au moins 30 minutes après la prise."},
+  {quiz:"cystite",theme:"Pharmacologie",difficulte:"difficile",
+   text:"Peut-on utiliser le Pivmécillinam si la patiente est allergique connue à l'Amoxicilline ?",
+   options:["Oui, c'est une molécule différente", "Non, il existe un risque d'allergie croisée au sein des pénicillines", "Uniquement si l'allergie est légère", "Oui, mais il faut réduire la dose de moitié"],correct:1,
+   explanation:"Le Pivmécillinam est une pénicilline — il existe donc un <strong>risque d'allergie croisée</strong> avec les autres pénicillines dont l'amoxicilline. En cas d'allergie avérée aux pénicillines, le Pivmécillinam est contre-indiqué. La Fosfomycine (famille différente) est alors l'alternative, sauf contre-indication spécifique."},
+  {quiz:"cystite",theme:"Pharmacologie",difficulte:"difficile",
+   text:"Quel est l'impact de la Fosfomycine trométamol sur la conduite de véhicules ?",
+   options:["Aucun effet n'est rapporté", "Un risque rare de vertiges peut survenir", "Une somnolence systématique", "Une amélioration de la vision nocturne"],correct:1,
+   explanation:"Bien que rare, un <strong>risque de vertiges</strong> est mentionné dans le RCP de la Fosfomycine. Il convient d'en informer la patiente, notamment si elle doit conduire après la prise. Ce risque reste marginal mais fait partie des informations à transmettre lors de la délivrance."},
+  {quiz:"cystite",theme:"Pharmacologie",difficulte:"difficile",
+   text:"La Fosfomycine peut-elle être utilisée en cas d'insuffisance rénale sévère ?",
+   options:["Oui, la dose est inchangée", "Non, elle est contre-indiquée en cas d'insuffisance rénale sévère", "Uniquement en demi-sachet", "Uniquement si la patiente boit 4 litres d'eau"],correct:1,
+   explanation:"La Fosfomycine est excrétée par voie rénale. En cas d'<strong>insuffisance rénale sévère</strong> (clairance < 10 mL/min), elle est contre-indiquée car les concentrations urinaires ne seraient pas suffisantes pour être efficaces, et le risque d'accumulation augmente. C'est un critère d'exclusion du protocole."},
+  {quiz:"cystite",theme:"Entretien officinal",difficulte:"modere",
+   text:"Quelle est la première étape de l'algorithme décisionnel pour la cystite à l'officine ?",
+   options:["Faire payer la patiente", "Vérifier les critères d'éligibilité (âge, sexe, non-grossesse)", "Donner l'antibiotique", "Réaliser la BU"],correct:1,
+   explanation:"La première étape est de <strong>vérifier les critères d'éligibilité</strong> : femme de 16 à 65 ans, symptômes évocateurs de cystite, absence de critères d'exclusion d'urgence. Ce n'est qu'après avoir validé l'éligibilité qu'on procède à l'interrogatoire approfondi puis à la BU."},
+  {quiz:"cystite",theme:"Entretien officinal",difficulte:"modere",
+   text:"Comment poser la question sur la grossesse de manière professionnelle et exhaustive ?",
+   options:["'Êtes-vous enceinte ?'", "'Y a-t-il une possibilité que vous soyez enceinte ou avez-vous un retard de règles ?'", "'Prenez-vous la pilule ?'", "'Avez-vous des enfants ?'"],correct:1,
+   explanation:"La formulation <strong>\"Y a-t-il une possibilité que vous soyez enceinte ou avez-vous un retard de règles ?\"</strong> est plus exhaustive que \"êtes-vous enceinte ?\" — elle inclut les grossesses non encore détectées. La grossesse est un critère d'exclusion absolu même si non confirmée."},
+  {quiz:"cystite",theme:"Entretien officinal",difficulte:"modere",
+   text:"Si la patiente a pris un antibiotique pour une autre raison hier, peut-on l'inclure dans le protocole ?",
+   options:["Oui, cela renforcera l'effet", "Non, la prise récente d'antibiotiques est un critère d'exclusion", "Uniquement si c'était de l'amoxicilline", "Uniquement si elle n'a plus de symptômes"],correct:1,
+   explanation:"La prise d'antibiotiques en cours pour une autre raison est un <strong>critère d'exclusion</strong> du protocole. Elle peut masquer les résultats de la BU, interagir avec le traitement ou signaler une situation clinique complexe nécessitant un avis médical."},
+  {quiz:"cystite",theme:"Entretien officinal",difficulte:"modere",
+   text:"Que faire si la patiente décrit des douleurs lombaires mais n'a pas de fièvre ?",
+   options:["Réaliser la BU", "Orienter vers un médecin par précaution (signe de pyélonéphrite possible)", "Lui faire un massage lombaire", "Lui dire que c'est une douleur musculaire"],correct:1,
+   explanation:"Les douleurs lombaires, même sans fièvre, peuvent être un signe précoce de <strong>pyélonéphrite débutante</strong>. L'absence de fièvre ne suffit pas à rassurer — orientation médicale par précaution, avec prise en charge dans les 24h."},
+  {quiz:"cystite",theme:"Entretien officinal",difficulte:"modere",
+   text:"Pourquoi le pharmacien doit-il tracer l'acte de la BU et la délivrance dans le dossier ?",
+   options:["Pour ses statistiques personnelles", "Pour assurer la traçabilité de l'acte, le suivi de la patiente et la communication avec le médecin", "Pour le montrer à ses collègues", "Ce n'est pas nécessaire si le test est négatif"],correct:1,
+   explanation:"La traçabilité est une obligation légale dans le cadre de la délivrance conditionnelle. Le pharmacien doit inscrire l'antibiotique délivré sur le <strong>Dossier Médical Partagé (DMP)</strong> ou informer le médecin traitant. Cela assure la continuité des soins et évite les doublons thérapeutiques."},
+  {quiz:"cystite",theme:"Entretien officinal",difficulte:"modere",
+   text:"Que faire si la patiente refuse de faire le test BU à l'officine ?",
+   options:["Lui donner l'antibiotique quand même", "Lui expliquer que le test est la condition légale de la délivrance sans ordonnance", "Appeler le médecin pour obtenir son accord", "Lui vendre un autotest et lui donner l'antibiotique ensuite"],correct:1,
+   explanation:"La réalisation de la BU est une <strong>condition légale de la délivrance conditionnelle</strong>. Sans test, le pharmacien ne peut pas délivrer l'antibiotique sans ordonnance. Il faut expliquer calmement à la patiente que le test protège sa santé et est indispensable à l'acte."},
+  {quiz:"cystite",theme:"Entretien officinal",difficulte:"modere",
+   text:"Le pharmacien peut-il déléguer l'entretien de triage pour la cystite à un préparateur en pharmacie ?",
+   options:["Oui, pour le former", "Non, l'entretien doit être supervisé ou réalisé par un pharmacien diplômé", "Uniquement si le préparateur est en 3ème année", "Oui, si le pharmacien est occupé"],correct:1,
+   explanation:"La prise en charge de la cystite à l'officine est un acte <strong>réservé au pharmacien diplômé</strong>, qui engage sa responsabilité professionnelle. Il peut être assisté mais doit superviser ou réaliser lui-même l'entretien, l'interprétation de la BU et la décision de délivrance."},
+  {quiz:"cystite",theme:"Entretien officinal",difficulte:"modere",
+   text:"Quel document doit être remis à la patiente à la fin de la prise en charge ?",
+   options:["Une facture uniquement", "Une fiche de conseils pratiques (traitement, hydratation, hygiène, signes d'alarme)", "Une ordonnance pour le mois prochain", "Rien du tout"],correct:1,
+   explanation:"La remise d'une <strong>fiche de conseils pratiques</strong> est recommandée : posologie et mode de prise du traitement, conseils d'hydratation et d'hygiène, signes devant conduire à consulter (persistance des symptômes > 48h, fièvre, douleur lombaire). Cela renforce l'observance et la sécurité."},
+  {quiz:"cystite",theme:"Entretien officinal",difficulte:"modere",
+   text:"Si la patiente a 17 ans, doit-on demander l'autorisation des parents ?",
+   options:["Oui, systématiquement", "Non, les mineures de plus de 16 ans peuvent être prises en charge (confidentialité possible)", "Uniquement si elle habite chez eux", "Non, mais il faut appeler le médecin de famille"],correct:1,
+   explanation:"Les mineures de <strong>plus de 16 ans</strong> peuvent bénéficier du protocole sans accord parental, dans le respect de la confidentialité si elles le demandent. L'accord du représentant légal est nécessaire pour les patientes de moins de 16 ans."},
+  {quiz:"cystite",theme:"Entretien officinal",difficulte:"modere",
+   text:"La patiente revient le lendemain en disant que 'ça ne marche pas'. Quelle est votre conduite ?",
+   options:["Lui redonner un sachet de Fosfomycine", "Vérifier l'absence de signes de gravité (fièvre, douleur lombaire) et orienter vers un médecin", "Lui dire d'attendre 10 jours", "Lui proposer un autre antibiotique"],correct:1,
+   explanation:"En cas de non-amélioration à 24-48h, le pharmacien doit d'abord <strong>rechercher des signes de gravité</strong> (fièvre, douleur lombaire, altération de l'état général). En leur absence, rassurer et rappeler que l'amélioration peut prendre 48h. Si présents ou si symptômes persistent, <strong>orientation médicale urgente</strong>."},
+  {quiz:"cystite",theme:"Prévention",difficulte:"facile",
+   text:"Quel type de sous-vêtements favoriser pour prévenir les cystites récidivantes ?",
+   options:["En synthétique et serrés", "En coton et amples", "En soie uniquement", "Peu importe la matière"],correct:1,
+   explanation:"Les sous-vêtements en <strong>coton et amples</strong> favorisent l'aération de la région périnéale et réduisent l'humidité, limitant ainsi la prolifération bactérienne. Les matières synthétiques et les vêtements serrés créent un environnement chaud et humide propice aux infections."},
+  {quiz:"cystite",theme:"Prévention",difficulte:"facile",
+   text:"Pourquoi est-il conseillé d'uriner après un rapport sexuel pour prévenir la cystite ?",
+   options:["Pour éliminer les bactéries ayant pu migrer vers l'urètre", "Pour nettoyer la vessie de l'antibiotique", "Pour vérifier si on a une infection", "Cela n'a aucun effet préventif"],correct:0,
+   explanation:"La <strong>miction post-coïtale</strong> permet d'éliminer mécaniquement les bactéries qui ont pu migrer vers l'urètre pendant le rapport sexuel. Ce geste simple est l'un des conseils préventifs les plus efficaces et les mieux documentés pour les cystites post-coïtales récurrentes."},
+  {quiz:"cystite",theme:"Prévention",difficulte:"facile",
+   text:"Quelle est la recommandation concernant la fréquence des mictions pour prévenir la cystite ?",
+   options:["Une fois par jour", "Dès que l'envie se fait sentir, sans se retenir", "Toutes les heures obligatoirement", "Uniquement le matin et le soir"],correct:1,
+   explanation:"Il faut uriner <strong>dès que l'envie se fait sentir</strong>, sans se retenir. La rétention urinaire prolongée favorise la multiplication bactérienne dans la vessie. L'objectif est de vider régulièrement la vessie pour empêcher la prolifération des germes."},
+  {quiz:"cystite",theme:"Prévention",difficulte:"modere",
+   text:"La constipation est-elle un facteur de risque de cystite ?",
+   options:["Non, aucun rapport", "Oui, car la stagnation des selles favorise la prolifération bactérienne locale", "Uniquement chez les personnes âgées", "Seulement si on mange trop de fibres"],correct:1,
+   explanation:"La constipation chronique favorise la <strong>proximité prolongée des selles avec l'urètre</strong>, augmentant le risque de colonisation par E. coli. Un transit régulier et une alimentation riche en fibres font partie des mesures préventives globales recommandées."},
+  {quiz:"cystite",theme:"Prévention",difficulte:"modere",
+   text:"Quel est l'intérêt des probiotiques vaginaux en prévention des cystites récidivantes ?",
+   options:["Ils tuent les bactéries urinaires directement", "Ils aident à restaurer une flore de Döderlein protectrice", "Ils remplacent l'hydratation", "Ils colorent les urines en jaune"],correct:1,
+   explanation:"Les <strong>lactobacilles vaginaux (flore de Döderlein)</strong> jouent un rôle protecteur contre la colonisation par des pathogènes. Les probiotiques vaginaux à base de Lactobacillus crispatus ou rhamnosus peuvent aider à restaurer cette flore chez les femmes sujettes aux cystites récidivantes."},
+  {quiz:"cystite",theme:"Prévention",difficulte:"modere",
+   text:"L'utilisation de spermicides ou de diaphragmes augmente-t-elle le risque de cystite ?",
+   options:["Non", "Oui, ils peuvent modifier la flore locale et favoriser les infections", "Uniquement si on les utilise le matin", "Seulement chez les femmes de plus de 50 ans"],correct:1,
+   explanation:"Les <strong>spermicides</strong> perturbent la flore vaginale protectrice (flore de Döderlein) et favorisent la colonisation par E. coli. Les <strong>diaphragmes</strong> peuvent exercer une pression sur l'urètre et gêner la vidange vésicale. Ces deux méthodes contraceptives sont associées à une augmentation du risque de cystite."},
+  {quiz:"cystite",theme:"Prévention",difficulte:"facile",
+   text:"Faut-il faire une toilette intime plusieurs fois par jour pour éviter la cystite ?",
+   options:["Oui, 4 à 5 fois par jour", "Non, une toilette quotidienne suffit — l'excès d'hygiène fragilise la flore protectrice", "Oui, avec du savon de Marseille", "Uniquement après avoir fait du sport"],correct:1,
+   explanation:"<strong>Une toilette intime quotidienne suffit</strong>. L'excès d'hygiène (toilettes répétées, savons antiseptiques, douches vaginales) détruit la flore de Döderlein protectrice et fragilise la muqueuse, ce qui paradoxalement favorise les infections. Un savon doux à pH adapté est recommandé."},
+  {quiz:"cystite",theme:"Prévention",difficulte:"facile",
+   text:"Quelle est la température idéale de l'eau pour la toilette intime ?",
+   options:["Bouillante pour tuer les microbes", "Tiède", "Glacée", "Peu importe la température"],correct:1,
+   explanation:"La toilette intime doit être réalisée avec de l'eau <strong>tiède</strong>. L'eau trop chaude peut irriter les muqueuses et favoriser les infections. L'eau glacée peut provoquer des spasmes et une gêne. La douceur de la température protège la muqueuse et la flore locale."},
+  {quiz:"cystite",theme:"Prévention",difficulte:"facile",
+   text:"Les bains moussants sont-ils conseillés pour les femmes sujettes aux cystites ?",
+   options:["Oui, pour détendre la vessie", "Non, ils peuvent être irritants pour l'urètre et perturber la flore", "Uniquement s'ils sentent la rose", "Oui, s'ils durent plus de 30 minutes"],correct:1,
+   explanation:"Les bains moussants, en particulier avec des produits parfumés ou des huiles essentielles, peuvent <strong>irriter l'urètre et perturber la flore vaginale protectrice</strong>. Les femmes sujettes aux cystites récidivantes devraient préférer les douches aux bains et utiliser des produits hypoallergéniques."},
+  {quiz:"cystite",theme:"Prévention",difficulte:"facile",
+   text:"À partir de combien d'épisodes par an parle-t-on de cystites récidivantes ?",
+   options:["2 épisodes", "4 épisodes ou plus", "10 épisodes", "Dès le 1er épisode récurrent"],correct:1,
+   explanation:"On parle de <strong>cystites récidivantes à partir de 4 épisodes par an</strong> (ou 3 sur 6 mois). Ce seuil impose un bilan médical pour rechercher un facteur favorisant (anomalie urologique, diabète, immunodépression) et envisager une prophylaxie."},
+  {quiz:"cystite",theme:"Points de vigilance",difficulte:"facile",
+   text:"Un sachet de Fosfomycine entamé peut-il être conservé pour une prochaine fois ?",
+   options:["Oui, au frigo", "Non, il doit être dissous et bu immédiatement après ouverture", "Oui, pendant 24 heures", "Oui, s'il est refermé avec une pince"],correct:1,
+   explanation:"Le sachet de Fosfomycine doit être <strong>dissous dans un verre d'eau et bu immédiatement</strong> après ouverture. Une fois préparé, le médicament se dégrade rapidement. Il ne peut pas être conservé pour une utilisation ultérieure."},
+  {quiz:"cystite",theme:"Points de vigilance",difficulte:"modere",
+   text:"Le Pivmécillinam peut-il provoquer des candidoses vaginales ?",
+   options:["Non, c'est impossible", "Oui, comme tout antibiotique, il peut déséquilibrer la flore vaginale", "Uniquement si on ne boit pas assez", "Seulement chez les patientes diabétiques"],correct:1,
+   explanation:"Comme tout antibiotique, le Pivmécillinam peut <strong>perturber la flore vaginale</strong> et favoriser la survenue d'une candidose vulvovaginale. Il convient d'en informer la patiente et de lui proposer un antifongique local préventif si elle est sujette aux mycoses sous antibiotiques."},
+  {quiz:"cystite",theme:"Points de vigilance",difficulte:"modere",
+   text:"Pourquoi demande-t-on à la patiente si elle a voyagé récemment dans un pays tropical ?",
+   options:["Pour discuter des vacances", "Pour évaluer le risque de bactéries résistantes importées d'autres pays", "Pour savoir si elle a eu froid", "Ce n'est pas demandé dans le protocole"],correct:1,
+   explanation:"Un voyage récent dans certains pays (Asie, Afrique, Amérique du Sud) expose à des souches de bactéries présentant des <strong>profils de résistance différents</strong>, notamment des entérobactéries productrices de bêta-lactamases à spectre élargi (BLSE). Ce contexte impose une consultation médicale pour adapter le traitement."},
+  {quiz:"cystite",theme:"Points de vigilance",difficulte:"modere",
+   text:"La ménopause est-elle un facteur favorisant les cystites ?",
+   options:["Non", "Oui, en raison de la carence en œstrogènes qui modifie la muqueuse et la flore protectrice", "Uniquement si la femme a eu beaucoup d'enfants", "Seulement si elle prend un traitement hormonal"],correct:1,
+   explanation:"La <strong>carence en œstrogènes</strong> à la ménopause entraîne une atrophie de la muqueuse vaginale et urétrale, une modification du pH vaginal et une réduction de la flore de Döderlein. Cela favorise la colonisation par E. coli et augmente le risque de cystites récidivantes."},
+  {quiz:"cystite",theme:"Points de vigilance",difficulte:"modere",
+   text:"Peut-on réaliser une BU si la patiente a ses règles ?",
+   options:["Non, c'est impossible à lire", "Oui, mais le sang peut fausser le paramètre 'sang' sans invalider leucocytes et nitrites", "Uniquement si elle utilise un tampon", "Uniquement si les urines sont très claires"],correct:1,
+   explanation:"Les règles peuvent entraîner un <strong>faux positif pour le paramètre sang</strong> sur la BU, mais les paramètres diagnostiques principaux (leucocytes et nitrites) restent interprétables. Il faut informer la patiente de ce biais et utiliser un tampon lors du prélèvement si possible pour limiter la contamination."},
+  {quiz:"cystite",theme:"Points de vigilance",difficulte:"difficile",
+   text:"Quel est le délai de concentration urinaire efficace du sachet de Fosfomycine après la prise ?",
+   options:["2 heures", "Environ 36 à 48 heures de concentration urinaire efficace", "1 semaine", "10 minutes"],correct:1,
+   explanation:"Après absorption orale, la Fosfomycine se concentre dans les urines et y maintient une <strong>concentration bactéricide pendant 36 à 48 heures</strong>. C'est cette pharmacocinétique urinaire favorable qui permet l'efficacité en dose unique pour une infection limitée à la vessie."},
+  {quiz:"cystite",theme:"Points de vigilance",difficulte:"modere",
+   text:"Une patiente fait une cystite après chaque rapport sexuel depuis 6 mois. Que lui conseillez-vous au-delà du traitement curatif ?",
+   options:["Arrêter les rapports sexuels", "Consulter son médecin pour envisager une prophylaxie post-coïtale (hors protocole pharmacien)", "Prendre deux sachets de Fosfomycine à chaque fois", "Faire une BU tous les matins"],correct:1,
+   explanation:"Les cystites post-coïtales récurrentes peuvent bénéficier d'une <strong>prophylaxie antibiotique post-coïtale</strong> (prise unique d'antibiotique après le rapport). Cette stratégie est efficace mais nécessite une prescription médicale. Le pharmacien doit orienter la patiente vers son médecin tout en lui donnant les conseils préventifs habituels."},
+  {quiz:"cystite",theme:"Points de vigilance",difficulte:"facile",
+   text:"Quel est l'aspect normal d'une urine saine ?",
+   options:["Trouble et foncée", "Limpide et jaune clair", "Rougeâtre", "Avec des dépôts blancs"],correct:1,
+   explanation:"Des urines normales sont <strong>limpides et de couleur jaune clair</strong>. Des urines troubles peuvent évoquer une infection (leucocytes, bactéries), des urines foncées une déshydratation, et des urines rougeâtres une hématurie. Ce repère simple aide à sensibiliser les patientes à l'auto-surveillance."},
+  {quiz:"cystite",theme:"Points de vigilance",difficulte:"modere",
+   text:"Le pharmacien peut-il traiter une cystite si la patiente est sous anticoagulants oraux ?",
+   options:["Oui, il n'y a pas de contre-indication majeure au protocole", "Non, c'est une exclusion", "Uniquement si elle a fait une prise de sang le matin même", "Uniquement avec du Pivmécillinam"],correct:0,
+   explanation:"Les anticoagulants oraux ne constituent pas en eux-mêmes un critère d'exclusion du protocole cystite. Cependant, le pharmacien doit vérifier les <strong>interactions médicamenteuses</strong> : la Fosfomycine peut potentialiser les antivitamines K (renforcer la surveillance de l'INR). Une information à la patiente est nécessaire."},
+  {quiz:"cystite",theme:"Interactions médicamenteuses",difficulte:"difficile",
+   text:"Une patiente sous métoclopramide (Primpéran®) pour des nausées doit prendre de la Fosfomycine pour une cystite. Quelle précaution s'impose ?",
+   options:["Aucune, il n'y a pas d'interaction connue", "L'association est déconseillée car le métoclopramide diminue l'absorption de la Fosfomycine — préférer le Pivmécillinam", "Doubler la dose de Fosfomycine pour compenser", "Espacer les deux prises de 30 minutes suffit"],correct:1,
+   explanation:"Le métoclopramide (et les prokinétiques en général) accélère le transit gastro-intestinal et <strong>diminue les concentrations sériques et urinaires de la Fosfomycine</strong>. Cette association est déconseillée. En cas de traitement par prokinétique, le <strong>Pivmécillinam</strong> est à privilégier en alternative, sauf contre-indication."},
+  {quiz:"cystite",theme:"Interactions médicamenteuses",difficulte:"difficile",
+   text:"Une patiente sous méthotrexate faible dose (polyarthrite rhumatoïde) présente une cystite simple. Peut-on lui délivrer du Pivmécillinam ?",
+   options:["Oui, le Pivmécillinam est compatible avec le méthotrexate", "Oui, mais il faut réduire la dose de Pivmécillinam de moitié", "Non, le Pivmécillinam est déconseillé avec le méthotrexate car il augmente sa toxicité — utiliser la Fosfomycine", "Non, aucun antibiotique ne peut être délivré chez une patiente sous méthotrexate"],correct:2,
+   explanation:"Le Pivmécillinam diminue l'excrétion tubulaire du méthotrexate, augmentant son accumulation et sa <strong>toxicité hématologique et hépatique</strong>. L'association est déconseillée. La <strong>Fosfomycine</strong> est l'alternative appropriée dans ce contexte, sauf contre-indication spécifique (allergie au saccharose, insuffisance rénale sévère)."},
+  {quiz:"cystite",theme:"Colonisation urinaire",difficulte:"difficile",
+   text:"Une patiente de 55 ans signale qu'une analyse biologique récente a révélé des bactéries dans ses urines, mais elle n'a aucun symptôme. Que lui conseillez-vous ?",
+   options:["Lui délivrer de la Fosfomycine immédiatement", "Réaliser une BU et traiter si positive", "Ne pas traiter — la bactériurie asymptomatique ne justifie pas d'antibiotique sauf grossesse ou geste urologique", "L'orienter vers les urgences"],correct:2,
+   explanation:"La <strong>colonisation urinaire (bactériurie asymptomatique)</strong> est fréquente et ne justifie pas d'antibiothérapie chez une femme non enceinte sans geste urologique prévu. Traiter une colonisation asymptomatique favorise l'antibiorésistance sans bénéfice clinique démontré. Orienter vers le médecin si la patiente est inquiète."},
+  {quiz:"cystite",theme:"Prévention",difficulte:"difficile",
+   text:"Une patiente ménopausée de 62 ans fait des cystites récurrentes depuis 2 ans. Quelle information préventive pouvez-vous lui donner en complément du traitement curatif ?",
+   options:["Augmenter le dosage de la Fosfomycine à chaque épisode", "Lui conseiller d'arrêter toute activité sexuelle", "L'informer qu'un traitement œstrogénique local peut restaurer la trophicité de la muqueuse et réduire les récidives — à discuter avec son médecin", "Lui recommander de ne boire que de l'eau minérale gazeuse"],correct:2,
+   explanation:"La carence en œstrogènes à la ménopause entraîne une atrophie de la muqueuse urétrale et vaginale. Les <strong>œstrogènes locaux</strong> (ovules, crème, anneau vaginal) restaurent la trophicité muqueuse et la flore de Döderlein, réduisant significativement les récidives. Ils n'ont pas les effets systémiques des œstrogènes oraux. À discuter avec le médecin."},
+  {quiz:"cystite",theme:"Reconnaissance clinique",difficulte:"facile",
+   text:"Une patiente décrit des brûlures à la miction, des envies fréquentes et urgentes d'uriner, et des urines troubles, sans fièvre ni douleur lombaire. Quel diagnostic évoquez-vous en premier ?",
+   options:["Une pyélonéphrite aiguë", "Une infection vaginale", "Une cystite aiguë simple", "Une lithiase urinaire"],correct:2,
+   explanation:"La triade classique de la cystite associe <strong>brûlures mictionnelles (dysurie), pollakiurie</strong> (envies fréquentes) et urines troubles ou malodorantes. L'absence de fièvre et de douleur lombaire oriente vers une atteinte basse (cystite) et non haute (pyélonéphrite). Ce tableau est éligible au protocole officinal après vérification des critères."},
+  {quiz:"cystite",theme:"Prévention",difficulte:"facile",
+   text:"Comment expliquer simplement à une patiente l'efficacité de la Fosfomycine en dose unique ?",
+   options:["'Ce médicament tue toutes les bactéries de votre corps en une prise'", "'Il bloque la respiration des bactéries présentes dans vos reins'", "'Il se concentre dans vos urines et bloque la construction de la paroi des bactéries — une seule prise maintient une concentration efficace pendant 36 à 48h'", "'Il renforce votre système immunitaire pour combattre l'infection'"],correct:2,
+   explanation:"La Fosfomycine <strong>bloque la synthèse de la paroi bactérienne</strong> et se concentre dans les urines après absorption. Sa demi-vie urinaire permet une concentration bactéricide efficace pendant <strong>36 à 48 heures</strong> après une dose unique, ce qui suffit pour traiter une cystite simple et favorise l'observance."}
+];
+
+function shuffleArray(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function pickQuizQuestions(quizId){
+  const pool=shuffleArray(QUESTION_POOL.filter(q=>q.quiz===quizId));
+  const f=pool.filter(q=>q.difficulte==='facile');
+  const m=pool.filter(q=>q.difficulte==='modere');
+  const d=pool.filter(q=>q.difficulte==='difficile');
+  let sel=[...f.slice(0,4),...m.slice(0,4),...d.slice(0,4)];
+  if(sel.length<12){const used=new Set(sel.map(q=>q.text));const rem=shuffleArray(pool.filter(q=>!used.has(q.text)));sel=[...sel,...rem.slice(0,12-sel.length)];}
+  return shuffleArray(sel.slice(0,12));
+}
+
+const DIFF_LABELS={facile:'🟢 Facile',modere:'🟡 Modéré',difficile:'🔴 Difficile'};
+const DIFF_CLASSES={facile:'diff-facile',modere:'diff-modere',difficile:'diff-difficile'};
+let current=0,score=0,userAnswers=[],shuffledQuestions=[],shuffledOptions=[];
+function startQuiz(){
+  current=0;score=0;userAnswers=[];
+  shuffledQuestions=pickQuizQuestions('cystite');
+  shuffledOptions=shuffledQuestions.map(q=>shuffleArray(q.options.map((text,origIndex)=>({text,origIndex}))));
+  showScreen('screen-quiz');renderQuestion();
+}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function renderQuestion(){
+  const q=shuffledQuestions[current],opts=shuffledOptions[current],total=shuffledQuestions.length;
+  document.getElementById('progress-bar').style.width=((current/total)*100)+'%';
+  document.getElementById('progress-label').textContent=(current+1)+' / '+total;
+  document.getElementById('score-display').textContent='Score : '+score;
+  document.getElementById('q-num').textContent=current+1;
+  document.getElementById('q-theme').textContent=q.theme;
+  const de=document.getElementById('q-diff');de.textContent=DIFF_LABELS[q.difficulte]||q.difficulte;de.className='diff-tag '+(DIFF_CLASSES[q.difficulte]||'');
+  document.getElementById('q-text').textContent=q.text;
+  const grid=document.getElementById('options-grid');grid.innerHTML='';
+  const letters=['A','B','C','D'];
+  opts.forEach((opt,di)=>{
+    const btn=document.createElement('button');btn.className='option-btn';
+    btn.innerHTML='<span class="opt-letter">'+letters[di]+'</span><span>'+opt.text+'</span>';
+    btn.onclick=(function(o){return function(){selectAnswer(o.origIndex);};})(opt);
+    grid.appendChild(btn);
+  });
+  document.getElementById('feedback-box').className='feedback-box';
+  document.getElementById('next-btn').className='next-btn';
+}
+function selectAnswer(chosenOrig){
+  const q=shuffledQuestions[current],opts=shuffledOptions[current];
+  document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+  const ok=chosenOrig===q.correct;if(ok)score++;userAnswers[current]=chosenOrig;
+  document.querySelectorAll('.option-btn').forEach((btn,di)=>{
+    const orig=opts[di].origIndex;
+    if(orig===q.correct)btn.classList.add('correct');
+    else if(orig===chosenOrig&&!ok)btn.classList.add('wrong');
+    else btn.classList.add('dimmed');
+  });
+  const fb=document.getElementById('feedback-box');
+  document.getElementById('fb-title').textContent=ok?'✓ Bonne réponse !':'✗ Pas tout à fait…';
+  document.getElementById('fb-body').innerHTML=q.explanation;
+  fb.className='feedback-box show '+(ok?'correct-fb':'wrong-fb');
+  const nb=document.getElementById('next-btn');nb.className='next-btn show';
+  nb.textContent=current<shuffledQuestions.length-1?'Question suivante →':'Voir mes résultats →';
+}
+function nextQuestion(){current++;if(current>=shuffledQuestions.length)showResults();else renderQuestion();}
+function showResults(){
+  showScreen('screen-results');
+  const total=shuffledQuestions.length,pct=Math.round((score/total)*100);
+  document.getElementById('res-score').textContent=score+'/'+total;
+  document.getElementById('res-pct').textContent=pct+'%';
+  document.getElementById('result-circle').style.setProperty('--pct',pct+'%');
+  const t=['🔁 À retravailler','📚 Des lacunes à combler','👍 Très bon niveau','🏆 Expertise confirmée !'];
+  const msgs=['Les fondamentaux ne sont pas encore acquis. Recommencez après révision.','Niveau intermédiaire. Certains points méritent une révision.','Bonne maîtrise. Relisez les points manqués pour consolider.','Résultat parfait. Votre maîtrise est solide.'];
+  const idx=pct===100?3:pct>=75?2:pct>=50?1:0;
+  document.getElementById('res-title').textContent=t[idx];document.getElementById('res-msg').textContent=msgs[idx];
+  const list=document.getElementById('review-list');list.innerHTML='';
+  shuffledQuestions.forEach((q,i)=>{
+    const ok=userAnswers[i]===q.correct;
+    const item=document.createElement('div');item.className='review-item';
+    item.innerHTML='<span class="review-icon">'+(ok?'✅':'❌')+'</span><div><div class="review-q">'+q.text+'</div><div class="review-diff '+(DIFF_CLASSES[q.difficulte]||'')+'">'+( DIFF_LABELS[q.difficulte]||'')+'</div>'+(!ok?'<div class="review-ans">Bonne réponse : <strong>'+q.options[q.correct]+'</strong></div>':'')+'</div>';
+    list.appendChild(item);
+  });
+}
+function restartQuiz(){startQuiz();}
+
+</script>
+</body>
+</html>
