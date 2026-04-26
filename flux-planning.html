@@ -13,7 +13,7 @@
   .page{max-width:960px;margin:0 auto}
   header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
   .badge{display:inline-block;background:var(--green);color:white;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:8px}
-  h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800}
+  /* h1 moved to additions */
   h1 span{color:var(--green)}
   .home-btn{background:white;color:var(--green);font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;border:1.5px solid var(--green);padding:10px 20px;border-radius:12px;cursor:pointer;text-decoration:none;transition:all .2s}
   .home-btn:hover{background:var(--green-light)}
@@ -25,14 +25,14 @@
   .status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--green)}
   .status-dot.saving{background:var(--gold)}
   .status-dot.error{background:var(--red)}
-  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;font-size:.82rem;color:var(--muted)}
+  /* legend moved to additions */
   .legend-item{display:flex;align-items:center;gap:6px}
   .leg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
   .leg-official{background:var(--green-light);border:1px solid var(--green)}
   .leg-pending{background:#fff3cd;border:1px solid var(--gold)}
   .leg-today{background:#e8f0fe;border:1px solid #4285f4}
   .week-block{margin-bottom:32px}
-  .week-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:800;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+  /* week-title moved to additions */
   .week-title span{color:var(--green);font-size:.82rem;font-weight:500;margin-left:8px}
   .days-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
   .day-card{background:white;border:1px solid var(--border);border-radius:14px;padding:14px}
@@ -57,7 +57,7 @@
 
   @media print {
     body{padding:10px;background:white}
-    .home-btn,.top-actions,.status-bar,.legend{display:none!important}
+    .home-btn,.top-actions,.status-bar,/* legend moved to additions */
     .week-block{page-break-inside:avoid;margin-bottom:16px}
     .days-grid{grid-template-columns:repeat(6,1fr)!important;gap:6px}
     .day-card{border:1px solid #ccc;border-radius:6px;padding:8px;box-shadow:none}
@@ -66,10 +66,25 @@
     .slot-label{font-size:.6rem}
     .slot-btns{display:none!important}
     h1{font-size:1.4rem;margin-bottom:8px}
-    .week-title{font-size:.9rem;margin-bottom:8px;padding-bottom:4px}
+    /* week-title moved to additions */
     .day-name{font-size:.72rem;margin-bottom:6px}
     @page{margin:1.5cm;size:A4 landscape}
   }
+
+  /* Background sur textes pour lisibilité */
+  .week-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:800;margin-bottom:12px;padding:6px 14px;border-bottom:2px solid var(--border);background:rgba(255,255,255,0.88);border-radius:10px 10px 0 0;}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;font-size:.82rem;color:var(--muted);background:rgba(255,255,255,0.85);border-radius:12px;padding:10px 16px;}
+  h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;background:rgba(255,255,255,0.88);border-radius:12px;padding:6px 16px;display:inline-block;}
+
+  /* Jour fermé */
+  .day-card.closed{opacity:.6;background:#f5f5f5;}
+  .day-closed-label{text-align:center;padding:10px 4px;font-size:.78rem;color:var(--muted);font-weight:600;letter-spacing:.04em;}
+
+  /* Bouton toggle fermeture */
+  .btn-close{background:none;border:1px solid var(--border);border-radius:6px;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;cursor:pointer;color:var(--muted);transition:all .15s;margin-left:4px;vertical-align:middle;line-height:1;padding:0;}
+  .btn-close:hover{border-color:var(--red);color:var(--red);background:#fdeaea;}
+  .btn-close.is-closed{border-color:var(--green);color:var(--green);background:var(--green-light);}
+
 </style>
 </head>
 <body>
@@ -112,6 +127,7 @@ const DAY_SHORT = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
 let officialData = null;
 let pendingData  = null;
 let pendingSlots = new Set();
+let closedDays = new Set(); // dates 'YYYY-MM-DD' fermées
 
 // ── Dates ──
 function localStr(d) {
@@ -239,7 +255,12 @@ async function load() {
     return true;
   } catch(e) { setStatus('error','Erreur de chargement'); return false; }
 }
+function syncClosedDays() {
+  // store in officialData so it persists
+  officialData.closedDays = [...closedDays];
+}
 async function save() {
+  syncClosedDays();
   setStatus('saving','Sauvegarde…');
   try {
     await fetch(JSONBIN_URL,{
@@ -254,6 +275,41 @@ async function save() {
 function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
 
 // ── Actions ──
+
+function toggleClose(date) {
+  if (closedDays.has(date)) {
+    // Réactiver : remettre les personnes officielles
+    closedDays.delete(date);
+    // Restore from officialData or regenerate
+    if (!pendingData.planning[date] || !pendingData.planning[date].am) {
+      // Regenerate this single day
+      const wk = weekKey(date);
+      const wa = {};
+      get4Weeks().forEach(d => {
+        if (d !== date && pendingData.planning[d]) {
+          SLOTS.forEach(s => { const p=pendingData.planning[d][s]; if(p) wa[p]=(wa[p]||0)+1; });
+        }
+      });
+      const disp = pendingData.champion_dispense||{person:null,week:null};
+      SLOTS.forEach(slot => {
+        const weights = PEOPLE.map(p => weight(p, date, pendingData.history, disp, {[wk]:wa}));
+        pendingData.planning[date][slot] = pick(PEOPLE, weights);
+        pendingData.planning[date][slot+'_modified'] = false;
+      });
+    }
+  } else {
+    closedDays.add(date);
+    // Clear pending for this day
+    pendingSlots.delete(date+'_am');
+    pendingSlots.delete(date+'_pm');
+  }
+  officialData = clone(pendingData);
+  closedDays.forEach(d => { if(officialData.planning[d]) { officialData.planning[d].am=null; officialData.planning[d].pm=null; } });
+  officialData.closedDays = [...closedDays];
+  save();
+  renderPlanning();
+}
+
 // Propose: change slot in pendingData, recalc downstream, do NOT save
 function propose(date, slot) {
   const cur = pendingData.planning[date][slot];
@@ -282,6 +338,7 @@ async function validate(date, slot) {
 function cancel() {
   pendingData  = clone(officialData);
   pendingSlots = new Set();
+  closedDays   = new Set(officialData.closedDays || []);
   renderPlanning();
 }
 
@@ -341,6 +398,7 @@ async function regenerate() {
   await save();
   pendingData  = clone(officialData);
   pendingSlots = new Set();
+  closedDays   = new Set(officialData.closedDays || []);
   renderPlanning();
 }
 
@@ -356,6 +414,7 @@ async function init() {
   }
   pendingData  = clone(officialData);
   pendingSlots = new Set();
+  closedDays   = new Set(officialData.closedDays || []);
   renderPlanning();
 }
 
