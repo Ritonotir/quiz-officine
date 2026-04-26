@@ -9,7 +9,7 @@
 <style>
   :root{--green:#1a9e6e;--green-dark:#0f7a53;--green-light:#e6f7f1;--bg:#f4efe9;--text:#1a1f1c;--muted:#6b7672;--border:#dde5e0;--gold:#f5a623;--red:#e84040}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'DM Sans',sans-serif;background-color:#f0ebe3;background-image:url(bg.png);background-repeat:repeat;background-size:1024px 571px;color:var(--text);min-height:100vh;padding:32px 20px 60px}
+  body{font-family:'DM Sans',sans-serif;background-color:#f0ebe3;background-image:url(bg.jpg);background-repeat:repeat;background-size:1024px 571px;color:var(--text);min-height:100vh;padding:32px 20px 60px}
   .page{max-width:960px;margin:0 auto}
   header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
   .badge{display:inline-block;background:var(--green);color:white;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:8px}
@@ -366,7 +366,17 @@ function renderPlanning() {
       const card=document.createElement('div');
       card.className='day-card'+(isToday?' today':'')+(isPast?' past':'');
 
-      let html=`<div class="day-name${isToday?' today-label':''}">${DAY_SHORT[dt.getDay()]} ${dt.getDate()}</div>`;
+      const isClosed = closedDays.has(date);
+      if (isClosed) card.classList.add('closed');
+
+      let html=`<div class="day-name${isToday?' today-label':''}">${DAY_SHORT[dt.getDay()]} ${dt.getDate()}${isPast ? '' : `<button class="btn-close${isClosed?' is-closed':''}" onclick="toggleClose('${date}')" title="${isClosed?'Réactiver':'Fermer'}"> ${isClosed?'✓':'✕'} </button>`}</div>`;
+
+      if (isClosed) {
+        html += '<div class="day-closed-label">🔒 Fermé</div>';
+        card.innerHTML = html;
+        grid.appendChild(card);
+        return;
+      }
 
       SLOTS.forEach(slot=>{
         const person=dd[slot]||'—';
