@@ -85,6 +85,9 @@
   .btn-close:hover{border-color:var(--red);color:var(--red);background:#fdeaea;}
   .btn-close.is-closed{border-color:var(--green);color:var(--green);background:var(--green-light);}
 
+
+  .slot-select{width:100%;margin-top:5px;padding:4px 6px;border:1.5px solid var(--gold);border-radius:7px;font-family:'DM Sans',sans-serif;font-size:.8rem;color:var(--text);background:#fffdf7;cursor:pointer;outline:none;}
+  .slot-select:focus{border-color:var(--green);}
 </style>
 </head>
 <body>
@@ -326,9 +329,19 @@ function propose(date, slot) {
   renderPlanning();
 }
 
+
+function manualPick(date, slot, person) {
+  if (!person) return;
+  pendingData.planning[date][slot] = person;
+  pendingSlots.add(date + '_' + slot);
+  recalcAfter(date, slot);
+  renderPlanning();
+}
+
 // Validate: promote pendingData to official, save, clear pending for this slot
 async function validate(date, slot) {
   officialData = clone(pendingData);
+  officialData.closedDays = [...closedDays]; // préserver les jours fermés
   pendingSlots.delete(date+'_'+slot);
   await save();
   renderPlanning();
@@ -338,6 +351,7 @@ async function validate(date, slot) {
 function cancel() {
   pendingData  = clone(officialData);
   pendingSlots = new Set();
+  // Ne pas réinitialiser closedDays depuis officialData — on garde l'état courant
   closedDays   = new Set(officialData.closedDays || []);
   renderPlanning();
 }
@@ -382,16 +396,20 @@ function renderPlanning() {
         const person=dd[slot]||'—';
         const isPend=pendingSlots.has(date+'_'+slot);
         const cls=isPend?'pending':'official';
+        const selectOptions = PEOPLE.map(p =>
+          `<option value="${p}" ${p===person?'selected':''}>${p}</option>`
+        ).join('');
         html+=`<div class="slot">
           <div class="slot-label">${SLOT_LABELS[slot]}</div>
           <div class="slot-person ${cls}">${person}${isPend?' ⏳':''}</div>
+          ${isPend && !isPast ? `<select class="slot-select" onchange="manualPick('${date}','${slot}',this.value)">${selectOptions}</select>` : ''}
           <div class="slot-btns">`;
         if (!isPast) {
           if (isPend) {
-            html+=`<button class="slot-btn ok"   onclick="validate('${date}','${slot}')" title="Valider">✓</button>
-                   <button class="slot-btn no"   onclick="cancel()"                     title="Annuler">✗</button>`;
+            html+=`<button class="slot-btn ok" onclick="validate('${date}','${slot}')" title="Valider">✓</button>
+                   <button class="slot-btn no" onclick="cancel()"                     title="Annuler">✗</button>`;
           }
-          html+=`<button class="slot-btn next" onclick="propose('${date}','${slot}')" title="Proposer un autre">→</button>`;
+          html+=`<button class="slot-btn next" onclick="propose('${date}','${slot}')" title="Proposer →">→</button>`;
         }
         html+=`</div></div>`;
       });
@@ -404,11 +422,16 @@ function renderPlanning() {
 // ── Regenerate ──
 async function regenerate() {
   if (!confirm('Régénérer le planning ? Les affectations actuelles seront effacées.')) return;
+  const savedClosed = [...closedDays]; // préserver les jours fermés
   officialData = generate({champion_dispense: officialData?.champion_dispense||{person:null,week:null}});
+  officialData.closedDays = savedClosed;
+  // Effacer les créneaux des jours fermés dans le nouveau planning
+  closedDays.forEach(d => {
+    if (officialData.planning[d]) { officialData.planning[d].am=null; officialData.planning[d].pm=null; }
+  });
   await save();
   pendingData  = clone(officialData);
   pendingSlots = new Set();
-  closedDays   = new Set(officialData.closedDays || []);
   renderPlanning();
 }
 
