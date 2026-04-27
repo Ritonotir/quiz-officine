@@ -110,7 +110,7 @@
     <div class="badge-challenge">⚡ Challenge Semaine</div>
     <h1>Quiz<br><span>Challenge</span></h1>
   </div>
-  <p>12 questions tirées aléatoirement. Répondez vite — chaque seconde compte sur votre score !</p>
+  <p>15 questions tirées aléatoirement. Répondez vite — chaque seconde compte sur votre score !</p>
   <div class="intro-stats">
     <div class="stat-pill"><strong>15</strong><span>questions</span></div>
     <div class="stat-pill"><strong>100</strong><span>pts/question</span></div>
@@ -1328,23 +1328,18 @@ async function submitScore(){
   const status = document.getElementById('lb-status');
   status.textContent = 'Envoi en cours…';
 
-  const scores = await fetchLeaderboard();
-
-  const entry = {pseudo, score:totalScore, time:totalTime, week:weekKey, ts:Date.now()};
-
-  // Always save — replace previous entry from same pseudo this week
-  const filtered = scores.filter(s=>!(s.week===weekKey && s.pseudo===pseudo));
-  filtered.push(entry);
-  // Keep only last 4 weeks
-  const cutoff = Date.now() - 28*24*3600*1000;
-  const cleaned = filtered.filter(s=>s.ts>cutoff);
-  {
+  try {
+    const scores = await fetchLeaderboard();
+    const entry = {pseudo, score:totalScore, time:totalTime, week:weekKey, ts:Date.now()};
+    const filtered = scores.filter(s=>!(s.week===weekKey && s.pseudo===pseudo));
+    filtered.push(entry);
+    const cutoff = Date.now() - 28*24*3600*1000;
+    const cleaned = filtered.filter(s=>s.ts>cutoff);
     await saveLeaderboard(cleaned);
     status.textContent = '✅ Score soumis ! Bonne chance dans le classement.';
-  } else {
-    status.textContent = opt==='best'
-      ? '😅 Votre score n\'est pas le meilleur cette semaine — non soumis.'
-      : '✅ Score enregistré !';
+  } catch(e) {
+    status.textContent = '❌ Erreur lors de l\'envoi. Réessayez.';
+    console.error(e);
   }
 
   setTimeout(showFinalButtons, 1500);
