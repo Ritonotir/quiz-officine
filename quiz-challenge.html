@@ -1284,6 +1284,10 @@ function showResults(){
   const idx = pct>=85?3:pct>=65?2:pct>=40?1:0;
   document.getElementById('res-title').textContent = titles[idx];
   document.getElementById('res-msg').textContent = msgs[idx];
+  document.getElementById('lb-form').style.display = 'block';
+  document.getElementById('final-buttons').style.display = 'none';
+  document.getElementById('lb-status').textContent = '';
+  document.getElementById('pseudo-input').value = '';
 }
 
 // ── Leaderboard ──
