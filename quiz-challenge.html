@@ -87,9 +87,6 @@
   .lb-form p{font-size:.85rem;color:var(--muted);margin-bottom:16px;line-height:1.5}
   .pseudo-input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.95rem;margin-bottom:12px;outline:none}
   .pseudo-input:focus{border-color:var(--gold)}
-  .radio-group{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-  .radio-group label{display:flex;align-items:flex-start;gap:10px;font-size:.85rem;cursor:pointer;line-height:1.4}
-  .radio-group input{margin-top:2px;accent-color:var(--gold)}
   .btn-submit-lb{background:var(--gold);color:white;font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;border:none;padding:13px 28px;border-radius:10px;cursor:pointer;width:100%;transition:background .2s}
   .btn-submit-lb:hover{background:#d4891a}
   .btn-skip{background:none;border:none;color:var(--muted);font-size:.82rem;cursor:pointer;margin-top:8px;text-decoration:underline;width:100%}
@@ -165,14 +162,8 @@
 
   <div class="lb-form" id="lb-form">
     <h3>🏆 Intégrer le classement</h3>
-    <p>Entrez un pseudo pour soumettre votre score au classement de la semaine.</p>
-    <input class="pseudo-input" id="pseudo-input" type="text" placeholder="Votre pseudo (ex: Pharmaco_Pro)" maxlength="20">
-    <div class="radio-group">
-      <label><input type="radio" name="lb-opt" value="best" checked>
-        Afficher mon score uniquement si c'est le meilleur de la semaine <em style="font-size:.78rem">(rêve toujours 😄)</em></label>
-      <label><input type="radio" name="lb-opt" value="always">
-        Afficher le score quel que soit mon classement <em style="font-size:.78rem">(je suis nul(le) et j'assume 💪)</em></label>
-    </div>
+    <p>Entrez votre prénom pour apparaître dans le classement de la semaine.</p>
+    <input class="pseudo-input" id="pseudo-input" type="text" placeholder="Votre prénom" maxlength="20">
     <button class="btn-submit-lb" onclick="submitScore()">Soumettre mon score</button>
     <div class="lb-status" id="lb-status"></div>
     <button class="btn-skip" onclick="showFinalButtons()">Passer sans soumettre</button>
@@ -1330,33 +1321,24 @@ function getWeekKey(){
 async function submitScore(){
   const pseudo = document.getElementById('pseudo-input').value.trim();
   if(!pseudo){
-    document.getElementById('lb-status').textContent = 'Merci d\'entrer un pseudo.';
+    document.getElementById('lb-status').textContent = 'Merci d\'entrer votre prénom.';
     return;
   }
-  const opt = document.querySelector('input[name="lb-opt"]:checked').value;
   const weekKey = getWeekKey();
   const status = document.getElementById('lb-status');
   status.textContent = 'Envoi en cours…';
 
   const scores = await fetchLeaderboard();
 
-  // Filter current week
-  const thisWeek = scores.filter(s=>s.week===weekKey);
-  const bestThisWeek = thisWeek.length>0 ? Math.max(...thisWeek.map(s=>s.score)) : 0;
+  const entry = {pseudo, score:totalScore, time:totalTime, week:weekKey, ts:Date.now()};
 
-  const entry = {pseudo, score:totalScore, time:totalTime, week:weekKey, opt, ts:Date.now()};
-
-  let shouldSave = false;
-  if(opt==='always') shouldSave = true;
-  if(opt==='best' && totalScore >= bestThisWeek) shouldSave = true;
-
-  if(shouldSave){
-    // Remove previous entry from same pseudo this week
-    const filtered = scores.filter(s=>!(s.week===weekKey && s.pseudo===pseudo));
-    filtered.push(entry);
-    // Keep only last 4 weeks
-    const cutoff = Date.now() - 28*24*3600*1000;
-    const cleaned = filtered.filter(s=>s.ts>cutoff);
+  // Always save — replace previous entry from same pseudo this week
+  const filtered = scores.filter(s=>!(s.week===weekKey && s.pseudo===pseudo));
+  filtered.push(entry);
+  // Keep only last 4 weeks
+  const cutoff = Date.now() - 28*24*3600*1000;
+  const cleaned = filtered.filter(s=>s.ts>cutoff);
+  {
     await saveLeaderboard(cleaned);
     status.textContent = '✅ Score soumis ! Bonne chance dans le classement.';
   } else {
