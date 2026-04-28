@@ -325,7 +325,7 @@ function logout() {
   window.location.href = 'index.html';
 }
 
-function trackVisit() {
+async function trackVisit() {
   try {
     const res = await fetch('https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08', {
       headers: {'X-Master-Key': JSONBIN_KEY}
