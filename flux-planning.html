@@ -88,6 +88,7 @@
 
   .slot-select{width:100%;margin-top:5px;padding:4px 6px;border:1.5px solid var(--gold);border-radius:7px;font-family:'DM Sans',sans-serif;font-size:.8rem;color:var(--text);background:#fffdf7;cursor:pointer;outline:none;}
   .slot-select:focus{border-color:var(--green);}
+  .readonly-hidden { display: none !important; }
 </style>
 </head>
 <body>
@@ -119,7 +120,23 @@
 const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08';
 const JSONBIN_KEY = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
 
-const PEOPLE = ['Antho','Cha R','Cha M','Georges','Nico','Anaïs A','Anaïs B','Ines','Cynthia','Clem','Marina','Fabienne','Nath'];
+const PEOPLE = ['Anthony','Cha R','Cha M','Georges','Nicolas','Anaïs A','Anaïs B','Ines','Cynthia','Clémentine','Marina','Fabienne','Nathalie']
+const IS_EDIT = new URLSearchParams(window.location.search).get('mode') === 'edit';
+
+// ── Read-only mode ──
+if (!IS_EDIT) {
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('readonly-banner').style.display = 'block';
+    // Hide all edit buttons
+    document.querySelectorAll('.btn-gen, .btn-validate, .btn-cancel, .btn-print, .btn-close').forEach(el => {
+      el.style.display = 'none';
+    });
+    // Also hide the global action buttons row
+    const actionBar = document.querySelector('.action-bar');
+    if (actionBar) actionBar.style.display = 'none';
+  });
+}
+;
 const SLOTS = ['am','pm'];
 const SLOT_LABELS = {am:'Matin', pm:'Après-midi'};
 const DAY_SHORT = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
@@ -383,7 +400,7 @@ function renderPlanning() {
       const isClosed = closedDays.has(date);
       if (isClosed) card.classList.add('closed');
 
-      let html=`<div class="day-name${isToday?' today-label':''}">${DAY_SHORT[dt.getDay()]} ${dt.getDate()}${isPast ? '' : `<button class="btn-close${isClosed?' is-closed':''}" onclick="toggleClose('${date}')" title="${isClosed?'Réactiver':'Fermer'}"> ${isClosed?'✓':'✕'} </button>`}</div>`;
+      let html=`<div class="day-name${isToday?' today-label':''}">${DAY_SHORT[dt.getDay()]} ${dt.getDate()}${(!isPast && IS_EDIT) ? `<button class="btn-close${isClosed?' is-closed':''}" onclick="toggleClose('${date}')" title="${isClosed?'Réactiver':'Fermer'}"> ${isClosed?'✓':'✕'} </button>` : ''}</div>`;
 
       if (isClosed) {
         html += '<div class="day-closed-label">🔒 Fermé</div>';
@@ -404,7 +421,7 @@ function renderPlanning() {
           <div class="slot-person ${cls}">${person}${isPend?' ⏳':''}</div>
           ${isPend && !isPast ? `<select class="slot-select" onchange="manualPick('${date}','${slot}',this.value)">${selectOptions}</select>` : ''}
           <div class="slot-btns">`;
-        if (!isPast) {
+        if (!isPast && IS_EDIT) {
           if (isPend) {
             html+=`<button class="slot-btn ok" onclick="validate('${date}','${slot}')" title="Valider">✓</button>
                    <button class="slot-btn no" onclick="cancel()"                     title="Annuler">✗</button>`;

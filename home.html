@@ -98,6 +98,18 @@
 </head>
 <body>
 
+
+  <!-- Admin stats panel — visible uniquement admin -->
+  <div id="admin-panel" style="display:none;background:rgba(26,158,110,0.12);border:1.5px solid #1a9e6e;border-radius:14px;padding:14px 20px;margin-bottom:20px;font-size:.85rem;max-width:960px;width:100%;">
+    <strong style="font-family:'Syne',sans-serif;color:#0f7a53;">📊 Tableau de bord admin</strong>
+    <div id="admin-stats" style="margin-top:10px;display:flex;gap:20px;flex-wrap:wrap;color:#1a1f1c;">
+      <span>👥 Visites totales : <strong id="stat-total">—</strong></span>
+      <span>📅 Cette semaine : <strong id="stat-week">—</strong></span>
+      <span>🏆 Challenges joués : <strong id="stat-challenges">—</strong></span>
+      <span>📚 Quiz joués : <strong id="stat-quiz">—</strong></span>
+    </div>
+  </div>
+
 <header>
   <div class="header-left">
     <div class="badge">Formation Officine</div>
@@ -128,7 +140,7 @@
   </div>
   <div class="sidebar">
     <div class="lb-card">
-      <h3>🏆 Classement du challenge</h3>
+      <h3>🏆 Classement</h3>
       <div class="lb-week" id="lb-week">Semaine en cours</div>
       <div id="lb-list"><div class="lb-empty">Chargement…</div></div>
     </div>
@@ -146,9 +158,14 @@ var JSONBIN_URL      = 'https://api.jsonbin.io/v3/b/69e8731aaaba882197256035';
 var JSONBIN_URL_FLUX = 'https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08';
 var JSONBIN_KEY      = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
 var FLUX_VISIBLE       = true;
+
+// ── Auth & admin ──
+const authVal = sessionStorage.getItem('auth');
+if (!authVal) window.location.href = 'index.html';
+const IS_ADMIN = (authVal === 'admin');
 var CHALLENGE_DISPENSE = false;
 
-var PEOPLE = ['Antho','Cha R','Cha M','Georges','Nico','Anaïs A','Anaïs B','Ines','Cynthia','Clem','Marina','Fabienne','Nath'];
+var PEOPLE = ['Anthony','Cha R','Cha M','Georges','Nicolas','Anaïs A','Anaïs B','Ines','Cynthia','Clémentine','Marina','Fabienne','Nathalie'];
 var SLOT_LABELS = {am:'Matin', pm:'Après-midi'};
 var allQuizzes = [];
 var fluxData = null;
@@ -297,6 +314,55 @@ async function initFlux() {
 loadQuizzes();
 loadLeaderboard();
 initFlux();
+
+// ── Stats (admin only) ──
+const STATS_BIN = 'https://api.jsonbin.io/v3/b/69e8731aaaba882197256035'; // reuse existing bin key
+
+async function trackVisit() {
+  try {
+    const res = await fetch('https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08', {
+      headers: {'X-Master-Key': JSONBIN_KEY}
+    });
+    const data = await res.json();
+    const stats = data.record.stats || {total:0, weeks:{}, challenges:0, quizPlayed:0};
+    
+    // Increment total visits
+    stats.total = (stats.total || 0) + 1;
+    
+    // Track this week
+    const now = new Date();
+    const wk = `${now.getFullYear()}-W${Math.ceil((now - new Date(now.getFullYear(),0,1))/604800000)}`;
+    stats.weeks = stats.weeks || {};
+    stats.weeks[wk] = (stats.weeks[wk] || 0) + 1;
+    
+    // Keep only last 8 weeks
+    const weekKeys = Object.keys(stats.weeks).sort();
+    if (weekKeys.length > 8) {
+      weekKeys.slice(0, weekKeys.length - 8).forEach(k => delete stats.weeks[k]);
+    }
+    
+    // Save back
+    const current = data.record;
+    current.stats = stats;
+    await fetch('https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08', {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json','X-Master-Key': JSONBIN_KEY},
+      body: JSON.stringify(current)
+    });
+    
+    if (IS_ADMIN) {
+      document.getElementById('admin-panel').style.display = 'block';
+      document.getElementById('stat-total').textContent = stats.total;
+      const thisWeekCount = stats.weeks[wk] || 0;
+      document.getElementById('stat-week').textContent = thisWeekCount;
+      document.getElementById('stat-challenges').textContent = stats.challenges || 0;
+      document.getElementById('stat-quiz').textContent = stats.quizPlayed || 0;
+    }
+  } catch(e) { console.warn('Stats error:', e); }
+}
+
+trackVisit();
+
 </script>
 </body>
 </html>

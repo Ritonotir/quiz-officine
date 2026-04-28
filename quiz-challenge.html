@@ -163,7 +163,24 @@
   <div class="lb-form" id="lb-form">
     <h3>🏆 Intégrer le classement</h3>
     <p>Entrez votre prénom pour apparaître dans le classement de la semaine.</p>
-    <input class="pseudo-input" id="pseudo-input" type="text" placeholder="Votre prénom" maxlength="20">
+    <select class="pseudo-input" id="pseudo-select" onchange="handleSelectChange(this)">
+      <option value="">— Choisissez votre prénom —</option>
+      <option value="Anthony">Anthony</option>
+      <option value="Cha R">Cha R</option>
+      <option value="Cha M">Cha M</option>
+      <option value="Georges">Georges</option>
+      <option value="Nicolas">Nicolas</option>
+      <option value="Anaïs A">Anaïs A</option>
+      <option value="Anaïs B">Anaïs B</option>
+      <option value="Ines">Ines</option>
+      <option value="Cynthia">Cynthia</option>
+      <option value="Clémentine">Clémentine</option>
+      <option value="Marina">Marina</option>
+      <option value="Fabienne">Fabienne</option>
+      <option value="Nathalie">Nathalie</option>
+      <option value="__autre__">Autre (taper mon prénom)</option>
+    </select>
+    <input class="pseudo-input" id="pseudo-input" type="text" placeholder="Votre prénom" maxlength="20" style="display:none;margin-top:8px;">
     <button class="btn-submit-lb" onclick="submitScore()">Soumettre mon score</button>
     <div class="lb-status" id="lb-status"></div>
     <button class="btn-skip" onclick="showFinalButtons()">Passer sans soumettre</button>
@@ -1288,6 +1305,8 @@ function showResults(){
   document.getElementById('final-buttons').style.display = 'none';
   document.getElementById('lb-status').textContent = '';
   document.getElementById('pseudo-input').value = '';
+  document.getElementById('pseudo-select').value = '';
+  document.getElementById('pseudo-input').style.display = 'none';
 }
 
 // ── Leaderboard ──
@@ -1323,7 +1342,9 @@ function getWeekKey(){
 }
 
 async function submitScore(){
-  const pseudo = document.getElementById('pseudo-input').value.trim();
+  const sel = document.getElementById('pseudo-select');
+  const freeInput = document.getElementById('pseudo-input');
+  const pseudo = (sel.value && sel.value !== '__autre__') ? sel.value : freeInput.value.trim();
   if(!pseudo){
     document.getElementById('lb-status').textContent = 'Merci d\'entrer votre prénom.';
     return;
@@ -1347,6 +1368,18 @@ async function submitScore(){
   }
 
   setTimeout(showFinalButtons, 1500);
+}
+
+
+function handleSelectChange(sel) {
+  const input = document.getElementById('pseudo-input');
+  if (sel.value === '__autre__') {
+    input.style.display = 'block';
+    input.focus();
+  } else {
+    input.style.display = 'none';
+    input.value = '';
+  }
 }
 
 function showFinalButtons(){

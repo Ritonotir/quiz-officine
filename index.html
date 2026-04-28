@@ -138,20 +138,26 @@
 </div>
 
 <script>
-  // ── Modifiez uniquement cette ligne ──
-  const MOT_DE_PASSE = "cosmopharma";
-  // ─────────────────────────────────────
+  const PWD_USER  = "cosmopharma";
+  const PWD_FLUX  = "Chabienne";
+  const PWD_ADMIN = "cosmopharmanth!";
 
   // Déjà authentifié ?
-  if (sessionStorage.getItem('auth') === 'ok') {
-    window.location.href = 'home.html';
-  }
+  const authVal = sessionStorage.getItem('auth');
+  if (authVal === 'ok' || authVal === 'admin') window.location.href = 'home.html';
+  if (authVal === 'flux') window.location.href = 'flux-planning.html?mode=edit';
 
   function checkPassword() {
     const input = document.getElementById('pwd');
     const errorMsg = document.getElementById('error-msg');
 
-    if (input.value === MOT_DE_PASSE) {
+    if (input.value === PWD_ADMIN) {
+      sessionStorage.setItem('auth', 'admin');
+      window.location.href = 'home.html';
+    } else if (input.value === PWD_FLUX) {
+      sessionStorage.setItem('auth', 'flux');
+      window.location.href = 'flux-planning.html?mode=edit';
+    } else if (input.value === PWD_USER) {
       sessionStorage.setItem('auth', 'ok');
       window.location.href = 'home.html';
     } else {
