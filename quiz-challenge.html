@@ -1355,13 +1355,19 @@ async function submitScore(){
 
   try {
     const scores = await fetchLeaderboard();
+    const previous = scores.find(s => s.week === weekKey && s.pseudo === pseudo);
+    if (previous && previous.score >= totalScore) {
+      status.textContent = '⚠️ Votre meilleur score cette semaine (' + previous.score + ' pts) est conservé.';
+      setTimeout(showFinalButtons, 2000);
+      return;
+    }
     const entry = {pseudo, score:totalScore, time:totalTime, week:weekKey, ts:Date.now()};
     const filtered = scores.filter(s=>!(s.week===weekKey && s.pseudo===pseudo));
     filtered.push(entry);
     const cutoff = Date.now() - 28*24*3600*1000;
     const cleaned = filtered.filter(s=>s.ts>cutoff);
     await saveLeaderboard(cleaned);
-    status.textContent = '✅ Score soumis ! Bonne chance dans le classement.';
+    status.textContent = '✅ Nouveau meilleur score soumis ! Bonne chance dans le classement.';
   } catch(e) {
     status.textContent = '❌ Erreur lors de l\'envoi. Réessayez.';
     console.error(e);
