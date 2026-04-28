@@ -71,6 +71,12 @@
   .lb-week { font-size: .75rem; color: var(--muted); margin-bottom: 14px; }
   .lb-entry { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: .84rem; }
   .lb-entry:last-child { border-bottom: none; }
+  .lb-delete-btn { background: none; border: none; cursor: pointer; font-size: .9rem; opacity: 0.5; padding: 2px 6px; border-radius: 6px; transition: opacity .2s, background .2s; }
+  .lb-delete-btn:hover { opacity: 1; background: #fdeaea; }
+  .lb-save-btn { background: none; border: none; cursor: pointer; font-size: .9rem; opacity: 0.5; padding: 2px 6px; border-radius: 6px; transition: opacity .2s, background .2s; }
+  .lb-save-btn:hover { opacity: 1; background: #e6f7f1; }
+  .lb-edit-input { border: 1px solid var(--border); border-radius: 6px; padding: 3px 6px; font-family: 'DM Sans', sans-serif; font-size: .82rem; background: #fafafa; }
+  .lb-edit-input:focus { outline: none; border-color: var(--green); background: white; }
   .lb-rank { font-family: 'Syne', sans-serif; font-weight: 800; width: 24px; text-align: center; flex-shrink: 0; }
   .lb-rank.gold { color: #f5a623; } .lb-rank.silver { color: #8a9ba8; } .lb-rank.bronze { color: #c0834e; }
   .lb-pseudo { flex: 1; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -252,6 +258,61 @@ function todayStr() {
 }
 
 // ── Leaderboard ──
+
+
+async function saveScore(btn) {
+  if (!IS_ADMIN) return;
+  var entry = btn.closest('.lb-entry');
+  var oldPseudo = entry.dataset.pseudo;
+  var week = entry.dataset.week;
+  var inputs = entry.querySelectorAll('.lb-edit-input');
+  var newPseudo = inputs[0].value.trim();
+  var newScore = parseInt(inputs[1].value);
+  if (!newPseudo || isNaN(newScore)) { alert('Pseudo ou score invalide.'); return; }
+  try {
+    var r = await fetch(JSONBIN_URL + '/latest', {headers: {'X-Master-Key': JSONBIN_KEY}});
+    var d = await r.json();
+    var record = d.record || {};
+    var scores = record.scores || [];
+    var idx = scores.findIndex(function(s){ return s.pseudo === oldPseudo && s.week === week; });
+    if (idx === -1) { alert('Score introuvable.'); return; }
+    scores[idx].pseudo = newPseudo;
+    scores[idx].score = newScore;
+    record.scores = scores;
+    await fetch(JSONBIN_URL, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY},
+      body: JSON.stringify(record)
+    });
+    btn.textContent = '✅';
+    setTimeout(function(){ loadLeaderboard(); }, 800);
+  } catch(e) {
+    alert('Erreur lors de la sauvegarde.');
+    console.error(e);
+  }
+}
+
+async function deleteScore(pseudo, week) {
+  if (!IS_ADMIN) return;
+  if (!confirm('Supprimer le score de ' + pseudo + ' pour la semaine ' + week + ' ?')) return;
+  try {
+    var r = await fetch(JSONBIN_URL + '/latest', {headers: {'X-Master-Key': JSONBIN_KEY}});
+    var d = await r.json();
+    var record = d.record || {};
+    var scores = record.scores || [];
+    record.scores = scores.filter(function(s){ return !(s.pseudo === pseudo && s.week === week); });
+    await fetch(JSONBIN_URL, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY},
+      body: JSON.stringify(record)
+    });
+    loadLeaderboard();
+  } catch(e) {
+    alert('Erreur lors de la suppression.');
+    console.error(e);
+  }
+}
+
 async function loadLeaderboard() {
   var weekKey = getWeekKey(0);
   var prevKey = getWeekKey(1);
@@ -269,7 +330,18 @@ async function loadLeaderboard() {
     var medals = ['gold','silver','bronze'];
     var html = '';
     thisWeek.slice(0,10).forEach(function(s,i){
-      html += '<div class="lb-entry"><div class="lb-rank ' + (medals[i]||'') + '">' + (i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1) + '</div><div class="lb-pseudo">' + s.pseudo + '</div><div><div class="lb-score">' + s.score + ' pts</div><div class="lb-time">' + (s.time/1000).toFixed(1) + 's</div></div></div>';
+      if (IS_ADMIN) {
+        html += '<div class="lb-entry" data-pseudo="' + s.pseudo + '" data-week="' + s.week + '">' +
+          '<div class="lb-rank ' + (medals[i]||'') + '">' + (i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1) + '</div>' +
+          '<input class="lb-edit-input" value="' + s.pseudo + '" style="width:90px;">' +
+          '<input class="lb-edit-input lb-edit-score" type="number" value="' + s.score + '" style="width:60px;text-align:center;">' +
+          '<div class="lb-time" style="font-size:.75rem;color:var(--muted);">' + (s.time/1000).toFixed(1) + 's</div>' +
+          '<button class="lb-save-btn" onclick="saveScore(this)" title="Sauvegarder">💾</button>' +
+          '<button class="lb-delete-btn" onclick="deleteScore(\'' + s.pseudo + '\',\'' + s.week + '\')" title="Supprimer">🗑️</button>' +
+          '</div>';
+      } else {
+        html += '<div class="lb-entry"><div class="lb-rank ' + (medals[i]||'') + '">' + (i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1) + '</div><div class="lb-pseudo">' + s.pseudo + '</div><div style="flex:1"></div><div><div class="lb-score">' + s.score + ' pts</div><div class="lb-time">' + (s.time/1000).toFixed(1) + 's</div></div></div>';
+      }
     });
     lbList.innerHTML = html;
   } catch(e) {
