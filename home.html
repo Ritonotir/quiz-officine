@@ -94,6 +94,8 @@
   .flux-msg { font-size: .82rem; color: var(--muted); text-align: center; padding: 12px 0; }
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  .btn-logout{margin-top:10px;background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 14px;font-family:'DM Sans',sans-serif;font-size:.78rem;color:var(--muted);cursor:pointer;transition:all .2s;}
+  .btn-logout:hover{border-color:#e84040;color:#e84040;}
 </style>
 </head>
 <body>
@@ -118,7 +120,7 @@
   <div class="header-right">
     <div id="quiz-count">–</div>
     <p>quiz disponibles</p>
-    <button onclick="logout()" style="margin-top:10px;background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 14px;font-family:'DM Sans',sans-serif;font-size:.78rem;color:var(--muted);cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='#e84040';this.style.color='#e84040'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">🔓 Déconnexion</button>
+    <button onclick="logout()" class="btn-logout">🔓 Déconnexion</button>
   </div>
 </header>
 
