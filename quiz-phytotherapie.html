@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phytothérapie – Formation Officine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--green:#1a9e6e;--green-dark:#0f7a53;--green-light:#e6f7f1;--red:#e84040;--red-light:#fdeaea;--bg:#f0ebe3;--text:#1a1f1c;--muted:#6b7672;--border:#dde5e0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background-color:#f0ebe3;background-image:url(bg.jpg);background-repeat:repeat;background-size:1024px 571px;color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:40px 16px}
+  .screen{display:none;width:100%;max-width:680px}.screen.active{display:flex;flex-direction:column;align-items:center;gap:20px}
+  #screen-intro{text-align:center;}
+  .badge{display:inline-block;background:var(--green);color:white;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:8px}
+  #screen-intro h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,6vw,3rem);font-weight:800;line-height:1.1;background:rgba(255,255,255,0.88);border-radius:14px;padding:10px 20px;display:inline-block}
+  #screen-intro h1 span{color:var(--green)}
+  #screen-intro p{color:var(--muted);font-size:1rem;max-width:460px;background:rgba(255,255,255,0.88);border-radius:12px;padding:8px 16px}
+  .intro-stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .stat-pill{background:white;border:1px solid var(--border);border-radius:12px;padding:14px 22px;text-align:center;min-width:100px}
+  .stat-pill strong{display:block;font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--green)}
+  .stat-pill span{font-size:.82rem;color:var(--muted)}
+  .pool-info{background:rgba(230,247,241,0.95);border:1px solid var(--border);border-radius:12px;padding:12px 16px;font-size:.82rem;color:var(--green-dark);text-align:center;width:100%}
+  .btn-start{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;border:none;padding:18px 48px;border-radius:14px;cursor:pointer;transition:background .2s,transform .15s;box-shadow:0 4px 20px rgba(26,158,110,.3)}
+  .btn-start:hover{background:var(--green-dark);transform:translateY(-2px)}
+  #screen-quiz{gap:20px}
+  .progress-row{width:100%;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.85);border-radius:12px;padding:8px 14px;}
+  .progress-bar-track{flex:1;height:6px;background:var(--border);border-radius:100px;overflow:hidden}
+  .progress-bar-fill{height:100%;background:var(--green);border-radius:100px;transition:width .4s ease;width:0%}
+  .progress-label{font-size:.82rem;color:var(--muted);white-space:nowrap;font-weight:500}
+  .score-badge{background:var(--green-light);color:var(--green-dark);font-size:.82rem;font-weight:500;padding:5px 12px;border-radius:100px;white-space:nowrap}
+  .question-card{background:white;border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;box-shadow:0 2px 12px rgba(0,0,0,.06);animation:fadeIn .3s ease}
+  .q-meta{font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .q-theme-tag{background:var(--green-light);color:var(--green-dark);padding:2px 8px;border-radius:6px;font-style:normal}
+  .diff-tag{padding:2px 8px;border-radius:6px;font-weight:600}
+  .diff-facile{background:#e8f8f0;color:#0a6640}.diff-modere{background:#fff8e6;color:#7a5000}.diff-difficile{background:#fdeaea;color:#8c1a1a}
+  .question-text{font-family:'Syne',sans-serif;font-size:clamp(1.05rem,2.5vw,1.22rem);font-weight:700;line-height:1.4;margin-bottom:24px}
+  .options-grid{display:flex;flex-direction:column;gap:10px}
+  .option-btn{width:100%;text-align:left;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;font-family:'DM Sans',sans-serif;font-size:.95rem;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:12px;line-height:1.4}
+  .option-btn .opt-letter{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:white;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;color:var(--muted);transition:all .18s}
+  .option-btn:hover:not(:disabled){border-color:var(--green);background:var(--green-light)}.option-btn:hover:not(:disabled) .opt-letter{background:var(--green);border-color:var(--green);color:white}
+  .option-btn:disabled{cursor:default}
+  .option-btn.correct{background:var(--green-light);border-color:var(--green);color:var(--green-dark);font-weight:500}.option-btn.correct .opt-letter{background:var(--green);border-color:var(--green);color:white}
+  .option-btn.wrong{background:var(--red-light);border-color:var(--red);color:var(--red)}.option-btn.wrong .opt-letter{background:var(--red);border-color:var(--red);color:white}
+  .option-btn.dimmed{opacity:.45}
+  .feedback-box{margin-top:20px;padding:18px 20px;border-radius:12px;font-size:.9rem;line-height:1.6;display:none;animation:fadeIn .3s ease}
+  .feedback-box.show{display:block}.feedback-box.correct-fb{background:var(--green-light);border-left:4px solid var(--green);color:#0f5c3c}.feedback-box.wrong-fb{background:var(--red-light);border-left:4px solid var(--red);color:#8c1a1a}
+  .feedback-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:5px}
+  .next-btn{width:100%;background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px;border-radius:12px;cursor:pointer;transition:background .2s;display:none}
+  .next-btn.show{display:block}.next-btn:hover{background:var(--green-dark)}
+  #screen-results{text-align:center;}
+  .result-circle{width:140px;height:140px;border-radius:50%;background:conic-gradient(var(--green) 0%,var(--green) var(--pct),var(--border) var(--pct));display:flex;align-items:center;justify-content:center;position:relative}
+  .result-circle::before{content:'';position:absolute;width:110px;height:110px;border-radius:50%;background:white}
+  .result-inner{position:relative;z-index:1;text-align:center}
+  .result-score{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--green);line-height:1}
+  .result-total{font-size:.8rem;color:var(--muted)}
+  #screen-results h2{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800;background:rgba(255,255,255,0.88);border-radius:12px;padding:8px 20px;display:inline-block}
+  #screen-results .result-msg{color:var(--muted);max-width:420px;font-size:.95rem;line-height:1.6;background:rgba(255,255,255,0.88);border-radius:12px;padding:8px 16px}
+  .review-list{width:100%;display:flex;flex-direction:column;gap:10px;text-align:left}
+  .review-item{background:white;border:1px solid var(--border);border-radius:12px;padding:14px 18px;font-size:.88rem;display:flex;gap:12px;align-items:flex-start;line-height:1.5}
+  .review-icon{flex-shrink:0;font-size:1rem;margin-top:1px}
+  .review-q{font-weight:500;color:var(--text)}.review-diff{font-size:.72rem;font-weight:600;margin-top:2px}
+  .review-ans{color:var(--muted);margin-top:2px}.review-ans strong{color:var(--green-dark)}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .retry-btn{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px 40px;border-radius:14px;cursor:pointer;transition:background .2s;box-shadow:0 4px 20px rgba(26,158,110,.3)}
+  .retry-btn:hover{background:var(--green-dark)}
+  .home-btn{background:white;color:var(--green);font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;border:1.5px solid var(--green);padding:12px 28px;border-radius:14px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
+  .home-btn:hover{background:var(--green-light)}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div id="screen-intro" class="screen active">
+  <div><div class="badge">Formation Officine</div>
+  <h1>🌿 <span>Phytothérapie</span></h1></div>
+  <p>Plantes médicinales, indications, mécanismes d'action et conseils au comptoir.</p>
+  <div class="intro-stats">
+    <div class="stat-pill"><strong>12</strong><span>questions</span></div>
+    <div class="stat-pill"><strong>QCM</strong><span>format</span></div>
+    <div class="stat-pill"><strong>~7 min</strong><span>durée</span></div>
+  </div>
+  <div class="pool-info">🎲 Tirage aléatoire — 63 questions disponibles (28F / 25M / 10D)</div>
+  <button class="btn-start" onclick="startQuiz()">Commencer →</button>
+</div>
+<div id="screen-quiz" class="screen">
+  <div class="progress-row">
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    <span class="progress-label" id="progress-label">1 / 12</span>
+    <span class="score-badge" id="score-display">Score : 0</span>
+  </div>
+  <div class="question-card">
+    <div class="q-meta">Question <span id="q-num">1</span>
+      <em class="q-theme-tag" id="q-theme"></em>
+      <span class="diff-tag" id="q-diff"></span>
+    </div>
+    <div class="question-text" id="q-text"></div>
+    <div class="options-grid" id="options-grid"></div>
+    <div class="feedback-box" id="feedback-box">
+      <div class="feedback-title" id="fb-title"></div>
+      <div id="fb-body"></div>
+    </div>
+  </div>
+  <button class="next-btn" id="next-btn" onclick="nextQuestion()">Question suivante →</button>
+</div>
+<div id="screen-results" class="screen">
+  <div class="result-circle" id="result-circle">
+    <div class="result-inner">
+      <div class="result-score" id="res-score">0/12</div>
+      <div class="result-total" id="res-pct">0%</div>
+    </div>
+  </div>
+  <h2 id="res-title"></h2>
+  <p class="result-msg" id="res-msg"></p>
+  <div class="review-list" id="review-list"></div>
+  <div class="btn-row">
+    <button class="retry-btn" onclick="restartQuiz()">🔄 Nouveau tirage</button>
+    <a class="home-btn" href="home.html">← Accueil</a>
+  </div>
+</div>
+<script>
+const QUIZ_ID = 'phytotherapie';
+const QUESTION_POOL = [
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Quelle plante est la référence pour favoriser l'élimination rénale de l'eau en cas de rétention ?",
+   options:["Pissenlit", "Valériane", "Gingembre", "Millepertuis"],correct:0,
+   explanation:"Le <strong>Pissenlit</strong> est le draineur rénal de référence en phytothérapie. Ses feuilles et racines sont riches en potassium, ce qui compense les pertes liées à son effet diurétique. Il est utilisé en cas de rétention d'eau et pour favoriser l'élimination urinaire."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"L'Artichaut est principalement utilisé pour :",
+   options:["La digestion difficile et le foie", "Le sommeil réparateur", "Le confort respiratoire", "La circulation veineuse"],correct:0,
+   explanation:"L'<strong>Artichaut</strong> contient de la cynarine, qui stimule la production de bile et facilite la digestion des graisses. Il est utilisé pour le confort digestif, le drainage hépatique et le maintien d'un taux de cholestérol normal."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Quelle est la propriété majeure de l'Eschscholtzia ?",
+   options:["Favoriser l'endormissement", "Brûler les graisses", "Soulager les articulations", "Renforcer l'immunité"],correct:0,
+   explanation:"L'<strong>Eschscholtzia</strong> (pavot de Californie) est la plante de référence pour favoriser l'endormissement et améliorer la qualité du sommeil. Elle agit sur les récepteurs GABA sans créer de dépendance, contrairement à d'autres sédatifs."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Le Charbon végétal activé est préconisé pour :",
+   options:["Absorber les gaz intestinaux", "Tonifier les muscles", "Hydrater la peau", "Améliorer la mémoire"],correct:0,
+   explanation:"Le <strong>Charbon végétal activé</strong> est un adsorbant intestinal puissant. Sa structure microporeuse lui permet d'absorber les gaz responsables des ballonnements. Il est aussi utilisé en cas d'intoxication légère. À prendre à distance des médicaments (2h minimum)."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Quelle plante est reconnue pour sa richesse en vitamine C naturelle ?",
+   options:["Acérola", "Prêle", "Hamamélis", "Aubépine"],correct:0,
+   explanation:"L'<strong>Acérola</strong> (cerise des Antilles) est l'une des sources naturelles les plus concentrées en vitamine C — jusqu'à 30 fois plus que l'orange. La vitamine C naturelle est mieux assimilée car associée à des bioflavonoïdes."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Pour quelle indication utilise-t-on le Marronnier d'Inde ?",
+   options:["La résistance des petits vaisseaux (capillaires)", "La gestion du cholestérol", "La souplesse des tendons", "Le drainage biliaire"],correct:0,
+   explanation:"Le <strong>Marronnier d'Inde</strong> contient de l'escine, qui renforce la paroi des capillaires et améliore le tonus veineux. Il est utilisé en cas d'insuffisance veineuse, jambes lourdes et fragilité capillaire. À associer souvent à l'Hamamélis."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Quelle plante est utilisée pour ses vertus apaisantes sur les voies urinaires ?",
+   options:["Bruyère", "Guarana", "Ginkgo Biloba", "Bambou"],correct:0,
+   explanation:"La <strong>Bruyère</strong> possède des propriétés antiseptiques urinaires et apaisantes sur les voies urinaires. Elle est utilisée en association avec d'autres plantes (busserole, canneberge) pour le confort urinaire, notamment en prévention des cystites récidivantes."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"La Mélisse est idéale pour traiter :",
+   options:["Les troubles digestifs d'origine nerveuse", "L'excès de cholestérol", "La chute de cheveux", "Les douleurs musculaires"],correct:0,
+   explanation:"La <strong>Mélisse</strong> (Melissa officinalis) est une plante antispasmodique et anxiolytique douce. Elle est particulièrement indiquée pour les troubles digestifs fonctionnels d'origine nerveuse (spasmes, ballonnements, digestion difficile en période de stress)."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Quelle est l'utilité première de la Levure de Bière ?",
+   options:["La beauté de la peau, des ongles et des cheveux", "Le calme cardiaque", "La perte de poids", "L'arrêt du tabac"],correct:0,
+   explanation:"La <strong>Levure de Bière</strong> est riche en vitamines du groupe B, zinc et acides aminés essentiels. Elle améliore la qualité de la peau, renforce les ongles cassants et favorise la pousse des cheveux. C'est un complément beauté de référence."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"L'Hamamélis est la plante de référence pour :",
+   options:["La circulation et les jambes lourdes", "La mémoire à court terme", "La digestion des sucres", "Le tonus musculaire"],correct:0,
+   explanation:"L'<strong>Hamamélis</strong> est riche en tanins et flavonoïdes qui renforcent la paroi veineuse et capillaire. Il est utilisé en interne et en externe pour les jambes lourdes, les varices, les hémorroïdes et la fragilité capillaire."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Quelle est l'indication principale du Fenouil ?",
+   options:["Les ballonnements et gaz intestinaux", "La déprime passagère", "Les douleurs de règles", "La vitalité sexuelle"],correct:0,
+   explanation:"Le <strong>Fenouil</strong> est un carminatif classique : ses huiles essentielles (anéthol) relaxent les muscles lisses intestinaux et facilitent l'expulsion des gaz. Il est conseillé après les repas pour les ballonnements et les spasmes digestifs."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Le Curcuma est principalement apprécié pour :",
+   options:["Le confort articulaire et la digestion", "L'endormissement rapide", "Le traitement des migraines", "Le renforcement des ongles"],correct:0,
+   explanation:"Le <strong>Curcuma</strong> contient de la curcumine, un puissant anti-inflammatoire naturel. Il est utilisé pour le confort articulaire, la digestion (stimulation de la bile) et ses propriétés antioxydantes. Son absorption est améliorée par la pipérine (poivre noir)."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"La Sauge est la plante alliée des femmes pour :",
+   options:["Le confort de la ménopause (bouffées de chaleur)", "La pousse des cheveux", "Le drainage hépatique", "L'immunité hivernale"],correct:0,
+   explanation:"La <strong>Sauge officinale</strong> contient des phyto-œstrogènes qui aident à réduire l'intensité et la fréquence des bouffées de chaleur à la ménopause. Elle a aussi des propriétés antitranspiratoires. Attention : contre-indiquée en cas de cancer hormonodépendant."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Quel est le rôle du Millepertuis ?",
+   options:["L'équilibre émotionnel et le moral", "La digestion des graisses", "La circulation des jambes", "La santé de la prostate"],correct:0,
+   explanation:"Le <strong>Millepertuis</strong> (Hypericum perforatum) contient de l'hyperforine qui régule la sérotonine, la dopamine et la noradrénaline. Il est efficace dans les états dépressifs légers à modérés. Attention : nombreuses interactions médicamenteuses (inducteur enzymatique puissant)."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"La Myrtille (baies) est la plante de :",
+   options:["La vision et l'acuité visuelle", "L'immunité générale", "La solidité des dents", "Le calme intérieur"],correct:0,
+   explanation:"Les baies de <strong>Myrtille</strong> sont riches en anthocyanosides qui améliorent la microcirculation rétinienne et l'adaptation visuelle à l'obscurité. Elles sont utilisées pour la fatigue visuelle, la vision nocturne et la protection des capillaires rétiniens."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Quelle plante aide à lutter contre la fatigue passagère ?",
+   options:["Ginseng", "Aubépine", "Pissenlit", "Marronnier d'Inde"],correct:0,
+   explanation:"Le <strong>Ginseng</strong> (Panax ginseng) est l'adaptogène de référence. Il améliore la résistance physique et mentale, réduit la fatigue et soutient les performances cognitives. À utiliser en cure de 1-3 mois, de préférence le matin."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"La Queue de Cerise est le draineur idéal pour :",
+   options:["L'élimination rénale de l'eau", "L'éclat des yeux", "La solidité des dents", "La gestion du stress"],correct:0,
+   explanation:"Les pédoncules de cerise (queue de cerise) sont riches en flavonoïdes et sels de potassium qui favorisent l'élimination rénale de l'eau. Excellent draineur doux, bien toléré, utilisé en cure de détoxification ou contre la rétention d'eau."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Quelle est la propriété de l'Eucalyptus ?",
+   options:["Le bien-être respiratoire", "Le confort articulaire", "La réduction du cholestérol", "La lutte contre l'acidité"],correct:0,
+   explanation:"L'<strong>Eucalyptus</strong> contient du cinéole (eucalyptol), une huile essentielle aux propriétés expectorantes, antiseptiques et mucolytiques. Il est utilisé pour le confort des voies respiratoires : toux, bronchite, sinusite, en inhalation ou en sirop."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"La Lavande (fleur) sert à :",
+   options:["La relaxation et la détente", "Le drainage lymphatique", "L'apport en fer", "La santé de la prostate"],correct:0,
+   explanation:"La <strong>Lavande</strong> contient du linalol et de l'acétate de linalyle, aux propriétés anxiolytiques et sédatives douces. En phytothérapie, elle est utilisée pour la relaxation, l'anxiété légère et les troubles du sommeil. En aromathérapie, c'est l'huile essentielle la plus polyvalente."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Le Plantain est utilisé pour :",
+   options:["Apaiser les voies respiratoires", "L'énergie physique", "La digestion lente", "La mémoire"],correct:0,
+   explanation:"Le <strong>Plantain</strong> (Plantago lanceolata) est riche en mucilages et en aucubine. Il apaise les muqueuses des voies respiratoires irritées, réduit la toux et facilite l'expectoration. Il est aussi utilisé en usage externe pour les piqûres d'insectes."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"La Passiflore est spécifiquement indiquée en cas de :",
+   options:["Nervosité, anxiété et troubles du sommeil", "Douleurs lombaires", "Ballonnements post-repas", "Faiblesse musculaire"],correct:0,
+   explanation:"La <strong>Passiflore</strong> (Passiflora incarnata) est un anxiolytique végétal doux qui agit sur les récepteurs GABA. Elle est indiquée en cas de nervosité, d'anxiété légère et de troubles du sommeil d'origine nerveuse. Elle peut être associée à la Valériane."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Le Serenoa Repens est spécifique pour :",
+   options:["Le confort urinaire masculin (prostate)", "La beauté des cheveux", "L'énergie matinale", "La digestion des laitages"],correct:0,
+   explanation:"Le <strong>Serenoa repens</strong> (Saw palmetto) inhibe la 5-alpha-réductase, réduisant la conversion de la testostérone en DHT responsable de l'hypertrophie prostatique. Il améliore les symptômes urinaires liés à l'adénome de la prostate (pollakiurie, jet faible)."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"L'Echinacée Pourpre est la plante reine pour :",
+   options:["Stimuler les défenses naturelles", "Soulager les maux de dos", "Améliorer l'éclat du teint", "Favoriser le transit intestinal"],correct:0,
+   explanation:"L'<strong>Echinacée pourpre</strong> stimule l'immunité innée en activant les macrophages et les lymphocytes NK. Elle est utilisée en prévention et en début d'infections virales (rhume, grippe). À utiliser en cure courte (max 8 semaines) et non en continu."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Le Thym est la plante de référence pour :",
+   options:["Le confort des voies respiratoires", "Le tonus des jambes", "La santé des yeux", "La repousse des cheveux"],correct:0,
+   explanation:"Le <strong>Thym</strong> contient du thymol et du carvacrol, puissants antiseptiques des voies respiratoires. Il a des propriétés expectorantes, antitussives et antibactériennes. Utilisé en infusion ou en sirop pour la toux, bronchite, pharyngite."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Le Ginkgo Biloba est utilisé pour :",
+   options:["La mémoire et la circulation cérébrale", "Le transit intestinal", "La souplesse de la peau", "La solidité des os"],correct:0,
+   explanation:"Le <strong>Ginkgo biloba</strong> améliore la microcirculation cérébrale et périphérique grâce à ses flavonoïdes et terpénoïdes (ginkgolides). Il est utilisé pour les troubles de la mémoire, les acouphènes et les vertiges d'origine vasculaire."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"L'Harpagophytum agit sur :",
+   options:["La mobilité et le confort articulaire", "La mémoire", "Le drainage biliaire", "Le sommeil"],correct:0,
+   explanation:"L'<strong>Harpagophytum</strong> (griffe du diable) contient de l'harpagoside, un iridoïde aux propriétés anti-inflammatoires et analgésiques. Il est utilisé pour le confort articulaire, les douleurs du bas du dos et l'arthrose. Efficace après plusieurs semaines de cure."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"La Guimauve est utilisée pour ses vertus apaisantes sur :",
+   options:["La gorge et les voies digestives", "Les articulations", "Le foie", "La circulation"],correct:0,
+   explanation:"La <strong>Guimauve</strong> (Althaea officinalis) est riche en mucilages qui forment un film protecteur sur les muqueuses irritées. Elle est utilisée pour apaiser la gorge, les bronches (toux sèche) et les muqueuses digestives (gastrite, reflux)."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"facile",
+   text:"Le Radis noir est souvent utilisé pour :",
+   options:["La détox hépato-biliaire", "La mémoire", "Le sommeil", "Les articulations"],correct:0,
+   explanation:"Le <strong>Radis noir</strong> stimule la production et l'évacuation de la bile (effet cholérétique et cholagogue). Il favorise la détoxification hépatique et est utilisé en cure de drainage du foie et de la vésicule biliaire, notamment après les excès alimentaires."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"Le Griffonia (riche en 5-HTP) agit sur :",
+   options:["L'équilibre émotionnel et la sérénité", "La minéralisation osseuse", "Le confort de la ménopause", "La digestion des protéines"],correct:0,
+   explanation:"Le <strong>Griffonia simplicifolia</strong> est riche en 5-HTP (5-hydroxytryptophane), précurseur direct de la sérotonine. Il contribue à l'équilibre émotionnel, à la réduction de l'anxiété et améliore la qualité du sommeil. À utiliser avec prudence en association avec des antidépresseurs."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"La Reine des prés est principalement connue pour :",
+   options:["Le confort articulaire et l'élimination", "L'amélioration de la vision", "La réduction de l'appétit", "Le renforcement des cheveux"],correct:0,
+   explanation:"La <strong>Reine des prés</strong> (Filipendula ulmaria) contient des dérivés salicylés naturels aux propriétés anti-inflammatoires et diurétiques. Elle est utilisée pour le confort articulaire, la rétention d'eau et la cellulite. Précaution chez les personnes allergiques à l'aspirine."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"Quel est le bienfait principal de l'Eleuthérocoque ?",
+   options:["La résistance physique et intellectuelle", "Le drainage lymphatique", "La régulation du transit", "La protection solaire de la peau"],correct:0,
+   explanation:"L'<strong>Eleuthérocoque</strong> (ginseng sibérien) est un adaptogène qui améliore la résistance de l'organisme au stress physique et intellectuel. Il contient des éleuthérosides qui modulent la réponse au cortisol. Utilisé en période de surmenage ou de convalescence."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"Le Fucus est utilisé dans la gamme minceur pour :",
+   options:["Son effet rassasiant (coupe-faim)", "Sa teneur en fer", "Éliminer les toxines du foie", "Favoriser le sommeil"],correct:0,
+   explanation:"Le <strong>Fucus vésiculeux</strong> (algue marine) est riche en alginates et en iode. Les alginates gonflent au contact de l'eau et créent un effet de satiété. L'iode stimule légèrement la thyroïde et le métabolisme. Attention : contre-indiqué en cas de troubles thyroïdiens."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"Le Nopal est préconisé pour :",
+   options:["Capter une partie des graisses et des sucres", "Fortifier les os", "Réduire la nervosité", "Stimuler la pousse des ongles"],correct:0,
+   explanation:"Le <strong>Nopal</strong> (figuier de Barbarie) est riche en fibres solubles qui piègent une partie des graisses et sucres alimentaires dans l'intestin, réduisant leur absorption. Il est utilisé dans le cadre d'un régime hypocalorique pour contrôler la glycémie et les lipides."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"La racine de Maca est traditionnellement utilisée pour :",
+   options:["La vigueur, l'énergie et la libido", "Le drainage des reins", "L'apaisement de la gorge", "La régulation du transit"],correct:0,
+   explanation:"La <strong>Maca</strong> (Lepidium meyenii), plante des Andes, est un adaptogène qui améliore la vitalité, l'endurance et la libido chez l'homme et la femme. Elle agit via des glucosinolates et des macamides sans effet hormonal direct. Utile aussi en période de ménopause."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"Pour quel usage recommande-t-on l'Ispagul (Psyllium blond) ?",
+   options:["La régulation du transit par effet de lest", "La mémoire et l'éveil", "La protection des articulations", "La circulation veineuse"],correct:0,
+   explanation:"L'<strong>Ispagul</strong> (enveloppes de graines de Plantago ovata) forme un gel visqueux au contact de l'eau qui augmente le volume des selles et régule le transit. Efficace aussi bien dans la constipation que la diarrhée. À prendre avec beaucoup d'eau (risque d'obstruction)."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"Le Cassis (feuilles) est utilisé pour :",
+   options:["Le confort articulaire et l'élimination", "L'apaisement nerveux", "Le tonus cardiaque", "La protection de la vision"],correct:0,
+   explanation:"Les feuilles de <strong>Cassis</strong> (Ribes nigrum) contiennent des flavonoïdes aux propriétés anti-inflammatoires et diurétiques. Elles sont utilisées pour le confort articulaire (rhumatismes, arthrose) et favorisent l'élimination rénale. Action douce et bien tolérée."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"Le Bambou est particulièrement riche en :",
+   options:["Silice pour les articulations et les os", "Vitamine A pour la vue", "Caféine pour l'énergie", "Protéines pour les muscles"],correct:0,
+   explanation:"Le <strong>Bambou</strong> (Bambusa arundinacea) est la source végétale la plus riche en silicium organique assimilable. La silice contribue à la solidité des os, du cartilage, des tendons et à la beauté de la peau, des cheveux et des ongles."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"L'Huile d'Onagre est traditionnellement utilisée pour :",
+   options:["Le confort féminin et la beauté de la peau", "Stimuler l'éveil cérébral", "Lutter contre la constipation", "Réduire la fièvre"],correct:0,
+   explanation:"L'<strong>Huile d'Onagre</strong> est riche en acide gamma-linolénique (GLA), un oméga-6 essentiel. Elle est utilisée pour le syndrome prémenstruel, le confort de la ménopause, la sécheresse cutanée et la souplesse de la peau. À associer à la vitamine E pour éviter l'oxydation."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"L'Huile de Bourrache est principalement recommandée pour :",
+   options:["L'éclat et la souplesse de la peau", "La digestion des graisses", "Le renforcement des dents", "Le tonus matinal"],correct:0,
+   explanation:"L'<strong>Huile de Bourrache</strong> est l'huile végétale la plus riche en acide gamma-linolénique (GLA, ~23%). Elle nourrit les membranes cellulaires, réduit la sécheresse cutanée et améliore l'élasticité de la peau. Particulièrement utile pour les peaux matures et sèches."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"Quelle est l'action principale du Fenugrec ?",
+   options:["Stimuler l'appétit et le tonus", "Réduire la transpiration", "Améliorer le sommeil", "Calmer la toux"],correct:0,
+   explanation:"Le <strong>Fenugrec</strong> contient des saponosides stéroïdiens et des fibres mucilagineuses. Il stimule l'appétit, améliore le tonus général et favorise la prise de poids chez les personnes convalescentes. Il a aussi des propriétés hypoglycémiantes légères."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"La pensée sauvage est la plante de référence pour :",
+   options:["Les problèmes de peau (acné, impuretés)", "La mémoire des seniors", "La souplesse des genoux", "Le confort urinaire"],correct:0,
+   explanation:"La <strong>Pensée sauvage</strong> (Viola tricolor) est une plante dépurative riche en flavonoïdes et en acide salicylique. Elle favorise l'élimination des toxines cutanées et est indiquée en cas d'acné, d'eczéma et de peau grasse. À associer à la Bardane pour les peaux impures."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"Quelle est l'indication du Petit Houx (Fragon) ?",
+   options:["La tonification des veines et la circulation", "Le calme de l'esprit", "Le confort de la ménopause", "L'élimination des calculs"],correct:0,
+   explanation:"Le <strong>Petit Houx</strong> (Ruscus aculeatus) contient des ruscosides qui augmentent le tonus des parois veineuses et réduisent la perméabilité capillaire. Il est indiqué dans l'insuffisance veineuse chronique, les hémorroïdes et les jambes lourdes."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"La Bardane est souvent associée à la Pensée sauvage pour :",
+   options:["Purifier les peaux grasses", "Renforcer l'émail dentaire", "Améliorer l'audition", "Lutter contre l'anémie"],correct:0,
+   explanation:"La <strong>Bardane</strong> (Arctium lappa) est une plante dépurative qui agit sur le foie et les reins pour éliminer les toxines cutanées. Associée à la Pensée sauvage, elle est particulièrement efficace pour les peaux grasses, l'acné et les affections cutanées chroniques."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"Le Shiitaké est utilisé pour :",
+   options:["Soutenir les défenses naturelles", "Réguler le sommeil", "Aider à la digestion", "Éclaircir le teint"],correct:0,
+   explanation:"Le <strong>Shiitaké</strong> (Lentinula edodes) contient du lentinane et des bêta-glucanes qui stimulent l'immunité innée et adaptative. Il est utilisé en complément pour renforcer les défenses immunitaires, notamment en prévention des infections hivernales."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"Quelle est l'indication du Gymnema Sylvestre ?",
+   options:["La réduction de l'envie de sucre", "L'amélioration de l'audition", "Le tonus veineux", "La repousse des ongles"],correct:0,
+   explanation:"Le <strong>Gymnema sylvestre</strong> contient des gymnemates qui bloquent les récepteurs sucrés de la langue (réduisant l'envie de sucre) et diminuent l'absorption intestinale du glucose. Il est utilisé dans la gestion du diabète de type 2 et des envies de sucre."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"La Capucine est traditionnellement utilisée pour :",
+   options:["La vitalité des cheveux et des ongles", "La souplesse des articulations", "La régulation du transit", "Le calme cardiaque"],correct:0,
+   explanation:"La <strong>Capucine</strong> (Tropaeolum majus) est riche en soufre organique, glucosinolates et vitamine C. Elle stimule la microcirculation du cuir chevelu et renforce les ongles cassants. Elle a aussi des propriétés antibactériennes légères utiles en cas d'infections ORL."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"Quelle est l'action du Garcinia Cambogia ?",
+   options:["Le contrôle du poids et l'effet satiété", "L'équilibre hormonal", "La solidité osseuse", "La protection des yeux"],correct:0,
+   explanation:"Le <strong>Garcinia Cambogia</strong> contient de l'acide hydroxycitrique (AHC) qui inhibe la synthèse des graisses à partir des sucres et réduit l'appétit en augmentant la sérotonine. Les études cliniques montrent des effets modestes mais intéressants en complément d'un régime."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"Le Mate est utilisé pour :",
+   options:["La vitalité et le métabolisme des graisses", "Le sommeil profond", "La protection du cartilage", "L'hydratation de la peau"],correct:0,
+   explanation:"Le <strong>Maté</strong> (Ilex paraguariensis) contient de la caféine (matéine), des théobromine et des polyphénols. Il stimule le métabolisme, favorise la lipolyse (dégradation des graisses) et améliore l'énergie sans le pic d'adrénaline du café. Diurétique doux."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"L'Alfalfa (Luzerne) est riche en :",
+   options:["Vitamines et minéraux (reminéralisant)", "Sucre naturel", "Graisses insaturées", "Agents sédatifs"],correct:0,
+   explanation:"L'<strong>Alfalfa</strong> (luzerne) est l'une des plantes les plus riches en vitamines (A, B, C, D, E, K) et minéraux (calcium, magnésium, fer, zinc). C'est un reminéralisant naturel complet, indiqué en convalescence, chez les sportifs et en cas de fatigue chronique."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"L'Olivier (feuille) est utilisé pour :",
+   options:["Maintenir une tension artérielle normale", "Favoriser la pousse des cheveux", "Calmer les brûlures d'estomac", "Réduire les douleurs dentaires"],correct:0,
+   explanation:"Les feuilles d'<strong>Olivier</strong> contiennent de l'oleuropéine qui possède des propriétés vasodilatatrices et hypotensives. Elles sont utilisées pour maintenir une tension artérielle normale et ont des effets antioxydants. À utiliser en complément d'un traitement médical, non en remplacement."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"Quelle est la propriété majeure du Romarin ?",
+   options:["Soutenir les fonctions hépatiques et biliaires", "Aider à l'endormissement", "Limiter la transpiration", "Solidifier les ongles cassants"],correct:0,
+   explanation:"Le <strong>Romarin</strong> (Rosmarinus officinalis) contient des diterpènes (acide carnosique) et des flavonoïdes qui stimulent la production de bile (cholérétique) et protègent les cellules hépatiques. Il est utilisé pour la digestion difficile, le drainage biliaire et comme antioxydant."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"L'Ortie (feuille) est conseillée pour :",
+   options:["La vitalité de la peau et des articulations", "L'équilibre du sommeil", "La santé de la prostate", "La fluidification du sang"],correct:0,
+   explanation:"L'<strong>Ortie</strong> (Urtica dioica) est riche en silice, fer, calcium et vitamine C. Elle contribue à la santé de la peau, des cheveux, des ongles et des articulations. Elle a aussi des propriétés anti-inflammatoires articulaires et est utilisée dans l'arthrite et la goutte."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"modere",
+   text:"La Propolis est principalement utilisée pour :",
+   options:["Soutenir les défenses de l'organisme", "Favoriser le bronzage", "Aider à la digestion lente", "Soulager les articulations"],correct:0,
+   explanation:"La <strong>Propolis</strong> est une résine produite par les abeilles aux propriétés antibactériennes, antivirales, antifongiques et immunostimulantes. Elle est utilisée pour renforcer les défenses immunitaires, prévenir les infections ORL et soigner les aphtes et petites plaies."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"difficile",
+   text:"Le Guggul est utilisé pour :",
+   options:["Le maintien d'un taux normal de cholestérol", "Le confort respiratoire", "La santé des gencives", "L'arrêt du tabac"],correct:0,
+   explanation:"Le <strong>Guggul</strong> (Commiphora mukul) contient des gugulstérones qui inhibent la synthèse hépatique du cholestérol et augmentent la captation des LDL. C'est un hypolipémiant naturel traditionnel de médecine ayurvédique, à utiliser en complément d'un régime adapté."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"difficile",
+   text:"Le Chrysanthellum est conseillé pour :",
+   options:["La microcirculation et la protection du foie", "Favoriser le bronzage", "L'arrêt des maux de tête", "Le renforcement des muscles"],correct:0,
+   explanation:"Le <strong>Chrysanthellum americanum</strong> contient des flavonoïdes (saponosides) qui améliorent la microcirculation capillaire et protègent les cellules hépatiques. Il est utilisé dans l'insuffisance veineuse, les troubles de la microcirculation et comme hépatoprotecteur."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"difficile",
+   text:"Le Marrube blanc est préconisé pour :",
+   options:["Faciliter l'expectoration (confort bronchique)", "Soulager les brûlures d'estomac", "Renforcer la vision", "Calmer les angoisses"],correct:0,
+   explanation:"Le <strong>Marrube blanc</strong> (Marrubium vulgare) contient de la marrubine, un diterpène aux propriétés expectorantes et mucolytiques. Il fluidifie les sécrétions bronchiques et facilite leur expectoration. Utilisé dans les toux grasses, bronchites et affections respiratoires catarrhales."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"difficile",
+   text:"Pour quel usage utilise-t-on le Desmodium ?",
+   options:["La protection et la régénération du foie", "Le tonus sexuel", "Le traitement des verrues", "La pousse des cils"],correct:0,
+   explanation:"Le <strong>Desmodium adscendens</strong> est un hépatoprotecteur puissant qui stimule la régénération des cellules hépatiques (hépatocytes). Il est particulièrement indiqué lors de traitements médicamenteux hépatotoxiques, après excès alcooliques ou en cas d'hépatite. Effet anti-asthmatique également documenté."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"difficile",
+   text:"Le Boldo est utilisé pour :",
+   options:["Faciliter la digestion hépatique", "Renforcer l'immunité", "Soulager les règles douloureuses", "La clarté de la voix"],correct:0,
+   explanation:"Le <strong>Boldo</strong> (Peumus boldus) contient de la boldine, un alcaloïde aux propriétés cholérétiques et cholagogues puissantes. Il stimule la production et l'évacuation de la bile, facilitant la digestion des graisses. Contre-indiqué en cas d'obstruction biliaire et de grossesse."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"difficile",
+   text:"Le Tribulus est utilisé pour :",
+   options:["La vigueur sexuelle et la performance physique", "L'apaisement des gorges irritées", "Le drainage des jambes", "La santé de la rétine"],correct:0,
+   explanation:"Le <strong>Tribulus terrestris</strong> contient des saponosides stéroïdiens (protodioscine) qui stimulent la production de LH hypophysaire, augmentant indirectement le taux de testostérone. Utilisé pour la libido, la performance physique et la fertilité masculine. Efficacité variable selon les études."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"difficile",
+   text:"La Levure de riz rouge est utilisée pour :",
+   options:["Contrôler le taux de cholestérol", "Augmenter l'immunité", "Aider au bronzage", "Réguler le transit"],correct:0,
+   explanation:"La <strong>Levure de riz rouge</strong> contient de la monacoline K, structurellement identique à la lovastatine (inhibiteur de la HMG-CoA réductase). Elle réduit la synthèse hépatique du cholestérol. Attention : interactions avec les statines et risque de myopathie — à déconseiller sans suivi médical."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"difficile",
+   text:"Le Glucomannane de Konjac est utilisé pour :",
+   options:["Agir comme un coupe-faim naturel", "Stimuler la mémoire", "Réduire les bouffées de chaleur", "Renforcer les articulations"],correct:0,
+   explanation:"Le <strong>Glucomannane de Konjac</strong> est une fibre soluble qui absorbe jusqu'à 50 fois son poids en eau dans l'estomac, formant un gel visqueux qui crée une sensation de satiété. Allégation santé EFSA validée pour la perte de poids. À prendre avec beaucoup d'eau 30 min avant les repas."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"difficile",
+   text:"Le Chardon-Marie contient une substance active appelée :",
+   options:["Silymarine", "Caféine", "Curcumine", "Gingérol"],correct:0,
+   explanation:"Le <strong>Chardon-Marie</strong> (Silybum marianum) contient de la <strong>silymarine</strong>, un complexe de flavolignanes aux puissantes propriétés hépatoprotectrices et antioxydantes. La silymarine inhibe la pénétration des toxines dans les hépatocytes et stimule leur régénération. Référence en hépatoprotection."},
+  {quiz:"phytotherapie",theme:"Phytothérapie",difficulte:"difficile",
+   text:"Le Lithothamne est apprécié pour :",
+   options:["Son apport en calcium et son effet anti-acide", "Son action brûle-graisse", "Sa teneur en caféine", "Ses vertus sédatives"],correct:0,
+   explanation:"Le <strong>Lithothamne</strong> est une algue calcaire (Lithothamnium calcareum) très riche en calcium (32%) et magnésium naturels hautement biodisponibles. Son effet alcalinisant en fait un anti-acide gastrique naturel et un reminéralisant osseux. Alternative végétale aux sels de calcium synthétiques."}
+];
+
+const DIFF_LABELS={facile:'🟢 Facile',modere:'🟡 Modéré',difficile:'🔴 Difficile'};
+const DIFF_CLASSES={facile:'diff-facile',modere:'diff-modere',difficile:'diff-difficile'};
+let current=0,score=0,userAnswers=[],shuffledQuestions=[],shuffledOptions=[];
+function shuffleArray(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function pickQuizQuestions(quizId){
+  const pool=shuffleArray(QUESTION_POOL.filter(q=>q.quiz===quizId));
+  const f=pool.filter(q=>q.difficulte==='facile');
+  const m=pool.filter(q=>q.difficulte==='modere');
+  const d=pool.filter(q=>q.difficulte==='difficile');
+  let sel=[...f.slice(0,4),...m.slice(0,4),...d.slice(0,4)];
+  if(sel.length<12){const used=new Set(sel.map(q=>q.text));const rem=shuffleArray(pool.filter(q=>!used.has(q.text)));sel=[...sel,...rem.slice(0,12-sel.length)];}
+  return shuffleArray(sel.slice(0,12));
+}
+function startQuiz(){
+  current=0;score=0;userAnswers=[];
+  shuffledQuestions=pickQuizQuestions('phytotherapie');
+  shuffledOptions=shuffledQuestions.map(q=>shuffleArray(q.options.map((text,origIndex)=>({text,origIndex}))));
+  showScreen('screen-quiz');renderQuestion();
+}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function renderQuestion(){
+  const q=shuffledQuestions[current],opts=shuffledOptions[current],total=shuffledQuestions.length;
+  document.getElementById('progress-bar').style.width=((current/total)*100)+'%';
+  document.getElementById('progress-label').textContent=(current+1)+' / '+total;
+  document.getElementById('score-display').textContent='Score : '+score;
+  document.getElementById('q-num').textContent=current+1;
+  document.getElementById('q-theme').textContent=q.theme;
+  const de=document.getElementById('q-diff');de.textContent=DIFF_LABELS[q.difficulte]||q.difficulte;de.className='diff-tag '+(DIFF_CLASSES[q.difficulte]||'');
+  document.getElementById('q-text').textContent=q.text;
+  const grid=document.getElementById('options-grid');grid.innerHTML='';
+  const letters=['A','B','C','D'];
+  opts.forEach((opt,di)=>{
+    const btn=document.createElement('button');btn.className='option-btn';
+    btn.innerHTML='<span class="opt-letter">'+letters[di]+'</span><span>'+opt.text+'</span>';
+    btn.onclick=(function(o){return function(){selectAnswer(o.origIndex);};})(opt);
+    grid.appendChild(btn);
+  });
+  document.getElementById('feedback-box').className='feedback-box';
+  document.getElementById('next-btn').className='next-btn';
+}
+function selectAnswer(chosenOrig){
+  const q=shuffledQuestions[current],opts=shuffledOptions[current];
+  document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+  const ok=chosenOrig===q.correct;if(ok)score++;userAnswers[current]=chosenOrig;
+  document.querySelectorAll('.option-btn').forEach((btn,di)=>{
+    const orig=opts[di].origIndex;
+    if(orig===q.correct)btn.classList.add('correct');
+    else if(orig===chosenOrig&&!ok)btn.classList.add('wrong');
+    else btn.classList.add('dimmed');
+  });
+  const fb=document.getElementById('feedback-box');
+  document.getElementById('fb-title').textContent=ok?'✓ Bonne réponse !':'✗ Pas tout à fait…';
+  document.getElementById('fb-body').innerHTML=q.explanation;
+  fb.className='feedback-box show '+(ok?'correct-fb':'wrong-fb');
+  const nb=document.getElementById('next-btn');nb.className='next-btn show';
+  nb.textContent=current<shuffledQuestions.length-1?'Question suivante →':'Voir mes résultats →';
+}
+function nextQuestion(){current++;if(current>=shuffledQuestions.length)showResults();else renderQuestion();}
+function showResults(){
+  showScreen('screen-results');
+  const total=shuffledQuestions.length,pct=Math.round((score/total)*100);
+  document.getElementById('res-score').textContent=score+'/'+total;
+  document.getElementById('res-pct').textContent=pct+'%';
+  document.getElementById('result-circle').style.setProperty('--pct',pct+'%');
+  const t=['🔁 À retravailler','📚 Des lacunes à combler','👍 Très bon niveau','🏆 Expertise confirmée !'];
+  const msgs=['Les fondamentaux ne sont pas encore acquis. Recommencez après révision.','Niveau intermédiaire. Certains points méritent une révision.','Bonne maîtrise. Relisez les points manqués pour consolider.','Résultat parfait. Votre maîtrise est solide.'];
+  const idx=pct===100?3:pct>=75?2:pct>=50?1:0;
+  document.getElementById('res-title').textContent=t[idx];document.getElementById('res-msg').textContent=msgs[idx];
+  const list=document.getElementById('review-list');list.innerHTML='';
+  shuffledQuestions.forEach((q,i)=>{
+    const ok=userAnswers[i]===q.correct;
+    const item=document.createElement('div');item.className='review-item';
+    item.innerHTML='<span class="review-icon">'+(ok?'✅':'❌')+'</span><div><div class="review-q">'+q.text+'</div><div class="review-diff '+(DIFF_CLASSES[q.difficulte]||'')+'">'+( DIFF_LABELS[q.difficulte]||'')+'</div>'+(!ok?'<div class="review-ans">Bonne réponse : <strong>'+q.options[q.correct]+'</strong></div>':'')+'</div>';
+    list.appendChild(item);
+  });
+}
+function restartQuiz(){startQuiz();}
+
+</script>
+</body>
+</html>
