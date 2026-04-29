@@ -131,10 +131,11 @@
 <script>
 const QUIZ_ID = 'vaccination-seniors';
 const QUESTION_POOL = [
-  {quiz:"vaccination-seniors",theme:"DTP senior",difficulte:"facile",
-   text:"Quels sont les âges fixes des rappels DTP recommandés chez le senior ?",
-   options:["70, 80, 90 ans", "75, 85, 95 ans", "65, 75, 85, 95 ans", "Tous les 20 ans, pas d'âge fixe"],correct:1,
-   explanation:"Après 65 ans, les rappels DTP sont recommandés aux âges fixes : <strong>75, 85 et 95 ans</strong> (tous les 10 ans). Le premier rappel senior se fait à 65 ans (dernier rappel adulte), puis à 75, 85, 95 ans. La fréquence est de 10 ans (contre 20 ans avant 65 ans) en raison de l'immunosénescence."},
+  {quiz:"vaccination-seniors",theme:"DTP Senior",difficulte:"modere",
+   text:"À partir de 45 ans, quels sont les âges fixes de rappel DTP recommandés en France ?",
+   options:["45, 55, 65, 75, 85 ans","50, 60, 70, 80 ans","45, 65, 75, 85, 95 ans","Tous les 10 ans sans âge fixe"],
+   correct:2,
+   explanation:"Après le rappel de 25 ans, les rappels DTP sont recommandés aux <strong>âges fixes suivants : 45 ans, 65 ans, puis 75, 85 et 95 ans</strong> (tous les 10 ans à partir de 65 ans). Le passage à 65 ans marque l'entrée dans le calendrier senior. Il ne s'agit donc pas de tous les 10 ans de façon uniforme, mais d'âges précis définis par le calendrier vaccinal français."},
   {quiz:"vaccination-seniors",theme:"Pneumocoque",difficulte:"facile",
    text:"Quelle valence de vaccin pneumococcique est désormais recommandée en dose unique pour les seniors ?",
    options:["VPC13 (Prevenar 13)", "VPP23 (Pneumovax)", "VPC20 (Prevenar 20)", "VPC15 (Vaxneuvance)"],correct:2,
@@ -259,11 +260,7 @@ const QUESTION_POOL = [
    text:"Le syndrome de Guillain-Barré survenu dans les 6 semaines suivant une dose est une contre-indication à quel vaccin ?",
    options:["Shingrix®", "Vaccin grippe", "Vaccin pneumococcique", "Vaccin DTP"],correct:1,
    explanation:"Un syndrome de Guillain-Barré survenu dans les <strong>6 semaines suivant une vaccination antigrippale</strong> est une contre-indication aux futures doses du <strong>vaccin grippe</strong>. Cette association, bien que rare, est documentée. Pour les autres vaccins, l'antécédent de Guillain-Barré n'est pas une contre-indication formelle mais nécessite une évaluation bénéfice/risque."},
-  {quiz:"vaccination-seniors",theme:"Zona — adjuvant composition",difficulte:"difficile",
-   text:"Quelle est la particularité du système adjuvant AS01B de Shingrix® concernant sa composition ?",
-   options:["Il ne contient pas d'adjuvant", "Adjuvant aluminique classique", "Contient deux composants actifs : QS-21 et MPL", "Adjuvant à base de squalène comme les vaccins grippe"],correct:2,
-   explanation:"Le système adjuvant AS01B contient <strong>deux composants immunostimulants</strong> : le <strong>QS-21</strong> (saponine extraite de l'écorce d'Quillaja saponaria) et le <strong>MPL</strong> (monophosphoryl lipid A, dérivé du LPS bactérien). Leur association synergique amplifie la réponse immunitaire cellulaire et humorale de manière bien supérieure à un adjuvant aluminique classique."},
-  {quiz:"vaccination-seniors",theme:"Rituximab",difficulte:"difficile",
+    {quiz:"vaccination-seniors",theme:"Rituximab",difficulte:"difficile",
    text:"Pour un patient sous rituximab, quel est le moment optimal pour la vaccination grippe ?",
    options:["N'importe quand, le vaccin reste efficace", "Juste avant la perfusion de rituximab", "Au moins 4 mois après la dernière cure (repopulation lymphocytaire B)", "Pendant la perfusion pour effet synergique"],correct:2,
    explanation:"Le rituximab (anti-CD20) détruit les lymphocytes B, rendant la réponse vaccinale inefficace pendant plusieurs mois. Le moment optimal est <strong>au moins 4 mois après la dernière cure</strong>, quand la repopulation lymphocytaire B est suffisante pour monter une réponse immunitaire. Vacciner trop tôt après rituximab aboutit à une protection insuffisante."},

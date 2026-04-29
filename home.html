@@ -321,7 +321,35 @@ async function loadLeaderboard() {
     var r = await fetch(JSONBIN_URL + '/latest', {headers: {'X-Master-Key': JSONBIN_KEY}});
     if (!r.ok) throw new Error('lb');
     var d = await r.json();
-    var scores = (d.record && d.record.scores) ? d.record.scores : [];
+    var record = d.record || {};
+    var scores = record.scores || [];
+
+    // ── Track visit & update admin stats ──
+    var stats = record.stats || {total:0, weeks:{}};
+    stats.total = (stats.total || 0) + 1;
+    var now = new Date();
+    var wkStat = now.getFullYear() + '-W' + String(Math.ceil((now - new Date(now.getFullYear(),0,1))/604800000)).padStart(2,'0');
+    stats.weeks = stats.weeks || {};
+    stats.weeks[wkStat] = (stats.weeks[wkStat] || 0) + 1;
+    // Keep only last 8 weeks
+    var wkKeys = Object.keys(stats.weeks).sort();
+    if (wkKeys.length > 8) wkKeys.slice(0, wkKeys.length-8).forEach(function(k){ delete stats.weeks[k]; });
+    record.stats = stats;
+    // Save updated stats asynchronously (don't await to not slow rendering)
+    fetch(JSONBIN_URL, {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json','X-Master-Key': JSONBIN_KEY},
+      body: JSON.stringify(record)
+    }).catch(function(e){ console.warn('Stats save error:', e); });
+
+    // ── Show admin panel ──
+    if (IS_ADMIN) {
+      document.getElementById('admin-panel').style.display = 'block';
+      document.getElementById('stat-total').textContent = stats.total;
+      document.getElementById('stat-week').textContent = stats.weeks[wkStat] || 1;
+      document.getElementById('stat-challenges').textContent = scores.length;
+      document.getElementById('stat-quiz').textContent = '—';
+    }
     var thisWeek = scores.filter(function(s){ return s.week === weekKey; }).sort(function(a,b){ return b.score - a.score || a.time - b.time; });
     var prevWinner = scores.filter(function(s){ return s.week === prevKey; }).sort(function(a,b){ return b.score - a.score || a.time - b.time; })[0];
     document.getElementById('winner-tag').textContent = prevWinner ? '🏆 Vainqueur S-1 : ' + prevWinner.pseudo + ' — ' + prevWinner.score + ' pts' : '🏆 Soyez le premier vainqueur !';
@@ -390,59 +418,13 @@ loadQuizzes();
 loadLeaderboard();
 initFlux();
 
-// ── Stats (admin only) ──
-const STATS_BIN = 'https://api.jsonbin.io/v3/b/69e8731aaaba882197256035'; // reuse existing bin key
+// Stats tracked in loadLeaderboard()
 
-async 
 function logout() {
   sessionStorage.removeItem('auth');
   window.location.href = 'index.html';
 }
 
-async function trackVisit() {
-  try {
-    const res = await fetch('https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08', {
-      headers: {'X-Master-Key': JSONBIN_KEY}
-    });
-    const data = await res.json();
-    const stats = data.record.stats || {total:0, weeks:{}, challenges:0, quizPlayed:0};
-    
-    // Increment total visits
-    stats.total = (stats.total || 0) + 1;
-    
-    // Track this week
-    const now = new Date();
-    const wk = `${now.getFullYear()}-W${Math.ceil((now - new Date(now.getFullYear(),0,1))/604800000)}`;
-    stats.weeks = stats.weeks || {};
-    stats.weeks[wk] = (stats.weeks[wk] || 0) + 1;
-    
-    // Keep only last 8 weeks
-    const weekKeys = Object.keys(stats.weeks).sort();
-    if (weekKeys.length > 8) {
-      weekKeys.slice(0, weekKeys.length - 8).forEach(k => delete stats.weeks[k]);
-    }
-    
-    // Save back
-    const current = data.record;
-    current.stats = stats;
-    await fetch('https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08', {
-      method: 'PUT',
-      headers: {'Content-Type':'application/json','X-Master-Key': JSONBIN_KEY},
-      body: JSON.stringify(current)
-    });
-    
-    if (IS_ADMIN) {
-      document.getElementById('admin-panel').style.display = 'block';
-      document.getElementById('stat-total').textContent = stats.total;
-      const thisWeekCount = stats.weeks[wk] || 0;
-      document.getElementById('stat-week').textContent = thisWeekCount;
-      document.getElementById('stat-challenges').textContent = stats.challenges || 0;
-      document.getElementById('stat-quiz').textContent = stats.quizPlayed || 0;
-    }
-  } catch(e) { console.warn('Stats error:', e); }
-}
-
-trackVisit();
 
 </script>
 </body>
