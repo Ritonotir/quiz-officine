@@ -182,7 +182,7 @@ var fluxData = null;
 // ── Quizzes ──
 async function loadQuizzes() {
   try {
-    var res = await fetch('quizzes.json');
+    var res = await fetch('quizzes.json?v=' + Date.now());
     if (!res.ok) throw new Error('fetch failed');
     allQuizzes = await res.json();
     document.getElementById('quiz-count').textContent = allQuizzes.length;
