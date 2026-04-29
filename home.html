@@ -324,23 +324,25 @@ async function loadLeaderboard() {
     var record = d.record || {};
     var scores = record.scores || [];
 
-    // ── Track visit & update admin stats ──
+    // ── Track visit (utilisateurs uniquement, pas admin) ──
     var stats = record.stats || {total:0, weeks:{}};
-    stats.total = (stats.total || 0) + 1;
     var now = new Date();
     var wkStat = now.getFullYear() + '-W' + String(Math.ceil((now - new Date(now.getFullYear(),0,1))/604800000)).padStart(2,'0');
-    stats.weeks = stats.weeks || {};
-    stats.weeks[wkStat] = (stats.weeks[wkStat] || 0) + 1;
-    // Keep only last 8 weeks
-    var wkKeys = Object.keys(stats.weeks).sort();
-    if (wkKeys.length > 8) wkKeys.slice(0, wkKeys.length-8).forEach(function(k){ delete stats.weeks[k]; });
-    record.stats = stats;
-    // Save updated stats asynchronously (don't await to not slow rendering)
-    fetch(JSONBIN_URL, {
-      method: 'PUT',
-      headers: {'Content-Type':'application/json','X-Master-Key': JSONBIN_KEY},
-      body: JSON.stringify(record)
-    }).catch(function(e){ console.warn('Stats save error:', e); });
+    if (!IS_ADMIN) {
+      stats.total = (stats.total || 0) + 1;
+      stats.weeks = stats.weeks || {};
+      stats.weeks[wkStat] = (stats.weeks[wkStat] || 0) + 1;
+      // Keep only last 8 weeks
+      var wkKeys = Object.keys(stats.weeks).sort();
+      if (wkKeys.length > 8) wkKeys.slice(0, wkKeys.length-8).forEach(function(k){ delete stats.weeks[k]; });
+      record.stats = stats;
+      // Save updated stats asynchronously
+      fetch(JSONBIN_URL, {
+        method: 'PUT',
+        headers: {'Content-Type':'application/json','X-Master-Key': JSONBIN_KEY},
+        body: JSON.stringify(record)
+      }).catch(function(e){ console.warn('Stats save error:', e); });
+    }
 
     // ── Show admin panel ──
     if (IS_ADMIN) {
