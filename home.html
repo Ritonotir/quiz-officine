@@ -102,6 +102,18 @@
   @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
   .btn-logout{margin-top:10px;background:none;border:1.5px solid var(--border);border-radius:8px;padding:6px 14px;font-family:'DM Sans',sans-serif;font-size:.78rem;color:var(--muted);cursor:pointer;transition:all .2s;}
   .btn-logout:hover{border-color:#e84040;color:#e84040;}
+
+  /* ── Signalements admin ── */
+  .reports-panel{background:white;border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-top:16px;display:none;}
+  .reports-panel h4{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:800;margin-bottom:12px;color:#0f7a53;}
+  .report-item{border-bottom:1px solid var(--border);padding:10px 0;font-size:.82rem;}
+  .report-item:last-child{border-bottom:none;}
+  .report-item-q{font-weight:600;color:var(--text);margin-bottom:3px;}
+  .report-item-msg{color:var(--muted);font-style:italic;}
+  .report-item-meta{font-size:.72rem;color:#aaa;margin-top:3px;display:flex;justify-content:space-between;align-items:center;}
+  .report-delete-btn{background:none;border:none;cursor:pointer;color:#ccc;font-size:.8rem;padding:2px 6px;border-radius:4px;}
+  .report-delete-btn:hover{color:var(--red);background:#fdeaea;}
+  .no-reports{color:var(--muted);font-size:.85rem;text-align:center;padding:12px 0;}
 </style>
 </head>
 <body>
@@ -115,6 +127,10 @@
       <span>📅 Cette semaine : <strong id="stat-week">—</strong></span>
       <span>🏆 Challenges joués : <strong id="stat-challenges">—</strong></span>
       <span>📚 Quiz joués : <strong id="stat-quiz">—</strong></span>
+    </div>
+    <div class="reports-panel" id="reports-panel">
+      <h4>🚩 Signalements (<span id="report-count">0</span>)</h4>
+      <div id="reports-list"><div class="no-reports">Aucun signalement.</div></div>
     </div>
   </div>
 
@@ -347,6 +363,7 @@ async function loadLeaderboard() {
     // ── Show admin panel ──
     if (IS_ADMIN) {
       document.getElementById('admin-panel').style.display = 'block';
+      loadReports();
       document.getElementById('stat-total').textContent = stats.total;
       document.getElementById('stat-week').textContent = stats.weeks[wkStat] || 1;
       document.getElementById('stat-challenges').textContent = scores.length;
@@ -427,6 +444,54 @@ function logout() {
   window.location.href = 'index.html';
 }
 
+
+
+async function loadReports() {
+  if (!IS_ADMIN) return;
+  try {
+    var r = await fetch('https://api.jsonbin.io/v3/b/69e8731aaaba882197256035/latest', {headers:{'X-Master-Key':'$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m'}});
+    var d = await r.json();
+    var reports = (d.record && d.record.reports) ? d.record.reports : [];
+    var panel = document.getElementById('reports-panel');
+    var list = document.getElementById('reports-list');
+    var count = document.getElementById('report-count');
+    count.textContent = reports.length;
+    if (reports.length > 0) {
+      panel.style.display = 'block';
+      // Show most recent first
+      var sorted = reports.slice().sort(function(a,b){ return (b.ts||0)-(a.ts||0); });
+      list.innerHTML = sorted.map(function(rep, i) {
+        var origIdx = reports.indexOf(rep);
+        return '<div class="report-item">' +
+          '<div class="report-item-q">' + (rep.question||'').substring(0,80) + (rep.question&&rep.question.length>80?'…':'') + '</div>' +
+          '<div class="report-item-msg">' + (rep.message||'') + '</div>' +
+          '<div class="report-item-meta"><span>' + (rep.quiz||'') + ' — ' + (rep.date||'') + '</span>' +
+          '<button class="report-delete-btn" onclick="deleteReport(' + origIdx + ')">🗑️</button></div>' +
+          '</div>';
+      }).join('');
+    } else {
+      panel.style.display = 'block';
+      list.innerHTML = '<div class="no-reports">Aucun signalement.</div>';
+    }
+  } catch(e) { console.warn('Reports error:', e); }
+}
+
+async function deleteReport(idx) {
+  if (!IS_ADMIN) return;
+  try {
+    var r = await fetch('https://api.jsonbin.io/v3/b/69e8731aaaba882197256035/latest', {headers:{'X-Master-Key':'$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m'}});
+    var d = await r.json();
+    var record = d.record || {};
+    record.reports = record.reports || [];
+    record.reports.splice(idx, 1);
+    await fetch('https://api.jsonbin.io/v3/b/69e8731aaaba882197256035', {
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':'$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m'},
+      body: JSON.stringify(record)
+    });
+    loadReports();
+  } catch(e) { console.warn('Delete report error:', e); }
+}
 
 </script>
 </body>

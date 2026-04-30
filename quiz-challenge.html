@@ -100,6 +100,26 @@
   .lb-status{font-size:.85rem;color:var(--muted);margin-top:8px;min-height:20px}
 
   @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ── Admin delay config ── */
+  .admin-delay-bar{display:none;background:rgba(26,158,110,0.1);border:1px solid #1a9e6e;border-radius:10px;padding:8px 16px;margin-bottom:12px;font-size:.82rem;color:#0f7a53;align-items:center;gap:10px;flex-wrap:wrap;}
+  .admin-delay-bar input[type=number]{width:55px;border:1px solid #1a9e6e;border-radius:6px;padding:4px 8px;font-size:.82rem;text-align:center;}
+  .admin-delay-bar button{background:var(--green);color:white;border:none;border-radius:6px;padding:4px 12px;font-size:.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+  .report-btn{background:none;border:1px solid var(--border);cursor:pointer;font-size:.78rem;color:var(--muted);opacity:0.6;padding:4px 12px;border-radius:6px;transition:all .2s;margin-top:10px;width:100%;text-align:right;}
+  .report-btn:hover{opacity:1;background:#fff8e6;color:#c07800;border-color:#c07800;}
+  .report-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:1000;align-items:center;justify-content:center;}
+  .report-modal-overlay.show{display:flex;}
+  .report-modal{background:white;border-radius:16px;padding:28px;width:90%;max-width:420px;box-shadow:0 8px 32px rgba(0,0,0,.15);}
+  .report-modal h3{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:8px;}
+  .report-modal p{font-size:.85rem;color:var(--muted);margin-bottom:16px;line-height:1.5;}
+  .report-modal textarea{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:12px;font-family:'DM Sans',sans-serif;font-size:.9rem;resize:vertical;min-height:80px;outline:none;transition:border-color .2s;}
+  .report-modal textarea:focus{border-color:var(--green);}
+  .report-modal-btns{display:flex;gap:10px;margin-top:14px;}
+  .report-send-btn{flex:1;background:var(--green);color:white;border:none;border-radius:10px;padding:12px;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .report-send-btn:hover{background:var(--green-dark);}
+  .report-cancel-btn{background:white;color:var(--muted);border:1.5px solid var(--border);border-radius:10px;padding:12px 18px;font-family:'DM Sans',sans-serif;cursor:pointer;font-size:.9rem;}
+  .report-status{font-size:.82rem;margin-top:10px;text-align:center;min-height:18px;}
 </style>
 </head>
 <body>
@@ -121,7 +141,11 @@
     🟢 7 questions faciles · 🟡 5 questions modérées · 🔴 3 questions difficiles<br>
     <span style="font-size:.82rem">Score : 100 pts si répondu en moins de 4s · −1 pt par seconde supplémentaire · 0 pt si faux</span>
   </div>
-  <button class="btn-start" onclick="startQuiz()">Lancer le challenge →</button>
+  <div class="admin-delay-bar" id="admin-delay-bar">⚙️ Admin — Délai avant réponses : <input type="number" id="delay-input" min="0" max="10" step="0.5" value="1"> s <button onclick="applyDelay()">Appliquer</button></div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center;">
+    <a class="home-btn" href="home.html">← Accueil</a>
+    <button class="btn-start" onclick="startQuiz()">Lancer le challenge →</button>
+  </div>
 </div>
 
 <!-- QUIZ -->
@@ -543,7 +567,7 @@ const QUESTION_POOL = [
    options:["19 ans", "21 ans", "26 ans révolus", "30 ans"],correct:2,
    explanation:"Depuis 2023, le rattrapage HPV est recommandé et remboursé jusqu'à <strong>26 ans révolus</strong> pour les garçons et les filles non vaccinés. Au-delà, la vaccination peut être proposée au cas par cas mais n'est plus remboursée en dehors de situations particulières. Le schéma de rattrapage après 15 ans est de <strong>3 doses</strong> (M0, M2, M6)."},
   {quiz:"vaccination-adultes",theme:"DTP seniors",difficulte:"facile",
-   text:"Après de 65 ans, quelle est la fréquence des rappels DTP ?",
+   text:"À partir de 65 ans, quelle est la fréquence des rappels DTP ?",
    options:["Tous les 20 ans", "Une seule fois", "Tous les 10 ans", "Tous les 5 ans"],correct:2,
    explanation:"Après 65 ans, les rappels DTP sont recommandés <strong>tous les 10 ans</strong> (aux âges fixes : 65, 75, 85, 95 ans), contre tous les 20 ans chez l'adulte de moins de 65 ans. Cette fréquence accrue est liée à l'immunosénescence : le déclin naturel de l'immunité avec l'âge rend les rappels plus fréquents nécessaires."},
   {quiz:"vaccination-adultes",theme:"HPV",difficulte:"facile",
@@ -659,7 +683,7 @@ const QUESTION_POOL = [
    options:["Non, la protection est suffisante", "Oui, une dose de rappel Men ACWY est recommandée", "Sérologie pour décider", "Men B uniquement à cet âge"],correct:1,
    explanation:"Oui — la vaccination Men ACWY est recommandée <strong>chez tous les adolescents à 11-14 ans</strong>, indépendamment de leur statut vaccinal antérieur (y compris s'ils ont été vaccinés avant). L'immunité conférée par une vaccination précoce peut décliner, et l'adolescence est une période à risque accru d'infection à méningocoque."},
   {quiz:"vaccination-adultes",theme:"Vaccin adulte — valence réduite",difficulte:"difficile",
-   text:"Pourquoi la valence diphtérique est-elle réduite (",
+   text:"Pourquoi la valence diphtérique est-elle dosée plus faiblement (",
    options:["Pour réduire les coûts de production", "Pour limiter les réactions locales d'hypersensibilité chez les adultes pré-immunisés", "Parce que l'adulte est déjà totalement immunisé", "Pour améliorer la conservation"],correct:1,
    explanation:"Les adultes ont été sensibilisés par les vaccinations antérieures. Une dose complète d'anatoxine diphtérique provoquerait des <strong>réactions locales d'hypersensibilité importantes</strong> (érythème, douleur, induration) chez ces personnes pré-immunisées. La dose réduite "},
   {quiz:"vaccination-adultes",theme:"HPV immunodéprimé",difficulte:"difficile",
@@ -1568,8 +1592,8 @@ const QUESTION_POOL = [
    explanation:"Le <strong>Pivmécillinam (Selexid®)</strong> est l'antibiotique de deuxième intention, notamment si la Fosfomycine est contre-indiquée (allergie au saccharose) ou si la patiente ne veut pas attendre d'être à jeun. Il appartient à la famille des pénicillines à spectre élargi."},
   {quiz:"cystite",theme:"Thérapeutique",difficulte:"modere",
    text:"Quelle est la durée de traitement pour le Pivmécillinam dans la cystite simple ?",
-   options:["Dose unique", "3 jours", "5 jours", "10 jours"],correct:2,
-   explanation:"Le Pivmécillinam s'administre sur <strong>5 jours</strong> à raison de 400 mg 2 fois par jour. Contrairement à la Fosfomycine, il nécessite plusieurs prises mais reste bien toléré avec les repas."},
+   options:["Dose unique", "3 jours", "5 jours", "10 jours"],correct:1,
+   explanation:"Selon les recommandations HAS en vigueur, le Pivmécillinam s'administre sur <strong>3 jours</strong> à raison de 400 mg 2 fois par jour (bien que le RCP du Selexid® mentionne 5 jours). La recommandation HAS prime sur le RCP dans ce contexte."},
   {quiz:"cystite",theme:"Thérapeutique",difficulte:"modere",
    text:"Quelle est la posologie du Pivmécillinam chez l'adulte pour la cystite ?",
    options:["400 mg 2 fois par jour", "200 mg 1 fois par jour", "400 mg 3 fois par jour", "1 g par jour"],correct:0,
@@ -2073,11 +2097,55 @@ function shuffleArray(a){
   return b;
 }
 
-function pickChallenge(facile, modere, difficile){
-  const f=shuffleArray(QUESTION_POOL.filter(q=>q.difficulte==='facile')).slice(0,facile);
-  const m=shuffleArray(QUESTION_POOL.filter(q=>q.difficulte==='modere')).slice(0,modere);
-  const d=shuffleArray(QUESTION_POOL.filter(q=>q.difficulte==='difficile')).slice(0,difficile);
-  return shuffleArray([...f,...m,...d]);
+
+const QUIZ_THEME = {"rhume": "ORL", "allergies": "ORL", "angines": "ORL", "contraception": "Contraception", "vaccination-jeunes-enfants": "Vaccination", "vaccination-femme-enceinte": "Vaccination", "vaccination-adultes": "Vaccination", "vaccination-seniors": "Vaccination", "pratique-vaccinale": "Vaccination", "cystite": "Urologie", "phytotherapie": "Naturopathie"};
+const THEME_PENALTY = 2; // coefficient de pénalité thématique (plus élevé = plus strict)
+
+function getTheme(q) {
+  return QUIZ_THEME[q.quiz] || q.quiz;
+}
+
+function weightedPick(pool, n) {
+  // Tirage pondéré avec pénalité sur les thèmes surreprésentés
+  var selected = [];
+  var themeCounts = {};
+  var remaining = pool.slice();
+
+  for (var i = 0; i < n && remaining.length > 0; i++) {
+    // Compute weights
+    var weights = remaining.map(function(q) {
+      var t = getTheme(q);
+      var count = themeCounts[t] || 0;
+      return 1 / (1 + THEME_PENALTY * count);
+    });
+    // Weighted random pick
+    var total = weights.reduce(function(a,b){return a+b;}, 0);
+    var rand = Math.random() * total;
+    var cumul = 0;
+    var picked = 0;
+    for (var j = 0; j < weights.length; j++) {
+      cumul += weights[j];
+      if (rand <= cumul) { picked = j; break; }
+    }
+    var q = remaining[picked];
+    selected.push(q);
+    var t = getTheme(q);
+    themeCounts[t] = (themeCounts[t] || 0) + 1;
+    remaining.splice(picked, 1);
+  }
+  return selected;
+}
+
+function pickChallenge(facile, modere, difficile) {
+  var f = QUESTION_POOL.filter(q=>q.difficulte==='facile');
+  var m = QUESTION_POOL.filter(q=>q.difficulte==='modere');
+  var d = QUESTION_POOL.filter(q=>q.difficulte==='difficile');
+  var sel = [
+    ...weightedPick(f, facile),
+    ...weightedPick(m, modere),
+    ...weightedPick(d, difficile)
+  ];
+  return shuffleArray(sel);
 }
 
 // ══════════════════════════════════════════════
@@ -2088,6 +2156,8 @@ const JSONBIN_KEY = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915
 // ══════════════════════════════════════════════
 
 const TOTAL_Q = 15;
+const DEFAULT_DELAY = 1; // secondes avant affichage des réponses
+var ANSWER_DELAY = parseFloat(localStorage.getItem('challenge_delay') ?? DEFAULT_DELAY) || DEFAULT_DELAY;
 const FACILE_N = 7, MODERE_N = 5, DIFFICILE_N = 3;
 const MAX_PTS = 100;
 const GRACE_SEC = 4; // Full points if answered within this time
@@ -2151,11 +2221,23 @@ function renderQuestion(){
   });
 
   document.getElementById('feedback-box').className = 'feedback-box';
+  var existingRBtn2 = document.querySelector('.report-btn');
+  if(existingRBtn2) existingRBtn2.remove();
   document.getElementById('pts-awarded').textContent = '';
   document.getElementById('next-btn').className = 'next-btn';
 
-  // Start timer
-  startTimer();
+  // Delay before showing options & starting timer
+  grid.style.visibility = 'hidden';
+  clearTimeout(window._delayTimer);
+  if (ANSWER_DELAY > 0) {
+    window._delayTimer = setTimeout(function(){
+      grid.style.visibility = 'visible';
+      startTimer();
+    }, ANSWER_DELAY * 1000);
+  } else {
+    grid.style.visibility = 'visible';
+    startTimer();
+  }
 }
 
 // ── Timer ──
@@ -2231,6 +2313,15 @@ function selectAnswer(chosenOrig){
   const nb = document.getElementById('next-btn');
   nb.className = 'next-btn show';
   nb.textContent = current < questions.length-1 ? 'Question suivante →' : 'Voir mon score →';
+
+  // Report button
+  var existingRBtn = document.querySelector('.report-btn');
+  if(existingRBtn) existingRBtn.remove();
+  var rBtn = document.createElement('button');
+  rBtn.className = 'report-btn';
+  rBtn.innerHTML = '🚩 Signaler un problème sur cette question';
+  (function(qt){ rBtn.onclick = function(){ openReport(qt); }; })(q.text);
+  document.querySelector('.question-card').appendChild(rBtn);
 }
 
 function nextQuestion(){
@@ -2348,6 +2439,88 @@ function showFinalButtons(){
   document.getElementById('lb-form').style.display = 'none';
   document.getElementById('final-buttons').style.display = 'flex';
 }
+
+// ── Admin delay config ──
+function applyDelay() {
+  var val = parseFloat(document.getElementById('delay-input').value);
+  if (!isNaN(val) && val >= 0) {
+    ANSWER_DELAY = val;
+    localStorage.setItem('challenge_delay', val);
+  }
+}
+
+// Show admin bar if admin
+document.addEventListener('DOMContentLoaded', function(){
+  var auth = sessionStorage.getItem('auth');
+  if (auth === 'admin') {
+    var bar = document.getElementById('admin-delay-bar');
+    if (bar) bar.style.display = 'flex';
+    var input = document.getElementById('delay-input');
+    if (input) input.value = ANSWER_DELAY;
+  }
+});
+
+
+// ── Signalement ──
+var _reportQuestion = null;
+function openReport(questionText) {
+  _reportQuestion = questionText;
+  document.getElementById('report-q-preview').textContent = '« ' + questionText.substring(0,80) + (questionText.length>80?'…':'') + ' »';
+  document.getElementById('report-msg').value = '';
+  document.getElementById('report-status').textContent = '';
+  document.getElementById('report-overlay').classList.add('show');
+}
+function closeReport() {
+  document.getElementById('report-overlay').classList.remove('show');
+  _reportQuestion = null;
+}
+async function sendReport() {
+  var msg = document.getElementById('report-msg').value.trim();
+  var status = document.getElementById('report-status');
+  if (!msg) { status.textContent = 'Merci de décrire le problème.'; return; }
+  status.textContent = 'Envoi…';
+  try {
+    var r = await fetch('https://api.jsonbin.io/v3/b/69e8731aaaba882197256035/latest', {headers:{'X-Master-Key':'$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m'}});
+    var d = await r.json();
+    var record = d.record || {};
+    record.reports = record.reports || [];
+    record.reports.push({
+      question: _reportQuestion,
+      message: msg,
+      quiz: 'Challenge',
+      date: new Date().toLocaleDateString('fr-FR'),
+      ts: Date.now()
+    });
+    await fetch('https://api.jsonbin.io/v3/b/69e8731aaaba882197256035', {
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':'$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m'},
+      body: JSON.stringify(record)
+    });
+    status.style.color = '#1a9e6e';
+    status.textContent = '✓ Signalement envoyé, merci !';
+    setTimeout(closeReport, 1500);
+  } catch(e) {
+    status.style.color = '#e84040';
+    status.textContent = 'Erreur lors de l\'envoi.';
+  }
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var overlay = document.getElementById('report-overlay');
+  if(overlay) overlay.addEventListener('click', function(e){ if(e.target===this) closeReport(); });
+});
 </script>
+
+<div class="report-modal-overlay" id="report-overlay">
+  <div class="report-modal">
+    <h3>🚩 Signaler un problème</h3>
+    <p id="report-q-preview" style="font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:12px;"></p>
+    <textarea id="report-msg" placeholder="Décrivez brièvement le problème (erreur, ambiguïté, reformulation suggérée...)"></textarea>
+    <div class="report-modal-btns">
+      <button class="report-cancel-btn" onclick="closeReport()">Annuler</button>
+      <button class="report-send-btn" onclick="sendReport()">Envoyer 🚩</button>
+    </div>
+    <div class="report-status" id="report-status"></div>
+  </div>
+</div>
 </body>
 </html>

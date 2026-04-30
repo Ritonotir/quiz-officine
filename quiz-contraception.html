@@ -78,6 +78,23 @@
   .home-btn{background:white;color:var(--green);font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;border:1.5px solid var(--green);padding:12px 28px;border-radius:14px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
   .home-btn:hover{background:var(--green-light)}
   @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ── Bouton signalement ── */
+  .report-btn{background:none;border:1px solid var(--border);cursor:pointer;font-size:.78rem;color:var(--muted);opacity:0.6;padding:4px 12px;border-radius:6px;transition:all .2s;margin-top:10px;width:100%;text-align:right;}
+  .report-btn:hover{opacity:1;background:#fff8e6;color:#c07800;border-color:#c07800;}
+  /* Modal signalement */
+  .report-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:1000;align-items:center;justify-content:center;}
+  .report-modal-overlay.show{display:flex;}
+  .report-modal{background:white;border-radius:16px;padding:28px;width:90%;max-width:420px;box-shadow:0 8px 32px rgba(0,0,0,.15);}
+  .report-modal h3{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:8px;}
+  .report-modal p{font-size:.85rem;color:var(--muted);margin-bottom:16px;line-height:1.5;}
+  .report-modal textarea{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:12px;font-family:'DM Sans',sans-serif;font-size:.9rem;resize:vertical;min-height:80px;outline:none;transition:border-color .2s;}
+  .report-modal textarea:focus{border-color:var(--green);}
+  .report-modal-btns{display:flex;gap:10px;margin-top:14px;}
+  .report-send-btn{flex:1;background:var(--green);color:white;border:none;border-radius:10px;padding:12px;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .report-send-btn:hover{background:var(--green-dark);}
+  .report-cancel-btn{background:white;color:var(--muted);border:1.5px solid var(--border);border-radius:10px;padding:12px 18px;font-family:'DM Sans',sans-serif;cursor:pointer;font-size:.9rem;}
+  .report-status{font-size:.82rem;margin-top:10px;text-align:center;min-height:18px;}
 </style>
 </head>
 <body>
@@ -91,7 +108,10 @@
     <div class="stat-pill"><strong>~7 min</strong><span>durée</span></div>
   </div>
   <div class="pool-info">🎲 Tirage aléatoire — 35 questions disponibles (18F / 7M / 10D)</div>
-  <button class="btn-start" onclick="startQuiz()">Commencer →</button>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center;">
+    <a class="home-btn" href="home.html">← Accueil</a>
+    <button class="btn-start" onclick="startQuiz()">Commencer →</button>
+  </div>
 </div>
 <div id="screen-quiz" class="screen">
   <div class="progress-row">
@@ -323,6 +343,10 @@ function renderQuestion(){
   });
   document.getElementById('feedback-box').className='feedback-box';
   document.getElementById('next-btn').className='next-btn';
+  // Report button
+    // Report button reset (shown after answer)
+  var existingBtn = document.querySelector('.report-btn');
+  if(existingBtn) existingBtn.remove();
 }
 function selectAnswer(chosenOrig){
   const q=shuffledQuestions[current],opts=shuffledOptions[current];
@@ -338,6 +362,14 @@ function selectAnswer(chosenOrig){
   document.getElementById('fb-title').textContent=ok?'✓ Bonne réponse !':'✗ Pas tout à fait…';
   document.getElementById('fb-body').innerHTML=q.explanation;
   fb.className='feedback-box show '+(ok?'correct-fb':'wrong-fb');
+  // Show report button after answer
+  var existingRBtn = document.querySelector('.report-btn');
+  if(existingRBtn) existingRBtn.remove();
+  var rBtn = document.createElement('button');
+  rBtn.className = 'report-btn';
+  rBtn.innerHTML = '🚩 Signaler un problème sur cette question';
+  (function(qt){ rBtn.onclick = function(){ openReport(qt); }; })(q.text);
+  document.querySelector('.question-card').appendChild(rBtn);
   const nb=document.getElementById('next-btn');nb.className='next-btn show';
   nb.textContent=current<shuffledQuestions.length-1?'Question suivante →':'Voir mes résultats →';
 }
@@ -362,6 +394,69 @@ function showResults(){
 }
 function restartQuiz(){startQuiz();}
 
+// ── Signalement ──
+var _reportQuestion = null;
+function openReport(questionText) {
+  _reportQuestion = questionText;
+  document.getElementById('report-q-preview').textContent = '\u00ab ' + questionText.substring(0,80) + (questionText.length>80?'\u2026':'') + ' \u00bb';
+  document.getElementById('report-msg').value = '';
+  document.getElementById('report-status').textContent = '';
+  document.getElementById('report-overlay').classList.add('show');
+}
+function closeReport() {
+  document.getElementById('report-overlay').classList.remove('show');
+  _reportQuestion = null;
+}
+async function sendReport() {
+  var msg = document.getElementById('report-msg').value.trim();
+  var status = document.getElementById('report-status');
+  if (!msg) { status.textContent = 'Merci de d\u00e9crire le probl\u00e8me.'; return; }
+  status.textContent = 'Envoi\u2026';
+  try {
+    var r = await fetch('https://api.jsonbin.io/v3/b/69e8731aaaba882197256035/latest', {headers:{'X-Master-Key':'$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m'}});
+    var d = await r.json();
+    var record = d.record || {};
+    record.reports = record.reports || [];
+    record.reports.push({
+      question: _reportQuestion,
+      message: msg,
+      quiz: document.title,
+      date: new Date().toLocaleDateString('fr-FR'),
+      ts: Date.now()
+    });
+    await fetch('https://api.jsonbin.io/v3/b/69e8731aaaba882197256035', {
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':'$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m'},
+      body: JSON.stringify(record)
+    });
+    status.style.color = '#1a9e6e';
+    status.textContent = '\u2713 Signalement envoy\u00e9, merci !';
+    setTimeout(closeReport, 1500);
+  } catch(e) {
+    status.style.color = '#e84040';
+    status.textContent = 'Erreur lors de l\'envoi.';
+  }
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var overlay = document.getElementById('report-overlay');
+  if(overlay) overlay.addEventListener('click', function(e){ if(e.target===this) closeReport(); });
+});
+
+
 </script>
+
+<!-- Modal signalement -->
+<div class="report-modal-overlay" id="report-overlay">
+  <div class="report-modal">
+    <h3>🚩 Signaler un problème</h3>
+    <p id="report-q-preview" style="font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:12px;"></p>
+    <textarea id="report-msg" placeholder="Décrivez brièvement le problème (erreur, ambiguïté, reformulation suggérée...)"></textarea>
+    <div class="report-modal-btns">
+      <button class="report-cancel-btn" onclick="closeReport()">Annuler</button>
+      <button class="report-send-btn" onclick="sendReport()">Envoyer 🚩</button>
+    </div>
+    <div class="report-status" id="report-status"></div>
+  </div>
+</div>
 </body>
 </html>
