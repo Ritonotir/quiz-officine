@@ -103,6 +103,15 @@
   <div class="top-actions">
     <button class="btn btn-green" onclick="regenerate()">🔄 Régénérer</button>
     <button class="btn btn-outline" onclick="window.print()" title="Imprimer le planning">🖨️ Imprimer</button>
+    <div id="weeks-selector" style="display:none;align-items:center;gap:8px;background:white;border:1px solid var(--border);border-radius:12px;padding:6px 14px;font-size:.85rem;color:var(--muted);">
+      📅 Semaines affichées :
+      <select id="nb-weeks-select" onchange="changeNbWeeks(this.value)" style="border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;">
+        <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+        <option value="4" selected>4</option><option value="5">5</option><option value="6">6</option>
+        <option value="7">7</option><option value="8">8</option><option value="9">9</option>
+        <option value="10">10</option><option value="11">11</option><option value="12">12</option>
+      </select>
+    </div>
   </div>
   <div class="status-bar">
     <div class="status-dot" id="sdot"></div>
@@ -120,8 +129,30 @@
 const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08';
 const JSONBIN_KEY = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
 
-const PEOPLE = ['Anthony','Cha R','Cha M','Georges','Nicolas','Anaïs A','Anaïs B','Ines','Cynthia','Clémentine','Marina','Fabienne','Nathalie']
+const PEOPLE = ['Anthony','Cha R','Cha M','Georges','Nicolas','Anaïs A','Anaïs B','Ines','Cynthia','Clémentine','Marina B','Fabienne','Nathalie']
 const IS_EDIT = new URLSearchParams(window.location.search).get('mode') === 'edit';
+
+// ── Disponibilités EDT ──
+let availability = {}; // { "Prénom": { "YYYY-MM-DD": { am: bool, pm: bool } } }
+
+async function loadAvailability() {
+  try {
+    const r = await fetch('availability.json?v=' + Date.now());
+    if (!r.ok) throw new Error();
+    const data = await r.json();
+    availability = data.availability || {};
+  } catch(e) {
+    availability = {};
+    console.warn('availability.json non chargé — aucun filtrage EDT appliqué');
+  }
+}
+
+function isAvailable(person, date, slot) {
+  // Pas de données pour cette personne ou cette date → considéré disponible
+  if (!availability[person]) return true;
+  if (!availability[person][date]) return true;
+  return availability[person][date][slot] === true;
+}
 
 // ── Read-only mode ──
 if (!IS_EDIT) {
@@ -148,6 +179,7 @@ let officialData = null;
 let pendingData  = null;
 let pendingSlots = new Set();
 let closedDays = new Set(); // dates 'YYYY-MM-DD' fermées
+let nbWeeks = 4; // nombre de semaines affichées, sauvegardé dans JSONBin
 
 // ── Dates ──
 function localStr(d) {
@@ -158,15 +190,17 @@ function getMonday() {
   const d = new Date(), day = d.getDay()||7;
   d.setDate(d.getDate()-day+1); d.setHours(0,0,0,0); return d;
 }
-function get4Weeks() {
+function getNWeeks() {
   const mon = getMonday(), out = [];
-  for (let w=0; w<4; w++)
+  for (let w=0; w<nbWeeks; w++)
     for (let dd=0; dd<6; dd++) {
       const dt = new Date(mon); dt.setDate(dt.getDate()+w*7+dd);
       out.push(localStr(dt));
     }
   return out;
 }
+// Alias pour compatibilité avec le reste du code
+function get4Weeks() { return getNWeeks(); }
 function weekKey(dateStr) {
   const d = new Date(dateStr+'T00:00:00'), day = d.getDay()||7;
   d.setDate(d.getDate()+4-day);
@@ -176,7 +210,9 @@ function weekKey(dateStr) {
 }
 
 // ── Algorithm ──
-function weight(person, date, history, dispense, wa) {
+function weight(person, date, history, dispense, wa, slot) {
+  // Personne absente sur ce créneau selon l'EDT → poids quasi nul
+  if (slot && !isAvailable(person, date, slot)) return 0.001;
   let ds = 999;
   const ph = history.filter(h=>h.person===person).sort((a,b)=>b.date.localeCompare(a.date));
   if (ph.length) ds = Math.max(0, Math.round((new Date(date+'T00:00:00')-new Date(ph[0].date+'T00:00:00'))/86400000));
@@ -213,7 +249,7 @@ function generate(data) {
     if (!planning[date]) planning[date]={am:null,pm:null};
     SLOTS.forEach(slot => {
       if (!planning[date][slot]) {
-        const weights = PEOPLE.map(p=>weight(p,date,history,dispense,wa));
+        const weights = PEOPLE.map(p=>weight(p,date,history,dispense,wa,slot));
         const chosen  = pick(PEOPLE, weights);
         planning[date][slot] = chosen;
         wa[wk][chosen] = (wa[wk][chosen]||0)+1;
@@ -248,7 +284,7 @@ function recalcAfter(fromDate, fromSlot) {
     if (!wa[wk]) wa[wk]={};
     if (!pendingData.planning[date]) pendingData.planning[date]={am:null,pm:null};
     if (!pendingSlots.has(date+'_'+slot)) {
-      const weights=PEOPLE.map(p=>weight(p,date,hist,dispense,wa));
+      const weights=PEOPLE.map(p=>weight(p,date,hist,dispense,wa,slot));
       const chosen=pick(PEOPLE,weights);
       pendingData.planning[date][slot]=chosen;
       hist.push({person:chosen,date,slot});
@@ -271,6 +307,17 @@ async function load() {
     if (!r.ok) throw new Error();
     const d = await r.json();
     officialData = d.record || {planning:{},history:[],champion_dispense:{person:null,week:null}};
+    // Lire le nombre de semaines configuré
+    if (officialData.nb_weeks) {
+      nbWeeks = officialData.nb_weeks;
+    }
+    // Afficher le sélecteur uniquement en mode édition
+    if (IS_EDIT) {
+      const sel = document.getElementById('weeks-selector');
+      if (sel) sel.style.display = 'flex';
+      const nbSel = document.getElementById('nb-weeks-select');
+      if (nbSel) nbSel.value = nbWeeks;
+    }
     setStatus('','Planning chargé');
     return true;
   } catch(e) { setStatus('error','Erreur de chargement'); return false; }
@@ -294,6 +341,14 @@ async function save() {
 
 function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
 
+// ── Sélecteur nb semaines ──
+async function changeNbWeeks(val) {
+  nbWeeks = parseInt(val) || 4;
+  officialData.nb_weeks = nbWeeks;
+  await save();
+  renderPlanning();
+}
+
 // ── Actions ──
 
 function toggleClose(date) {
@@ -312,7 +367,7 @@ function toggleClose(date) {
       });
       const disp = pendingData.champion_dispense||{person:null,week:null};
       SLOTS.forEach(slot => {
-        const weights = PEOPLE.map(p => weight(p, date, pendingData.history, disp, {[wk]:wa}));
+        const weights = PEOPLE.map(p => weight(p, date, pendingData.history, disp, {[wk]:wa}, slot));
         pendingData.planning[date][slot] = pick(PEOPLE, weights);
         pendingData.planning[date][slot+'_modified'] = false;
       });
@@ -338,7 +393,7 @@ function propose(date, slot) {
   const wa = {[wk]:{}};
   SLOTS.forEach(s=>{ if(s!==slot&&pendingData.planning[date]?.[s]){const p=pendingData.planning[date][s];wa[wk][p]=(wa[wk][p]||0)+1;} });
   const dispense=pendingData.champion_dispense||{person:null,week:null};
-  const weights=cands.map(p=>weight(p,date,pendingData.history,dispense,wa));
+  const weights=cands.map(p=>weight(p,date,pendingData.history,dispense,wa,slot));
   const chosen=pick(cands,weights);
   pendingData.planning[date][slot]=chosen;
   pendingSlots.add(date+'_'+slot);
@@ -380,7 +435,7 @@ function renderPlanning() {
   const el    = document.getElementById('planning-content');
   el.innerHTML='';
 
-  for (let w=0; w<4; w++) {
+  for (let w=0; w<nbWeeks; w++) {
     const wd = dates.slice(w*6, w*6+6);
     const d0 = new Date(wd[0]+'T00:00:00'), d5=new Date(wd[5]+'T00:00:00');
     const lbl = d0.toLocaleDateString('fr-FR',{day:'numeric',month:'long'})+' – '+d5.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
@@ -454,6 +509,7 @@ async function regenerate() {
 
 // ── Init ──
 async function init() {
+  await loadAvailability();
   const ok = await load();
   if (!ok) return;
   const dates  = get4Weeks();

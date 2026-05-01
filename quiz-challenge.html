@@ -2157,7 +2157,7 @@ const JSONBIN_KEY = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915
 
 const TOTAL_Q = 15;
 const DEFAULT_DELAY = 1; // secondes avant affichage des réponses
-var ANSWER_DELAY = parseFloat(localStorage.getItem('challenge_delay') ?? DEFAULT_DELAY) || DEFAULT_DELAY;
+var ANSWER_DELAY = DEFAULT_DELAY; // sera mis à jour depuis JSONBin au chargement
 const FACILE_N = 7, MODERE_N = 5, DIFFICILE_N = 3;
 const MAX_PTS = 100;
 const GRACE_SEC = 4; // Full points if answered within this time
@@ -2357,6 +2357,9 @@ function showResults(){
 }
 
 // ── Leaderboard ──
+// ── JSONBin : record complet en mémoire pour éviter les écrasements partiels ──
+var _binRecord = {scores:[], stats:{total:0,weeks:{}}, reports:[], settings:{}};
+
 async function fetchLeaderboard(){
   try {
     const r = await fetch(JSONBIN_URL+'/latest', {
@@ -2364,18 +2367,29 @@ async function fetchLeaderboard(){
     });
     if(!r.ok) return [];
     const d = await r.json();
-    return d.record?.scores || [];
+    _binRecord = d.record || {scores:[], stats:{total:0,weeks:{}}, reports:[], settings:{}};
+    // Appliquer le délai stocké
+    const storedDelay = _binRecord.settings?.challenge_delay;
+    if (storedDelay !== undefined && !isNaN(storedDelay)) {
+      ANSWER_DELAY = storedDelay;
+    }
+    return _binRecord.scores || [];
   } catch(e){ return []; }
 }
 
-async function saveLeaderboard(scores){
+async function saveBinRecord(){
   try {
     await fetch(JSONBIN_URL, {
       method:'PUT',
       headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
-      body: JSON.stringify({scores})
+      body: JSON.stringify(_binRecord)
     });
   } catch(e){}
+}
+
+async function saveLeaderboard(scores){
+  _binRecord.scores = scores;
+  await saveBinRecord();
 }
 
 function getWeekKey(){
@@ -2441,17 +2455,21 @@ function showFinalButtons(){
 }
 
 // ── Admin delay config ──
-function applyDelay() {
+async function applyDelay() {
   var val = parseFloat(document.getElementById('delay-input').value);
   if (!isNaN(val) && val >= 0) {
     ANSWER_DELAY = val;
-    localStorage.setItem('challenge_delay', val);
+    if (!_binRecord.settings) _binRecord.settings = {};
+    _binRecord.settings.challenge_delay = val;
+    await saveBinRecord();
   }
 }
 
 // Show admin bar if admin
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', async function(){
   var auth = sessionStorage.getItem('auth');
+  // Charger le record JSONBin pour récupérer le délai configuré
+  await fetchLeaderboard();
   if (auth === 'admin') {
     var bar = document.getElementById('admin-delay-bar');
     if (bar) bar.style.display = 'flex';
@@ -2480,22 +2498,15 @@ async function sendReport() {
   if (!msg) { status.textContent = 'Merci de décrire le problème.'; return; }
   status.textContent = 'Envoi…';
   try {
-    var r = await fetch('https://api.jsonbin.io/v3/b/69e8731aaaba882197256035/latest', {headers:{'X-Master-Key':'$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m'}});
-    var d = await r.json();
-    var record = d.record || {};
-    record.reports = record.reports || [];
-    record.reports.push({
+    if (!_binRecord.reports) _binRecord.reports = [];
+    _binRecord.reports.push({
       question: _reportQuestion,
       message: msg,
       quiz: 'Challenge',
       date: new Date().toLocaleDateString('fr-FR'),
       ts: Date.now()
     });
-    await fetch('https://api.jsonbin.io/v3/b/69e8731aaaba882197256035', {
-      method:'PUT',
-      headers:{'Content-Type':'application/json','X-Master-Key':'$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m'},
-      body: JSON.stringify(record)
-    });
+    await saveBinRecord();
     status.style.color = '#1a9e6e';
     status.textContent = '✓ Signalement envoyé, merci !';
     setTimeout(closeReport, 1500);
