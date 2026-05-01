@@ -103,6 +103,7 @@
   <div class="top-actions">
     <button class="btn btn-green" onclick="regenerate()">🔄 Régénérer</button>
     <button class="btn btn-outline" onclick="window.print()" title="Imprimer le planning">🖨️ Imprimer</button>
+    <a href="absences.html" id="absences-btn" class="btn btn-outline" style="text-decoration:none;background:rgba(255,255,255,0.88);border:1.5px solid var(--border);color:var(--text);">🏖️ Congés & Absences</a>
     <div id="weeks-selector" style="display:none;align-items:center;gap:8px;background:white;border:1px solid var(--border);border-radius:12px;padding:6px 14px;font-size:.85rem;color:var(--muted);">
       📅 Semaines affichées :
       <select id="nb-weeks-select" onchange="changeNbWeeks(this.value)" style="border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;">
@@ -180,6 +181,11 @@ let pendingData  = null;
 let pendingSlots = new Set();
 let closedDays = new Set(); // dates 'YYYY-MM-DD' fermées
 let nbWeeks = 4; // nombre de semaines affichées, sauvegardé dans JSONBin
+let absences = []; // [{ person, from, to }] — chargées depuis JSONBin
+
+function isAbsent(person, date) {
+  return absences.some(a => a.person === person && date >= a.from && date <= a.to);
+}
 
 // ── Dates ──
 function localStr(d) {
@@ -213,6 +219,8 @@ function weekKey(dateStr) {
 function weight(person, date, history, dispense, wa, slot) {
   // Personne absente sur ce créneau selon l'EDT → poids quasi nul
   if (slot && !isAvailable(person, date, slot)) return 0.001;
+  // Personne en congés/absence → poids quasi nul
+  if (isAbsent(person, date)) return 0.001;
   let ds = 999;
   const ph = history.filter(h=>h.person===person).sort((a,b)=>b.date.localeCompare(a.date));
   if (ph.length) ds = Math.max(0, Math.round((new Date(date+'T00:00:00')-new Date(ph[0].date+'T00:00:00'))/86400000));
@@ -307,10 +315,15 @@ async function load() {
     if (!r.ok) throw new Error();
     const d = await r.json();
     officialData = d.record || {planning:{},history:[],champion_dispense:{person:null,week:null}};
+    // Lire les absences
+    absences = (officialData.absences || []).filter(a => a.to >= todayStr());
     // Lire le nombre de semaines configuré
     if (officialData.nb_weeks) {
       nbWeeks = officialData.nb_weeks;
     }
+    // Lien congés : transmet le mode edit si applicable
+    const absBtn = document.getElementById('absences-btn');
+    if (absBtn && IS_EDIT) absBtn.href = 'absences.html?mode=edit';
     // Afficher le sélecteur uniquement en mode édition
     if (IS_EDIT) {
       const sel = document.getElementById('weeks-selector');

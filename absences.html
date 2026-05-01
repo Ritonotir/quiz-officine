@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Congés & Absences – Formation Officine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--green:#1a9e6e;--green-dark:#0f7a53;--green-light:#e6f7f1;--bg:#f4efe9;--text:#1a1f1c;--muted:#6b7672;--border:#dde5e0;--gold:#f5a623;--red:#e84040}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background-color:#f0ebe3;background-image:url(bg.jpg);background-repeat:repeat;background-size:1024px 571px;color:var(--text);min-height:100vh;padding:32px 20px 60px}
+  .page{max-width:860px;margin:0 auto}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
+  .badge{display:inline-block;background:var(--green);color:white;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:8px}
+  h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;background:rgba(255,255,255,0.88);border-radius:12px;padding:6px 16px;display:inline-block}
+  h1 span{color:var(--green)}
+  .home-btn{background:white;color:var(--green);font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;border:1.5px solid var(--green);padding:10px 20px;border-radius:12px;cursor:pointer;text-decoration:none;transition:all .2s}
+  .home-btn:hover{background:var(--green-light)}
+
+  /* Bannière lecture seule */
+  .readonly-banner{display:none;background:#fff3cd;border:1px solid var(--gold);border-radius:12px;padding:10px 16px;margin-bottom:20px;font-size:.85rem;color:#7a5000;text-align:center}
+
+  /* Status */
+  .status-bar{background:white;border:1px solid var(--border);border-radius:12px;padding:12px 16px;margin-bottom:20px;font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:8px}
+  .status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--green)}
+  .status-dot.saving{background:var(--gold)}
+  .status-dot.error{background:var(--red)}
+
+  /* Formulaire */
+  .form-card{background:rgba(255,255,255,0.95);border:1px solid var(--border);border-radius:20px;padding:24px;margin-bottom:28px}
+  .form-card h2{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;margin-bottom:18px;color:var(--green)}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr 1fr 2fr auto;gap:12px;align-items:end}
+  @media(max-width:700px){.form-grid{grid-template-columns:1fr 1fr;}}
+  .field{display:flex;flex-direction:column;gap:5px}
+  .field label{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+  .field select,.field input{border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--text);background:white;outline:none;transition:border-color .15s}
+  .field select:focus,.field input:focus{border-color:var(--green)}
+  .btn-add{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;border:none;padding:10px 20px;border-radius:10px;cursor:pointer;transition:background .2s;white-space:nowrap}
+  .btn-add:hover{background:var(--green-dark)}
+  .form-error{color:var(--red);font-size:.82rem;margin-top:8px;display:none}
+
+  /* Liste absences */
+  .absences-section{margin-bottom:32px}
+  .person-block{background:rgba(255,255,255,0.95);border:1px solid var(--border);border-radius:16px;margin-bottom:12px;overflow:hidden}
+  .person-header{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--green-light)}
+  .person-name{font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem;color:var(--green-dark)}
+  .person-count{font-size:.78rem;color:var(--muted);background:white;border-radius:100px;padding:2px 10px;border:1px solid var(--border)}
+  .absence-list{padding:10px 14px;display:flex;flex-direction:column;gap:6px}
+  .absence-row{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:8px;background:#f9fafb;border:1px solid var(--border);font-size:.85rem}
+  .absence-row.active{background:var(--green-light);border-color:#a8d8c4}
+  .absence-row.upcoming{background:#fff9ee;border-color:#f5d08a}
+  .absence-dates{font-weight:500;color:var(--text)}
+  .absence-label{color:var(--muted);font-size:.78rem;margin-left:8px}
+  .absence-tag{font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:100px;margin-left:8px}
+  .tag-active{background:#d4f0e4;color:#0f7a53}
+  .tag-upcoming{background:#fef3cc;color:#8a6000}
+  .btn-del{background:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:.75rem;color:var(--muted);cursor:pointer;transition:all .15s;flex-shrink:0}
+  .btn-del:hover{border-color:var(--red);color:var(--red);background:#fdeaea}
+  .empty-state{text-align:center;color:var(--muted);padding:20px;font-size:.85rem}
+
+  .section-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:14px;background:rgba(255,255,255,0.88);border-radius:10px;padding:6px 14px;display:inline-block}
+  .loading{text-align:center;padding:40px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div>
+      <div class="badge">Formation Officine</div>
+      <h1>Congés & <span>Absences</span></h1>
+    </div>
+    <a class="home-btn" href="flux-planning.html">← Planning Flux</a>
+  </header>
+
+  <div class="readonly-banner" id="readonly-banner">👁️ Mode consultation — la modification des absences est réservée aux responsables EDT.</div>
+
+  <div class="status-bar">
+    <div class="status-dot" id="sdot"></div>
+    <span id="stxt">Chargement…</span>
+  </div>
+
+  <!-- Formulaire ajout (edit only) -->
+  <div class="form-card" id="form-card" style="display:none">
+    <h2>➕ Ajouter une absence</h2>
+    <div class="form-grid">
+      <div class="field">
+        <label>Personne</label>
+        <select id="f-person"></select>
+      </div>
+      <div class="field">
+        <label>Du</label>
+        <input type="date" id="f-from">
+      </div>
+      <div class="field">
+        <label>Au</label>
+        <input type="date" id="f-to">
+      </div>
+      <div class="field">
+        <label>Motif (optionnel)</label>
+        <input type="text" id="f-label" placeholder="ex: Congés été, Formation…" maxlength="40">
+      </div>
+      <button class="btn-add" onclick="addAbsence()">Ajouter</button>
+    </div>
+    <div class="form-error" id="form-error"></div>
+  </div>
+
+  <!-- Liste -->
+  <div class="absences-section">
+    <div class="section-title">🗓️ Absences en cours & à venir</div>
+    <div id="absences-list"><div class="loading">Chargement…</div></div>
+  </div>
+</div>
+
+<script>
+const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08';
+const JSONBIN_KEY = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
+
+const PEOPLE = ['Anthony','Cha R','Cha M','Georges','Nicolas','Anaïs A','Anaïs B','Ines','Cynthia','Clémentine','Marina B','Fabienne','Nathalie'];
+const IS_EDIT = new URLSearchParams(window.location.search).get('mode') === 'edit';
+
+let binRecord = null; // record complet du bin
+
+// ── Helpers ──
+function todayStr() {
+  const d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function formatDate(str) {
+  const [y,m,d] = str.split('-');
+  return `${d}/${m}/${y}`;
+}
+function setStatus(state, txt) {
+  document.getElementById('sdot').className = 'status-dot ' + state;
+  document.getElementById('stxt').textContent = txt;
+}
+
+// ── Init UI ──
+function initUI() {
+  if (!IS_EDIT) {
+    document.getElementById('readonly-banner').style.display = 'block';
+  } else {
+    document.getElementById('form-card').style.display = 'block';
+    // Remplir le select personnes
+    const sel = document.getElementById('f-person');
+    PEOPLE.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p; opt.textContent = p;
+      sel.appendChild(opt);
+    });
+  }
+}
+
+// ── Load ──
+async function load() {
+  setStatus('saving', 'Chargement…');
+  try {
+    const r = await fetch(JSONBIN_URL + '/latest', { headers: { 'X-Master-Key': JSONBIN_KEY } });
+    if (!r.ok) throw new Error();
+    const d = await r.json();
+    binRecord = d.record || {};
+    // Purger les absences passées
+    purgeOldAbsences();
+    setStatus('', 'Données chargées');
+    render();
+  } catch(e) {
+    setStatus('error', 'Erreur de chargement');
+    document.getElementById('absences-list').innerHTML = '<div class="empty-state">Impossible de charger les données.</div>';
+  }
+}
+
+// ── Purge absences terminées ──
+function purgeOldAbsences() {
+  const today = todayStr();
+  const before = (binRecord.absences || []).length;
+  binRecord.absences = (binRecord.absences || []).filter(a => a.to >= today);
+  // Sauvegarder silencieusement si des absences ont été purgées
+  if (binRecord.absences.length < before) save(true);
+}
+
+// ── Save ──
+async function save(silent = false) {
+  if (!silent) setStatus('saving', 'Sauvegarde…');
+  try {
+    await fetch(JSONBIN_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
+      body: JSON.stringify(binRecord)
+    });
+    if (!silent) setStatus('', 'Sauvegardé ✓');
+  } catch(e) {
+    if (!silent) setStatus('error', 'Erreur de sauvegarde');
+  }
+}
+
+// ── Add ──
+async function addAbsence() {
+  const person = document.getElementById('f-person').value;
+  const from   = document.getElementById('f-from').value;
+  const to     = document.getElementById('f-to').value;
+  const label  = document.getElementById('f-label').value.trim();
+  const errEl  = document.getElementById('form-error');
+
+  errEl.style.display = 'none';
+  if (!from || !to) { showError('Merci de renseigner les deux dates.'); return; }
+  if (to < from)    { showError('La date de fin doit être après la date de début.'); return; }
+
+  if (!binRecord.absences) binRecord.absences = [];
+  binRecord.absences.push({ person, from, to, ...(label && { label }) });
+  // Trier par personne puis par date
+  binRecord.absences.sort((a,b) => a.person.localeCompare(b.person) || a.from.localeCompare(b.from));
+
+  await save();
+  // Reset form
+  document.getElementById('f-from').value = '';
+  document.getElementById('f-to').value   = '';
+  document.getElementById('f-label').value = '';
+  render();
+}
+
+function showError(msg) {
+  const el = document.getElementById('form-error');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+// ── Delete ──
+async function deleteAbsence(idx) {
+  if (!confirm('Supprimer cette absence ?')) return;
+  binRecord.absences.splice(idx, 1);
+  await save();
+  render();
+}
+
+// ── Render ──
+function render() {
+  const today = todayStr();
+  const absences = binRecord.absences || [];
+  const el = document.getElementById('absences-list');
+
+  if (absences.length === 0) {
+    el.innerHTML = '<div class="empty-state">Aucune absence enregistrée.</div>';
+    return;
+  }
+
+  // Grouper par personne (ordre PEOPLE)
+  const byPerson = {};
+  absences.forEach((a, idx) => {
+    if (!byPerson[a.person]) byPerson[a.person] = [];
+    byPerson[a.person].push({ ...a, _idx: idx });
+  });
+
+  let html = '';
+  PEOPLE.forEach(person => {
+    if (!byPerson[person]) return;
+    const entries = byPerson[person];
+    html += `<div class="person-block">
+      <div class="person-header">
+        <span class="person-name">👤 ${person}</span>
+        <span class="person-count">${entries.length} absence${entries.length>1?'s':''}</span>
+      </div>
+      <div class="absence-list">`;
+
+    entries.forEach(a => {
+      const isActive   = a.from <= today && a.to >= today;
+      const isUpcoming = a.from > today;
+      const rowCls = isActive ? 'active' : isUpcoming ? 'upcoming' : '';
+      const tag = isActive
+        ? '<span class="absence-tag tag-active">En cours</span>'
+        : '<span class="absence-tag tag-upcoming">À venir</span>';
+
+      const delBtn = IS_EDIT
+        ? `<button class="btn-del" onclick="deleteAbsence(${a._idx})">🗑️</button>`
+        : '';
+
+      html += `<div class="absence-row ${rowCls}">
+        <div>
+          <span class="absence-dates">Du ${formatDate(a.from)} au ${formatDate(a.to)}</span>
+          ${a.label ? `<span class="absence-label">— ${a.label}</span>` : ''}
+          ${tag}
+        </div>
+        ${delBtn}
+      </div>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  el.innerHTML = html || '<div class="empty-state">Aucune absence enregistrée.</div>';
+}
+
+// ── Start ──
+initUI();
+load();
+</script>
+</body>
+</html>
