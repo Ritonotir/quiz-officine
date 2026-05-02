@@ -30,8 +30,8 @@
   {
     "quiz": "angines",
     "theme": "Épidémiologie",
-    "difficulte": "facile",
-    "text": "Quel est l'agent bactérien le plus fréquemment responsable des angines nécessitant des antibiotiques ?",
+    "difficulte": "modere",
+    "text": "Quel est le pathogène le plus fréquemment responsable des angines nécessitant des antibiotiques ?",
     "options": [
       "Staphylocoque doré",
       "Streptocoque du groupe A (SGA)",
