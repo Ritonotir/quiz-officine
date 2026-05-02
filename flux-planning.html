@@ -104,6 +104,7 @@
     <button class="btn btn-green" onclick="regenerate()">🔄 Régénérer</button>
     <button class="btn btn-outline" onclick="window.print()" title="Imprimer le planning">🖨️ Imprimer</button>
     <a href="absences.html" id="absences-btn" class="btn btn-outline" style="text-decoration:none;background:rgba(255,255,255,0.88);border:1.5px solid var(--border);color:var(--text);">🏖️ Congés & Absences</a>
+    <a href="indisponibilites.html" id="indisp-btn" class="btn btn-outline" style="text-decoration:none;background:rgba(255,255,255,0.88);border:1.5px solid var(--border);color:var(--text);">🔁 Indisponibilités</a>
     <div id="weeks-selector" style="display:none;align-items:center;gap:8px;background:white;border:1px solid var(--border);border-radius:12px;padding:6px 14px;font-size:.85rem;color:var(--muted);">
       📅 Semaines affichées :
       <select id="nb-weeks-select" onchange="changeNbWeeks(this.value)" style="border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;">
@@ -182,9 +183,33 @@ let pendingSlots = new Set();
 let closedDays = new Set(); // dates 'YYYY-MM-DD' fermées
 let nbWeeks = 4; // nombre de semaines affichées, sauvegardé dans JSONBin
 let absences = []; // [{ person, from, to }] — chargées depuis JSONBin
+let indisponibilites = []; // [{ person, day, slot, recur }] — chargées depuis JSONBin
+
+function weekNumber(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00');
+  const day = d.getDay() || 7;
+  d.setDate(d.getDate() + 4 - day);
+  const ys = new Date(d.getFullYear(), 0, 1);
+  return Math.ceil((((d - ys) / 86400000) + 1) / 7);
+}
 
 function isAbsent(person, date) {
   return absences.some(a => a.person === person && date >= a.from && date <= a.to);
+}
+
+function isUnavailable(person, date, slot) {
+  const d = new Date(date + 'T00:00:00');
+  const dow = d.getDay() || 7; // 1=lundi … 6=samedi
+  const wn  = weekNumber(date);
+  return indisponibilites.some(i => {
+    if (i.person !== person) return false;
+    if (i.day !== dow) return false;
+    if (i.slot !== slot) return false;
+    if (i.recur === 'weekly') return true;
+    if (i.recur === 'even')   return wn % 2 === 0;
+    if (i.recur === 'odd')    return wn % 2 !== 0;
+    return false;
+  });
 }
 
 // ── Dates ──
@@ -221,6 +246,8 @@ function weight(person, date, history, dispense, wa, slot) {
   if (slot && !isAvailable(person, date, slot)) return 0.001;
   // Personne en congés/absence → poids quasi nul
   if (isAbsent(person, date)) return 0.001;
+  // Personne en indisponibilité récurrente sur ce créneau → poids quasi nul
+  if (slot && isUnavailable(person, date, slot)) return 0.001;
   let ds = 999;
   const ph = history.filter(h=>h.person===person).sort((a,b)=>b.date.localeCompare(a.date));
   if (ph.length) ds = Math.max(0, Math.round((new Date(date+'T00:00:00')-new Date(ph[0].date+'T00:00:00'))/86400000));
@@ -317,13 +344,17 @@ async function load() {
     officialData = d.record || {planning:{},history:[],champion_dispense:{person:null,week:null}};
     // Lire les absences
     absences = (officialData.absences || []).filter(a => a.to >= todayStr());
+    // Lire les indisponibilités récurrentes
+    indisponibilites = officialData.indisponibilites || [];
     // Lire le nombre de semaines configuré
     if (officialData.nb_weeks) {
       nbWeeks = officialData.nb_weeks;
     }
-    // Lien congés : transmet le mode edit si applicable
+    // Liens vers pages annexes : transmettre le mode edit si applicable
     const absBtn = document.getElementById('absences-btn');
     if (absBtn && IS_EDIT) absBtn.href = 'absences.html?mode=edit';
+    const indispBtn = document.getElementById('indisp-btn');
+    if (indispBtn && IS_EDIT) indispBtn.href = 'indisponibilites.html?mode=edit';
     // Afficher le sélecteur uniquement en mode édition
     if (IS_EDIT) {
       const sel = document.getElementById('weeks-selector');

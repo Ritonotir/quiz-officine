@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indisponibilités – Formation Officine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--green:#1a9e6e;--green-dark:#0f7a53;--green-light:#e6f7f1;--bg:#f4efe9;--text:#1a1f1c;--muted:#6b7672;--border:#dde5e0;--gold:#f5a623;--red:#e84040}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background-color:#f0ebe3;background-image:url(bg.jpg);background-repeat:repeat;background-size:1024px 571px;color:var(--text);min-height:100vh;padding:32px 20px 60px}
+  .page{max-width:900px;margin:0 auto}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
+  .badge{display:inline-block;background:var(--green);color:white;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:8px}
+  h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;background:rgba(255,255,255,0.88);border-radius:12px;padding:6px 16px;display:inline-block}
+  h1 span{color:var(--green)}
+  .home-btn{background:white;color:var(--green);font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;border:1.5px solid var(--green);padding:10px 20px;border-radius:12px;cursor:pointer;text-decoration:none;transition:all .2s}
+  .home-btn:hover{background:var(--green-light)}
+
+  .readonly-banner{display:none;background:#fff3cd;border:1px solid var(--gold);border-radius:12px;padding:10px 16px;margin-bottom:20px;font-size:.85rem;color:#7a5000;text-align:center}
+
+  .status-bar{background:white;border:1px solid var(--border);border-radius:12px;padding:12px 16px;margin-bottom:20px;font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:8px}
+  .status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--green)}
+  .status-dot.saving{background:var(--gold)}
+  .status-dot.error{background:var(--red)}
+
+  .form-card{background:rgba(255,255,255,0.95);border:1px solid var(--border);border-radius:20px;padding:24px;margin-bottom:28px}
+  .form-card h2{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;margin-bottom:18px;color:var(--green)}
+  .form-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 2fr auto;gap:12px;align-items:end}
+  @media(max-width:750px){.form-grid{grid-template-columns:1fr 1fr;}}
+  .field{display:flex;flex-direction:column;gap:5px}
+  .field label{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+  .field select,.field input[type=text]{border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--text);background:white;outline:none;transition:border-color .15s}
+  .field select:focus,.field input:focus{border-color:var(--green)}
+  .btn-add{background:var(--green);color:white;font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;border:none;padding:10px 20px;border-radius:10px;cursor:pointer;transition:background .2s;white-space:nowrap}
+  .btn-add:hover{background:var(--green-dark)}
+  .form-error{color:var(--red);font-size:.82rem;margin-top:8px;display:none}
+
+  .section-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:14px;background:rgba(255,255,255,0.88);border-radius:10px;padding:6px 14px;display:inline-block}
+
+  .person-block{background:rgba(255,255,255,0.95);border:1px solid var(--border);border-radius:16px;margin-bottom:12px;overflow:hidden}
+  .person-header{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--green-light)}
+  .person-name{font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem;color:var(--green-dark)}
+  .person-count{font-size:.78rem;color:var(--muted);background:white;border-radius:100px;padding:2px 10px;border:1px solid var(--border)}
+  .indisp-list{padding:10px 14px;display:flex;flex-direction:column;gap:6px}
+  .indisp-row{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:8px;background:#f9fafb;border:1px solid var(--border);font-size:.85rem;gap:12px}
+  .indisp-info{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .tag{font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:100px}
+  .tag-am{background:#dbeafe;color:#1d4ed8}
+  .tag-pm{background:#fef9c3;color:#854d0e}
+  .tag-weekly{background:var(--green-light);color:var(--green-dark)}
+  .tag-even{background:#f3e8ff;color:#6b21a8}
+  .tag-odd{background:#fce7f3;color:#9d174d}
+  .indisp-day{font-weight:600;color:var(--text)}
+  .indisp-label{color:var(--muted);font-size:.78rem}
+  .btn-del{background:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:.75rem;color:var(--muted);cursor:pointer;transition:all .15s;flex-shrink:0}
+  .btn-del:hover{border-color:var(--red);color:var(--red);background:#fdeaea}
+  .empty-state{text-align:center;color:var(--muted);padding:20px;font-size:.85rem}
+  .loading{text-align:center;padding:40px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div>
+      <div class="badge">Formation Officine</div>
+      <h1>Indispo<span>nibilités</span></h1>
+    </div>
+    <a class="home-btn" href="flux-planning.html">← Planning Flux</a>
+  </header>
+
+  <div class="readonly-banner" id="readonly-banner">👁️ Mode consultation — la modification est réservée aux responsables EDT.</div>
+
+  <div class="status-bar">
+    <div class="status-dot" id="sdot"></div>
+    <span id="stxt">Chargement…</span>
+  </div>
+
+  <div class="form-card" id="form-card" style="display:none">
+    <h2>➕ Ajouter une indisponibilité récurrente</h2>
+    <div class="form-grid">
+      <div class="field">
+        <label>Personne</label>
+        <select id="f-person"></select>
+      </div>
+      <div class="field">
+        <label>Jour</label>
+        <select id="f-day">
+          <option value="1">Lundi</option>
+          <option value="2">Mardi</option>
+          <option value="3">Mercredi</option>
+          <option value="4">Jeudi</option>
+          <option value="5">Vendredi</option>
+          <option value="6">Samedi</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Demi-journée</label>
+        <select id="f-slot">
+          <option value="am">Matin</option>
+          <option value="pm">Après-midi</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Récurrence</label>
+        <select id="f-recur">
+          <option value="weekly">Toutes les semaines</option>
+          <option value="even">Semaines paires</option>
+          <option value="odd">Semaines impaires</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Motif (optionnel)</label>
+        <input type="text" id="f-label" placeholder="ex: Réunion staff, Formation…" maxlength="40">
+      </div>
+      <button class="btn-add" onclick="addIndisp()">Ajouter</button>
+    </div>
+    <div class="form-error" id="form-error"></div>
+  </div>
+
+  <div>
+    <div class="section-title">🔁 Indisponibilités récurrentes</div>
+    <div id="indisp-list"><div class="loading">Chargement…</div></div>
+  </div>
+</div>
+
+<script>
+const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08';
+const JSONBIN_KEY = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
+
+const PEOPLE = ['Anthony','Cha R','Cha M','Georges','Nicolas','Anaïs A','Anaïs B','Ines','Cynthia','Clémentine','Marina B','Fabienne','Nathalie'];
+const IS_EDIT = new URLSearchParams(window.location.search).get('mode') === 'edit';
+
+const DAYS = {1:'Lundi',2:'Mardi',3:'Mercredi',4:'Jeudi',5:'Vendredi',6:'Samedi'};
+const RECUR_LABEL = {weekly:'Toutes les semaines', even:'Semaines paires', odd:'Semaines impaires'};
+const RECUR_TAG   = {weekly:'tag-weekly', even:'tag-even', odd:'tag-odd'};
+
+let binRecord = null;
+
+function setStatus(state, txt) {
+  document.getElementById('sdot').className = 'status-dot ' + state;
+  document.getElementById('stxt').textContent = txt;
+}
+
+function initUI() {
+  if (!IS_EDIT) {
+    document.getElementById('readonly-banner').style.display = 'block';
+  } else {
+    document.getElementById('form-card').style.display = 'block';
+    const sel = document.getElementById('f-person');
+    PEOPLE.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p; opt.textContent = p;
+      sel.appendChild(opt);
+    });
+  }
+}
+
+async function load() {
+  setStatus('saving', 'Chargement…');
+  try {
+    const r = await fetch(JSONBIN_URL + '/latest', { headers: { 'X-Master-Key': JSONBIN_KEY } });
+    if (!r.ok) throw new Error();
+    const d = await r.json();
+    binRecord = d.record || {};
+    setStatus('', 'Données chargées');
+    render();
+  } catch(e) {
+    setStatus('error', 'Erreur de chargement');
+    document.getElementById('indisp-list').innerHTML = '<div class="empty-state">Impossible de charger les données.</div>';
+  }
+}
+
+async function save() {
+  setStatus('saving', 'Sauvegarde…');
+  try {
+    await fetch(JSONBIN_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
+      body: JSON.stringify(binRecord)
+    });
+    setStatus('', 'Sauvegardé ✓');
+  } catch(e) {
+    setStatus('error', 'Erreur de sauvegarde');
+  }
+}
+
+async function addIndisp() {
+  const person = document.getElementById('f-person').value;
+  const day    = parseInt(document.getElementById('f-day').value);
+  const slot   = document.getElementById('f-slot').value;
+  const recur  = document.getElementById('f-recur').value;
+  const label  = document.getElementById('f-label').value.trim();
+  const errEl  = document.getElementById('form-error');
+  errEl.style.display = 'none';
+
+  // Vérifier doublon
+  const existing = (binRecord.indisponibilites || []);
+  const dup = existing.find(i => i.person === person && i.day === day && i.slot === slot && i.recur === recur);
+  if (dup) { showError('Cette indisponibilité existe déjà.'); return; }
+
+  if (!binRecord.indisponibilites) binRecord.indisponibilites = [];
+  binRecord.indisponibilites.push({ person, day, slot, recur, ...(label && { label }) });
+  binRecord.indisponibilites.sort((a,b) => a.person.localeCompare(b.person) || a.day - b.day || a.slot.localeCompare(b.slot));
+
+  await save();
+  document.getElementById('f-label').value = '';
+  render();
+}
+
+function showError(msg) {
+  const el = document.getElementById('form-error');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+async function deleteIndisp(idx) {
+  if (!confirm('Supprimer cette indisponibilité ?')) return;
+  binRecord.indisponibilites.splice(idx, 1);
+  await save();
+  render();
+}
+
+function render() {
+  const indisps = binRecord.indisponibilites || [];
+  const el = document.getElementById('indisp-list');
+
+  if (indisps.length === 0) {
+    el.innerHTML = '<div class="empty-state">Aucune indisponibilité enregistrée.</div>';
+    return;
+  }
+
+  // Grouper par personne
+  const byPerson = {};
+  indisps.forEach((i, idx) => {
+    if (!byPerson[i.person]) byPerson[i.person] = [];
+    byPerson[i.person].push({ ...i, _idx: idx });
+  });
+
+  let html = '';
+  PEOPLE.forEach(person => {
+    if (!byPerson[person]) return;
+    const entries = byPerson[person];
+    html += `<div class="person-block">
+      <div class="person-header">
+        <span class="person-name">👤 ${person}</span>
+        <span class="person-count">${entries.length} créneau${entries.length > 1 ? 'x' : ''}</span>
+      </div>
+      <div class="indisp-list">`;
+
+    entries.forEach(i => {
+      const slotTag  = i.slot === 'am'
+        ? '<span class="tag tag-am">Matin</span>'
+        : '<span class="tag tag-pm">Après-midi</span>';
+      const recurTag = `<span class="tag ${RECUR_TAG[i.recur]}">${RECUR_LABEL[i.recur]}</span>`;
+      const delBtn   = IS_EDIT
+        ? `<button class="btn-del" onclick="deleteIndisp(${i._idx})">🗑️</button>`
+        : '';
+
+      html += `<div class="indisp-row">
+        <div class="indisp-info">
+          <span class="indisp-day">${DAYS[i.day]}</span>
+          ${slotTag}
+          ${recurTag}
+          ${i.label ? `<span class="indisp-label">— ${i.label}</span>` : ''}
+        </div>
+        ${delBtn}
+      </div>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  el.innerHTML = html || '<div class="empty-state">Aucune indisponibilité enregistrée.</div>';
+}
+
+initUI();
+load();
+</script>
+</body>
+</html>
