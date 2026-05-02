@@ -104,9 +104,9 @@
     "text": "Pourquoi le nourrisson est-il particulièrement vulnérable à la coqueluche avant 2 mois ?",
     "options": [
       "Son système digestif immature ne permet pas d'absorber les médicaments",
-      "Il ne possède pas d'anticorps protecteurs si la mère n'a pas été vaccinée durant la grossesse, et sa propre production est encore insuffisante",
-      "La coqueluche est une maladie exclusivement infantile qui ne peut pas être transmise par les adultes de son entourage",
-      "Le surfactant pulmonaire, indispensable à la respiration, n'est produit par le nourrisson qu'à partir du troisième mois de vie"
+      "Il ne possède pas d'anticorps protecteurs si la mère n'a pas été vaccinée durant la grossesse",
+      "La coqueluche est une maladie exclusivement infantile",
+      "Le surfactant pulmonaire, indispensable à la respiration, n'est produit qu'à partir du 3ème mois de vie"
     ],
     "correct": 1,
     "explanation": "Le nourrisson est sans défense car son système immunitaire est immature et les anticorps maternels résiduels sont insuffisants. Sans vaccination durant la grossesse pour transférer une protection immédiate, il reste exposé à une forme potentiellement mortelle jusqu'à sa première dose à 2 mois."
