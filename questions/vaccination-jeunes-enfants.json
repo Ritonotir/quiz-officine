@@ -468,7 +468,7 @@
     "text": "Un enfant immunodéprimé doit recevoir le ROR. Quelle est la règle générale concernant les vaccins vivants atténués chez ce profil ?",
     "options": [
       "Les vaccins vivants sont autorisés si l'immunodépression est légère",
-      "Les vaccins vivants atténués sont contre-indiqués en cas d'immunodépression sévère car le pathogène atténué peut se répliquer et provoquer une infection vraie",
+      "Les vaccins vivants atténués sont CI en cas d'immunodépression sévère",
       "Les vaccins vivants peuvent être administrés en doublant la dose",
       "Il n'existe pas de règle générale, cela dépend uniquement du vaccin"
     ],
