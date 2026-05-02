@@ -3,7 +3,7 @@
     "quiz": "pratique-vaccinale",
     "theme": "Nombre d'injections",
     "difficulte": "facile",
-    "text": "Combien d'injections peuvent être réalisées au maximum au cours d'une même séance de vaccination ?",
+    "text": "Combien d'injections peuvent être réalisées lors d'une même séance de vaccination ?",
     "options": [
       "Une seule",
       "Deux",
