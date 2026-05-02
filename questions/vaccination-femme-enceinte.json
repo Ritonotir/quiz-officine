@@ -367,10 +367,10 @@
     "quiz": "vaccination-femme-enceinte",
     "theme": "Varicelle",
     "difficulte": "difficile",
-    "text": "Pourquoi la varicelle est-elle particulièrement surveillée chez les professionnelles de santé en age de procréer ?",
+    "text": "Pourquoi la varicelle est-elle particulièrement surveillée chez les pro de santé en âge de procréer ?",
     "options": [
       "Parce qu'elle est bénigne chez l'adulte",
-      "Risque élevé de complications graves chez l'adulte et risque de transmission nosocomiale aux femmes enceintes hospitalisées",
+      "Risque +++ de complications graves chez AD et risque de transmission nosocomiale aux femmes enceintes",
       "Parce qu'elle est rare",
       "Parce qu'elle n'est pas contagieuse après l'éruption"
     ],
