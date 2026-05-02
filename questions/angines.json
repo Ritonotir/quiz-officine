@@ -619,10 +619,10 @@
     "quiz": "angines",
     "theme": "Thérapeutique",
     "difficulte": "modere",
-    "text": "Pourquoi l'Augmentin (amoxicilline/acide clavulanique) ne doit-il pas être utilisé pour une angine simple ?",
+    "text": "Pourquoi l'Augmentin (amox/ac clav) ne doit-il pas être utilisé pour une angine simple ?",
     "options": [
       "Il est plus efficace mais trop cher",
-      "L'acide clavulanique n'apporte rien sur le SGA et augmente les effets indésirables digestifs",
+      "L'acide clavulanique n'apporte rien sur le SGA et augmente les EI digestifs",
       "Seulement si le patient a aussi une otite",
       "Oui, si l'amoxicilline seule est en rupture"
     ],
