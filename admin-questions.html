@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Éditeur de Questions – Admin Officine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1a9e6e;--green-dark:#0f7a53;--green-light:#e6f7f1;
+    --red:#e84040;--red-light:#fdeaea;
+    --bg:#f0ebe3;--text:#1a1f1c;--muted:#6b7672;--border:#dde5e0;
+    --white-card:rgba(255,255,255,0.97);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background-color:var(--bg);background-image:url(bg.jpg);background-repeat:repeat;background-size:1024px 571px;color:var(--text);min-height:100vh;padding:24px 16px;}
+
+  .page-header{max-width:1100px;margin:0 auto 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:rgba(255,255,255,0.92);border-radius:16px;padding:16px 24px;}
+  .page-header h1{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--green);}
+  .page-header h1 span{color:var(--text);font-size:1rem;font-weight:700;}
+  .header-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+  .btn{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;border:none;padding:10px 18px;border-radius:10px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+  .btn-primary{background:var(--green);color:white;}
+  .btn-primary:hover{background:var(--green-dark);}
+  .btn-ghost{background:white;color:var(--muted);border:1.5px solid var(--border);}
+  .btn-ghost:hover{border-color:var(--green);color:var(--green);}
+
+  .token-bar{max-width:1100px;margin:0 auto 20px;background:rgba(255,248,230,0.97);border:1.5px solid #e8c96a;border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .token-bar label{font-size:.85rem;font-weight:500;color:#7a5000;white-space:nowrap;}
+  .token-bar input{flex:1;min-width:200px;border:1.5px solid #e8c96a;border-radius:8px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:.85rem;background:white;outline:none;}
+  .token-bar input:focus{border-color:var(--green);}
+  .token-status{font-size:.8rem;font-weight:500;}
+  .token-status.ok{color:var(--green);}
+  .token-status.err{color:var(--red);}
+
+  .filters{max-width:1100px;margin:0 auto 16px;background:var(--white-card);border-radius:14px;padding:16px 20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+  .filters input[type=text]{flex:1;min-width:200px;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s;}
+  .filters input[type=text]:focus{border-color:var(--green);}
+  .filter-select{border:1.5px solid var(--border);border-radius:10px;padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:.85rem;background:white;outline:none;cursor:pointer;color:var(--text);}
+  .filter-select:focus{border-color:var(--green);}
+  .results-count{font-size:.82rem;color:var(--muted);margin-left:auto;white-space:nowrap;}
+
+  /* Modale */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:white;border-radius:18px;padding:28px;max-width:680px;width:100%;max-height:90vh;overflow-y:auto;}
+  .modal h2{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--green);margin-bottom:20px;}
+  .modal-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+
+  /* Cards */
+  .questions-container{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:10px;}
+  .q-card{background:var(--white-card);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .2s;}
+  .q-card:hover{border-color:#b8d4c8;}
+  .q-card.editing{border-color:var(--green);box-shadow:0 0 0 3px rgba(26,158,110,.1);}
+  .q-card-header{padding:14px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;}
+  .q-num{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:var(--green-light);color:var(--green-dark);font-family:'Syne',sans-serif;font-size:.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;}
+  .q-summary{flex:1;min-width:0;}
+  .q-text-preview{font-size:.9rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .q-meta-tags{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;}
+  .tag{font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:6px;}
+  .tag-quiz{background:#f0f0f0;color:#444;}
+  .tag-theme{background:var(--green-light);color:var(--green-dark);}
+  .tag-facile{background:#e8f8f0;color:#0a6640;}
+  .tag-modere{background:#fff8e6;color:#7a5000;}
+  .tag-difficile{background:#fdeaea;color:#8c1a1a;}
+  .q-actions{display:flex;gap:8px;flex-shrink:0;}
+  .btn-edit{font-size:.78rem;padding:6px 12px;border-radius:8px;}
+
+  /* Formulaire édition */
+  .q-edit-form{padding:0 18px 18px;border-top:1px solid var(--border);display:none;}
+  .q-card.editing .q-edit-form{display:block;}
+  .form-group{margin-top:14px;}
+  .form-group label{font-size:.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px;}
+  .form-group textarea,.form-group input[type=text]{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:.9rem;resize:vertical;outline:none;transition:border-color .2s;background:white;}
+  .form-group textarea:focus,.form-group input[type=text]:focus{border-color:var(--green);}
+  .form-group textarea{min-height:70px;}
+  .options-editor{display:flex;flex-direction:column;gap:8px;}
+  .option-row{display:flex;align-items:center;gap:8px;}
+  .option-row input[type=text]{flex:1;}
+  .option-correct-radio{flex-shrink:0;width:20px;height:20px;accent-color:var(--green);cursor:pointer;}
+  .hint{font-size:.75rem;color:var(--muted);font-style:italic;font-weight:400;text-transform:none;letter-spacing:0;}
+  .field-select{border:1.5px solid var(--border);border-radius:10px;padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:.9rem;background:white;outline:none;cursor:pointer;width:100%;}
+  .field-select:focus{border-color:var(--green);}
+  .form-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
+  .save-status{font-size:.82rem;font-weight:500;padding:6px 12px;border-radius:8px;display:none;}
+  .save-status.saving{display:block;background:#fff8e6;color:#7a5000;}
+  .save-status.success{display:block;background:var(--green-light);color:var(--green-dark);}
+  .save-status.error{display:block;background:var(--red-light);color:var(--red);}
+
+  /* Autocomplétion */
+  .theme-wrapper{position:relative;}
+  .theme-suggestions{position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:1.5px solid var(--green);border-radius:10px;z-index:200;max-height:180px;overflow-y:auto;display:none;box-shadow:0 4px 16px rgba(0,0,0,.1);}
+  .theme-suggestions.open{display:block;}
+  .theme-suggestion-item{padding:8px 14px;font-size:.88rem;cursor:pointer;}
+  .theme-suggestion-item:hover{background:var(--green-light);color:var(--green-dark);}
+
+  .loading{max-width:1100px;margin:40px auto;text-align:center;color:var(--muted);}
+  .loading-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .empty{text-align:center;padding:40px;color:var(--muted);font-size:.95rem;}
+
+  .toast{position:fixed;bottom:24px;right:24px;background:#1a1f1c;color:white;padding:12px 20px;border-radius:12px;font-size:.88rem;font-weight:500;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;max-width:360px;}
+  .toast.show{transform:translateY(0);opacity:1;}
+  .toast.success{background:var(--green);}
+  .toast.error{background:var(--red);}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>🛠 Éditeur de Questions <span>— Admin Officine</span></h1>
+  <div class="header-actions">
+    <button class="btn btn-primary" onclick="openAddModal()">➕ Nouvelle question</button>
+    <a href="home.html" class="btn btn-ghost">← Retour accueil</a>
+  </div>
+</div>
+
+<div class="token-bar">
+  <label>🔑 Token GitHub :</label>
+  <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" oninput="onTokenInput()">
+  <button class="btn btn-ghost" onclick="testToken()">Vérifier</button>
+  <span class="token-status" id="token-status"></span>
+</div>
+
+<div class="filters">
+  <input type="text" id="search-input" placeholder="🔍 Rechercher dans les questions…" oninput="filterQuestions()">
+  <select class="filter-select" id="filter-quiz" onchange="filterQuestions()">
+    <option value="">Tous les quiz</option>
+    <option value="rhume">🤧 Rhume</option>
+    <option value="allergies">🌿 Allergies</option>
+    <option value="angines">🦠 Angines</option>
+    <option value="contraception">💊 Contraception</option>
+    <option value="cystite">💧 Cystite</option>
+    <option value="phytotherapie">🌿 Phytothérapie</option>
+    <option value="pratique-vaccinale">🏥 Pratique Vaccinale</option>
+    <option value="vaccination-adultes">💉 Vaccination Adultes</option>
+    <option value="vaccination-femme-enceinte">🤰 Vaccination Femme Enceinte</option>
+    <option value="vaccination-jeunes-enfants">💉 Vaccination Jeunes Enfants</option>
+    <option value="vaccination-seniors">🧓 Vaccination Seniors</option>
+  </select>
+  <select class="filter-select" id="filter-diff" onchange="filterQuestions()">
+    <option value="">Toutes difficultés</option>
+    <option value="facile">🟢 Facile</option>
+    <option value="modere">🟡 Modéré</option>
+    <option value="difficile">🔴 Difficile</option>
+  </select>
+  <span class="results-count" id="results-count"></span>
+</div>
+
+<div id="questions-container" class="questions-container">
+  <div class="loading">
+    <div class="loading-spinner"></div>
+    Chargement des questions…
+  </div>
+</div>
+
+<!-- Modale : nouvelle question -->
+<div class="modal-overlay" id="add-modal" onclick="closeAddModalIfOverlay(event)">
+  <div class="modal">
+    <h2>➕ Nouvelle question</h2>
+
+    <div class="form-group">
+      <label>Quiz cible</label>
+      <select class="field-select" id="new-quiz" onchange="onNewQuizChange()">
+        <option value="">— Choisir un quiz —</option>
+        <option value="rhume">🤧 Rhume</option>
+        <option value="allergies">🌿 Allergies</option>
+        <option value="angines">🦠 Angines</option>
+        <option value="contraception">💊 Contraception</option>
+        <option value="cystite">💧 Cystite</option>
+        <option value="phytotherapie">🌿 Phytothérapie</option>
+        <option value="pratique-vaccinale">🏥 Pratique Vaccinale</option>
+        <option value="vaccination-adultes">💉 Vaccination Adultes</option>
+        <option value="vaccination-femme-enceinte">🤰 Vaccination Femme Enceinte</option>
+        <option value="vaccination-jeunes-enfants">💉 Vaccination Jeunes Enfants</option>
+        <option value="vaccination-seniors">🧓 Vaccination Seniors</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Sous-thème <span class="hint">(saisir librement ou choisir parmi les existants du quiz)</span></label>
+      <div class="theme-wrapper">
+        <input type="text" id="new-theme" placeholder="Ex : Pédiatrie, Interactions médicamenteuses…"
+               oninput="onThemeInput('new-theme','new-theme-sugg','new-quiz')"
+               onblur="hideSugg('new-theme-sugg')" autocomplete="off">
+        <div class="theme-suggestions" id="new-theme-sugg"></div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Question</label>
+      <textarea id="new-text" rows="3" placeholder="Texte de la question…"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Réponses <span class="hint">(bouton radio = bonne réponse)</span></label>
+      <div class="options-editor">
+        <div class="option-row"><input type="radio" class="option-correct-radio" name="new_correct" value="0" checked><input type="text" class="new-opt" placeholder="Option 1"></div>
+        <div class="option-row"><input type="radio" class="option-correct-radio" name="new_correct" value="1"><input type="text" class="new-opt" placeholder="Option 2"></div>
+        <div class="option-row"><input type="radio" class="option-correct-radio" name="new_correct" value="2"><input type="text" class="new-opt" placeholder="Option 3"></div>
+        <div class="option-row"><input type="radio" class="option-correct-radio" name="new_correct" value="3"><input type="text" class="new-opt" placeholder="Option 4"></div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Explication</label>
+      <textarea id="new-expl" rows="3" placeholder="Explication affichée après la réponse…"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Difficulté</label>
+      <select class="field-select" id="new-diff">
+        <option value="facile">🟢 Facile</option>
+        <option value="modere">🟡 Modéré</option>
+        <option value="difficile">🔴 Difficile</option>
+      </select>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="saveNewQuestion()">💾 Ajouter la question</button>
+      <button class="btn btn-ghost" onclick="closeAddModal()">Annuler</button>
+      <span class="save-status" id="new-status"></span>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Auth ──
+if(sessionStorage.getItem('auth') !== 'admin') window.location.href = 'index.html';
+
+const REPO   = 'Ritonotir/quiz-officine';
+const BRANCH = 'main';
+const QUIZ_FILES = ['rhume','allergies','angines','contraception','cystite',
+  'phytotherapie','pratique-vaccinale','vaccination-adultes',
+  'vaccination-femme-enceinte','vaccination-jeunes-enfants','vaccination-seniors'];
+const QUIZ_LABELS = {
+  'rhume':'🤧 Rhume','allergies':'🌿 Allergies','angines':'🦠 Angines',
+  'contraception':'💊 Contraception','cystite':'💧 Cystite',
+  'phytotherapie':'🌿 Phytothérapie','pratique-vaccinale':'🏥 Pratique Vaccinale',
+  'vaccination-adultes':'💉 Vaccination Adultes',
+  'vaccination-femme-enceinte':'🤰 Femme Enceinte',
+  'vaccination-jeunes-enfants':'💉 Jeunes Enfants',
+  'vaccination-seniors':'🧓 Seniors'
+};
+const DIFF_LABELS = {facile:'🟢 Facile', modere:'🟡 Modéré', difficile:'🔴 Difficile'};
+
+let allQuestions = [], filteredQuestions = [];
+let fileContents = {};
+let themesByQuiz = {};
+
+// ── Chargement ──
+async function loadAllQuestions(){
+  const v = Date.now();
+  try {
+    const results = await Promise.all(
+      QUIZ_FILES.map(name =>
+        fetch('questions/'+name+'.json?v='+v).then(r=>r.json()).then(data=>({name,data}))
+      )
+    );
+    allQuestions = [];
+    results.forEach(({name,data}) => {
+      fileContents[name] = data;
+      themesByQuiz[name]  = new Set(data.map(q=>q.theme).filter(Boolean));
+      data.forEach((q,idx) => allQuestions.push({...q,_quiz:name,_index:idx}));
+    });
+    filterQuestions();
+  } catch(e){
+    document.getElementById('questions-container').innerHTML =
+      '<div class="empty">❌ Erreur de chargement. Vérifiez que le dossier <code>questions/</code> existe.</div>';
+  }
+}
+
+// ── Filtrage ──
+function filterQuestions(){
+  const search = document.getElementById('search-input').value.toLowerCase();
+  const quiz   = document.getElementById('filter-quiz').value;
+  const diff   = document.getElementById('filter-diff').value;
+  filteredQuestions = allQuestions.filter(q => {
+    if(quiz && q._quiz!==quiz) return false;
+    if(diff && q.difficulte!==diff) return false;
+    if(search){
+      const h = (q.text+' '+(q.options||[]).join(' ')+' '+(q.explanation||'')+' '+(q.theme||'')).toLowerCase();
+      if(!h.includes(search)) return false;
+    }
+    return true;
+  });
+  document.getElementById('results-count').textContent =
+    filteredQuestions.length+' / '+allQuestions.length+' questions';
+  renderQuestions();
+}
+
+// ── Rendu ──
+function renderQuestions(){
+  const container = document.getElementById('questions-container');
+  if(!filteredQuestions.length){
+    container.innerHTML='<div class="empty">Aucune question ne correspond aux filtres.</div>';
+    return;
+  }
+  container.innerHTML='';
+  filteredQuestions.forEach((q,di) => {
+    const card = document.createElement('div');
+    card.className='q-card';
+    card.dataset.quiz=q._quiz; card.dataset.index=q._index; card.dataset.di=di;
+
+    const optsHtml = (q.options||[]).map((opt,i)=>`
+      <div class="option-row">
+        <input type="radio" class="option-correct-radio" name="cr_${di}" value="${i}" ${i===q.correct?'checked':''}>
+        <input type="text" class="opt-input" value="${escHtml(opt)}" placeholder="Option ${i+1}">
+      </div>`).join('');
+
+    const suggHtml = [...(themesByQuiz[q._quiz]||[])].sort().map(t=>
+      `<div class="theme-suggestion-item" onmousedown="pickTheme('th-${di}','ts-${di}','${escAttr(t)}')">${escHtml(t)}</div>`
+    ).join('');
+
+    card.innerHTML=`
+      <div class="q-card-header" onclick="toggleEdit(this.closest('.q-card'))">
+        <div class="q-num">${di+1}</div>
+        <div class="q-summary">
+          <div class="q-text-preview">${escHtml(q.text)}</div>
+          <div class="q-meta-tags">
+            <span class="tag tag-quiz">${QUIZ_LABELS[q._quiz]||q._quiz}</span>
+            <span class="tag tag-theme q-theme-tag">${escHtml(q.theme||'—')}</span>
+            <span class="tag tag-${q.difficulte} q-diff-tag">${DIFF_LABELS[q.difficulte]||q.difficulte}</span>
+          </div>
+        </div>
+        <div class="q-actions">
+          <button class="btn btn-ghost btn-edit" onclick="event.stopPropagation();toggleEdit(this.closest('.q-card'))">✏️ Éditer</button>
+        </div>
+      </div>
+      <div class="q-edit-form">
+        <div class="form-group">
+          <label>Question</label>
+          <textarea class="q-text-input" rows="3">${escHtml(q.text)}</textarea>
+        </div>
+        <div class="form-group">
+          <label>Réponses <span class="hint">(bouton radio = bonne réponse)</span></label>
+          <div class="options-editor">${optsHtml}</div>
+        </div>
+        <div class="form-group">
+          <label>Sous-thème</label>
+          <div class="theme-wrapper">
+            <input type="text" id="th-${di}" class="q-theme-input" value="${escHtml(q.theme||'')}"
+              oninput="onThemeInput('th-${di}','ts-${di}',null,'${escAttr(q._quiz)}')"
+              onblur="hideSugg('ts-${di}')" autocomplete="off">
+            <div class="theme-suggestions" id="ts-${di}">${suggHtml}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Explication</label>
+          <textarea class="q-expl-input" rows="4">${escHtml(q.explanation||'')}</textarea>
+        </div>
+        <div class="form-group">
+          <label>Difficulté</label>
+          <select class="field-select q-diff-select">
+            <option value="facile"    ${q.difficulte==='facile'   ?'selected':''}>🟢 Facile</option>
+            <option value="modere"    ${q.difficulte==='modere'   ?'selected':''}>🟡 Modéré</option>
+            <option value="difficile" ${q.difficulte==='difficile'?'selected':''}>🔴 Difficile</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" onclick="saveQuestion(this.closest('.q-card'))">💾 Sauvegarder</button>
+          <button class="btn btn-ghost"   onclick="cancelEdit(this.closest('.q-card'))">Annuler</button>
+          <span class="save-status" id="st-${di}"></span>
+        </div>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+// ── Autocomplétion ──
+function onThemeInput(inputId, suggId, quizSelectId, fixedQuiz){
+  const input    = document.getElementById(inputId);
+  const sugg     = document.getElementById(suggId);
+  const quizName = fixedQuiz || (quizSelectId && document.getElementById(quizSelectId).value);
+  const val      = input.value.toLowerCase();
+  const themes   = [...(themesByQuiz[quizName]||[])].sort();
+  const filtered = val ? themes.filter(t=>t.toLowerCase().includes(val)) : themes;
+  if(!filtered.length){ sugg.classList.remove('open'); return; }
+  sugg.innerHTML = filtered.map(t=>
+    `<div class="theme-suggestion-item" onmousedown="pickTheme('${inputId}','${suggId}','${escAttr(t)}')">${escHtml(t)}</div>`
+  ).join('');
+  sugg.classList.add('open');
+}
+
+function pickTheme(inputId, suggId, value){
+  document.getElementById(inputId).value = value;
+  hideSugg(suggId);
+}
+function hideSugg(suggId){
+  setTimeout(()=>{ const el=document.getElementById(suggId); if(el) el.classList.remove('open'); }, 150);
+}
+function onNewQuizChange(){
+  const inp = document.getElementById('new-theme');
+  if(inp.value) onThemeInput('new-theme','new-theme-sugg','new-quiz');
+}
+
+// ── Toggle édition ──
+function toggleEdit(card){
+  const was = card.classList.contains('editing');
+  document.querySelectorAll('.q-card.editing').forEach(c=>{ if(c!==card) c.classList.remove('editing'); });
+  card.classList.toggle('editing',!was);
+}
+function cancelEdit(card){ card.classList.remove('editing'); }
+
+// ── GitHub API — noyau ──
+function getToken(){ return document.getElementById('gh-token').value.trim(); }
+
+async function githubSave(quizName, statusEl, commitMsg){
+  const token = getToken();
+  if(!token){ showToast('⚠️ Entrez votre token GitHub','error'); return false; }
+  statusEl.textContent='Sauvegarde…'; statusEl.className='save-status saving';
+  try {
+    const path = 'questions/'+quizName+'.json';
+    const meta = await fetch(
+      `https://api.github.com/repos/${REPO}/contents/${path}?ref=${BRANCH}`,
+      {headers:{Authorization:'token '+token,Accept:'application/vnd.github.v3+json'}}
+    );
+    if(!meta.ok) throw new Error('Fichier introuvable sur GitHub');
+    const {sha} = await meta.json();
+    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(fileContents[quizName],null,2))));
+    const put = await fetch(
+      `https://api.github.com/repos/${REPO}/contents/${path}`,
+      {method:'PUT',headers:{Authorization:'token '+token,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},
+       body:JSON.stringify({message:commitMsg,content:encoded,sha,branch:BRANCH})}
+    );
+    if(!put.ok){ const e=await put.json(); throw new Error(e.message||'Erreur GitHub API'); }
+    statusEl.textContent='✓ Sauvegardé'; statusEl.className='save-status success';
+    return true;
+  } catch(e){
+    statusEl.textContent='❌ '+e.message; statusEl.className='save-status error';
+    showToast('❌ '+e.message,'error'); return false;
+  }
+}
+
+// ── Sauvegarder modification ──
+async function saveQuestion(card){
+  const quizName = card.dataset.quiz;
+  const qIndex   = parseInt(card.dataset.index);
+  const di       = card.dataset.di;
+  const statusEl = document.getElementById('st-'+di);
+
+  const newText  = card.querySelector('.q-text-input').value.trim();
+  const newExpl  = card.querySelector('.q-expl-input').value.trim();
+  const newDiff  = card.querySelector('.q-diff-select').value;
+  const newTheme = card.querySelector('.q-theme-input').value.trim();
+  const opts     = Array.from(card.querySelectorAll('.opt-input')).map(i=>i.value.trim());
+  const correctR = card.querySelector('.option-correct-radio:checked');
+
+  if(!newText){ showToast('Le texte de la question est vide','error'); return; }
+  if(!correctR){ showToast('Sélectionnez la bonne réponse','error'); return; }
+
+  const updatedQ = {...fileContents[quizName][qIndex],
+    text:newText, options:opts, correct:parseInt(correctR.value),
+    explanation:newExpl, difficulte:newDiff, theme:newTheme};
+  fileContents[quizName][qIndex] = updatedQ;
+  if(newTheme) themesByQuiz[quizName].add(newTheme);
+
+  const ok = await githubSave(quizName, statusEl,
+    `[Admin] Modification "${newText.substring(0,60)}" dans ${quizName}`);
+
+  if(ok){
+    const qInAll = allQuestions.find(q=>q._quiz===quizName&&q._index===qIndex);
+    if(qInAll) Object.assign(qInAll,updatedQ);
+    card.querySelector('.q-text-preview').textContent = newText;
+    card.querySelector('.q-theme-tag').textContent    = newTheme||'—';
+    const dt = card.querySelector('.q-diff-tag');
+    dt.className=`tag tag-${newDiff} q-diff-tag`; dt.textContent=DIFF_LABELS[newDiff];
+    showToast('✅ Question sauvegardée','success');
+    setTimeout(()=>card.classList.remove('editing'),800);
+  }
+}
+
+// ── Modale nouvelle question ──
+function openAddModal(){
+  document.getElementById('add-modal').classList.add('open');
+  ['new-quiz','new-theme','new-text','new-expl'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('new-diff').value='facile';
+  document.querySelectorAll('.new-opt').forEach(i=>i.value='');
+  document.querySelector('input[name="new_correct"][value="0"]').checked=true;
+  const s=document.getElementById('new-status'); s.className='save-status'; s.textContent='';
+}
+function closeAddModal(){ document.getElementById('add-modal').classList.remove('open'); }
+function closeAddModalIfOverlay(e){ if(e.target===e.currentTarget) closeAddModal(); }
+
+async function saveNewQuestion(){
+  const quizName = document.getElementById('new-quiz').value;
+  const newTheme = document.getElementById('new-theme').value.trim();
+  const newText  = document.getElementById('new-text').value.trim();
+  const newExpl  = document.getElementById('new-expl').value.trim();
+  const newDiff  = document.getElementById('new-diff').value;
+  const opts     = Array.from(document.querySelectorAll('.new-opt')).map(i=>i.value.trim());
+  const correctR = document.querySelector('input[name="new_correct"]:checked');
+  const statusEl = document.getElementById('new-status');
+
+  if(!quizName){ showToast('Choisissez un quiz cible','error'); return; }
+  if(!newText)  { showToast('Le texte de la question est vide','error'); return; }
+  if(opts.some(o=>!o)){ showToast('Remplissez toutes les options de réponse','error'); return; }
+  if(!correctR) { showToast('Sélectionnez la bonne réponse','error'); return; }
+
+  const newQ = {quiz:quizName,theme:newTheme,difficulte:newDiff,
+    text:newText,options:opts,correct:parseInt(correctR.value),explanation:newExpl};
+  fileContents[quizName].push(newQ);
+  if(newTheme) themesByQuiz[quizName].add(newTheme);
+
+  const ok = await githubSave(quizName, statusEl,
+    `[Admin] Ajout "${newText.substring(0,60)}" dans ${quizName}`);
+
+  if(ok){
+    allQuestions.push({...newQ,_quiz:quizName,_index:fileContents[quizName].length-1});
+    showToast('✅ Question ajoutée','success');
+    setTimeout(()=>{ closeAddModal(); filterQuestions(); },800);
+  }
+}
+
+// ── Test token ──
+async function testToken(){
+  const token=getToken(), s=document.getElementById('token-status');
+  if(!token){ s.textContent='Entrez un token'; s.className='token-status err'; return; }
+  s.textContent='Vérification…'; s.className='token-status';
+  try {
+    const r=await fetch(`https://api.github.com/repos/${REPO}`,{headers:{Authorization:'token '+token}});
+    if(r.ok){ s.textContent='✓ Token valide'; s.className='token-status ok'; sessionStorage.setItem('gh_token',token); }
+    else     { s.textContent='✗ Token invalide'; s.className='token-status err'; }
+  } catch(e){ s.textContent='✗ Erreur réseau'; s.className='token-status err'; }
+}
+function onTokenInput(){ document.getElementById('token-status').textContent=''; }
+
+function showToast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast show '+type;
+  setTimeout(()=>t.classList.remove('show'),3500);
+}
+function escHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escAttr(s){ return String(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+
+window.addEventListener('DOMContentLoaded',()=>{
+  const saved=sessionStorage.getItem('gh_token');
+  if(saved) document.getElementById('gh-token').value=saved;
+  loadAllQuestions();
+});
+</script>
+</body>
+</html>

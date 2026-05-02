@@ -1,0 +1,198 @@
+[
+  {
+    "quiz": "allergies",
+    "theme": "Antihistaminiques",
+    "difficulte": "facile",
+    "text": "Quelle est la différence principale entre un antihistaminique H1 de 1ère et de 2ème génération ?",
+    "options": [
+      "La 2ème génération est plus efficace sur les symptômes nasaux",
+      "La 1ère génération est sédative et anticholinergique, la 2ème est non sédative",
+      "La 2ème génération agit plus vite mais dure moins longtemps",
+      "La 1ère génération est réservée aux enfants"
+    ],
+    "correct": 1,
+    "explanation": "Les H1 de <strong>1ère génération</strong> (dexchlorphéniramine, prométhazine…) traversent la barrière hémato-encéphalique : sédation marquée + effet anticholinergique (bouche sèche, rétention urinaire…). Les H1 de <strong>2ème génération</strong> (cétirizine, loratadine, bilastine…) ne la traversent pas (ou peu) : pas de somnolence significative, pas d'effet anticholinergique. Ce sont ceux à privilégier en conseil de premier recours."
+  },
+  {
+    "quiz": "allergies",
+    "theme": "Antihistaminiques",
+    "difficulte": "modere",
+    "text": "Un patient sous traitement au long cours demande un antihistaminique pour sa rhinite allergique printanière. Lequel conseillez-vous en priorité ?",
+    "options": [
+      "Polaramine® (dexchlorphéniramine) — efficace et éprouvé",
+      "Cétirizine 10 mg — non sédatif, prise unique quotidienne",
+      "Prométhazine — bonne durée d'action",
+      "Peu importe, tous les antihistaminiques sont équivalents"
+    ],
+    "correct": 1,
+    "explanation": "La <strong>cétirizine</strong> (ou loratadine, bilastine) est le choix de référence en traitement continu : non sédatif, une prise par jour, bonne tolérance au long cours. Polaramine et prométhazine sont des H1 de 1ère génération : leur sédation les rend inadaptés à un usage quotidien prolongé, surtout chez un actif."
+  },
+  {
+    "quiz": "allergies",
+    "theme": "Antihistaminiques",
+    "difficulte": "difficile",
+    "text": "La bilastine (Bilaska®, Inorial®) présente une particularité importante à communiquer au patient. Laquelle ?",
+    "options": [
+      "Elle est contre-indiquée en cas d'insuffisance rénale",
+      "Elle doit être prise à distance des repas (1h avant ou 2h après)",
+      "Elle ne peut pas être associée aux corticoïdes nasaux",
+      "Elle est réservée aux plus de 18 ans"
+    ],
+    "correct": 1,
+    "explanation": "La <strong>bilastine</strong> a une biodisponibilité réduite de 30% si prise avec de la nourriture ou du jus de pamplemousse. Elle doit être prise <strong>à jeun</strong> : 1h avant ou 2h après un repas. C'est un point de conseil souvent oublié qui explique certains échecs thérapeutiques."
+  },
+  {
+    "quiz": "allergies",
+    "theme": "Corticoïdes nasaux",
+    "difficulte": "facile",
+    "text": "Pourquoi les corticoïdes nasaux sont-ils le traitement de fond de référence de la rhinite allergique persistante ?",
+    "options": [
+      "Parce qu'ils agissent en 30 minutes sur tous les symptômes",
+      "Parce qu'ils traitent l'inflammation sous-jacente avec un passage systémique négligeable",
+      "Parce qu'ils peuvent remplacer les antihistaminiques sans délai",
+      "Parce qu'ils sont les seuls à agir sur les symptômes oculaires"
+    ],
+    "correct": 1,
+    "explanation": "Les corticoïdes nasaux (mométasone, fluticasone, budésonide…) agissent sur l'<strong>inflammation muqueuse</strong> en profondeur. Leur biodisponibilité systémique est très faible (<1% pour la mométasone), ce qui les rend très sûrs au long cours. Ils sont supérieurs aux antihistaminiques sur la congestion nasale, mais leur effet s'installe en <strong>48 à 72h</strong> — à anticiper."
+  },
+  {
+    "quiz": "allergies",
+    "theme": "Corticoïdes nasaux",
+    "difficulte": "facile",
+    "text": "Un patient débute un spray de mométasone. Il revient 2 jours plus tard en disant que « ça ne marche pas ». Quelle est votre réponse ?",
+    "options": [
+      "Lui proposer de doubler la dose",
+      "Lui expliquer que l'effet complet s'installe en 1 à 2 semaines et qu'il faut persévérer",
+      "Lui substituer par un antihistaminique plus rapide",
+      "Lui prescrire un bilan allergologique avant de continuer"
+    ],
+    "correct": 1,
+    "explanation": "C'est un problème d'<strong>observance et d'attente</strong>. L'effet anti-inflammatoire des corticoïdes nasaux est progressif : efficacité partielle à 48-72h, <strong>efficacité maximale après 1 à 2 semaines</strong> de traitement régulier. Ce point doit être anticipé à la dispensation pour éviter l'arrêt prématuré."
+  },
+  {
+    "quiz": "allergies",
+    "theme": "Corticoïdes nasaux",
+    "difficulte": "facile",
+    "text": "Quelle est la technique d'instillation correcte d'un spray nasal corticoïde ?",
+    "options": [
+      "Tête penchée en arrière, vaporiser vers le haut de la narine",
+      "Tête légèrement penchée en avant, orienter le spray vers la paroi externe de la narine",
+      "Tête droite, vaporiser au centre de la narine",
+      "Technique libre, l'orientation n'a pas d'impact clinique"
+    ],
+    "correct": 1,
+    "explanation": "La technique correcte : <strong>tête légèrement penchée en avant</strong>, orienter l'embout vers la <strong>paroi externe</strong> (vers l'oreille, pas vers la cloison nasale). Vaporiser vers la cloison favorise les épistaxis et l'irritation septale. C'est un conseil pratique concret à délivrer systématiquement, souvent ignoré des patients."
+  },
+  {
+    "quiz": "allergies",
+    "theme": "Contre-indications",
+    "difficulte": "modere",
+    "text": "Parmi ces patients, lequel nécessite le plus de précautions avant de délivrer un antihistaminique H1 de 1ère génération ?",
+    "options": [
+      "Femme de 35 ans, sans antécédent, allergie aux graminées",
+      "Homme de 70 ans, hypertrophie bénigne de la prostate",
+      "Adolescent de 16 ans, rhinite allergique saisonnière",
+      "Femme enceinte au 2ème trimestre"
+    ],
+    "correct": 1,
+    "explanation": "L'<strong>hypertrophie bénigne de la prostate</strong> est une contre-indication aux H1 de 1ère génération : leur effet <strong>anticholinergique</strong> peut provoquer une rétention urinaire aiguë. À retenir également : glaucome à angle fermé, constipation sévère, troubles cognitifs chez le sujet âgé. Chez ce patient, orienter vers un H1 de 2ème génération."
+  },
+  {
+    "quiz": "allergies",
+    "theme": "Contre-indications",
+    "difficulte": "facile",
+    "text": "Une femme enceinte de 14 semaines vient pour une rhinite allergique. Que lui conseillez-vous ?",
+    "options": [
+      "Cétirizine en priorité — bien documentée pendant la grossesse",
+      "Loratadine en priorité — données rassurantes, recommandée en 1ère intention",
+      "Éviter tout antihistaminique jusqu'à l'accouchement",
+      "Mométasone nasale uniquement, les antihistaminiques oraux sont tous contre-indiqués"
+    ],
+    "correct": 1,
+    "explanation": "La <strong>loratadine</strong> est l'antihistaminique oral le mieux documenté pendant la grossesse et est recommandée en 1ère intention par la plupart des référentiels. La cétirizine est également acceptable. Les corticoïdes nasaux (mométasone, budésonide) sont aussi utilisables localement. Dans tous les cas, orienter vers le médecin ou la sage-femme pour validation."
+  },
+  {
+    "quiz": "allergies",
+    "theme": "Contre-indications",
+    "difficulte": "difficile",
+    "text": "Un patient sous inhibiteurs de la MAO (IMAO) demande un antihistaminique. Quelle est la précaution majeure ?",
+    "options": [
+      "Les antihistaminiques H1 sont tous contre-indiqués avec les IMAO",
+      "Les H1 de 1ère génération sont contre-indiqués — risque d'interactions sérotoninergiques et anticholinergiques",
+      "Seule la cétirizine est autorisée avec les IMAO",
+      "Il n'y a pas d'interaction connue entre IMAO et antihistaminiques"
+    ],
+    "correct": 1,
+    "explanation": "Les H1 de <strong>1ère génération</strong> sont contre-indiqués avec les IMAO : risque d'interactions <strong>anticholinergiques et sérotoninergiques</strong> potentiellement sévères. Les H1 de 2ème génération (cétirizine, loratadine) sont utilisables avec prudence, mais une vérification des interactions et un avis médical restent recommandés chez ce type de patient."
+  },
+  {
+    "quiz": "allergies",
+    "theme": "Orientation médecin",
+    "difficulte": "facile",
+    "text": "Un patient traité depuis 3 semaines par antihistaminique + corticoïde nasal revient : ses symptômes sont toujours très invalidants. Que faites-vous ?",
+    "options": [
+      "Doubler la dose du corticoïde nasal",
+      "Ajouter un vasoconstricteur nasal pour déboucher",
+      "Orienter vers le médecin pour bilan allergologique et éventuelle désensibilisation",
+      "Changer d'antihistaminique en espérant un meilleur résultat"
+    ],
+    "correct": 2,
+    "explanation": "Un échec d'un traitement bien conduit pendant 3 semaines doit orienter vers le <strong>médecin</strong> pour : confirmer le diagnostic, réaliser un <strong>bilan allergologique</strong> (tests cutanés, IgE spécifiques), et évaluer l'indication d'une <strong>immunothérapie allergénique (désensibilisation)</strong> — seul traitement modifiant le terrain allergique à long terme."
+  },
+  {
+    "quiz": "allergies",
+    "theme": "Orientation médecin",
+    "difficulte": "modere",
+    "text": "Lequel de ces signes doit vous amener à orienter immédiatement vers le médecin ?",
+    "options": [
+      "Éternuements matinaux répétés pendant la saison pollinique",
+      "Nez qui coule avec yeux rouges et larmoiements",
+      "Sifflement respiratoire et gêne thoracique associés à la rhinite",
+      "Légère fatigue pendant les pics polliniques"
+    ],
+    "correct": 2,
+    "explanation": "<strong>Sifflements et gêne thoracique</strong> évoquent une atteinte des voies aériennes inférieures — possible <strong>asthme allergique</strong>. C'est un drapeau rouge absolu : orientation médicale sans délai. À retenir : 30% des rhinites allergiques non traitées évoluent vers l'asthme (concept de la « marche allergique »). Les autres signes décrits sont classiques de la rhinite saisonnière non compliquée."
+  },
+  {
+    "quiz": "allergies",
+    "theme": "Conseil global",
+    "difficulte": "facile",
+    "text": "Quelle association représente la prise en charge optimale d'une rhinite allergique saisonnière modérée à sévère ?",
+    "options": [
+      "Antihistaminique H1 1ère génération + vasoconstricteur nasal",
+      "Antihistaminique H1 2ème génération seul, en cure courte",
+      "Antihistaminique H1 2ème génération + corticoïde nasal débuté avant la saison",
+      "Corticoïde nasal seul, les antihistaminiques sont inutiles si corticoïde bien utilisé"
+    ],
+    "correct": 2,
+    "explanation": "La combinaison de référence est <strong>antihistaminique H1 de 2ème génération + corticoïde nasal</strong>. Idéalement, le corticoïde nasal est débuté <strong>1 à 2 semaines avant le début de la saison pollinique</strong> pour que l'effet anti-inflammatoire soit installé à l'exposition. L'antihistaminique couvre les symptômes aigus (yeux, nez qui coule) pendant la montée en charge du corticoïde."
+  },
+  {
+    "quiz": "allergies",
+    "theme": "Allergie croisée",
+    "difficulte": "difficile",
+    "text": "Un patient allergique aux pollens de bouleau signale que depuis le printemps, il ressent des picotements buccaux en mangeant des pommes crues. Quelle est l'explication ?",
+    "options": [
+      "Allergie alimentaire vraie à la pomme, indépendante de son allergie au pollen",
+      "Syndrome d'allergie orale par réactivité croisée entre protéines du bouleau et de la pomme",
+      "Effets indésirables de son traitement antihistaminique sur la muqueuse buccale",
+      "Déficit en DAO lié à l'histamine alimentaire de la pomme"
+    ],
+    "correct": 1,
+    "explanation": "Le <strong>syndrome d'allergie orale (SAO)</strong> est une réaction croisée fréquente entre pollens et aliments crus : bouleau → pomme, poire, pêche, noisette, céleri. Les symptômes sont locaux (picotements, prurit buccal) et disparaissent à la cuisson des aliments. À distinguer d'une allergie alimentaire vraie qui peut provoquer une réaction systémique. Orienter vers un allergologue pour bilan."
+  },
+  {
+    "quiz": "allergies",
+    "theme": "Interactions médicamenteuses",
+    "difficulte": "difficile",
+    "text": "Un patient sous métoprolol (bêtabloquant) fait une réaction allergique sévère et reçoit de l'adrénaline. Pourquoi l'effet de l'adrénaline peut-il être diminué ou paradoxal ?",
+    "options": [
+      "Le métoprolol inhibe l'absorption digestive de l'adrénaline",
+      "Les bêtabloquants bloquent les récepteurs bêta-adrénergiques, s'opposant à l'effet bronchodilatateur et vasopresseur de l'adrénaline",
+      "Le métoprolol est un inducteur enzymatique qui accélère la dégradation de l'adrénaline",
+      "Il n'y a pas d'interaction, l'adrénaline reste pleinement efficace"
+    ],
+    "correct": 1,
+    "explanation": "Les bêtabloquants bloquent les récepteurs β1 et β2, réduisant l'effet <strong>bronchodilatateur (β2)</strong> et inotrope/vasoconstricteur (β1) de l'adrénaline. La stimulation alpha-adrénergique reste active, pouvant provoquer une <strong>bradycardie réflexe paradoxale</strong>. Des doses plus élevées d'adrénaline ou du glucagon IV peuvent être nécessaires en cas d'anaphylaxie chez un patient sous bêtabloquants."
+  }
+]

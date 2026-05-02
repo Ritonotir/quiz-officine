@@ -150,68 +150,12 @@
 </div>
 <script>
 const QUIZ_ID = 'rhume';
-const QUESTION_POOL = [
-  {quiz:"rhume",theme:"Généralités",difficulte:"facile",
-   text:"Quelle est la durée habituelle d'un rhume banal non compliqué ?",
-   options:["2 à 4 jours", "7 à 10 jours", "12 à 15 jours", "Variable selon l'antiviral prescrit"],correct:1,
-   explanation:"<strong>7 à 10 jours</strong>, sans traitement spécifique. Le traitement est purement symptomatique : on n'agit pas sur le virus, on attend la guérison naturelle tout en améliorant le confort du patient."},
-  {quiz:"rhume",theme:"Acte thérapeutique",difficulte:"facile",
-   text:"Pourquoi le lavage de nez est-il considéré comme l'acte thérapeutique majeur du rhume ?",
-   options:["Il détruit les virus directement", "Il évacue le mucus chargé de pathogènes et prépare la muqueuse aux traitements", "Il réduit la fièvre par effet réflexe", "Il stimule la réponse immunitaire locale"],correct:1,
-   explanation:"<strong>« On ne traite pas une muqueuse sale. »</strong> Le mucus stagnant constitue un milieu de culture pour les pathogènes et crée une barrière physique. L'éliminer mécanique­ment est la base de toute prise en charge, et conditionne l'efficacité des sprays locaux."},
-  {quiz:"rhume",theme:"Eau de mer",difficulte:"facile",
-   text:"Un patient se plaint d'un nez \\\\\\\"complètement bouché\\\\\\\". Quelle eau de mer lui conseillez-vous en priorité ?",
-   options:["Isotonique, pour ne pas agresser la muqueuse", "Hypertonique, pour son effet décongestionnant osmotique", "L'une ou l'autre, la différence est négligeable", "Aucune, il faut d'abord un vasoconstricteur"],correct:1,
-   explanation:"<strong>Hypertonique</strong> en cas de congestion. Sa concentration en sel crée un appel d'eau par osmose, ce qui dégonfle naturellement la muqueuse. L'isotonique reste adapté à l'entretien quotidien ou chez les enfants et nourrissons."},
-  {quiz:"rhume",theme:"Vasoconstricteurs",difficulte:"modere",
-   text:"Parmi ces profils, lequel peut recevoir un vasoconstricteur nasal (ex. Aturgyl) ?",
-   options:["Femme enceinte de 6 mois avec rhume sévère", "Homme de 40 ans, normotendu, sans antécédent particulier", "Enfant de 12 ans avec rhume depuis 3 jours", "Patient hypertendu bien équilibré sous traitement"],correct:1,
-   explanation:"Les 3 contre-indications <strong>absolues</strong> des vasoconstricteurs sont : l'<strong>âge < 15 ans</strong>, l'<strong>hypertension artérielle</strong> (même traitée et équilibrée) et la <strong>grossesse</strong>. Risque d'AVC ou d'infarctus (recommandation ANSM). Seul le profil de l'homme normotendu de 40 ans est éligible."},
-  {quiz:"rhume",theme:"Vasoconstricteurs",difficulte:"facile",
-   text:"Quelle est la durée maximale d'utilisation d'un spray vasoconstricteur nasal ?",
-   options:["3 jours", "5 jours", "7 jours", "10 jours"],correct:1,
-   explanation:"<strong>5 jours maximum.</strong> Au-delà, on risque la <em>rhinite médicamenteuse</em> (ou effet rebond) : la muqueuse devient dépendante du produit et le nez reste bouché dès l'arrêt. C'est un point de conseil systématique à délivrer lors de la dispensation."},
-  {quiz:"rhume",theme:"Antihistaminiques",difficulte:"facile",
-   text:"Dans les spécialités rhume (Actifed, Fervex…), quel effet de l'antihistaminique H1 est réellement exploité ?",
-   options:["L'effet anti-allergique pour calmer l'inflammation", "L'effet antihistaminique pur qui réduit la rhinorrhée", "L'effet anticholinergique qui assèche les sécrétions", "L'effet antipyrétique qui potentialise le paracétamol"],correct:2,
-   explanation:"C'est l'<strong>effet anticholinergique</strong> (effet secondaire classique des H1 de 1ère génération) qui est ici recherché : il réduit les sécrétions nasales. Conséquence : <strong>somnolence marquée</strong>. À conseiller plutôt pour la prise du soir, et à signaler explicitement au patient."},
-  {quiz:"rhume",theme:"Sécurité / Associations",difficulte:"modere",
-   text:"Un patient achète une boîte de Fervex. Quel risque devez-vous systématiquement vérifier ?",
-   options:["Une interaction avec les AINS qu'il prendrait à côté", "Un surdosage en paracétamol si prise concomitante d'un autre antalgique", "Un risque de dépendance aux antihistaminiques", "Une interaction avec les antibiotiques en cours"],correct:1,
-   explanation:"Les spécialités « rhume » (Fervex, Actifed…) contiennent souvent <strong>500 mg à 1 g de paracétamol</strong> par prise. Si le patient prend en parallèle du Doliprane, un Efferalgan ou un autre AINS contenant du paracétamol, le seuil hépatotoxique peut être atteint rapidement. Vérification systématique obligatoire."},
-  {quiz:"rhume",theme:"Corticoïdes locaux",difficulte:"difficile",
-   text:"Pourquoi la mométasone (Nasonex®) est-elle peu pertinente dans le rhume viral aigu ?",
-   options:["Elle est trop puissante et risque de provoquer une immunodépression locale", "Son pic d'efficacité est atteint en 24 à 48h, souvent après la résolution du rhume", "Elle est contre-indiquée en cas d'infection virale active", "Elle interagit avec les vasoconstricteurs"],correct:1,
-   explanation:"La mométasone est une molécule de <strong>fond</strong> dont l'effet maximal s'installe en <strong>24 à 48 heures</strong>. Sur un rhume de 3 jours, elle commence à agir au moment où le patient guérit naturellement. Le <strong>Pivalone</strong> (liste I) est plus cohérent : action locale et quasi-immédiate."},
-  {quiz:"rhume",theme:"Pédiatrie",difficulte:"facile",
-   text:"Parents d'un enfant de 4 ans avec nez bouché. Que leur conseillez-vous ?",
-   options:["Aturgyl pédiatrique en spray, demi-dose", "Actifed sirop, en respectant le dosage poids", "Lavages au sérum physiologique intensifs + paracétamol si fièvre", "Huile essentielle d'eucalyptol en inhalation"],correct:2,
-   explanation:"Chez l'enfant <strong>< 6 ans</strong>, les décongestionnants (oraux ou nasaux) et les produits à base de terpènes (eucalyptol, camphre) sont <strong>strictement contre-indiqués</strong>. La prise en charge repose exclusivement sur les lavages nasaux au sérum physiologique, l'hydratation et le paracétamol si nécessaire."},
-  {quiz:"rhume",theme:"Huiles essentielles",difficulte:"modere",
-   text:"Concernant les produits à base d'eucalyptol ou de camphre (baumes, inhalations), quelle contre-indication est souvent sous-estimée ?",
-   options:["Hypertension artérielle", "Diabète de type 2", "Antécédents de convulsions ou épilepsie", "Insuffisance rénale légère"],correct:2,
-   explanation:"L'eucalyptol, le camphre et les terpènes apparentés sont <strong>neurotoxiques</strong> à doses élevées et peuvent abaisser le seuil épileptogène. Ils sont contre-indiqués chez les patients avec <strong>antécédents de convulsions ou d'épilepsie</strong>, et également chez les asthmatiques (bronchospasme possible)."},
-  {quiz:"rhume",theme:"Orientation",difficulte:"modere",
-   text:"Lequel de ces signes doit vous orienter vers un médecin sans délai ?",
-   options:["Rhume depuis 5 jours avec nez qui coule", "Légère fatigue et éternuements fréquents", "Douleur unilatérale intense sous l'orbite depuis 48h", "Gorge légèrement irritée sans fièvre"],correct:2,
-   explanation:"Une <strong>douleur unilatérale intense sous l'œil</strong> évoque une <strong>sinusite maxillaire</strong> (possible surinfection bactérienne). Les autres drapeaux rouges à mémoriser : fièvre > 39 °C persistante au-delà de 48h, gêne respiratoire, sibilants, ou symptômes persistant au-delà de <strong>10 jours</strong>."},
-  {quiz:"rhume",theme:"Conseil global",difficulte:"facile",
-   text:"Un patient demande le conseil le plus efficace pour soulager son rhume rapidement. Que lui proposez-vous en priorité absolue ?",
-   options:["Un vasoconstricteur nasal pour désengorger immédiatement", "Un antihistaminique H1 pour stopper la rhinorrhée", "Des lavages nasaux fréquents à l'eau hypertonique", "Un corticoïde local pour réduire l'inflammation"],correct:2,
-   explanation:"Le <strong>lavage nasal hypertonique fréquent</strong> reste la pierre angulaire : sans risque, sans contre-indication majeure, efficace, et prépare la muqueuse à tout traitement complémentaire. C'est le message de conseil prioritaire à délivrer systématiquement."},
-  {quiz:"rhume",theme:"Interactions médicamenteuses",difficulte:"difficile",
-   text:"Un patient vous présente une ordonnance avec un spray vasoconstricteur nasal pour son rhume. En consultant le DP, vous constatez qu'il prend de la venlafaxine (IRSNa). Quelle est votre conduite ?",
-   options:["Délivrer sans problème, les IRSNa n'interagissent pas avec les vasoconstricteurs nasaux", "Contacter le prescripteur — interaction à risque, proposer lavage nasal en remplacement", "Délivrer en réduisant la durée à 3 jours maximum", "Délivrer uniquement si la tension artérielle du patient est normale"],correct:1,
-   explanation:"Les vasoconstricteurs sympathomimétiques (pseudoéphédrine, oxymétazoline) sont contre-indiqués avec les ISRS et IRSNa en raison du risque de <strong>syndrome sérotoninergique</strong> et de poussée hypertensive. Le pharmacien doit contacter le prescripteur et proposer une alternative mécanique (lavage nasal). Le DP est l'outil clé pour détecter cette interaction."},
-  {quiz:"rhume",theme:"Grossesse et médicaments",difficulte:"difficile",
-   text:"Une femme enceinte de 10 semaines vous présente une ordonnance avec un décongestionnant nasal pour son rhume. Que faites-vous ?",
-   options:["Délivrer sans problème, l'ordonnance suffit", "Contacter le prescripteur — les vasoconstricteurs sont contre-indiqués pendant la grossesse, proposer lavage nasal + paracétamol si fièvre", "Délivrer en réduisant la durée à 3 jours", "Délivrer uniquement au 3ème trimestre"],correct:1,
-   explanation:"Les vasoconstricteurs nasaux (topiques ou oraux) sont <strong>contre-indiqués pendant toute la grossesse</strong> en raison du risque de vasoconstriction utéro-placentaire. Même sur ordonnance, le pharmacien a le devoir d'alerter le prescripteur. Les alternatives sûres sont : lavage nasal au sérum physiologique ou eau de mer isotonique, et paracétamol si fièvre. Les antihistaminiques des spécialités rhume sont également déconseillés au 1er trimestre."},
-  {quiz:"rhume",theme:"Situations d'urgence",difficulte:"difficile",
-   text:"Parents d'un nourrisson de 6 semaines avec rhume et congestion nasale. Quel signe doit vous faire recommander d'appeler le 15 immédiatement ?",
-   options:["Fièvre à 38,2°C", "Nez bouché empêchant la tétée depuis 12h", "Difficultés respiratoires, geignements, teint grisâtre ou cyanose péribuccale", "Agitation et pleurs inhabituels sans autre signe"],correct:2,
-   explanation:"Chez le nourrisson de moins de 3 mois, tout signe de <strong>détresse respiratoire</strong> (tirage, battement des ailes du nez, geignements, cyanose, teint grisâtre) impose d'appeler le 15 immédiatement. La fièvre > 38°C avant 3 mois nécessite une consultation médicale urgente mais pas le 15 d'emblée sauf si signes de gravité associés. La gêne à la tétée seule justifie une consultation mais pas une urgence vitale immédiate."}
-];
+let QUESTION_POOL = [];
+
+async function loadQuestions() {
+  const resp = await fetch('questions/rhume.json?v=' + Date.now());
+  QUESTION_POOL = await resp.json();
+}
 
 function shuffleArray(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 function pickQuizQuestions(quizId){
@@ -237,7 +181,7 @@ function pickQuizQuestions(quizId){
   if(sel.length<12){const used=new Set(sel.map(q=>q.text));const rem=shuffleArray(pool.filter(q=>!used.has(q.text)));sel=[...sel,...rem.slice(0,12-sel.length)];}
   return shuffleArray(sel.slice(0,12));
 }
-function startQuiz(){
+async function startQuiz(){await loadQuestions();
   current=0;score=0;userAnswers=[];
   shuffledQuestions=pickQuizQuestions(QUIZ_ID);
   shuffledOptions=shuffledQuestions.map(q=>shuffleArray(q.options.map((text,origIndex)=>({text,origIndex}))));

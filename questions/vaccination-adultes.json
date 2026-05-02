@@ -1,0 +1,506 @@
+[
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Calendrier vaccinal",
+    "difficulte": "facile",
+    "text": "À quel âge fixe propose-t-on le premier rappel DTP-Coqueluche de l'adulte ?",
+    "options": [
+      "18 ans",
+      "25 ans",
+      "30 ans",
+      "45 ans"
+    ],
+    "correct": 1,
+    "explanation": "Le calendrier vaccinal prévoit un rappel <strong>dTcaP à 25 ans</strong> (diphtérie doses réduites, tétanos, coqueluche acellulaire, polio). C'est le premier rappel adulte, qui inclut la valence coqueluche. Il s'inscrit dans la série : 6 ans (DTCaP), 11-13 ans (dTcaP), 25 ans (dTcaP), puis tous les 20 ans jusqu'à 65 ans, puis tous les 10 ans."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "HPV",
+    "difficulte": "facile",
+    "text": "Quel est l'âge recommandé pour débuter la vaccination HPV (garçons et filles) ?",
+    "options": [
+      "9 ans",
+      "11 ans",
+      "14 ans",
+      "15 ans"
+    ],
+    "correct": 1,
+    "explanation": "La vaccination HPV est recommandée à <strong>11 ans</strong> pour les garçons et les filles. À cet âge, le schéma est à <strong>2 doses</strong> (M0 et M6-13). La vaccination avant tout contact avec le virus est la plus efficace. Un rattrapage est possible jusqu'à <strong>26 ans révolus</strong>, avec un schéma à 3 doses après 15 ans."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "HPV",
+    "difficulte": "facile",
+    "text": "Jusqu'à quel âge le rattrapage HPV est-il recommandé et remboursé pour tous ?",
+    "options": [
+      "19 ans",
+      "21 ans",
+      "26 ans révolus",
+      "30 ans"
+    ],
+    "correct": 2,
+    "explanation": "Depuis 2023, le rattrapage HPV est recommandé et remboursé jusqu'à <strong>26 ans révolus</strong> pour les garçons et les filles non vaccinés. Au-delà, la vaccination peut être proposée au cas par cas mais n'est plus remboursée en dehors de situations particulières. Le schéma de rattrapage après 15 ans est de <strong>3 doses</strong> (M0, M2, M6)."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "DTP seniors",
+    "difficulte": "facile",
+    "text": "À partir de 65 ans, quelle est la fréquence des rappels DTP ?",
+    "options": [
+      "Tous les 20 ans",
+      "Une seule fois",
+      "Tous les 10 ans",
+      "Tous les 5 ans"
+    ],
+    "correct": 2,
+    "explanation": "Après 65 ans, les rappels DTP sont recommandés <strong>tous les 10 ans</strong> (aux âges fixes : 65, 75, 85, 95 ans), contre tous les 20 ans chez l'adulte de moins de 65 ans. Cette fréquence accrue est liée à l'immunosénescence : le déclin naturel de l'immunité avec l'âge rend les rappels plus fréquents nécessaires."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "HPV",
+    "difficulte": "facile",
+    "text": "Quel est le schéma HPV recommandé pour un adolescent de 13 ans ?",
+    "options": [
+      "1 dose",
+      "2 doses à M0 et M6-13",
+      "3 doses",
+      "2 doses à 1 mois d'intervalle"
+    ],
+    "correct": 1,
+    "explanation": "Pour un adolescent de <strong>11 à 14 ans révolus</strong>, le schéma HPV est de <strong>2 doses</strong> espacées de 6 à 13 mois (M0 et M6-13). Ce schéma simplifié est aussi efficace que 3 doses car la réponse immunitaire est meilleure à cet âge. À partir de 15 ans ou en cas d'immunodépression, le schéma passe à 3 doses (M0, M2, M6)."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Méningocoques",
+    "difficulte": "facile",
+    "text": "Quel vaccin contre le méningocoque est désormais la norme en rappel à 11-14 ans ?",
+    "options": [
+      "Méningocoque C seul",
+      "Méningocoque B",
+      "Méningocoque ACWY",
+      "Méningocoque A"
+    ],
+    "correct": 2,
+    "explanation": "Depuis le calendrier vaccinal 2025, le rappel méningocoque à 11-14 ans se fait avec le vaccin <strong>tétravalent ACWY</strong>, qui protège contre les sérogroupes A, C, W et Y. Il remplace l'ancien rappel méningocoque C seul. Un rattrapage est recommandé jusqu'à 24 ans. Le méningocoque B (Bexsero) peut également être proposé à cet âge."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Hépatite B",
+    "difficulte": "facile",
+    "text": "Quelle preuve suffit à valider l'immunité hépatite B d'un étudiant en santé sans dosage d'anticorps ?",
+    "options": [
+      "3 doses à n'importe quel âge",
+      "3 doses reçues avant l'âge de 13 ans",
+      "Sérologie négative",
+      "Déclaration sur l'honneur"
+    ],
+    "correct": 1,
+    "explanation": "Pour les étudiants en santé, <strong>3 doses d'hépatite B reçues avant 13 ans</strong> sont considérées comme suffisantes sans nécessité de dosage des anticorps anti-HBs. En revanche, pour une primo-vaccination réalisée à l'âge adulte, un contrôle sérologique est requis pour vérifier la réponse immunitaire, notamment pour les soignants."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Grippe",
+    "difficulte": "facile",
+    "text": "Le vaccin contre la grippe est-il recommandé chez la femme enceinte ?",
+    "options": [
+      "Non",
+      "Oui, quel que soit le trimestre",
+      "Uniquement au 3e trimestre",
+      "Uniquement si comorbidité"
+    ],
+    "correct": 1,
+    "explanation": "La vaccination grippe est recommandée <strong>à tous les trimestres de la grossesse</strong>. Les femmes enceintes présentent un risque accru de formes graves de grippe. La vaccination protège la mère et indirectement le nourrisson par transfert d'anticorps maternels. Elle peut être co-administrée avec les autres vaccins recommandés pendant la grossesse."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "HPV",
+    "difficulte": "facile",
+    "text": "Un homme de 24 ans jamais vacciné contre le HPV doit recevoir combien de doses ?",
+    "options": [
+      "1 dose",
+      "2 doses",
+      "3 doses (M0, M2, M6)",
+      "C'est trop tard pour vacciner"
+    ],
+    "correct": 2,
+    "explanation": "Chez une personne de <strong>15 ans et plus</strong> non vaccinée, le schéma HPV est de <strong>3 doses : M0, M2, M6</strong>. À 24 ans, la vaccination reste indiquée et remboursée jusqu'à 26 ans révolus. Ce schéma à 3 doses est nécessaire car la réponse immunitaire est moins forte qu'avant 15 ans."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "HPV",
+    "difficulte": "facile",
+    "text": "Quel est l'intervalle minimal recommandé entre les 2 doses de HPV chez l'enfant de 11-14 ans ?",
+    "options": [
+      "1 mois",
+      "3 mois",
+      "6 mois",
+      "1 an"
+    ],
+    "correct": 2,
+    "explanation": "L'intervalle minimal entre les 2 doses de HPV dans le schéma à 2 doses (11-14 ans) est de <strong>6 mois</strong>. L'intervalle peut aller jusqu'à 13 mois. Cet espacement est important pour obtenir une réponse immunitaire optimale. Si l'intervalle est inférieur à 6 mois, une 3ème dose est nécessaire."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "DTP adulte",
+    "difficulte": "facile",
+    "text": "Un patient de 45 ans a eu son dernier rappel DTP à 25 ans. Que lui proposez-vous ?",
+    "options": [
+      "3 doses complètes",
+      "Rien, il est à jour",
+      "1 dose de dTcaP immédiatement",
+      "Une sérologie préalable"
+    ],
+    "correct": 2,
+    "explanation": "Après 25 ans et jusqu'à 65 ans, les rappels DTP sont espacés de <strong>20 ans</strong>. Un patient à jour à 25 ans doit faire son prochain rappel à <strong>45 ans</strong>, puis à 65 ans. On propose donc <strong>1 dose de dTcaP</strong> (Boostrix Tetra® ou Repevax®) immédiatement. Pas besoin de sérologie préalable."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Méningocoques",
+    "difficulte": "facile",
+    "text": "La vaccination contre le méningocoque B est obligatoire depuis 2025 pour :",
+    "options": [
+      "Les adolescents",
+      "Les nourrissons",
+      "Les personnes de plus de 65 ans",
+      "Les HSH uniquement"
+    ],
+    "correct": 1,
+    "explanation": "Depuis le <strong>1er janvier 2025</strong>, la vaccination contre le méningocoque B (Bexsero®) est <strong>obligatoire pour tous les nourrissons</strong> selon le schéma M3, M5 et M12. Elle est recommandée (mais non obligatoire) pour les adolescents et jeunes adultes de 15-24 ans, et pour certaines populations à risque (asplénie, déficit en complément)."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "HPV",
+    "difficulte": "modere",
+    "text": "Quel est le schéma du Gardasil 9® si la première dose est injectée après 15 ans ?",
+    "options": [
+      "2 doses à 6 mois d'intervalle",
+      "3 doses (M0, M2, M6)",
+      "3 doses (M0, M1, M4)",
+      "1 dose unique"
+    ],
+    "correct": 1,
+    "explanation": "Après <strong>15 ans</strong>, le schéma Gardasil 9® passe à <strong>3 doses : M0, M2, M6</strong>. La réponse immunitaire est moins efficace passé cet âge, ce qui nécessite une dose supplémentaire. Ce schéma s'applique également en cas d'immunodépression, quelle que soit l'âge. Avant 15 ans : 2 doses (M0, M6-13) suffisent."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Coqueluche grossesse",
+    "difficulte": "modere",
+    "text": "Une femme enceinte vaccinée contre la coqueluche il y a 1 an doit-elle être revaccinée ?",
+    "options": [
+      "Non, la protection est encore suffisante",
+      "Oui, à chaque grossesse entre 20 et 36 SA",
+      "Uniquement si non à jour du DTP",
+      "C'est contre-indiqué pendant la grossesse"
+    ],
+    "correct": 1,
+    "explanation": "La vaccination coqueluche doit être réalisée à <strong>chaque grossesse</strong> entre 20 et 36 SA, quelle que soit la date de la vaccination précédente. Même vaccinée récemment, la mère doit être revaccinée : seule la vaccination pendant la grossesse garantit un taux d'anticorps suffisant pour le transfert transplacentaire optimal au fœtus."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Pneumocoque",
+    "difficulte": "modere",
+    "text": "Quel vaccin pneumocoque est recommandé en dose unique pour l'adulte à risque ?",
+    "options": [
+      "VPC13 (Prevenar 13)",
+      "VPP23 (Pneumovax)",
+      "VPC20 (Prevenar 20)",
+      "VPC15 (Vaxneuvance)"
+    ],
+    "correct": 2,
+    "explanation": "Depuis 2025, le <strong>VPC20 (Prevenar 20®)</strong> est recommandé en <strong>dose unique</strong> pour les adultes à risque et les personnes de 65 ans et plus. Il remplace le schéma séquentiel VPC13 + VPP23. Sa couverture à 20 valences le rend plus large que ses prédécesseurs. En cas de schéma antérieur avec VPC13/VPP23, un délai est à respecter."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Co-administration",
+    "difficulte": "modere",
+    "text": "Peut-on co-administrer le vaccin Grippe et le vaccin Covid-19 en pharmacie ?",
+    "options": [
+      "Non, un intervalle est nécessaire",
+      "Oui, sur deux sites d'injection différents",
+      "Uniquement pour les patients de plus de 65 ans",
+      "Sur prescription médicale uniquement"
+    ],
+    "correct": 1,
+    "explanation": "La co-administration grippe + Covid-19 est <strong>possible et recommandée</strong> : elle améliore l'observance vaccinale. Les deux vaccins doivent être injectés sur <strong>deux sites différents</strong> (bras différents ou sites espacés sur le même membre). Cette co-administration peut être réalisée en pharmacie sans prescription médicale pour les personnes éligibles."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Méningocoques",
+    "difficulte": "modere",
+    "text": "Jusqu'à quel âge peut-on rattraper la vaccination contre le méningocoque ACWY ?",
+    "options": [
+      "18 ans",
+      "24 ans révolus",
+      "26 ans",
+      "45 ans"
+    ],
+    "correct": 1,
+    "explanation": "Le rattrapage méningocoque ACWY est recommandé jusqu'à <strong>24 ans révolus</strong>. Cette recommandation vise à protéger les adolescents et jeunes adultes, population particulièrement exposée. Les personnes ayant été vaccinées antérieurement par le méningocoque C seul peuvent bénéficier d'une dose de rattrapage ACWY."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Zona",
+    "difficulte": "modere",
+    "text": "Quel est l'intervalle recommandé entre les deux doses du vaccin Zona (Shingrix®) ?",
+    "options": [
+      "1 mois",
+      "2 à 6 mois",
+      "1 an",
+      "5 ans"
+    ],
+    "correct": 1,
+    "explanation": "L'intervalle recommandé entre les deux doses de Shingrix® est de <strong>2 à 6 mois</strong>. En cas d'immunodépression, l'intervalle minimal est réduit à <strong>1 à 2 mois</strong> pour une protection plus rapide. L'intervalle minimal absolu est de 1 mois. Aucune sérologie préalable n'est nécessaire."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "DTP adulte",
+    "difficulte": "modere",
+    "text": "Un patient de 50 ans a eu son dernier DTP à 25 ans. Quelle est la conduite ?",
+    "options": [
+      "Recommencer à zéro avec 3 doses",
+      "1 dose de dTcaP immédiate, puis rappel à 65 ans",
+      "Attendre 65 ans pour le prochain rappel",
+      "Faire une sérologie tétanos"
+    ],
+    "correct": 1,
+    "explanation": "Ce patient a 25 ans de retard. Principe fondamental : <strong>on ne repart pas à zéro</strong>. On administre <strong>1 dose de dTcaP immédiatement</strong>, puis le calendrier reprend normalement avec un rappel à 65 ans (10 ans après si ce rappel tombe avant 65 ans). Pas besoin de sérologie préalable."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Hépatite B",
+    "difficulte": "modere",
+    "text": "Quel schéma alternatif propose-t-on pour l'hépatite B en cas de départ imminent ?",
+    "options": [
+      "2 doses à 1 mois d'intervalle",
+      "3 doses (M0, M1, M2) sans rappel",
+      "3 doses (J0, J7, J21) + rappel à 12 mois",
+      "1 dose double charge"
+    ],
+    "correct": 2,
+    "explanation": "En cas de départ imminent, le schéma accéléré hépatite B est : <strong>J0, J7, J21 + rappel à 12 mois</strong>. Ce schéma permet d'obtenir une protection rapide avant le voyage. Il est réservé aux situations d'urgence car la protection à long terme nécessite le rappel à 12 mois pour consolider l'immunité."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Vaccins vivants",
+    "difficulte": "modere",
+    "text": "Quel délai respecter entre deux vaccins vivants (ex: ROR et varicelle) s'ils ne sont pas co-administrés ?",
+    "options": [
+      "15 jours",
+      "28 jours minimum",
+      "2 mois",
+      "Aucun délai particulier"
+    ],
+    "correct": 1,
+    "explanation": "Deux vaccins vivants atténués administrés à des dates différentes doivent être espacés d'au moins <strong>28 jours (4 semaines)</strong>. En revanche, s'ils sont administrés le même jour, aucun délai n'est requis. Ce délai évite une interférence immunologique entre les deux virus vaccinaux qui pourrait réduire l'efficacité."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Coqueluche adulte",
+    "difficulte": "modere",
+    "text": "Un patient de 40 ans jamais vacciné contre la coqueluche depuis l'enfance doit recevoir :",
+    "options": [
+      "dTP seul (sans coqueluche)",
+      "dTcaP (Repevax® ou Boostrix Tetra®)",
+      "Vaccin coqueluche monovalent",
+      "Aucun vaccin — trop tard"
+    ],
+    "correct": 1,
+    "explanation": "Pour tout adulte non à jour pour la coqueluche, on administre un <strong>vaccin combiné dTcaP</strong> (Repevax® ou Boostrix Tetra®). Il n'existe pas de vaccin coqueluche monovalent disponible pour l'adulte. La valence coqueluche est toujours associée aux rappels DTP. Après ce rappel, les rappels suivants se font tous les 20 ans."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Conservation",
+    "difficulte": "modere",
+    "text": "Quelle est la température de conservation stricte des vaccins au réfrigérateur ?",
+    "options": [
+      "0°C à +4°C",
+      "+2°C à +8°C",
+      "+4°C à +10°C",
+      "-18°C (congélateur)"
+    ],
+    "correct": 1,
+    "explanation": "Les vaccins doivent être conservés entre <strong>+2°C et +8°C</strong>, à l'abri de la lumière et de la congélation. Un vaccin congelé par erreur (aluminium précipité) ou exposé à des températures supérieures à 8°C doit faire l'objet d'une vérification selon le guide de stabilité avant utilisation. Le gel irréversible dégrade les adjuvants aluminiques."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Tétanos",
+    "difficulte": "modere",
+    "text": "En cas de plaie souillée chez une personne non à jour pour le tétanos, quelle est la priorité ?",
+    "options": [
+      "Désinfection locale seule suffit",
+      "Vaccination immédiate +/- immunoglobulines selon le statut",
+      "Antibiothérapie préventive",
+      "Sérologie tétanos en urgence"
+    ],
+    "correct": 1,
+    "explanation": "Face à une plaie souillée chez une personne non à jour, la priorité est la <strong>vaccination immédiate</strong> avec un vaccin contenant la valence tétanique. Selon le statut vaccinal et le type de plaie, des <strong>immunoglobulines anti-tétaniques</strong> peuvent être ajoutées (plaie à haut risque, jamais vacciné). La désinfection seule est insuffisante."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "ROR adulte",
+    "difficulte": "difficile",
+    "text": "Combien de doses de ROR pour un adulte né après 1980 sans preuve de vaccination ?",
+    "options": [
+      "1 dose",
+      "2 doses à 1 mois d'intervalle",
+      "3 doses",
+      "Aucune, sérologie préalable obligatoire"
+    ],
+    "correct": 1,
+    "explanation": "Toute personne née après 1980 sans preuve de 2 doses de ROR doit recevoir <strong>2 doses espacées d'au moins 1 mois</strong>, sans sérologie préalable. Si la première dose a été reçue avant 12 mois (anticorps maternels interférants), une 3ème dose est nécessaire. Chez les soignants nés avant 1980 : 1 dose si jamais vaccinés."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Hépatite B",
+    "difficulte": "difficile",
+    "text": "Un adulte a reçu 2 doses de vaccin hépatite B (M0 et M1) il y a 3 ans et n'a jamais reçu la 3ème dose. Que faire ?",
+    "options": [
+      "Recommencer à zéro avec 3 nouvelles doses",
+      "Administrer uniquement la dose manquante",
+      "Vérifier la sérologie avant de décider",
+      "Le schéma est caduc après 2 ans, recommencer"
+    ],
+    "correct": 1,
+    "explanation": "Le principe fondamental du rattrapage vaccinal est de <strong>ne jamais recommencer à zéro</strong>. Les doses déjà reçues restent valides quelle que soit la durée de l'interruption. Il suffit d'administrer la <strong>3ème dose manquante</strong> pour compléter le schéma, sans tenir compte du délai écoulé depuis les doses précédentes."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Pneumocoque",
+    "difficulte": "difficile",
+    "text": "Un adulte a reçu le VPP23 (Pneumovax) il y a 8 mois. Quel délai minimal avant le VPC20 ?",
+    "options": [
+      "Immédiatement",
+      "4 mois",
+      "1 an",
+      "5 ans"
+    ],
+    "correct": 2,
+    "explanation": "Après un VPP23, un délai d'au moins <strong>1 an</strong> est requis avant d'administrer le VPC20. Ce délai est nécessaire pour éviter une hyporéponse immunitaire (phénomène de tolérance immunologique). En pratique, si le VPP23 a été reçu récemment, attendre ce délai avant de compléter avec le VPC20."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "DTP adulte",
+    "difficulte": "difficile",
+    "text": "Un patient de 40 ans a eu son dernier DTP à 25 ans. Quel est le prochain rappel recommandé ?",
+    "options": [
+      "À 45 ans",
+      "Immédiatement!",
+      "À 50 ans",
+      "3 doses à refaire"
+    ],
+    "correct": 0,
+    "explanation": "Après le rappel de 25 ans, les rappels DTP adulte sont espacés de <strong>20 ans</strong> jusqu'à 65 ans. Un patient à jour à 25 ans doit faire son rappel à <strong>45 ans</strong>, puis à <strong>65 ans</strong>. À 40 ans, ce patient est encore à jour (5 ans de validité restants). Le prochain rappel est donc à 45 ans, puis à 65 ans (10 ans après)."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Hépatite B soignant",
+    "difficulte": "difficile",
+    "text": "Un titre anti-HBs entre 10 et 100 mUI/mL après 3 doses chez un soignant impose :",
+    "options": [
+      "Rien — le seuil protecteur est atteint",
+      "1 dose de rappel immédiate puis contrôle",
+      "Recommencer un schéma complet",
+      "Exclusion des soins invasifs"
+    ],
+    "correct": 1,
+    "explanation": "Un titre anti-HBs entre <strong>10 et 100 mUI/mL</strong> après primovaccination chez un soignant correspond à une réponse faible mais protectrice. Le protocole recommande <strong>1 dose de rappel immédiate</strong> puis contrôle sérologique. Si le taux reste < 10 mUI/mL après un schéma complet de 6 doses, une non-réponse est constatée et le médecin du travail gère la conduite."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Varicelle post-exposition",
+    "difficulte": "difficile",
+    "text": "Vaccination varicelle en post-exposition (cas contact) : quel est le délai maximal d'efficacité ?",
+    "options": [
+      "24 heures",
+      "72 heures (3 jours)",
+      "7 jours",
+      "Inutile après contact"
+    ],
+    "correct": 1,
+    "explanation": "La vaccination post-exposition contre la varicelle est efficace si administrée dans les <strong>72 heures (3 jours)</strong> suivant le contact avec un cas. Elle peut également atténuer la maladie si administrée jusqu'à 5 jours après contact. Elle est contre-indiquée pendant la grossesse et chez les immunodéprimés sévères — dans ces cas, des immunoglobulines spécifiques sont à envisager."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Zona immunodéprimé",
+    "difficulte": "difficile",
+    "text": "Quel est le schéma Shingrix® (zona) chez un patient immunodéprimé de 25 ans ?",
+    "options": [
+      "1 dose unique",
+      "2 doses (M0 et M1 ou M2)",
+      "3 doses",
+      "Contre-indiqué — vaccin vivant"
+    ],
+    "correct": 1,
+    "explanation": "Shingrix® est un vaccin <strong>inactivé (recombinant)</strong>, donc utilisable chez les immunodéprimés. Le schéma standard est de <strong>2 doses</strong>, mais chez l'immunodéprimé, l'intervalle minimal est réduit à <strong>1 à 2 mois</strong> (contre 2-6 mois chez l'immunocompétent) pour une protection plus rapide. Il est recommandé dès 18 ans chez les immunodéprimés."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Méningocoques",
+    "difficulte": "difficile",
+    "text": "Un enfant vacciné Men ACWY à 8 ans doit-il recevoir un rappel à 11-14 ans ?",
+    "options": [
+      "Non, la protection est suffisante",
+      "Oui, une dose de rappel Men ACWY est recommandée",
+      "Sérologie pour décider",
+      "Men B uniquement à cet âge"
+    ],
+    "correct": 1,
+    "explanation": "Oui — la vaccination Men ACWY est recommandée <strong>chez tous les adolescents à 11-14 ans</strong>, indépendamment de leur statut vaccinal antérieur (y compris s'ils ont été vaccinés avant). L'immunité conférée par une vaccination précoce peut décliner, et l'adolescence est une période à risque accru d'infection à méningocoque."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Vaccin adulte — valence réduite",
+    "difficulte": "difficile",
+    "text": "Pourquoi la valence diphtérique est-elle réduite lors de la vaccination chez l'adulte?",
+    "options": [
+      "Pour réduire les coûts de production",
+      "Pour limiter les réactions locales d'hypersensibilité chez les adultes pré-immunisés",
+      "Parce que l'adulte est déjà totalement immunisé",
+      "Pour améliorer la conservation"
+    ],
+    "correct": 1,
+    "explanation": "Les adultes ont été sensibilisés par les vaccinations antérieures. Une dose complète d'anatoxine diphtérique provoquerait des <strong>réactions locales d'hypersensibilité importantes</strong> (érythème, douleur, induration) chez ces personnes pré-immunisées. La dose réduite "
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "HPV immunodéprimé",
+    "difficulte": "difficile",
+    "text": "Quel est le schéma HPV pour un patient de 18 ans sous immunosuppresseurs ?",
+    "options": [
+      "2 doses (M0, M6) — schéma standard",
+      "3 doses (M0, M2, M6)",
+      "Contre-indiqué",
+      "1 dose unique"
+    ],
+    "correct": 1,
+    "explanation": "En cas d'<strong>immunodépression</strong>, le schéma HPV est de <strong>3 doses (M0, M2, M6)</strong> quelle que soit l'âge, car la réponse immunitaire est diminuée. Ce schéma s'applique pour les patients VIH+, sous immunosuppresseurs, ou présentant un déficit immunitaire. Le vaccin HPV est inactivé et donc utilisable chez les immunodéprimés."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Méningocoques splénectomisé",
+    "difficulte": "difficile",
+    "text": "Quelle est la fréquence de rappel Men ACWY pour un patient splénectomisé ?",
+    "options": [
+      "Tous les 2 ans",
+      "Tous les 5 ans",
+      "Tous les 10 ans",
+      "Pas de rappel après primovaccination"
+    ],
+    "correct": 1,
+    "explanation": "Les patients <strong>splénectomisés</strong> (ou aspléniques fonctionnels) présentent un risque élevé d'infections invasives à méningocoques. Un rappel Men ACWY est recommandé <strong>tous les 5 ans</strong> (contre tous les 10-20 ans en population générale). Un calendrier vaccinal renforcé complet est requis pour ces patients : pneumocoque, méningocoque ACWY et B, Haemophilus b."
+  },
+  {
+    "quiz": "vaccination-adultes",
+    "theme": "Pneumocoque chimiothérapie",
+    "difficulte": "difficile",
+    "text": "Quel vaccin pneumocoque pour un adulte de 35 ans débutant une chimiothérapie ?",
+    "options": [
+      "VPC13 + VPP23 séquentiel",
+      "VPC20 dose unique avant le traitement",
+      "VPP23 seul",
+      "Pas de vaccination — immunodéprimé"
+    ],
+    "correct": 1,
+    "explanation": "Chez un adulte débutant une chimiothérapie, il faut vacciner <strong>avant le début du traitement</strong> (idéalement au moins 2 semaines avant). Le <strong>VPC20 en dose unique</strong> est désormais recommandé. Il est préférable d'anticiper la vaccination en amont de l'immunodépression pour obtenir une réponse immunitaire optimale."
+  }
+]
