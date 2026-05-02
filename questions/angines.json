@@ -422,16 +422,16 @@
   {
     "quiz": "angines",
     "theme": "Score Mac Isaac",
-    "difficulte": "difficile",
-    "text": "Quelle est la différence entre l'angine et la rhinopharyngite qui oriente vers le score de Mac Isaac ?",
+    "difficulte": "facile",
+    "text": "Parmi les éléments cliniques suivants, lequel permet de différencier une rhinopharyngite d'une angine et constitue un critère négatif (0 pt) pour le score de Mac Isaac ?",
     "options": [
-      "La rhinopharyngite touche seulement les amygdales",
-      "L'angine s'accompagne souvent de toux, l'inflammation est moins concentrée sur les amygdales en cas de rhinopharyngite",
-      "La rhinopharyngite est toujours bactérienne",
-      "L'angine ne donne jamais de fièvre"
+      "La présence d'une fièvre supérieure à 38°C",
+      "L'existence d'une toux associée aux symptômes ORL",
+      "La présence d'adénopathies cervicales sensibles",
+      "L'augmentation du volume des amygdales ou la présence d'un exsudat"
     ],
     "correct": 1,
-    "explanation": "La différence majeure : dans la <strong>rhinopharyngite</strong>, l'inflammation est moins concentrée sur les amygdales, le patient a moins mal en avalant, et la <strong>toux</strong> est fréquente (critère du score Mac Isaac). Un patient toussant avec des symptômes ORL diffus évoque une rhinopharyngite — le TROD n'est pas recommandé car il risque d'être faussement positif (porteur sain)."
+    "explanation": "Dans le score de Mac Isaac, la toux est un critère d'orientation vers une étiologie virale (rhinopharyngite, bronchite). Sa présence donne 0 point. L'absence de toux, à l'inverse, est un critère en faveur d'une angine bactérienne à SBA et donne +1 point."
   },
   {
     "quiz": "angines",
