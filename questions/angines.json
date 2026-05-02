@@ -562,8 +562,8 @@
   {
     "quiz": "angines",
     "theme": "Thérapeutique",
-    "difficulte": "facile",
-    "text": "Quelle est la posologie de l'amoxicilline pour traiter l'angine à SGA chez un adulte ?",
+    "difficulte": "modere",
+    "text": "Dans le traitement d'une angine bactérienne à l'officine, quelle est la posologie de l'amoxicilline pour un adulte sans allergie aux pénicillines ?",
     "options": [
       "500 mg 2 fois par jour",
       "1 g 2 fois par jour",
