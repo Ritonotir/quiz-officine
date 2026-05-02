@@ -100,8 +100,8 @@
   {
     "quiz": "rhume",
     "theme": "Corticoïdes locaux",
-    "difficulte": "difficile",
-    "text": "Pourquoi la mométasone (Nasonex®) est-elle peu pertinente dans le rhume viral aigu ?",
+    "difficulte": "modere",
+    "text": "Pourquoi l'usage de mométasone (Nasonex®) est peu pertinente lors d'un rhume ?",
     "options": [
       "Elle est trop puissante et risque de provoquer une immunodépression locale",
       "Son pic d'efficacité est atteint en 24 à 48h, souvent après la résolution du rhume",
