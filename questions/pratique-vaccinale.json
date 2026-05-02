@@ -241,7 +241,7 @@
     "quiz": "pratique-vaccinale",
     "theme": "Voie d'injection",
     "difficulte": "modere",
-    "text": "Quel est le risque d'injecter un vaccin adsorbé par voie sous-cutanée au lieu d'intramusculaire ?",
+    "text": "Quel est le risque d'injecter un vaccin adsorbé par voie SC au lieu d'IM ?",
     "options": [
       "Inefficacité totale du vaccin",
       "Risque accru de réactions locales sévères ou formation de nodules",
