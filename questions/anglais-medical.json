@@ -64,7 +64,7 @@
       "Infection"
     ],
     "correct": 2,
-    "difficulte": "facile",
+    "difficulte": "modere",
     "theme": "Symptômes",
     "explanation": "<b>Rash</b> = éruption cutanée. Terme très fréquent dans les effets secondaires des médicaments.",
     "quiz": "anglais-medical"
@@ -1114,7 +1114,7 @@
       "Être sensible à"
     ],
     "correct": 2,
-    "difficulte": "modere",
+    "difficulte": "facile",
     "theme": "Allergologie",
     "explanation": "<b>To be allergic to</b> = être allergique à. \"Are you allergic to any medications?\" = avez-vous des allergies médicamenteuses ? Question systématique à l'officine.",
     "quiz": "anglais-medical"
