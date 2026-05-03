@@ -98,7 +98,7 @@
   /* ── RESULTS ── */
   #screen-results{text-align:center;}
   .score-circle{width:160px;height:160px;border-radius:50%;background:conic-gradient(var(--gold) 0%,var(--gold) var(--pct),var(--border) var(--pct));display:flex;align-items:center;justify-content:center;position:relative}
-  .score-circle::before{content:'';position:absolute;width:124px;height:124px;border-radius:50%;background:white}
+  .score-circle::before{content:'absolute';width:124px;height:124px;border-radius:50%;background:white}
   .score-inner{position:relative;z-index:1;text-align:center}
   .score-pts{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:var(--gold);line-height:1}
   .score-label{font-size:.75rem;color:var(--muted)}
@@ -179,10 +179,7 @@
         <small>Modifie aussi la répartition F/M/D proportionnellement</small>
       </div>
       <div class="config-row-controls">
-        <input type="number" class="config-select" id="cfg-total-q"
-          min="1" max="100" value="15"
-          style="width:70px;text-align:center;"
-          oninput="this.value=Math.min(100,Math.max(1,parseInt(this.value)||1))">
+        <input type="number" class="config-select" id="cfg-total-q" min="1" max="100" value="15" style="width:70px;text-align:center;">
         <span style="font-size:.82rem;color:var(--muted)">/ 100</span>
       </div>
     </div>
@@ -200,7 +197,7 @@
         <select class="config-select" id="cfg-delay">
           <option value="0">0 s</option>
           <option value="0.5">0.5 s</option>
-          <option value="1" selected>1 s</option>
+          <option value="1">1 s</option>
           <option value="1.5">1.5 s</option>
           <option value="2">2 s</option>
           <option value="3">3 s</option>
@@ -213,10 +210,10 @@
   <!-- Quiz inclus -->
   <div class="config-card">
     <h3>🎲 Quiz inclus dans le pool</h3>
-    <div id="cfg-quiz-list"><!-- généré par JS --></div>
+    <div id="cfg-quiz-list"></div>
   </div>
 
-  <button class="config-save-btn" onclick="saveConfig()">💾 Enregistrer la configuration</button>
+  <button class="config-save-btn" onclick="saveConfig()">💾 Enregistrer la configuration globale</button>
   <div class="config-saved-msg" id="cfg-saved-msg"></div>
 </div>
 
@@ -340,46 +337,11 @@ const GRACE_SEC = 4;
 const MAX_DISPLAY = 20000;
 
 // ══════════════════════════════════════════════
-// CONFIG (localStorage)
+// ÉTAT RUNTIME & GLOBALS
 // ══════════════════════════════════════════════
-const CONFIG_KEY = 'challenge_config';
-
-function defaultConfig() {
-  var quizzes = {};
-  QUIZ_FILES.forEach(function(f) {
-    quizzes[f] = { enabled: true, max: f === 'anglais-medical' ? 1 : 0 };
-  });
-  return { totalQuestions: 15, delay: 1, quizzes: quizzes };
-}
-
-function loadConfig() {
-  try {
-    var raw = localStorage.getItem(CONFIG_KEY);
-    if (!raw) return defaultConfig();
-    var cfg = JSON.parse(raw);
-    // S'assurer que tous les quiz sont présents (si nouveau quiz ajouté plus tard)
-    if (!cfg.quizzes) cfg.quizzes = {};
-    QUIZ_FILES.forEach(function(f) {
-      if (!cfg.quizzes[f]) {
-        cfg.quizzes[f] = { enabled: true, max: f === 'anglais-medical' ? 1 : 0 };
-      }
-    });
-    if (!cfg.totalQuestions) cfg.totalQuestions = 15;
-    if (cfg.delay === undefined) cfg.delay = 1;
-    return cfg;
-  } catch(e) { return defaultConfig(); }
-}
-
-function saveConfigToStorage(cfg) {
-  localStorage.setItem(CONFIG_KEY, JSON.stringify(cfg));
-}
-
-// ══════════════════════════════════════════════
-// ÉTAT RUNTIME
-// ══════════════════════════════════════════════
-var _cfg = loadConfig();
-var ANSWER_DELAY = _cfg.delay;
-var TOTAL_Q = _cfg.totalQuestions;
+var _cfg = { totalQuestions: 15, delay: 1, quizzes: {} };
+var ANSWER_DELAY = 1;
+var TOTAL_Q = 15;
 
 let QUESTION_POOL = [];
 let questions = [];
@@ -390,6 +352,57 @@ let totalTime = 0;
 let questionScores = [];
 let timerInterval = null;
 let questionStart = 0;
+var _binRecord={scores:[],stats:{total:0,weeks:{}},reports:[],settings:{}};
+
+// ══════════════════════════════════════════════
+// CONFIGURATION (JSONBIN SYNC)
+// ══════════════════════════════════════════════
+function defaultConfig() {
+  var quizzes = {};
+  QUIZ_FILES.forEach(function(f) {
+    quizzes[f] = { enabled: true, max: f === 'anglais-medical' ? 1 : 0 };
+  });
+  return { totalQuestions: 15, delay: 1, quizzes: quizzes };
+}
+
+async function saveConfig() {
+  var cfg = {
+    totalQuestions: parseInt(document.getElementById('cfg-total-q').value) || 15,
+    delay: parseFloat(document.getElementById('cfg-delay').value) || 1,
+    quizzes: {}
+  };
+  
+  QUIZ_FILES.forEach(function(f) {
+    var enabled = document.getElementById('cfg-en-'+f).checked;
+    var max = parseInt(document.getElementById('cfg-max-'+f).value) || 0;
+    cfg.quizzes[f] = { enabled: enabled, max: max };
+  });
+
+  // Mise à jour locale immédiate
+  _cfg = cfg;
+  ANSWER_DELAY = cfg.delay;
+  TOTAL_Q = cfg.totalQuestions;
+  localStorage.setItem('challenge_config', JSON.stringify(cfg));
+  updateIntroUI();
+
+  var msg = document.getElementById('cfg-saved-msg');
+  msg.style.color = "var(--muted)";
+  msg.textContent = '⏳ Enregistrement sur le serveur...';
+
+  // Push sur JSONBin
+  try {
+    if (!_binRecord.settings) _binRecord.settings = {};
+    _binRecord.settings.challenge_config = cfg;
+    await saveBinRecord();
+    msg.style.color = "var(--green-dark)";
+    msg.textContent = '✓ Configuration globale enregistrée.';
+  } catch(e) {
+    msg.style.color = "var(--red)";
+    msg.textContent = '❌ Erreur de connexion au serveur.';
+  }
+  
+  setTimeout(function(){ msg.textContent=''; msg.style.color = "var(--green-dark)"; }, 3000);
+}
 
 // ══════════════════════════════════════════════
 // HELPERS
@@ -399,7 +412,6 @@ function shuffle(a){return shuffleArray(a);}
 function getTheme(q){return QUIZ_THEME[q.quiz]||q.quiz;}
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
-// Calcule F/M/D en proportion de n total (≈47% / 33% / 20%)
 function computeRepartition(n) {
   var d = Math.max(1, Math.round(n * 0.20));
   var m = Math.max(1, Math.round(n * 0.33));
@@ -414,20 +426,15 @@ function computeRepartition(n) {
 // ══════════════════════════════════════════════
 async function loadAllQuestions() {
   const v = Date.now();
-  // Uniquement les quiz activés
   const activeFiles = QUIZ_FILES.filter(f => _cfg.quizzes[f] && _cfg.quizzes[f].enabled);
   const fetches = activeFiles.map(f => fetch('questions/'+f+'.json?v='+v).then(r=>r.json()));
   const arrays = await Promise.all(fetches);
-  var raw = arrays.flat().filter(q => !EXCLUDED_QUESTIONS.includes(q.text));
 
-  // Appliquer les limites par quiz
   var limited = [];
   activeFiles.forEach(function(f, i) {
     var qs = arrays[i].filter(q => !EXCLUDED_QUESTIONS.includes(q.text));
     var maxQ = _cfg.quizzes[f] ? _cfg.quizzes[f].max : 0;
-    if (maxQ > 0) {
-      qs = shuffleArray(qs).slice(0, maxQ);
-    }
+    if (maxQ > 0) qs = shuffleArray(qs).slice(0, maxQ);
     limited = limited.concat(qs);
   });
   QUESTION_POOL = limited;
@@ -467,7 +474,6 @@ function pickChallenge() {
     ...weightedPick(m, Math.min(rep.m, m.length)),
     ...weightedPick(d, Math.min(rep.d, d.length))
   ];
-  // Compléter si pas assez dans une catégorie
   if (sel.length < TOTAL_Q) {
     var used = new Set(sel.map(q=>q.text));
     var rem = shuffleArray(QUESTION_POOL.filter(q=>!used.has(q.text)));
@@ -477,14 +483,13 @@ function pickChallenge() {
 }
 
 // ══════════════════════════════════════════════
-// UI INTRO — mise à jour dynamique
+// UI INTRO
 // ══════════════════════════════════════════════
 function updateIntroUI() {
   var n = _cfg.totalQuestions;
   var rep = computeRepartition(n);
   document.getElementById('intro-nq').textContent = n;
-  document.getElementById('intro-desc').textContent =
-    n + ' questions tirées aléatoirement. Répondez vite — chaque seconde compte sur votre score !';
+  document.getElementById('intro-desc').textContent = n + ' questions tirées aléatoirement. Répondez vite — chaque seconde compte sur votre score !';
   document.getElementById('intro-repartition').innerHTML =
     '🟢 '+rep.f+' question'+(rep.f>1?'s':'')+' facile'+(rep.f>1?'s':'')+
     ' · 🟡 '+rep.m+' question'+(rep.m>1?'s':'')+' modérée'+(rep.m>1?'s':'')+
@@ -495,9 +500,6 @@ function updateIntroUI() {
 // QUIZ
 // ══════════════════════════════════════════════
 async function startQuiz() {
-  _cfg = loadConfig();
-  ANSWER_DELAY = _cfg.delay;
-  TOTAL_Q = _cfg.totalQuestions;
   await loadAllQuestions();
   questions = pickChallenge();
   shuffledOptions = questions.map(q=>shuffle(q.options.map((text,origIndex)=>({text,origIndex}))));
@@ -521,6 +523,7 @@ function renderQuestion() {
   diffEl.textContent=diffLabels[q.difficulte]||q.difficulte;
   diffEl.className='diff-badge diff-'+q.difficulte;
   document.getElementById('q-text').textContent=q.text;
+  
   const grid=document.getElementById('options-grid');
   grid.innerHTML='';
   const letters=['A','B','C','D'];
@@ -530,6 +533,7 @@ function renderQuestion() {
     btn.onclick=()=>selectAnswer(opt.origIndex);
     grid.appendChild(btn);
   });
+  
   document.getElementById('feedback-box').className='feedback-box';
   var existingRBtn=document.querySelector('.report-btn');
   if(existingRBtn)existingRBtn.remove();
@@ -537,6 +541,7 @@ function renderQuestion() {
   document.getElementById('next-btn').className='next-btn';
   grid.style.visibility='hidden';
   clearTimeout(window._delayTimer);
+  
   if(ANSWER_DELAY>0){
     window._delayTimer=setTimeout(function(){grid.style.visibility='visible';startTimer();},ANSWER_DELAY*1000);
   }else{grid.style.visibility='visible';startTimer();}
@@ -567,22 +572,27 @@ function selectAnswer(chosenOrig){
   let pts=0;
   if(ok){const secs=elapsed/1000;pts=secs<=GRACE_SEC?MAX_PTS:Math.max(0,MAX_PTS-Math.floor(secs-GRACE_SEC));}
   totalScore+=pts; totalTime+=elapsed; questionScores.push({ok,pts,elapsed});
+  
   document.querySelectorAll('.option-btn').forEach((btn,di)=>{
     const orig=opts[di].origIndex;
     if(orig===q.correct)btn.classList.add('correct');
     else if(orig===chosenOrig&&!ok)btn.classList.add('wrong');
     else btn.classList.add('dimmed');
   });
+  
   const ptsEl=document.getElementById('pts-awarded');
   if(ok){ptsEl.textContent='+'+pts+' pts ('+(elapsed/1000).toFixed(1)+'s)';ptsEl.className='pts-awarded good';}
   else{ptsEl.textContent='0 pts';ptsEl.className='pts-awarded bad';}
+  
   const fb=document.getElementById('feedback-box');
   document.getElementById('fb-title').textContent=ok?'✓ Bonne réponse !':'✗ Pas tout à fait…';
   document.getElementById('fb-body').innerHTML=q.explanation;
   fb.className='feedback-box show '+(ok?'correct-fb':'wrong-fb');
   document.getElementById('score-display').textContent='Score : '+totalScore;
+  
   const nb=document.getElementById('next-btn');nb.className='next-btn show';
   nb.textContent=current<questions.length-1?'Question suivante →':'Voir mon score →';
+  
   var existingRBtn=document.querySelector('.report-btn');
   if(existingRBtn)existingRBtn.remove();
   var rBtn=document.createElement('button');rBtn.className='report-btn';
@@ -601,6 +611,7 @@ function showResults(){
   document.getElementById('res-max-label').textContent='/ '+maxPossible+' pts';
   document.getElementById('res-chrono').textContent='⏱ Temps total : '+(totalTime/1000).toFixed(1)+' s';
   document.getElementById('score-circle').style.setProperty('--pct',pct+'%');
+  
   const titles=['🔁 On s\'entraîne encore !','📚 Bon effort !','👍 Solide !','🏆 Excellent !'];
   const msgs=[
     'Continuez à pratiquer — la rapidité et la précision s\'améliorent avec l\'entraînement.',
@@ -609,6 +620,7 @@ function showResults(){
     'Score remarquable ! Vitesse et précision au rendez-vous.'
   ];
   const idx=pct>=85?3:pct>=65?2:pct>=40?1:0;
+  
   document.getElementById('res-title').textContent=titles[idx];
   document.getElementById('res-msg').textContent=msgs[idx];
   document.getElementById('lb-form').style.display='block';
@@ -622,19 +634,12 @@ function showResults(){
 // ══════════════════════════════════════════════
 // LEADERBOARD / JSONBIN
 // ══════════════════════════════════════════════
-var _binRecord={scores:[],stats:{total:0,weeks:{}},reports:[],settings:{}};
-
 async function fetchLeaderboard(){
   try{
     const r=await fetch(JSONBIN_URL+'/latest',{headers:{'X-Master-Key':JSONBIN_KEY}});
     if(!r.ok)return[];
     const d=await r.json();
     _binRecord=d.record||{scores:[],stats:{total:0,weeks:{}},reports:[],settings:{}};
-    // Délai stocké dans JSONBin (rétrocompatibilité) — priorité au localStorage
-    const storedDelay=_binRecord.settings?.challenge_delay;
-    if(storedDelay!==undefined&&!isNaN(storedDelay)&&_cfg.delay===1){
-      // Seulement si config locale encore au défaut
-    }
     return _binRecord.scores||[];
   }catch(e){return[];}
 }
@@ -664,6 +669,7 @@ async function submitScore(){
   const weekKey=getWeekKey();
   const status=document.getElementById('lb-status');
   status.textContent='Envoi en cours…';
+  
   try{
     const scores=await fetchLeaderboard();
     const previous=scores.find(s=>s.week===weekKey&&s.pseudo===pseudo);
@@ -673,7 +679,7 @@ async function submitScore(){
         setTimeout(showFinalButtons,2000);return;
       }
       if(previous.score===totalScore&&previous.time<=totalTime){
-        status.textContent='⚠️ Score identique mais chrono moins bon — votre record ('+previous.score+' pts en '+(previous.time/1000).toFixed(1)+'s) est conservé.';
+        status.textContent='⚠️ Score identique mais chrono moins bon — record conservé.';
         setTimeout(showFinalButtons,2000);return;
       }
     }
@@ -683,8 +689,8 @@ async function submitScore(){
     const cutoff=Date.now()-28*24*3600*1000;
     const cleaned=filtered.filter(s=>s.ts>cutoff);
     await saveLeaderboard(cleaned);
-    status.textContent='✅ Nouveau meilleur score soumis ! Bonne chance dans le classement.';
-  }catch(e){status.textContent='❌ Erreur lors de l\'envoi. Réessayez.';console.error(e);}
+    status.textContent='✅ Nouveau meilleur score soumis !';
+  }catch(e){status.textContent='❌ Erreur lors de l\'envoi. Réessayez.';}
   setTimeout(showFinalButtons,1500);
 }
 
@@ -700,17 +706,13 @@ function showFinalButtons(){
 }
 
 // ══════════════════════════════════════════════
-// ÉCRAN CONFIG — construction et sauvegarde
+// ÉCRAN CONFIG
 // ══════════════════════════════════════════════
 function buildConfigScreen() {
-  // Pré-remplir les selects
   var cfg = _cfg;
-  var selTotal = document.getElementById('cfg-total-q');
   document.getElementById('cfg-total-q').value = cfg.totalQuestions || 15;
-  var selDelay = document.getElementById('cfg-delay');
-  selDelay.value = cfg.delay;
+  document.getElementById('cfg-delay').value = cfg.delay;
 
-  // Construire la liste des quiz
   var container = document.getElementById('cfg-quiz-list');
   container.innerHTML = '';
   QUIZ_FILES.forEach(function(f) {
@@ -742,27 +744,6 @@ function onToggleQuiz(f) {
   selMax.disabled = !enabled;
 }
 
-function saveConfig() {
-  var cfg = {
-    totalQuestions: parseInt(document.getElementById('cfg-total-q').value) || 15,
-    delay: parseFloat(document.getElementById('cfg-delay').value) || 1,
-    quizzes: {}
-  };
-  QUIZ_FILES.forEach(function(f) {
-    var enabled = document.getElementById('cfg-en-'+f).checked;
-    var max = parseInt(document.getElementById('cfg-max-'+f).value) || 0;
-    cfg.quizzes[f] = { enabled: enabled, max: max };
-  });
-  saveConfigToStorage(cfg);
-  _cfg = cfg;
-  ANSWER_DELAY = cfg.delay;
-  TOTAL_Q = cfg.totalQuestions;
-  updateIntroUI();
-  var msg = document.getElementById('cfg-saved-msg');
-  msg.textContent = '✓ Configuration enregistrée.';
-  setTimeout(function(){ msg.textContent=''; }, 2500);
-}
-
 // ══════════════════════════════════════════════
 // SIGNALEMENT
 // ══════════════════════════════════════════════
@@ -790,19 +771,48 @@ async function sendReport(){
 }
 
 // ══════════════════════════════════════════════
-// INIT
+// INIT & DOM LOAD
 // ══════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', async function(){
   var auth = sessionStorage.getItem('auth');
-  _cfg = loadConfig();
-  ANSWER_DELAY = _cfg.delay;
-  TOTAL_Q = _cfg.totalQuestions;
-  updateIntroUI();
-  buildConfigScreen();
+  
   if(auth==='admin'){
     document.getElementById('btn-config').style.display='inline-block';
   }
+  
+  // 1. Initialiser une configuration par défaut
+  _cfg = defaultConfig();
+
+  // 2. Récupérer TOUT depuis JSONBin (Scores ET Settings)
   await fetchLeaderboard();
+  
+  // 3. Appliquer la configuration de JSONBin si elle existe
+  if (_binRecord.settings && _binRecord.settings.challenge_config) {
+    _cfg = _binRecord.settings.challenge_config;
+  } else {
+    // Fallback : on regarde dans le localStorage au cas où JSONBin est vide
+    var local = localStorage.getItem('challenge_config');
+    if (local) {
+      try { _cfg = JSON.parse(local); } catch(e) {}
+    }
+  }
+
+  // S'assurer que tous les quiz sont présents (si nouveau quiz ajouté plus tard)
+  if (!_cfg.quizzes) _cfg.quizzes = {};
+  QUIZ_FILES.forEach(function(f) {
+    if (!_cfg.quizzes[f]) {
+      _cfg.quizzes[f] = { enabled: true, max: f === 'anglais-medical' ? 1 : 0 };
+    }
+  });
+
+  // Mise à jour des variables globales nécessaires au runtime
+  ANSWER_DELAY = _cfg.delay !== undefined ? _cfg.delay : 1;
+  TOTAL_Q = _cfg.totalQuestions || 15;
+  
+  // 4. Mettre à jour l'interface
+  updateIntroUI();
+  buildConfigScreen();
+  
   var overlay=document.getElementById('report-overlay');
   if(overlay)overlay.addEventListener('click',function(e){if(e.target===this)closeReport();});
 });
