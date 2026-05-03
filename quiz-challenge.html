@@ -11,7 +11,6 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'DM Sans',sans-serif;background-color:#f0ebe3;background-image:url(bg.jpg);background-repeat:repeat;background-size:1024px 571px;color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:40px 16px}
   .screen{display:none;width:100%;max-width:680px}.screen.active{display:flex;flex-direction:column;align-items:center;gap:20px}
-  .screen.active{display:flex;flex-direction:column;align-items:center}
 
   /* ── INTRO ── */
   #screen-intro{text-align:center;gap:20px}
@@ -28,6 +27,34 @@
   .btn-start{background:var(--gold);color:white;font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;border:none;padding:18px 48px;border-radius:14px;cursor:pointer;transition:background .2s,transform .15s;box-shadow:0 4px 20px rgba(245,166,35,.35)}
   .btn-start:hover{background:#d4891a;transform:translateY(-2px)}
 
+  /* ── CONFIG SCREEN ── */
+  #screen-config{gap:0}
+  .config-header{width:100%;display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.88);border-radius:14px;padding:14px 20px;margin-bottom:20px}
+  .config-header h2{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;flex:1}
+  .config-back-btn{background:white;color:var(--green);border:1.5px solid var(--green);border-radius:10px;padding:8px 18px;font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;transition:all .2s}
+  .config-back-btn:hover{background:var(--green-light)}
+  .config-card{background:white;border:1px solid var(--border);border-radius:16px;padding:24px;width:100%;margin-bottom:16px}
+  .config-card h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;margin-bottom:16px;color:var(--text);display:flex;align-items:center;gap:8px}
+  .config-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);gap:12px}
+  .config-row:last-child{border-bottom:none;padding-bottom:0}
+  .config-row-label{font-size:.9rem;flex:1;min-width:0}
+  .config-row-label small{display:block;font-size:.75rem;color:var(--muted);margin-top:2px}
+  .config-row-controls{display:flex;align-items:center;gap:10px;flex-shrink:0}
+  /* Toggle switch */
+  .toggle{position:relative;width:42px;height:24px;flex-shrink:0}
+  .toggle input{opacity:0;width:0;height:0}
+  .toggle-slider{position:absolute;inset:0;background:#dde5e0;border-radius:24px;cursor:pointer;transition:.2s}
+  .toggle-slider:before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:white;border-radius:50%;transition:.2s}
+  .toggle input:checked+.toggle-slider{background:var(--green)}
+  .toggle input:checked+.toggle-slider:before{transform:translateX(18px)}
+  /* Select */
+  .config-select{border:1.5px solid var(--border);border-radius:8px;padding:6px 10px;font-family:'DM Sans',sans-serif;font-size:.85rem;background:white;color:var(--text);cursor:pointer;outline:none;transition:border-color .2s}
+  .config-select:focus{border-color:var(--gold)}
+  .config-select:disabled{opacity:.4;cursor:default}
+  .config-save-btn{width:100%;background:var(--gold);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:15px;border-radius:12px;cursor:pointer;transition:background .2s;margin-top:4px}
+  .config-save-btn:hover{background:#d4891a}
+  .config-saved-msg{text-align:center;font-size:.82rem;color:var(--green-dark);min-height:18px;margin-top:6px}
+
   /* ── QUIZ ── */
   #screen-quiz{gap:20px}
   .progress-row{width:100%;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.85);border-radius:12px;padding:8px 14px;}
@@ -35,11 +62,8 @@
   .progress-bar-fill{height:100%;background:var(--gold);border-radius:100px;transition:width .4s ease;width:0%}
   .progress-label{font-size:.82rem;color:var(--muted);white-space:nowrap;font-weight:500}
   .score-badge{background:var(--gold-light);color:#a06b00;font-size:.82rem;font-weight:500;padding:5px 12px;border-radius:100px;white-space:nowrap}
-
-  /* Timer bar */
   .timer-row{width:100%;height:4px;background:var(--border);border-radius:100px;overflow:hidden}
   .timer-bar{height:100%;background:var(--green);border-radius:100px;width:100%;transition:width .1s linear,background .5s}
-
   .question-card{background:white;border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;box-shadow:0 2px 12px rgba(0,0,0,.06);animation:fadeIn .3s ease}
   .q-meta{font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px}
   .q-meta em{background:var(--green-light);color:var(--green-dark);padding:2px 8px;border-radius:6px;font-style:normal}
@@ -80,8 +104,6 @@
   .score-label{font-size:.75rem;color:var(--muted)}
   #screen-results h2{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800;background:rgba(255,255,255,0.88);border-radius:12px;padding:8px 20px;display:inline-block}
   #screen-results .result-msg{color:var(--muted);max-width:420px;font-size:.95rem;line-height:1.6;background:rgba(255,255,255,0.88);border-radius:12px;padding:8px 16px}
-
-  /* Leaderboard form */
   .lb-form{background:white;border:1px solid var(--border);border-radius:16px;padding:24px;width:100%;text-align:left}
   .lb-form h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:12px}
   .lb-form p{font-size:.85rem;color:var(--muted);margin-bottom:16px;line-height:1.5}
@@ -90,21 +112,12 @@
   .btn-submit-lb{background:var(--gold);color:white;font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;border:none;padding:13px 28px;border-radius:10px;cursor:pointer;width:100%;transition:background .2s}
   .btn-submit-lb:hover{background:#d4891a}
   .btn-skip{background:none;border:none;color:var(--muted);font-size:.82rem;cursor:pointer;margin-top:8px;text-decoration:underline;width:100%}
-
   .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
   .retry-btn{background:var(--gold);color:white;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;padding:16px 40px;border-radius:14px;cursor:pointer;transition:background .2s;box-shadow:0 4px 20px rgba(245,166,35,.3)}
   .retry-btn:hover{background:#d4891a}
   .home-btn{background:white;color:var(--green);font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;border:1.5px solid var(--green);padding:12px 28px;border-radius:14px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
   .home-btn:hover{background:var(--green-light)}
-
   .lb-status{font-size:.85rem;color:var(--muted);margin-top:8px;min-height:20px}
-
-  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-
-  /* ── Admin delay config ── */
-  .admin-delay-bar{display:none;background:rgba(26,158,110,0.1);border:1px solid #1a9e6e;border-radius:10px;padding:8px 16px;margin-bottom:12px;font-size:.82rem;color:#0f7a53;align-items:center;gap:10px;flex-wrap:wrap;}
-  .admin-delay-bar input[type=number]{width:55px;border:1px solid #1a9e6e;border-radius:6px;padding:4px 8px;font-size:.82rem;text-align:center;}
-  .admin-delay-bar button{background:var(--green);color:white;border:none;border-radius:6px;padding:4px 12px;font-size:.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;}
 
   .report-btn{background:none;border:1px solid var(--border);cursor:pointer;font-size:.78rem;color:var(--muted);opacity:0.6;padding:4px 12px;border-radius:6px;transition:all .2s;margin-top:10px;width:100%;text-align:right;}
   .report-btn:hover{opacity:1;background:#fff8e6;color:#c07800;border-color:#c07800;}
@@ -120,39 +133,99 @@
   .report-send-btn:hover{background:var(--green-dark);}
   .report-cancel-btn{background:white;color:var(--muted);border:1.5px solid var(--border);border-radius:10px;padding:12px 18px;font-family:'DM Sans',sans-serif;cursor:pointer;font-size:.9rem;}
   .report-status{font-size:.82rem;margin-top:10px;text-align:center;min-height:18px;}
+
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
 
-<!-- INTRO -->
+<!-- ══ INTRO ══ -->
 <div id="screen-intro" class="screen active">
   <div>
     <div class="badge-challenge">⚡ Challenge Semaine</div>
     <h1>Quiz<br><span>Challenge</span></h1>
   </div>
-  <p>15 questions tirées aléatoirement. Répondez vite — chaque seconde compte sur votre score !</p>
+  <p id="intro-desc">15 questions tirées aléatoirement. Répondez vite — chaque seconde compte sur votre score !</p>
   <div class="intro-stats">
-    <div class="stat-pill"><strong>15</strong><span>questions</span></div>
+    <div class="stat-pill"><strong id="intro-nq">15</strong><span>questions</span></div>
     <div class="stat-pill"><strong>100</strong><span>pts/question</span></div>
     <div class="stat-pill"><strong>⏱</strong><span>chrono</span></div>
   </div>
-  <div class="composition">
+  <div class="composition" id="intro-composition">
     <strong>Composition du challenge :</strong><br>
-    🟢 7 questions faciles · 🟡 5 questions modérées · 🔴 3 questions difficiles<br>
+    <span id="intro-repartition">🟢 7 questions faciles · 🟡 5 questions modérées · 🔴 3 questions difficiles</span><br>
     <span style="font-size:.82rem">Score : 100 pts si répondu en moins de 4s · −1 pt par seconde supplémentaire · 0 pt si faux</span>
   </div>
-  <div class="admin-delay-bar" id="admin-delay-bar">⚙️ Admin — Délai avant réponses : <input type="number" id="delay-input" min="0" max="10" step="0.5" value="1"> s <button onclick="applyDelay()">Appliquer</button></div>
   <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center;">
     <a class="home-btn" href="home.html">← Accueil</a>
+    <button id="btn-config" class="home-btn" onclick="showScreen('screen-config')" style="display:none;border-color:var(--gold);color:var(--gold)">⚙️ Config</button>
     <button class="btn-start" onclick="startQuiz()">Lancer le challenge →</button>
   </div>
 </div>
 
-<!-- QUIZ -->
+<!-- ══ CONFIG (admin) ══ -->
+<div id="screen-config" class="screen">
+  <div class="config-header">
+    <button class="config-back-btn" onclick="showScreen('screen-intro')">← Retour</button>
+    <h2>⚙️ Configuration du challenge</h2>
+  </div>
+
+  <!-- Nombre de questions -->
+  <div class="config-card">
+    <h3>📊 Nombre de questions</h3>
+    <div class="config-row">
+      <div class="config-row-label">
+        Questions par challenge
+        <small>Modifie aussi la répartition F/M/D proportionnellement</small>
+      </div>
+      <div class="config-row-controls">
+        <select class="config-select" id="cfg-total-q">
+          <option value="10">10 questions</option>
+          <option value="12">12 questions</option>
+          <option value="15" selected>15 questions</option>
+          <option value="20">20 questions</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Délai -->
+  <div class="config-card">
+    <h3>⏳ Délai avant affichage des réponses</h3>
+    <div class="config-row">
+      <div class="config-row-label">
+        Délai (secondes)
+        <small>Temps de lecture de la question avant que les choix apparaissent</small>
+      </div>
+      <div class="config-row-controls">
+        <select class="config-select" id="cfg-delay">
+          <option value="0">0 s</option>
+          <option value="0.5">0.5 s</option>
+          <option value="1" selected>1 s</option>
+          <option value="1.5">1.5 s</option>
+          <option value="2">2 s</option>
+          <option value="3">3 s</option>
+          <option value="5">5 s</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz inclus -->
+  <div class="config-card">
+    <h3>🎲 Quiz inclus dans le pool</h3>
+    <div id="cfg-quiz-list"><!-- généré par JS --></div>
+  </div>
+
+  <button class="config-save-btn" onclick="saveConfig()">💾 Enregistrer la configuration</button>
+  <div class="config-saved-msg" id="cfg-saved-msg"></div>
+</div>
+
+<!-- ══ QUIZ ══ -->
 <div id="screen-quiz" class="screen">
   <div class="progress-row">
     <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-bar"></div></div>
-    <span class="progress-label" id="progress-label">1 / 12</span>
+    <span class="progress-label" id="progress-label">1 / 15</span>
     <span class="score-badge" id="score-display">Score : 0</span>
   </div>
   <div class="timer-row"><div class="timer-bar" id="timer-bar"></div></div>
@@ -173,12 +246,12 @@
   <button class="next-btn" id="next-btn" onclick="nextQuestion()">Question suivante →</button>
 </div>
 
-<!-- RESULTS -->
+<!-- ══ RESULTS ══ -->
 <div id="screen-results" class="screen">
   <div class="score-circle" id="score-circle">
     <div class="score-inner">
       <div class="score-pts" id="res-score">0</div>
-      <div class="score-label">/ 1500 pts</div>
+      <div class="score-label" id="res-max-label">/ 1500 pts</div>
     </div>
   </div>
   <h2 id="res-title"></h2>
@@ -217,464 +290,514 @@
 </div>
 
 <script>
-let QUESTION_POOL = [];
+// ══════════════════════════════════════════════
+// CONSTANTES
+// ══════════════════════════════════════════════
+const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/69e8731aaaba882197256035';
+const JSONBIN_KEY = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
 
 const QUIZ_FILES = [
   'rhume','allergies','angines','contraception','cystite',
   'phytotherapie','pratique-vaccinale','vaccination-adultes',
-  'vaccination-femme-enceinte','vaccination-jeunes-enfants','vaccination-seniors'
+  'vaccination-femme-enceinte','vaccination-jeunes-enfants','vaccination-seniors',
+  'anglais-medical'
 ];
+
+const QUIZ_LABELS = {
+  'rhume':                      '🤧 Le Rhume au Comptoir',
+  'allergies':                  '🌿 Allergies Saisonnières',
+  'angines':                    '🦠 Angines à l\'Officine',
+  'contraception':              '💊 Contraception',
+  'cystite':                    '💧 Cystite à l\'Officine',
+  'phytotherapie':              '🌿 Phytothérapie',
+  'pratique-vaccinale':         '🏥 Pratique Vaccinale',
+  'vaccination-adultes':        '💉 Vaccination Adultes 7-64 ans',
+  'vaccination-femme-enceinte': '🤰 Vaccination Femme Enceinte',
+  'vaccination-jeunes-enfants': '💉 Vaccination Jeunes Enfants',
+  'vaccination-seniors':        '🧓 Vaccination Seniors 65+',
+  'anglais-medical':            '🇬🇧 Anglais Médical'
+};
+
+const QUIZ_THEME = {
+  rhume:'ORL', allergies:'ORL', angines:'ORL',
+  contraception:'Contraception', cystite:'Urologie',
+  phytotherapie:'Naturopathie',
+  'pratique-vaccinale':'Vaccination',
+  'vaccination-adultes':'Vaccination',
+  'vaccination-femme-enceinte':'Vaccination',
+  'vaccination-jeunes-enfants':'Vaccination',
+  'vaccination-seniors':'Vaccination',
+  'anglais-medical':'Anglais'
+};
 
 const EXCLUDED_QUESTIONS = [
   "Quelle est la durée de conservation d'un vaccin multidose après le premier prélèvement ?",
   "Quelle est la particularité du système adjuvant AS01B de Shingrix® concernant sa composition ?"
 ];
 
-async function loadAllQuestions() {
-  const v = Date.now();
-  const fetches = QUIZ_FILES.map(f => fetch('questions/' + f + '.json?v=' + v).then(r => r.json()));
-  const arrays = await Promise.all(fetches);
-  QUESTION_POOL = arrays.flat().filter(q => !EXCLUDED_QUESTIONS.includes(q.text));
+const MAX_PTS  = 100;
+const GRACE_SEC = 4;
+const MAX_DISPLAY = 20000;
+
+// ══════════════════════════════════════════════
+// CONFIG (localStorage)
+// ══════════════════════════════════════════════
+const CONFIG_KEY = 'challenge_config';
+
+function defaultConfig() {
+  var quizzes = {};
+  QUIZ_FILES.forEach(function(f) {
+    quizzes[f] = { enabled: true, max: f === 'anglais-medical' ? 1 : 0 };
+  });
+  return { totalQuestions: 15, delay: 1, quizzes: quizzes };
 }
 
-function shuffleArray(a){
-  const b=[...a];
-  for(let i=b.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [b[i],b[j]]=[b[j],b[i]];
-  }
-  return b;
-}
-
-
-const QUIZ_THEME = {"rhume": "ORL", "allergies": "ORL", "angines": "ORL", "contraception": "Contraception", "vaccination-jeunes-enfants": "Vaccination", "vaccination-femme-enceinte": "Vaccination", "vaccination-adultes": "Vaccination", "vaccination-seniors": "Vaccination", "pratique-vaccinale": "Vaccination", "cystite": "Urologie", "phytotherapie": "Naturopathie"};
-const THEME_PENALTY = 2; // coefficient de pénalité thématique (plus élevé = plus strict)
-
-function getTheme(q) {
-  return QUIZ_THEME[q.quiz] || q.quiz;
-}
-
-function weightedPick(pool, n) {
-  // Tirage pondéré avec pénalité sur les thèmes surreprésentés
-  var selected = [];
-  var themeCounts = {};
-  var remaining = pool.slice();
-
-  for (var i = 0; i < n && remaining.length > 0; i++) {
-    // Compute weights
-    var weights = remaining.map(function(q) {
-      var t = getTheme(q);
-      var count = themeCounts[t] || 0;
-      return 1 / (1 + THEME_PENALTY * count);
+function loadConfig() {
+  try {
+    var raw = localStorage.getItem(CONFIG_KEY);
+    if (!raw) return defaultConfig();
+    var cfg = JSON.parse(raw);
+    // S'assurer que tous les quiz sont présents (si nouveau quiz ajouté plus tard)
+    if (!cfg.quizzes) cfg.quizzes = {};
+    QUIZ_FILES.forEach(function(f) {
+      if (!cfg.quizzes[f]) {
+        cfg.quizzes[f] = { enabled: true, max: f === 'anglais-medical' ? 1 : 0 };
+      }
     });
-    // Weighted random pick
-    var total = weights.reduce(function(a,b){return a+b;}, 0);
-    var rand = Math.random() * total;
-    var cumul = 0;
-    var picked = 0;
-    for (var j = 0; j < weights.length; j++) {
-      cumul += weights[j];
-      if (rand <= cumul) { picked = j; break; }
-    }
-    var q = remaining[picked];
-    selected.push(q);
-    var t = getTheme(q);
-    themeCounts[t] = (themeCounts[t] || 0) + 1;
-    remaining.splice(picked, 1);
-  }
-  return selected;
+    if (!cfg.totalQuestions) cfg.totalQuestions = 15;
+    if (cfg.delay === undefined) cfg.delay = 1;
+    return cfg;
+  } catch(e) { return defaultConfig(); }
 }
 
-function pickChallenge(facile, modere, difficile) {
-  var f = QUESTION_POOL.filter(q=>q.difficulte==='facile');
-  var m = QUESTION_POOL.filter(q=>q.difficulte==='modere');
-  var d = QUESTION_POOL.filter(q=>q.difficulte==='difficile');
-  var sel = [
-    ...weightedPick(f, facile),
-    ...weightedPick(m, modere),
-    ...weightedPick(d, difficile)
-  ];
-  return shuffleArray(sel);
+function saveConfigToStorage(cfg) {
+  localStorage.setItem(CONFIG_KEY, JSON.stringify(cfg));
 }
 
 // ══════════════════════════════════════════════
-// CONFIG — remplacer BIN_ID et API_KEY après création sur jsonbin.io
+// ÉTAT RUNTIME
 // ══════════════════════════════════════════════
-const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/69e8731aaaba882197256035';
-const JSONBIN_KEY = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
-// ══════════════════════════════════════════════
+var _cfg = loadConfig();
+var ANSWER_DELAY = _cfg.delay;
+var TOTAL_Q = _cfg.totalQuestions;
 
-const TOTAL_Q = 15;
-const DEFAULT_DELAY = 1; // secondes avant affichage des réponses
-var ANSWER_DELAY = DEFAULT_DELAY; // sera mis à jour depuis JSONBin au chargement
-const FACILE_N = 7, MODERE_N = 5, DIFFICILE_N = 3;
-const MAX_PTS = 100;
-const GRACE_SEC = 4; // Full points if answered within this time
-
+let QUESTION_POOL = [];
 let questions = [];
 let shuffledOptions = [];
 let current = 0;
 let totalScore = 0;
-let totalTime = 0; // ms
+let totalTime = 0;
 let questionScores = [];
 let timerInterval = null;
 let questionStart = 0;
 
-// ── Shuffle ──
-function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+// ══════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════
+function shuffleArray(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function shuffle(a){return shuffleArray(a);}
+function getTheme(q){return QUIZ_THEME[q.quiz]||q.quiz;}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+// Calcule F/M/D en proportion de n total (≈47% / 33% / 20%)
+function computeRepartition(n) {
+  var d = Math.max(1, Math.round(n * 0.20));
+  var m = Math.max(1, Math.round(n * 0.33));
+  var f = n - m - d;
+  if (f < 1) { f = 1; m = n - f - d; }
+  if (m < 1) { m = 1; f = n - m - d; }
+  return { f: f, m: m, d: d };
+}
 
-// ── Build quiz ──
-async function startQuiz(){
-  await loadAllQuestions();
-  questions = pickChallenge(FACILE_N, MODERE_N, DIFFICILE_N);
-  shuffledOptions = questions.map(q=>{
-    return shuffle(q.options.map((text,origIndex)=>({text,origIndex})));
+// ══════════════════════════════════════════════
+// CHARGEMENT QUESTIONS
+// ══════════════════════════════════════════════
+async function loadAllQuestions() {
+  const v = Date.now();
+  // Uniquement les quiz activés
+  const activeFiles = QUIZ_FILES.filter(f => _cfg.quizzes[f] && _cfg.quizzes[f].enabled);
+  const fetches = activeFiles.map(f => fetch('questions/'+f+'.json?v='+v).then(r=>r.json()));
+  const arrays = await Promise.all(fetches);
+  var raw = arrays.flat().filter(q => !EXCLUDED_QUESTIONS.includes(q.text));
+
+  // Appliquer les limites par quiz
+  var limited = [];
+  activeFiles.forEach(function(f, i) {
+    var qs = arrays[i].filter(q => !EXCLUDED_QUESTIONS.includes(q.text));
+    var maxQ = _cfg.quizzes[f] ? _cfg.quizzes[f].max : 0;
+    if (maxQ > 0) {
+      qs = shuffleArray(qs).slice(0, maxQ);
+    }
+    limited = limited.concat(qs);
   });
-  current = 0; totalScore = 0; totalTime = 0; questionScores = [];
-  document.getElementById('lb-form').style.display = 'none';
-  document.getElementById('final-buttons').style.display = 'none';
-  document.getElementById('lb-status').textContent = '';
+  QUESTION_POOL = limited;
+}
+
+// ══════════════════════════════════════════════
+// TIRAGE
+// ══════════════════════════════════════════════
+function weightedPick(pool, n) {
+  var selected = [];
+  var themeCounts = {};
+  var remaining = pool.slice();
+  const THEME_PENALTY = 2;
+  for (var i = 0; i < n && remaining.length > 0; i++) {
+    var weights = remaining.map(function(q) {
+      var count = themeCounts[getTheme(q)] || 0;
+      return 1 / (1 + THEME_PENALTY * count);
+    });
+    var total = weights.reduce(function(a,b){return a+b;},0);
+    var rand = Math.random()*total, cumul=0, picked=0;
+    for (var j=0;j<weights.length;j++){cumul+=weights[j];if(rand<=cumul){picked=j;break;}}
+    var q=remaining[picked];
+    selected.push(q);
+    themeCounts[getTheme(q)]=(themeCounts[getTheme(q)]||0)+1;
+    remaining.splice(picked,1);
+  }
+  return selected;
+}
+
+function pickChallenge() {
+  var rep = computeRepartition(TOTAL_Q);
+  var f = QUESTION_POOL.filter(q=>q.difficulte==='facile');
+  var m = QUESTION_POOL.filter(q=>q.difficulte==='modere');
+  var d = QUESTION_POOL.filter(q=>q.difficulte==='difficile');
+  var sel = [
+    ...weightedPick(f, Math.min(rep.f, f.length)),
+    ...weightedPick(m, Math.min(rep.m, m.length)),
+    ...weightedPick(d, Math.min(rep.d, d.length))
+  ];
+  // Compléter si pas assez dans une catégorie
+  if (sel.length < TOTAL_Q) {
+    var used = new Set(sel.map(q=>q.text));
+    var rem = shuffleArray(QUESTION_POOL.filter(q=>!used.has(q.text)));
+    sel = sel.concat(rem.slice(0, TOTAL_Q - sel.length));
+  }
+  return shuffleArray(sel.slice(0, TOTAL_Q));
+}
+
+// ══════════════════════════════════════════════
+// UI INTRO — mise à jour dynamique
+// ══════════════════════════════════════════════
+function updateIntroUI() {
+  var n = _cfg.totalQuestions;
+  var rep = computeRepartition(n);
+  document.getElementById('intro-nq').textContent = n;
+  document.getElementById('intro-desc').textContent =
+    n + ' questions tirées aléatoirement. Répondez vite — chaque seconde compte sur votre score !';
+  document.getElementById('intro-repartition').innerHTML =
+    '🟢 '+rep.f+' question'+(rep.f>1?'s':'')+' facile'+(rep.f>1?'s':'')+
+    ' · 🟡 '+rep.m+' question'+(rep.m>1?'s':'')+' modérée'+(rep.m>1?'s':'')+
+    ' · 🔴 '+rep.d+' question'+(rep.d>1?'s':'')+' difficile'+(rep.d>1?'s':'');
+}
+
+// ══════════════════════════════════════════════
+// QUIZ
+// ══════════════════════════════════════════════
+async function startQuiz() {
+  _cfg = loadConfig();
+  ANSWER_DELAY = _cfg.delay;
+  TOTAL_Q = _cfg.totalQuestions;
+  await loadAllQuestions();
+  questions = pickChallenge();
+  shuffledOptions = questions.map(q=>shuffle(q.options.map((text,origIndex)=>({text,origIndex}))));
+  current=0; totalScore=0; totalTime=0; questionScores=[];
+  document.getElementById('lb-form').style.display='none';
+  document.getElementById('final-buttons').style.display='none';
+  document.getElementById('lb-status').textContent='';
   showScreen('screen-quiz');
   renderQuestion();
 }
 
-// ── Render ──
-function renderQuestion(){
-  const q = questions[current];
-  const opts = shuffledOptions[current];
-  const total = questions.length;
-
-  document.getElementById('progress-bar').style.width = ((current/total)*100)+'%';
-  document.getElementById('progress-label').textContent = `${current+1} / ${total}`;
-  document.getElementById('score-display').textContent = `Score : ${totalScore}`;
-  document.getElementById('q-num').textContent = current+1;
-  document.getElementById('q-theme').textContent = q.theme;
-
-  const diffEl = document.getElementById('q-diff');
-  const diffLabels = {facile:'🟢 Facile', modere:'🟡 Modéré', difficile:'🔴 Difficile'};
-  diffEl.textContent = diffLabels[q.difficulte] || q.difficulte;
-  diffEl.className = 'diff-badge diff-'+q.difficulte;
-
-  document.getElementById('q-text').textContent = q.text;
-
-  const grid = document.getElementById('options-grid');
-  grid.innerHTML = '';
-  const letters = ['A','B','C','D'];
+function renderQuestion() {
+  const q=questions[current], opts=shuffledOptions[current], total=questions.length;
+  document.getElementById('progress-bar').style.width=((current/total)*100)+'%';
+  document.getElementById('progress-label').textContent=(current+1)+' / '+total;
+  document.getElementById('score-display').textContent='Score : '+totalScore;
+  document.getElementById('q-num').textContent=current+1;
+  document.getElementById('q-theme').textContent=q.theme;
+  const diffEl=document.getElementById('q-diff');
+  const diffLabels={facile:'🟢 Facile',modere:'🟡 Modéré',difficile:'🔴 Difficile'};
+  diffEl.textContent=diffLabels[q.difficulte]||q.difficulte;
+  diffEl.className='diff-badge diff-'+q.difficulte;
+  document.getElementById('q-text').textContent=q.text;
+  const grid=document.getElementById('options-grid');
+  grid.innerHTML='';
+  const letters=['A','B','C','D'];
   opts.forEach((opt,di)=>{
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.innerHTML = `<span class="opt-letter">${letters[di]}</span><span>${opt.text}</span>`;
-    btn.onclick = ()=>selectAnswer(opt.origIndex);
+    const btn=document.createElement('button');btn.className='option-btn';
+    btn.innerHTML='<span class="opt-letter">'+letters[di]+'</span><span>'+opt.text+'</span>';
+    btn.onclick=()=>selectAnswer(opt.origIndex);
     grid.appendChild(btn);
   });
-
-  document.getElementById('feedback-box').className = 'feedback-box';
-  var existingRBtn2 = document.querySelector('.report-btn');
-  if(existingRBtn2) existingRBtn2.remove();
-  document.getElementById('pts-awarded').textContent = '';
-  document.getElementById('next-btn').className = 'next-btn';
-
-  // Delay before showing options & starting timer
-  grid.style.visibility = 'hidden';
+  document.getElementById('feedback-box').className='feedback-box';
+  var existingRBtn=document.querySelector('.report-btn');
+  if(existingRBtn)existingRBtn.remove();
+  document.getElementById('pts-awarded').textContent='';
+  document.getElementById('next-btn').className='next-btn';
+  grid.style.visibility='hidden';
   clearTimeout(window._delayTimer);
-  if (ANSWER_DELAY > 0) {
-    window._delayTimer = setTimeout(function(){
-      grid.style.visibility = 'visible';
-      startTimer();
-    }, ANSWER_DELAY * 1000);
-  } else {
-    grid.style.visibility = 'visible';
-    startTimer();
-  }
+  if(ANSWER_DELAY>0){
+    window._delayTimer=setTimeout(function(){grid.style.visibility='visible';startTimer();},ANSWER_DELAY*1000);
+  }else{grid.style.visibility='visible';startTimer();}
 }
 
-// ── Timer ──
 function startTimer(){
   clearInterval(timerInterval);
-  questionStart = Date.now();
-  const bar = document.getElementById('timer-bar');
-  bar.style.width = '100%';
-  bar.style.background = 'var(--green)';
-
-  const MAX_DISPLAY = 20000; // 20s display window
-  timerInterval = setInterval(()=>{
-    const elapsed = Date.now() - questionStart;
-    const pct = Math.max(0, 100 - (elapsed/MAX_DISPLAY)*100);
-    bar.style.width = pct+'%';
-    // Color: green → orange → red
-    if(pct < 25) bar.style.background = 'var(--red)';
-    else if(pct < 50) bar.style.background = 'var(--gold)';
-    else bar.style.background = 'var(--green)';
-  }, 100);
+  questionStart=Date.now();
+  const bar=document.getElementById('timer-bar');
+  bar.style.width='100%';bar.style.background='var(--green)';
+  timerInterval=setInterval(()=>{
+    const elapsed=Date.now()-questionStart;
+    const pct=Math.max(0,100-(elapsed/MAX_DISPLAY)*100);
+    bar.style.width=pct+'%';
+    if(pct<25)bar.style.background='var(--red)';
+    else if(pct<50)bar.style.background='var(--gold)';
+    else bar.style.background='var(--green)';
+  },100);
 }
 
-function stopTimer(){
-  clearInterval(timerInterval);
-  const elapsed = Date.now() - questionStart;
-  return elapsed;
-}
+function stopTimer(){clearInterval(timerInterval);return Date.now()-questionStart;}
 
-// ── Answer ──
 function selectAnswer(chosenOrig){
-  const elapsed = stopTimer();
-  const q = questions[current];
-  const opts = shuffledOptions[current];
-
+  const elapsed=stopTimer();
+  const q=questions[current], opts=shuffledOptions[current];
   document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
-
-  const ok = chosenOrig === q.correct;
-  let pts = 0;
-  if(ok){
-    const secs = elapsed / 1000;
-    pts = secs <= GRACE_SEC ? MAX_PTS : Math.max(0, MAX_PTS - Math.floor(secs - GRACE_SEC));
-  }
-  totalScore += pts;
-  totalTime += elapsed;
-  questionScores.push({ok, pts, elapsed});
-
-  // Highlight
+  const ok=chosenOrig===q.correct;
+  let pts=0;
+  if(ok){const secs=elapsed/1000;pts=secs<=GRACE_SEC?MAX_PTS:Math.max(0,MAX_PTS-Math.floor(secs-GRACE_SEC));}
+  totalScore+=pts; totalTime+=elapsed; questionScores.push({ok,pts,elapsed});
   document.querySelectorAll('.option-btn').forEach((btn,di)=>{
-    const orig = opts[di].origIndex;
-    if(orig===q.correct) btn.classList.add('correct');
-    else if(orig===chosenOrig&&!ok) btn.classList.add('wrong');
+    const orig=opts[di].origIndex;
+    if(orig===q.correct)btn.classList.add('correct');
+    else if(orig===chosenOrig&&!ok)btn.classList.add('wrong');
     else btn.classList.add('dimmed');
   });
-
-  // Points display
-  const ptsEl = document.getElementById('pts-awarded');
-  if(ok){
-    ptsEl.textContent = `+${pts} pts (${(elapsed/1000).toFixed(1)}s)`;
-    ptsEl.className = 'pts-awarded good';
-  } else {
-    ptsEl.textContent = `0 pts`;
-    ptsEl.className = 'pts-awarded bad';
-  }
-
-  // Feedback
-  const fb = document.getElementById('feedback-box');
-  document.getElementById('fb-title').textContent = ok ? '✓ Bonne réponse !' : '✗ Pas tout à fait…';
-  document.getElementById('fb-body').innerHTML = q.explanation;
-  fb.className = 'feedback-box show '+(ok?'correct-fb':'wrong-fb');
-
-  document.getElementById('score-display').textContent = `Score : ${totalScore}`;
-
-  const nb = document.getElementById('next-btn');
-  nb.className = 'next-btn show';
-  nb.textContent = current < questions.length-1 ? 'Question suivante →' : 'Voir mon score →';
-
-  // Report button
-  var existingRBtn = document.querySelector('.report-btn');
-  if(existingRBtn) existingRBtn.remove();
-  var rBtn = document.createElement('button');
-  rBtn.className = 'report-btn';
-  rBtn.innerHTML = '🚩 Signaler un problème sur cette question';
-  (function(qt){ rBtn.onclick = function(){ openReport(qt); }; })(q.text);
+  const ptsEl=document.getElementById('pts-awarded');
+  if(ok){ptsEl.textContent='+'+pts+' pts ('+(elapsed/1000).toFixed(1)+'s)';ptsEl.className='pts-awarded good';}
+  else{ptsEl.textContent='0 pts';ptsEl.className='pts-awarded bad';}
+  const fb=document.getElementById('feedback-box');
+  document.getElementById('fb-title').textContent=ok?'✓ Bonne réponse !':'✗ Pas tout à fait…';
+  document.getElementById('fb-body').innerHTML=q.explanation;
+  fb.className='feedback-box show '+(ok?'correct-fb':'wrong-fb');
+  document.getElementById('score-display').textContent='Score : '+totalScore;
+  const nb=document.getElementById('next-btn');nb.className='next-btn show';
+  nb.textContent=current<questions.length-1?'Question suivante →':'Voir mon score →';
+  var existingRBtn=document.querySelector('.report-btn');
+  if(existingRBtn)existingRBtn.remove();
+  var rBtn=document.createElement('button');rBtn.className='report-btn';
+  rBtn.innerHTML='🚩 Signaler un problème sur cette question';
+  (function(qt){rBtn.onclick=function(){openReport(qt);};})(q.text);
   document.querySelector('.question-card').appendChild(rBtn);
 }
 
-function nextQuestion(){
-  current++;
-  if(current >= questions.length) showResults();
-  else renderQuestion();
-}
+function nextQuestion(){current++;if(current>=questions.length)showResults();else renderQuestion();}
 
-// ── Results ──
 function showResults(){
   showScreen('screen-results');
-  const maxPossible = TOTAL_Q * MAX_PTS; // 1500
-  const pct = Math.round((totalScore/maxPossible)*100);
-  document.getElementById('res-score').textContent = totalScore;
-  document.getElementById('score-circle').style.setProperty('--pct', pct+'%');
-
-  const titles = ['🔁 On s\'entraîne encore !','📚 Bon effort !','👍 Solide !','🏆 Excellent !'];
-  const msgs = [
+  const maxPossible=TOTAL_Q*MAX_PTS;
+  const pct=Math.round((totalScore/maxPossible)*100);
+  document.getElementById('res-score').textContent=totalScore;
+  document.getElementById('res-max-label').textContent='/ '+maxPossible+' pts';
+  document.getElementById('score-circle').style.setProperty('--pct',pct+'%');
+  const titles=['🔁 On s\'entraîne encore !','📚 Bon effort !','👍 Solide !','🏆 Excellent !'];
+  const msgs=[
     'Continuez à pratiquer — la rapidité et la précision s\'améliorent avec l\'entraînement.',
     'Bon score ! Quelques réponses tardives ont pesé sur le total.',
     'Très bon score ! Répondre plus vite vous permettra de grimper dans le classement.',
     'Score remarquable ! Vitesse et précision au rendez-vous.'
   ];
-  const idx = pct>=85?3:pct>=65?2:pct>=40?1:0;
-  document.getElementById('res-title').textContent = titles[idx];
-  document.getElementById('res-msg').textContent = msgs[idx];
-  document.getElementById('lb-form').style.display = 'block';
-  document.getElementById('final-buttons').style.display = 'none';
-  document.getElementById('lb-status').textContent = '';
-  document.getElementById('pseudo-input').value = '';
-  document.getElementById('pseudo-select').value = '';
-  document.getElementById('pseudo-input').style.display = 'none';
+  const idx=pct>=85?3:pct>=65?2:pct>=40?1:0;
+  document.getElementById('res-title').textContent=titles[idx];
+  document.getElementById('res-msg').textContent=msgs[idx];
+  document.getElementById('lb-form').style.display='block';
+  document.getElementById('final-buttons').style.display='none';
+  document.getElementById('lb-status').textContent='';
+  document.getElementById('pseudo-input').value='';
+  document.getElementById('pseudo-select').value='';
+  document.getElementById('pseudo-input').style.display='none';
 }
 
-// ── Leaderboard ──
-// ── JSONBin : record complet en mémoire pour éviter les écrasements partiels ──
-var _binRecord = {scores:[], stats:{total:0,weeks:{}}, reports:[], settings:{}};
+// ══════════════════════════════════════════════
+// LEADERBOARD / JSONBIN
+// ══════════════════════════════════════════════
+var _binRecord={scores:[],stats:{total:0,weeks:{}},reports:[],settings:{}};
 
 async function fetchLeaderboard(){
-  try {
-    const r = await fetch(JSONBIN_URL+'/latest', {
-      headers:{'X-Master-Key': JSONBIN_KEY}
-    });
-    if(!r.ok) return [];
-    const d = await r.json();
-    _binRecord = d.record || {scores:[], stats:{total:0,weeks:{}}, reports:[], settings:{}};
-    // Appliquer le délai stocké
-    const storedDelay = _binRecord.settings?.challenge_delay;
-    if (storedDelay !== undefined && !isNaN(storedDelay)) {
-      ANSWER_DELAY = storedDelay;
+  try{
+    const r=await fetch(JSONBIN_URL+'/latest',{headers:{'X-Master-Key':JSONBIN_KEY}});
+    if(!r.ok)return[];
+    const d=await r.json();
+    _binRecord=d.record||{scores:[],stats:{total:0,weeks:{}},reports:[],settings:{}};
+    // Délai stocké dans JSONBin (rétrocompatibilité) — priorité au localStorage
+    const storedDelay=_binRecord.settings?.challenge_delay;
+    if(storedDelay!==undefined&&!isNaN(storedDelay)&&_cfg.delay===1){
+      // Seulement si config locale encore au défaut
     }
-    return _binRecord.scores || [];
-  } catch(e){ return []; }
+    return _binRecord.scores||[];
+  }catch(e){return[];}
 }
 
 async function saveBinRecord(){
-  try {
-    await fetch(JSONBIN_URL, {
-      method:'PUT',
-      headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
-      body: JSON.stringify(_binRecord)
-    });
-  } catch(e){}
+  try{
+    await fetch(JSONBIN_URL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},body:JSON.stringify(_binRecord)});
+  }catch(e){}
 }
 
-async function saveLeaderboard(scores){
-  _binRecord.scores = scores;
-  await saveBinRecord();
-}
+async function saveLeaderboard(scores){_binRecord.scores=scores;await saveBinRecord();}
 
 function getWeekKey(){
-  const now = new Date();
-  const d = new Date(Date.UTC(now.getFullYear(),now.getMonth(),now.getDate()));
-  const day = d.getUTCDay()||7;
-  d.setUTCDate(d.getUTCDate()+4-day);
-  const yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
-  const week = Math.ceil((((d-yearStart)/86400000)+1)/7);
-  return `${d.getUTCFullYear()}-W${week}`;
+  const now=new Date();
+  const d=new Date(Date.UTC(now.getFullYear(),now.getMonth(),now.getDate()));
+  const day=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-day);
+  const yearStart=new Date(Date.UTC(d.getUTCFullYear(),0,1));
+  const week=Math.ceil((((d-yearStart)/86400000)+1)/7);
+  return d.getUTCFullYear()+'-W'+week;
 }
 
 async function submitScore(){
-  const sel = document.getElementById('pseudo-select');
-  const freeInput = document.getElementById('pseudo-input');
-  const pseudo = (sel.value && sel.value !== '__autre__') ? sel.value : freeInput.value.trim();
-  if(!pseudo){
-    document.getElementById('lb-status').textContent = 'Merci d\'entrer votre prénom.';
-    return;
-  }
-  const weekKey = getWeekKey();
-  const status = document.getElementById('lb-status');
-  status.textContent = 'Envoi en cours…';
-
-  try {
-    const scores = await fetchLeaderboard();
-    const previous = scores.find(s => s.week === weekKey && s.pseudo === pseudo);
-    if (previous) {
-      if (previous.score > totalScore) {
-        status.textContent = '⚠️ Votre meilleur score cette semaine (' + previous.score + ' pts) est conservé.';
-        setTimeout(showFinalButtons, 2000);
-        return;
-      }
-      if (previous.score === totalScore && previous.time <= totalTime) {
-        status.textContent = '⚠️ Score identique mais chrono moins bon — votre record (' + previous.score + ' pts en ' + previous.time.toFixed(1) + 's) est conservé.';
-        setTimeout(showFinalButtons, 2000);
-        return;
-      }
+  const sel=document.getElementById('pseudo-select');
+  const freeInput=document.getElementById('pseudo-input');
+  const pseudo=(sel.value&&sel.value!=='__autre__')?sel.value:freeInput.value.trim();
+  if(!pseudo){document.getElementById('lb-status').textContent='Merci d\'entrer votre prénom.';return;}
+  const weekKey=getWeekKey();
+  const status=document.getElementById('lb-status');
+  status.textContent='Envoi en cours…';
+  try{
+    const scores=await fetchLeaderboard();
+    const previous=scores.find(s=>s.week===weekKey&&s.pseudo===pseudo);
+    if(previous&&previous.score>=totalScore){
+      status.textContent='⚠️ Votre meilleur score cette semaine ('+previous.score+' pts) est conservé.';
+      setTimeout(showFinalButtons,2000);return;
     }
-    const entry = {pseudo, score:totalScore, time:totalTime, week:weekKey, ts:Date.now()};
-    const filtered = scores.filter(s=>!(s.week===weekKey && s.pseudo===pseudo));
+    const entry={pseudo,score:totalScore,time:totalTime,week:weekKey,ts:Date.now()};
+    const filtered=scores.filter(s=>!(s.week===weekKey&&s.pseudo===pseudo));
     filtered.push(entry);
-    const cutoff = Date.now() - 28*24*3600*1000;
-    const cleaned = filtered.filter(s=>s.ts>cutoff);
+    const cutoff=Date.now()-28*24*3600*1000;
+    const cleaned=filtered.filter(s=>s.ts>cutoff);
     await saveLeaderboard(cleaned);
-    status.textContent = '✅ Nouveau meilleur score soumis ! Bonne chance dans le classement.';
-  } catch(e) {
-    status.textContent = '❌ Erreur lors de l\'envoi. Réessayez.';
-    console.error(e);
-  }
-
-  setTimeout(showFinalButtons, 1500);
+    status.textContent='✅ Nouveau meilleur score soumis ! Bonne chance dans le classement.';
+  }catch(e){status.textContent='❌ Erreur lors de l\'envoi. Réessayez.';console.error(e);}
+  setTimeout(showFinalButtons,1500);
 }
 
-
-function handleSelectChange(sel) {
-  const input = document.getElementById('pseudo-input');
-  if (sel.value === '__autre__') {
-    input.style.display = 'block';
-    input.focus();
-  } else {
-    input.style.display = 'none';
-    input.value = '';
-  }
+function handleSelectChange(sel){
+  const input=document.getElementById('pseudo-input');
+  if(sel.value==='__autre__'){input.style.display='block';input.focus();}
+  else{input.style.display='none';input.value='';}
 }
 
 function showFinalButtons(){
-  document.getElementById('lb-form').style.display = 'none';
-  document.getElementById('final-buttons').style.display = 'flex';
+  document.getElementById('lb-form').style.display='none';
+  document.getElementById('final-buttons').style.display='flex';
 }
 
-// ── Admin delay config ──
-async function applyDelay() {
-  var val = parseFloat(document.getElementById('delay-input').value);
-  if (!isNaN(val) && val >= 0) {
-    ANSWER_DELAY = val;
-    if (!_binRecord.settings) _binRecord.settings = {};
-    _binRecord.settings.challenge_delay = val;
-    await saveBinRecord();
-  }
+// ══════════════════════════════════════════════
+// ÉCRAN CONFIG — construction et sauvegarde
+// ══════════════════════════════════════════════
+function buildConfigScreen() {
+  // Pré-remplir les selects
+  var cfg = _cfg;
+  var selTotal = document.getElementById('cfg-total-q');
+  selTotal.value = cfg.totalQuestions;
+  var selDelay = document.getElementById('cfg-delay');
+  selDelay.value = cfg.delay;
+
+  // Construire la liste des quiz
+  var container = document.getElementById('cfg-quiz-list');
+  container.innerHTML = '';
+  QUIZ_FILES.forEach(function(f) {
+    var qcfg = cfg.quizzes[f] || { enabled: true, max: 0 };
+    var row = document.createElement('div');
+    row.className = 'config-row';
+    row.innerHTML =
+      '<div class="config-row-label">'+QUIZ_LABELS[f]+'</div>'+
+      '<div class="config-row-controls">'+
+        '<span style="font-size:.75rem;color:var(--muted);margin-right:4px">Max</span>'+
+        '<select class="config-select" id="cfg-max-'+f+'" '+(qcfg.enabled?'':'disabled')+'>'+
+          '<option value="0"'+(qcfg.max===0?' selected':'')+'>Illimité</option>'+
+          '<option value="1"'+(qcfg.max===1?' selected':'')+'>1</option>'+
+          '<option value="2"'+(qcfg.max===2?' selected':'')+'>2</option>'+
+          '<option value="3"'+(qcfg.max===3?' selected':'')+'>3</option>'+
+          '<option value="5"'+(qcfg.max===5?' selected':'')+'>5</option>'+
+          '<option value="8"'+(qcfg.max===8?' selected':'')+'>8</option>'+
+          '<option value="10"'+(qcfg.max===10?' selected':'')+'>10</option>'+
+        '</select>'+
+        '<label class="toggle"><input type="checkbox" id="cfg-en-'+f+'" '+(qcfg.enabled?'checked':'')+' onchange="onToggleQuiz(\''+f+'\')"><span class="toggle-slider"></span></label>'+
+      '</div>';
+    container.appendChild(row);
+  });
 }
 
-// Show admin bar if admin
-document.addEventListener('DOMContentLoaded', async function(){
-  var auth = sessionStorage.getItem('auth');
-  // Charger le record JSONBin pour récupérer le délai configuré
-  await fetchLeaderboard();
-  if (auth === 'admin') {
-    var bar = document.getElementById('admin-delay-bar');
-    if (bar) bar.style.display = 'flex';
-    var input = document.getElementById('delay-input');
-    if (input) input.value = ANSWER_DELAY;
-  }
-});
+function onToggleQuiz(f) {
+  var enabled = document.getElementById('cfg-en-'+f).checked;
+  var selMax = document.getElementById('cfg-max-'+f);
+  selMax.disabled = !enabled;
+}
 
+function saveConfig() {
+  var cfg = {
+    totalQuestions: parseInt(document.getElementById('cfg-total-q').value) || 15,
+    delay: parseFloat(document.getElementById('cfg-delay').value) || 1,
+    quizzes: {}
+  };
+  QUIZ_FILES.forEach(function(f) {
+    var enabled = document.getElementById('cfg-en-'+f).checked;
+    var max = parseInt(document.getElementById('cfg-max-'+f).value) || 0;
+    cfg.quizzes[f] = { enabled: enabled, max: max };
+  });
+  saveConfigToStorage(cfg);
+  _cfg = cfg;
+  ANSWER_DELAY = cfg.delay;
+  TOTAL_Q = cfg.totalQuestions;
+  updateIntroUI();
+  var msg = document.getElementById('cfg-saved-msg');
+  msg.textContent = '✓ Configuration enregistrée.';
+  setTimeout(function(){ msg.textContent=''; }, 2500);
+}
 
-// ── Signalement ──
-var _reportQuestion = null;
-function openReport(questionText) {
-  _reportQuestion = questionText;
-  document.getElementById('report-q-preview').textContent = '« ' + questionText.substring(0,80) + (questionText.length>80?'…':'') + ' »';
-  document.getElementById('report-msg').value = '';
-  document.getElementById('report-status').textContent = '';
+// ══════════════════════════════════════════════
+// SIGNALEMENT
+// ══════════════════════════════════════════════
+var _reportQuestion=null;
+function openReport(questionText){
+  _reportQuestion=questionText;
+  document.getElementById('report-q-preview').textContent='« '+questionText.substring(0,80)+(questionText.length>80?'…':'')+' »';
+  document.getElementById('report-msg').value='';
+  document.getElementById('report-status').textContent='';
   document.getElementById('report-overlay').classList.add('show');
 }
-function closeReport() {
-  document.getElementById('report-overlay').classList.remove('show');
-  _reportQuestion = null;
-}
-async function sendReport() {
-  var msg = document.getElementById('report-msg').value.trim();
-  var status = document.getElementById('report-status');
-  if (!msg) { status.textContent = 'Merci de décrire le problème.'; return; }
-  status.textContent = 'Envoi…';
-  try {
-    if (!_binRecord.reports) _binRecord.reports = [];
-    _binRecord.reports.push({
-      question: _reportQuestion,
-      message: msg,
-      quiz: 'Challenge',
-      date: new Date().toLocaleDateString('fr-FR'),
-      ts: Date.now()
-    });
+function closeReport(){document.getElementById('report-overlay').classList.remove('show');_reportQuestion=null;}
+async function sendReport(){
+  var msg=document.getElementById('report-msg').value.trim();
+  var status=document.getElementById('report-status');
+  if(!msg){status.textContent='Merci de décrire le problème.';return;}
+  status.textContent='Envoi…';
+  try{
+    if(!_binRecord.reports)_binRecord.reports=[];
+    _binRecord.reports.push({question:_reportQuestion,message:msg,quiz:'Challenge',date:new Date().toLocaleDateString('fr-FR'),ts:Date.now()});
     await saveBinRecord();
-    status.style.color = '#1a9e6e';
-    status.textContent = '✓ Signalement envoyé, merci !';
-    setTimeout(closeReport, 1500);
-  } catch(e) {
-    status.style.color = '#e84040';
-    status.textContent = 'Erreur lors de l\'envoi.';
-  }
+    status.style.color='#1a9e6e';status.textContent='✓ Signalement envoyé, merci !';
+    setTimeout(closeReport,1500);
+  }catch(e){status.style.color='#e84040';status.textContent='Erreur lors de l\'envoi.';}
 }
-document.addEventListener('DOMContentLoaded', function() {
-  var overlay = document.getElementById('report-overlay');
-  if(overlay) overlay.addEventListener('click', function(e){ if(e.target===this) closeReport(); });
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', async function(){
+  var auth = sessionStorage.getItem('auth');
+  _cfg = loadConfig();
+  ANSWER_DELAY = _cfg.delay;
+  TOTAL_Q = _cfg.totalQuestions;
+  updateIntroUI();
+  buildConfigScreen();
+  if(auth==='admin'){
+    document.getElementById('btn-config').style.display='inline-block';
+  }
+  await fetchLeaderboard();
+  var overlay=document.getElementById('report-overlay');
+  if(overlay)overlay.addEventListener('click',function(e){if(e.target===this)closeReport();});
 });
 </script>
 
