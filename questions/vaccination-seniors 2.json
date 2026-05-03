@@ -1,0 +1,492 @@
+[
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "DTP Senior",
+    "difficulte": "modere",
+    "text": "À partir de 45 ans, quels sont les âges fixes de rappel DTP recommandés en France ?",
+    "options": [
+      "45, 55, 65, 75, 85 ans",
+      "50, 60, 70, 80 ans",
+      "45, 65, 75, 85, 95 ans",
+      "Tous les 10 ans sans âge fixe"
+    ],
+    "correct": 2,
+    "explanation": "À partir de 65 ans, la fréquence des rappels passe à dix ans. Cette périodicité accrue compense l'affaiblissement naturel du système immunitaire en stimulant plus régulièrement les défenses de l'organisme."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Pneumocoque",
+    "difficulte": "facile",
+    "text": "Quelle valence de vaccin pneumococcique est désormais recommandée en dose unique pour les seniors ?",
+    "options": [
+      "VPC13 (Prevenar 13)",
+      "VPP23 (Pneumovax)",
+      "VPC20 (Prevenar 20)",
+      "VPC15 (Vaxneuvance)"
+    ],
+    "correct": 2,
+    "explanation": "Depuis 2025, le <strong>VPC20 (Prevenar 20®)</strong> est recommandé en <strong>dose unique</strong> pour toutes les personnes de 65 ans et plus. Il couvre 20 sérotypes pneumococciques et remplace le schéma séquentiel VPC13 + VPP23. C'est la recommandation actuelle, simplifiée et plus large que ses prédécesseurs."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona",
+    "difficulte": "facile",
+    "text": "Le vaccin Shingrix® est-il un vaccin vivant ou inactivé ?",
+    "options": [
+      "Vivant atténué",
+      "Inactivé recombinant adjuvé",
+      "À ARN messager",
+      "À vecteur viral"
+    ],
+    "correct": 1,
+    "explanation": "Shingrix® est un vaccin <strong>inactivé recombinant adjuvé</strong> : il contient une protéine recombinante de l'enveloppe du virus varicelle-zona (gE) associée à un puissant système adjuvant (AS01B). Cette nature inactivée le rend utilisable chez les immunodéprimés — contrairement à l'ancien Zostavax® (vaccin vivant)."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona",
+    "difficulte": "facile",
+    "text": "Peut-on vacciner contre le zona une personne qui a déjà eu la maladie ?",
+    "options": [
+      "Non, inutile — elle est immunisée",
+      "Oui, la vaccination est recommandée malgré l'antécédent",
+      "Seulement après 10 ans sans récidive",
+      "Contre-indiqué après zona"
+    ],
+    "correct": 1,
+    "explanation": "Oui — avoir eu le zona n'est pas une contre-indication à Shingrix®. La vaccination reste recommandée car <strong>l'immunité naturelle post-zona peut s'estomper</strong> avec l'âge, laissant le patient vulnérable à une récidive. Il est conseillé d'attendre 1 an après l'épisode de zona avant de vacciner."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona",
+    "difficulte": "facile",
+    "text": "Quel est le principal avantage de Shingrix® par rapport à l'ancien vaccin Zostavax® ?",
+    "options": [
+      "Une seule dose suffit",
+      "Moins d'effets secondaires locaux",
+      "Efficacité nettement supérieure, notamment chez les plus âgés",
+      "Absence de douleur à l'injection"
+    ],
+    "correct": 2,
+    "explanation": "La supériorité de Shingrix® réside dans son <strong>efficacité bien maintenue avec l'âge</strong> : plus de 90% d'efficacité contre le zona chez les 70 ans et plus, et plus de 85% contre les douleurs post-zostériennes. L'ancien Zostavax® (vivant) voyait son efficacité chuter rapidement avec l'âge et après quelques années."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Grippe senior",
+    "difficulte": "facile",
+    "text": "Quel vaccin grippe est spécifiquement recommandé pour les plus de 65 ans ?",
+    "options": [
+      "VaxigripTetra (standard)",
+      "Influvac Tetra (standard)",
+      "Efluelda (haute dose)",
+      "Fluenz (nasal)"
+    ],
+    "correct": 2,
+    "explanation": "Le vaccin <strong>Efluelda®</strong> (haute dose) est spécifiquement recommandé pour les personnes de 65 ans et plus depuis 2023. Il contient <strong>4 fois plus d'antigènes</strong> que les vaccins standard, ce qui compense la réponse immunitaire diminuée par l'immunosénescence. Il est remboursé pour cette tranche d'âge."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona",
+    "difficulte": "facile",
+    "text": "À quel âge s'arrête la recommandation vaccinale pour le zona chez l'adulte sain ?",
+    "options": [
+      "75 ans",
+      "80 ans",
+      "85 ans",
+      "Pas d'âge limite supérieur"
+    ],
+    "correct": 3,
+    "explanation": "Il n'y a <strong>pas d'âge limite supérieur</strong> pour la vaccination Shingrix® chez l'adulte sain. La vaccination reste recommandée et bénéfique à tout âge car le risque de zona et de complications (douleurs post-zostériennes) augmente avec l'âge. L'efficacité de Shingrix® se maintient même chez les très âgés grâce à son système adjuvant."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Co-administration",
+    "difficulte": "facile",
+    "text": "La co-administration Grippe et Covid-19 est-elle possible chez un patient de 70 ans ?",
+    "options": [
+      "Non, un intervalle de 15 jours est nécessaire",
+      "Oui, dans le même bras",
+      "Oui, sur deux sites d'injection différents",
+      "Seulement sur prescription médicale"
+    ],
+    "correct": 2,
+    "explanation": "La co-administration grippe + Covid-19 est <strong>possible et recommandée</strong> chez les seniors pour simplifier le parcours vaccinal. Les deux vaccins doivent être injectés sur <strong>deux sites d'injection différents</strong> (bras différents de préférence). Cette co-administration peut être réalisée en pharmacie."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Vaccination officinale",
+    "difficulte": "facile",
+    "text": "En 2026, un pharmacien peut-il prescrire et administrer le vaccin Shingrix® à un patient de 68 ans ?",
+    "options": [
+      "Non, prescription médicale obligatoire",
+      "Oui, le pharmacien peut prescrire et vacciner",
+      "Uniquement si le patient est en ALD",
+      "Uniquement pour le 2e rappel"
+    ],
+    "correct": 1,
+    "explanation": "Depuis 2023, les <strong>pharmaciens peuvent prescrire et administrer</strong> tous les vaccins du calendrier vaccinal aux personnes de 11 ans et plus, y compris Shingrix®. Un pharmacien peut donc prescrire, délivrer et injecter ce vaccin à un patient de 68 ans sans ordonnance médicale préalable."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Covid-19",
+    "difficulte": "facile",
+    "text": "Quelle est la recommandation actuelle de rappel Covid-19 pour les plus de 65 ans ?",
+    "options": [
+      "Tous les 6 mois",
+      "Annuel, en période automnale",
+      "Tous les 2 ans",
+      "Plus de rappel recommandé"
+    ],
+    "correct": 1,
+    "explanation": "Pour les personnes de 65 ans et plus, un rappel Covid-19 est recommandé chaque année en période automnale (<strong>rappel annuel</strong>), avant la saison hivernale. Ce rappel est co-administrable avec la grippe. La vaccination annuelle vise à maintenir une protection suffisante face à l'évolution des variants."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Grippe — accès",
+    "difficulte": "facile",
+    "text": "Un patient de 65 ans peut-il se faire vacciner contre la grippe en pharmacie sans bon de l'Assurance Maladie reçu par courrier ?",
+    "options": [
+      "Non, le bon est obligatoire",
+      "Oui, le pharmacien édite le bon et vaccine directement",
+      "Uniquement sur prescription médicale",
+      "Uniquement après 75 ans"
+    ],
+    "correct": 1,
+    "explanation": "Depuis 2019, les patients éligibles à la vaccination grippe gratuite peuvent se rendre directement en pharmacie : le <strong>pharmacien édite lui-même le bon de vaccination</strong> et peut vacciner sur place. Il n'est plus nécessaire d'attendre le bon envoyé par courrier par l'Assurance Maladie."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Vaccin adulte — valence réduite",
+    "difficulte": "facile",
+    "text": "Pourquoi la valence diphtérique est-elle dosée plus faiblement (",
+    "options": [
+      "Pour réduire les coûts",
+      "Pour limiter les réactions locales d'hypersensibilité chez les adultes pré-immunisés",
+      "Parce que l'adulte est totalement immunisé",
+      "Pour une meilleure conservation"
+    ],
+    "correct": 1,
+    "explanation": "Les adultes pré-immunisés par les vaccinations antérieures réagiraient de façon exagérée (érythème, douleur, induration importantes) à une dose complète d'anatoxine diphtérique. La <strong>dose réduite "
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona",
+    "difficulte": "modere",
+    "text": "Quel est le schéma vaccinal complet du vaccin Shingrix® en population générale ?",
+    "options": [
+      "1 dose unique",
+      "2 doses (M0 et entre M2 et M6)",
+      "3 doses (M0, M1, M6)",
+      "2 doses à 1 an d'écart"
+    ],
+    "correct": 1,
+    "explanation": "Le schéma Shingrix® standard est <strong>2 doses</strong> : M0 puis entre <strong>M2 et M6</strong>. L'intervalle minimal est de 2 mois, l'intervalle maximal de 6 mois. Chez l'immunodéprimé, l'intervalle est réduit à 1-2 mois. Il n'existe pas de schéma à 3 doses ni de dose de rappel après ce schéma complet."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "DTP senior",
+    "difficulte": "modere",
+    "text": "Pourquoi les rappels DTP sont-ils plus rapprochés (tous les 10 ans) après 65 ans ?",
+    "options": [
+      "Immunodépression iatrogène systématique",
+      "Immunosénescence : déclin naturel de l'immunité avec l'âge",
+      "Utilisation de doses pédiatriques",
+      "Risque de tétanos tellurique accru"
+    ],
+    "correct": 1,
+    "explanation": "L'<strong>immunosénescence</strong> est le déclin progressif et naturel des fonctions immunitaires avec l'âge. Ce phénomène réduit la durée de protection conférée par les vaccinations. C'est pourquoi les rappels DTP passent de tous les 20 ans (adulte) à <strong>tous les 10 ans</strong> après 65 ans pour maintenir une protection suffisante."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona",
+    "difficulte": "modere",
+    "text": "Quel délai minimal faut-il respecter après un épisode de zona avant de vacciner avec Shingrix® ?",
+    "options": [
+      "15 jours",
+      "1 mois",
+      "1 an",
+      "5 ans"
+    ],
+    "correct": 2,
+    "explanation": "Il est recommandé d'attendre <strong>au moins 1 an</strong> après un épisode de zona avant d'administrer Shingrix®. Ce délai permet à l'immunité naturelle post-zona de se stabiliser. Vacciner trop tôt après l'épisode n'est pas dangereux mais pourrait être moins efficace car l'immunité est alors déjà stimulée."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona — immunodéprimé",
+    "difficulte": "modere",
+    "text": "Peut-on injecter Shingrix® à un patient sous corticoïdes ou immunosuppresseurs ?",
+    "options": [
+      "Non, c'est un vaccin vivant contre-indiqué",
+      "Oui, car c'est un vaccin inactivé recombinant",
+      "Uniquement après l'arrêt du traitement",
+      "À demi-dose"
+    ],
+    "correct": 1,
+    "explanation": "Shingrix® est un vaccin <strong>inactivé recombinant</strong> — il ne contient pas de virus vivant. Il est donc <strong>utilisable chez les immunodéprimés</strong>, y compris sous corticoïdes ou immunosuppresseurs. C'est une différence majeure avec l'ancien Zostavax® (vivant, contre-indiqué sous immunosuppresseurs). La réponse immunitaire peut être réduite mais la vaccination reste bénéfique."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona",
+    "difficulte": "modere",
+    "text": "Doit-on revacciner avec Shingrix® une personne ayant déjà reçu le vaccin Zostavax® ?",
+    "options": [
+      "Non, la vaccination est définitive",
+      "Oui, Shingrix® est recommandé même après Zostavax®",
+      "Uniquement après 80 ans",
+      "Seulement si immunodéprimée"
+    ],
+    "correct": 1,
+    "explanation": "Oui — Shingrix® est recommandé même chez les personnes ayant déjà reçu Zostavax® (ancien vaccin vivant). L'<strong>efficacité nettement supérieure</strong> de Shingrix® (>90% vs ~50% pour Zostavax® chez les 70+) justifie la revaccination. Un délai d'au moins 1 an après Zostavax® est souhaitable."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Anticoagulants",
+    "difficulte": "modere",
+    "text": "Un patient de 70 ans sous anticoagulants oraux (AOD) peut-il être vacciné par voie IM ?",
+    "options": [
+      "Non, voie sous-cutanée obligatoire",
+      "Oui, avec une aiguille fine et compression prolongée de 2 minutes",
+      "Uniquement à l'hôpital",
+      "Contre-indiqué"
+    ],
+    "correct": 1,
+    "explanation": "La vaccination IM est possible chez un patient sous anticoagulants oraux. La technique recommandée : utiliser une <strong>aiguille fine (23G ou 25G)</strong> et appliquer une <strong>compression ferme de 2 minutes</strong> après l'injection sans masser. Aucun arrêt de l'anticoagulant n'est nécessaire. La voie SC n'est pas recommandée car elle peut réduire l'immunogénicité pour certains vaccins."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona",
+    "difficulte": "modere",
+    "text": "Quelle est la complication majeure du zona que la vaccination vise principalement à prévenir ?",
+    "options": [
+      "La paralysie faciale",
+      "Les douleurs post-zostériennes (DPZ)",
+      "La cécité",
+      "La surdité"
+    ],
+    "correct": 1,
+    "explanation": "La complication la plus redoutée du zona est la <strong>névralgie post-zostérienne (NPZ)</strong> ou douleurs post-zostériennes : des douleurs neuropathiques intenses, chroniques et invalidantes. Leur fréquence et leur sévérité augmentent avec l'âge. Shingrix® réduit ce risque de plus de <strong>85%</strong>, en plus de réduire l'incidence du zona lui-même."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Pneumocoque",
+    "difficulte": "modere",
+    "text": "Un patient à risque a reçu VPC13 à 65 ans et VPP23 à 66 ans. Doit-il recevoir le VPC20 ?",
+    "options": [
+      "Non, le schéma séquentiel est définitif",
+      "Oui, une dose de VPC20 est préconisée 5 ans après le VPP23",
+      "Oui, tous les ans",
+      "Non, jamais après un schéma séquentiel"
+    ],
+    "correct": 1,
+    "explanation": "Selon les recommandations actuelles, une dose de <strong>VPC20 peut être préconisée 5 ans après le VPP23</strong> chez les patients à risque élevé, pour élargir la couverture sérotypique. Le délai de 5 ans après VPP23 est nécessaire pour éviter une hyporéponse. Cette recommandation s'applique aux patients immunodéprimés et à certaines situations à risque."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Remboursement",
+    "difficulte": "modere",
+    "text": "Quelle est la prise en charge du vaccin Shingrix® pour les 65 ans et plus en 2026 ?",
+    "options": [
+      "Non remboursé — à la charge du patient",
+      "Remboursé par l'Assurance Maladie",
+      "Uniquement remboursé pour les ALD",
+      "Gratuit uniquement pour les plus de 80 ans"
+    ],
+    "correct": 1,
+    "explanation": "Depuis 2024, Shingrix® est <strong>remboursé par l'Assurance Maladie</strong> pour les personnes de 65 ans et plus (remboursement à 65% par l'AM, complément par la mutuelle). Cette prise en charge a considérablement amélioré l'accès à ce vaccin pour les seniors. Il est également remboursé pour les immunodéprimés dès 18 ans."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona — mécanisme",
+    "difficulte": "difficile",
+    "text": "Pourquoi Shingrix® est-il plus efficace que l'ancien vaccin vivant Zostavax® chez le senior ?",
+    "options": [
+      "Il contient plus de virus actif",
+      "Son système adjuvant AS01B active puissamment les cellules T cytotoxiques",
+      "Il est administré en 2 doses",
+      "Sa meilleure stabilité thermique"
+    ],
+    "correct": 1,
+    "explanation": "La supériorité de Shingrix® est liée à son <strong>système adjuvant AS01B</strong>, qui contient deux composants immunostimulants (QS-21 et MPL). Ce système active puissamment les <strong>lymphocytes T cytotoxiques</strong>, essentiels pour le contrôle du VZV latent. C'est crucial chez le senior dont l'immunité cellulaire est diminuée par l'immunosénescence."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Co-administration",
+    "difficulte": "modere",
+    "text": "Peut-on injecter Shingrix® en même temps qu'un vaccin pneumococcique ?",
+    "options": [
+      "Non, un intervalle de 15 jours est obligatoire",
+      "Oui, sur deux sites d'injection différents",
+      "Seulement si le patient n'est pas fatigué",
+      "Non, 1 mois d'intervalle requis"
+    ],
+    "correct": 1,
+    "explanation": "La co-administration de Shingrix® avec le vaccin pneumococcique est <strong>possible et validée</strong>. Les vaccins sont injectés sur <strong>deux sites différents</strong> (bras différents de préférence). Cette co-administration est utile pour réduire le nombre de visites et améliorer la couverture vaccinale chez les seniors."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona",
+    "difficulte": "modere",
+    "text": "Quel est l'intervalle minimal entre les deux doses de Shingrix® pour une protection rapide ?",
+    "options": [
+      "15 jours",
+      "1 mois",
+      "2 mois",
+      "6 mois"
+    ],
+    "correct": 1,
+    "explanation": "L'intervalle <strong>minimal</strong> entre les deux doses de Shingrix® est de <strong>1 mois</strong>. En pratique, l'intervalle recommandé est de 2 à 6 mois pour une immunogénicité optimale. En cas d'immunodépression (où une protection rapide est souhaitée), un intervalle de 1 à 2 mois est préférable."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona — Zostavax",
+    "difficulte": "difficile",
+    "text": "Quel délai minimal doit séparer une dose de Zostavax® d'une injection de Shingrix® ?",
+    "options": [
+      "1 mois",
+      "6 mois",
+      "1 an",
+      "5 ans"
+    ],
+    "correct": 2,
+    "explanation": "Un délai d'au moins <strong>1 an</strong> est recommandé entre Zostavax® (vaccin vivant) et Shingrix® (vaccin inactivé). Ce délai permet à l'immunité induite par Zostavax® de se stabiliser. En pratique, ce délai d'1 an est recommandé par la HAS bien qu'il n'existe pas de contre-indication formelle à un délai plus court."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona — conservation",
+    "difficulte": "difficile",
+    "text": "Quelle est la durée de conservation de Shingrix® après reconstitution si non utilisé immédiatement ?",
+    "options": [
+      "1h à température ambiante",
+      "6h au réfrigérateur entre 2-8°C",
+      "24h au réfrigérateur",
+      "Il doit être jeté immédiatement si non utilisé"
+    ],
+    "correct": 1,
+    "explanation": "Après reconstitution, Shingrix® peut être conservé <strong>jusqu'à 6h au réfrigérateur (2-8°C)</strong>. Il ne doit pas être congelé après reconstitution. Si non utilisé dans ce délai, il doit être éliminé. Cette information est importante pour la gestion des flacons multi-doses et l'organisation des séances de vaccination en officine."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Technique d'injection",
+    "difficulte": "difficile",
+    "text": "Quelle conduite tenir chez un patient âgé présentant une amyotrophie deltoïdienne sévère ?",
+    "options": [
+      "Injecter en sous-cutané au niveau du deltoïde",
+      "Changer de site : injecter en IM au niveau du vaste latéral de la cuisse",
+      "Ne pas vacciner",
+      "Utiliser une aiguille plus courte (16mm)"
+    ],
+    "correct": 1,
+    "explanation": "En cas d'<strong>amyotrophie deltoïdienne sévère</strong>, il faut changer de site d'injection. Le <strong>vaste latéral de la cuisse</strong> est une excellente alternative pour une injection IM chez l'adulte et le senior. La vaccination SC n'est pas recommandée car elle réduit l'immunogénicité des vaccins adsorbés et augmente les réactions locales."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona — immunodéprimé",
+    "difficulte": "difficile",
+    "text": "Chez un patient immunodéprimé, quel est l'intervalle minimal réduit entre les deux doses de Shingrix® ?",
+    "options": [
+      "15 jours",
+      "1 mois",
+      "2 mois",
+      "6 mois"
+    ],
+    "correct": 1,
+    "explanation": "Chez l'immunodéprimé, l'intervalle minimal entre les deux doses de Shingrix® est réduit à <strong>1 mois</strong> (contre 2 mois chez l'immunocompétent). Cette réduction permet d'obtenir une protection plus rapide dans un contexte de vulnérabilité accrue. L'intervalle idéal chez l'immunodéprimé est de 1 à 2 mois."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona — adjuvant",
+    "difficulte": "difficile",
+    "text": "Quel composant de Shingrix® est responsable de sa forte immunogénicité chez le sujet très âgé ?",
+    "options": [
+      "L'antigène viral gE seul",
+      "Le système adjuvant AS01B",
+      "La présence de néomycine",
+      "Le stabilisant gélatineux"
+    ],
+    "correct": 1,
+    "explanation": "La forte immunogénicité de Shingrix® chez le sujet âgé est due à son <strong>système adjuvant AS01B</strong>. Ce système contient deux immunostimulants : le MPL (monophosphoryl lipid A) et le QS-21 (saponine). Ensemble, ils amplifient la réponse immunitaire cellulaire (lymphocytes T CD4+ et CD8+) essentielle pour contrôler le VZV latent dans les ganglions sensitifs."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Grippe haute dose",
+    "difficulte": "difficile",
+    "text": "Le vaccin grippe Efluelda® (haute dose) contient combien de fois plus d'antigènes que les vaccins standard ?",
+    "options": [
+      "2 fois",
+      "3 fois",
+      "4 fois",
+      "10 fois"
+    ],
+    "correct": 2,
+    "explanation": "Efluelda® contient <strong>4 fois plus d'antigènes</strong> par souche (60 µg vs 15 µg par souche pour les vaccins standard), soit 240 µg au total pour les 4 souches. Cette dose plus élevée compense la réponse immunitaire diminuée par l'immunosénescence chez les 65 ans et plus, se traduisant par une meilleure protection clinique."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "DTP senior",
+    "difficulte": "difficile",
+    "text": "Une sérologie tétanos est-elle utile avant de vacciner un senior au passé vaccinal inconnu ?",
+    "options": [
+      "Oui, systématiquement pour éviter les rappels inutiles",
+      "Non, on vaccine d'emblée pour ne pas manquer une opportunité",
+      "Uniquement après une plaie souillée",
+      "Uniquement pour les plus de 85 ans"
+    ],
+    "correct": 1,
+    "explanation": "La sérologie tétanos <strong>n'est pas recommandée avant de vacciner</strong> : vacciner une personne déjà immune n'est pas dangereux (simple effet rappel), alors que ne pas vacciner une personne non protégée représente un risque réel. Le principe est de ne pas manquer une opportunité vaccinale. On vaccine d'emblée selon le calendrier."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Grippe — Guillain-Barré",
+    "difficulte": "difficile",
+    "text": "Le syndrome de Guillain-Barré survenu dans les 6 semaines suivant une dose est une contre-indication à quel vaccin ?",
+    "options": [
+      "Shingrix®",
+      "Vaccin grippe",
+      "Vaccin pneumococcique",
+      "Vaccin DTP"
+    ],
+    "correct": 1,
+    "explanation": "Un syndrome de Guillain-Barré survenu dans les <strong>6 semaines suivant une vaccination antigrippale</strong> est une contre-indication aux futures doses du <strong>vaccin grippe</strong>. Cette association, bien que rare, est documentée. Pour les autres vaccins, l'antécédent de Guillain-Barré n'est pas une contre-indication formelle mais nécessite une évaluation bénéfice/risque."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Rituximab",
+    "difficulte": "difficile",
+    "text": "Pour un patient sous rituximab, quel est le moment optimal pour la vaccination grippe ?",
+    "options": [
+      "N'importe quand, le vaccin reste efficace",
+      "Juste avant la perfusion de rituximab",
+      "Au moins 4 mois après la dernière cure (repopulation lymphocytaire B)",
+      "Pendant la perfusion pour effet synergique"
+    ],
+    "correct": 2,
+    "explanation": "Le rituximab (anti-CD20) détruit les lymphocytes B, rendant la réponse vaccinale inefficace pendant plusieurs mois. Le moment optimal est <strong>au moins 4 mois après la dernière cure</strong>, quand la repopulation lymphocytaire B est suffisante pour monter une réponse immunitaire. Vacciner trop tôt après rituximab aboutit à une protection insuffisante."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Zona — immunologie",
+    "difficulte": "difficile",
+    "text": "Quel est l'objectif immunologique de l'adjuvant AS01B dans Shingrix® ?",
+    "options": [
+      "Stabiliser le pH du vaccin",
+      "Recruter et activer les cellules présentatrices d'antigènes (CPA) et les lymphocytes T",
+      "Diminuer la douleur à l'injection",
+      "Augmenter la durée de conservation"
+    ],
+    "correct": 1,
+    "explanation": "L'AS01B <strong>recrute et active les cellules présentatrices d'antigènes</strong> (CPA, notamment les cellules dendritiques) au site d'injection, et stimule puissamment les <strong>lymphocytes T cytotoxiques (CD8+) et T helper (CD4+)</strong>. Cette activation cellulaire est essentielle chez le senior dont l'immunité cellulaire décline, et c'est ce qui explique l'efficacité remarquable de Shingrix® à tout âge."
+  },
+  {
+    "quiz": "vaccination-seniors",
+    "theme": "Aspirine faible dose",
+    "difficulte": "difficile",
+    "text": "Un patient sous aspirine 75mg/j doit-il prendre des précautions pour une injection IM ?",
+    "options": [
+      "Arrêter l'aspirine 3 jours avant",
+      "Non, injection standard sans précaution particulière",
+      "Voie sous-cutanée obligatoire",
+      "Compression de 15 minutes obligatoire"
+    ],
+    "correct": 1,
+    "explanation": "L'aspirine à faible dose (75-100mg) <strong>ne contre-indique pas la vaccination IM</strong> et ne nécessite pas de précautions particulières. Une compression standard de quelques secondes après l'injection suffit. Seuls les patients sous anticoagulants oraux à dose thérapeutique (AVK, AOD) requièrent une aiguille fine et une compression prolongée (2 minutes)."
+  }
+]
