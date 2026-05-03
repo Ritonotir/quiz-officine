@@ -59,7 +59,7 @@
     "quiz": "cystite",
     "theme": "Signes de gravité",
     "difficulte": "facile",
-    "text": "Dans le protocole cystite à l'officine, quelle est la conduite à tenir si la patiente présente une fièvre supérieure à 38°C ?",
+    "text": "Dans le protocole cystite à l'officine, quelle est la conduite à tenir si la patiente présente une fièvre > 38°C ?",
     "options": [
       "Réaliser la BU immédiatement",
       "Orienter vers un médecin (suspicion de pyélonéphrite)",

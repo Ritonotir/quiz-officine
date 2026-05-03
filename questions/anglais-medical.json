@@ -64,7 +64,7 @@
       "Infection"
     ],
     "correct": 2,
-    "difficulte": "facile",
+    "difficulte": "modere",
     "theme": "Symptômes",
     "explanation": "<b>Rash</b> = éruption cutanée. Terme très fréquent dans les effets secondaires des médicaments.",
     "quiz": "anglais-medical"
@@ -106,7 +106,7 @@
       "Vaccin"
     ],
     "correct": 2,
-    "difficulte": "facile",
+    "difficulte": "modere",
     "theme": "Médicaments",
     "explanation": "<b>Painkiller</b> = antalgique / analgésique. \"Pain\" = douleur, \"killer\" = qui tue. Ex : paracétamol, ibuprofène.",
     "quiz": "anglais-medical"
@@ -176,7 +176,7 @@
       "Avaler"
     ],
     "correct": 1,
-    "difficulte": "facile",
+    "difficulte": "difficile",
     "theme": "Symptômes",
     "explanation": "<b>To throw up</b> = vomir (familier). Synonymes : \"to vomit\" (médical), \"to be sick\" (britannique), \"to puke\" (argot).",
     "quiz": "anglais-medical"
@@ -204,7 +204,7 @@
       "Allaitement"
     ],
     "correct": 1,
-    "difficulte": "facile",
+    "difficulte": "modere",
     "theme": "Gynécologie",
     "explanation": "<b>Pregnancy</b> = grossesse. \"Pregnant\" = enceinte. Ex : \"Are you pregnant ?\" — question clé avant toute dispensation.",
     "quiz": "anglais-medical"
@@ -316,7 +316,7 @@
       "Perte d'odorat"
     ],
     "correct": 2,
-    "difficulte": "facile",
+    "difficulte": "difficile",
     "theme": "Symptômes",
     "explanation": "<b>Runny nose</b> = nez qui coule (rhinorrhée). \"Stuffy nose\" = nez bouché (obstruction nasale).",
     "quiz": "anglais-medical"
@@ -330,7 +330,7 @@
       "Sinusite"
     ],
     "correct": 1,
-    "difficulte": "facile",
+    "difficulte": "difficile",
     "theme": "Symptômes",
     "explanation": "<b>Stuffy nose</b> = nez bouché. Opposé de \"runny nose\" (nez qui coule).",
     "quiz": "anglais-medical"
@@ -400,7 +400,7 @@
       "Suivi de grossesse"
     ],
     "correct": 2,
-    "difficulte": "facile",
+    "difficulte": "difficile",
     "theme": "Contraception",
     "explanation": "<b>Birth control</b> = contraception. \"Birth control pill\" = pilule contraceptive. \"Birth control method\" = méthode contraceptive.",
     "quiz": "anglais-medical"
@@ -582,7 +582,7 @@
       "Blessure musculaire"
     ],
     "correct": 1,
-    "difficulte": "modere",
+    "difficulte": "difficile",
     "theme": "Traumatologie",
     "explanation": "<b>Sprain</b> = entorse. \"I sprained my ankle\" = je me suis fait une entorse à la cheville. À distinguer de \"fracture\" (fracture) et \"dislocation\" (luxation).",
     "quiz": "anglais-medical"
@@ -736,7 +736,7 @@
       "Carie"
     ],
     "correct": 1,
-    "difficulte": "modere",
+    "difficulte": "difficile",
     "theme": "Pédiatrie",
     "explanation": "<b>Teething</b> = poussées dentaires (dentition du nourrisson). \"The baby is teething\" = le bébé fait ses dents.",
     "quiz": "anglais-medical"
@@ -820,7 +820,7 @@
       "Faiblesse musculaire"
     ],
     "correct": 2,
-    "difficulte": "modere",
+    "difficulte": "difficile",
     "theme": "Symptômes",
     "explanation": "<b>Numbness</b> = engourdissement, perte de sensibilité. \"My hand is numb\" = ma main est engourdie. Peut signaler une neuropathie.",
     "quiz": "anglais-medical"
@@ -862,7 +862,7 @@
       "Seringue orale"
     ],
     "correct": 1,
-    "difficulte": "modere",
+    "difficulte": "facile",
     "theme": "Posologie",
     "explanation": "<b>Teaspoon</b> = cuillère à café (environ 5 ml). \"Tablespoon\" = cuillère à soupe (environ 15 ml). Unités utilisées dans les notices anglophones.",
     "quiz": "anglais-medical"
@@ -1114,7 +1114,7 @@
       "Être sensible à"
     ],
     "correct": 2,
-    "difficulte": "modere",
+    "difficulte": "facile",
     "theme": "Allergologie",
     "explanation": "<b>To be allergic to</b> = être allergique à. \"Are you allergic to any medications?\" = avez-vous des allergies médicamenteuses ? Question systématique à l'officine.",
     "quiz": "anglais-medical"
@@ -1338,7 +1338,7 @@
       "Contre-indication absolue"
     ],
     "correct": 1,
-    "difficulte": "difficile",
+    "difficulte": "facile",
     "theme": "Pharmacologie",
     "explanation": "<b>Drug-drug interaction</b> = interaction médicamenteuse. Modification de l'effet d'un médicament par un autre pris simultanément.",
     "quiz": "anglais-medical"
@@ -1366,7 +1366,7 @@
       "Troubles du comportement alimentaire"
     ],
     "correct": 2,
-    "difficulte": "difficile",
+    "difficulte": "modere",
     "theme": "Nutrition",
     "explanation": "<b>Nutritional deficiencies</b> = carences nutritionnelles. Ex : carence en fer (anémie), en vitamine D, en vitamine B12.",
     "quiz": "anglais-medical"
@@ -1380,7 +1380,7 @@
       "Toxoplasmose"
     ],
     "correct": 1,
-    "difficulte": "difficile",
+    "difficulte": "facile",
     "theme": "Vaccination",
     "explanation": "<b>Tetanus</b> = tétanos. Infection bactérienne grave (Clostridium tetani) touchant le système nerveux. Vaccination obligatoire.",
     "quiz": "anglais-medical"
@@ -1394,7 +1394,7 @@
       "Antiacide"
     ],
     "correct": 3,
-    "difficulte": "difficile",
+    "difficulte": "facile",
     "theme": "Médicaments",
     "explanation": "<b>Antacid</b> = antiacide. Médicament neutralisant l'acidité gastrique. Ex : hydroxyde de magnésium, bicarbonate de sodium. À distinguer des IPP et anti-H2.",
     "quiz": "anglais-medical"
@@ -1408,7 +1408,7 @@
       "Interaction médicamenteuse"
     ],
     "correct": 2,
-    "difficulte": "difficile",
+    "difficulte": "facile",
     "theme": "Pharmacologie",
     "explanation": "<b>Contraindication</b> = contre-indication. Situation dans laquelle un médicament ne doit pas être utilisé. \"Absolute contraindication\" = contre-indication absolue.",
     "quiz": "anglais-medical"
@@ -1436,7 +1436,7 @@
       "Antihistaminique"
     ],
     "correct": 2,
-    "difficulte": "difficile",
+    "difficulte": "facile",
     "theme": "Médicaments",
     "explanation": "<b>Expectorant</b> = expectorant. Médicament facilitant l'expectoration en fluidifiant les sécrétions bronchiques. Ex : guaïfénésine, acétylcystéine.",
     "quiz": "anglais-medical"
@@ -1492,7 +1492,7 @@
       "Hypertension oculaire migraineuse"
     ],
     "correct": 1,
-    "difficulte": "difficile",
+    "difficulte": "facile",
     "theme": "Neurologie",
     "explanation": "<b>Retinal migraine</b> = migraine rétinienne (ou ophtalmique). Épisodes répétés de troubles visuels monoculaires temporaires associés à une céphalée migraineuse.",
     "quiz": "anglais-medical"
@@ -1520,7 +1520,7 @@
       "Chuchoter"
     ],
     "correct": 0,
-    "difficulte": "difficile",
+    "difficulte": "facile",
     "theme": "ORL",
     "explanation": "<b>To be voiceless</b> = être aphone, avoir perdu la voix. Plus courant : \"to lose one's voice\". \"Voiceless\" a aussi un sens phonétique en linguistique.",
     "quiz": "anglais-medical"
@@ -1534,7 +1534,7 @@
       "Plaie profonde"
     ],
     "correct": 1,
-    "difficulte": "difficile",
+    "difficulte": "facile",
     "theme": "Urgences",
     "explanation": "<b>Lethal wound</b> = blessure mortelle. \"Lethal\" = létal, mortel. \"Lethal dose\" = dose létale (DL50). \"Deadly\", \"fatal\" et \"mortal\" sont des synonymes proches.",
     "quiz": "anglais-medical"

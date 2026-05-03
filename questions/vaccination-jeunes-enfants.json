@@ -44,11 +44,11 @@
   {
     "quiz": "vaccination-jeunes-enfants",
     "theme": "Primovaccination vs rappel",
-    "difficulte": "facile",
+    "difficulte": "modere",
     "text": "Qu'est-ce qu'une primovaccination et en quoi diffère-t-elle d'un rappel ?",
     "options": [
-      "La primovaccination est la première dose uniquement ; le rappel désigne toutes les doses suivantes",
-      "La primovaccination est le schéma de base qui crée l'immunité initiale ; le rappel entretient et renforce cette immunité dans le temps",
+      "C'est la première dose uniquement ; le rappel désigne toutes les doses suivantes",
+      "C'est le schéma de base qui crée l'immunité initiale ; le rappel entretient et renforce cette immunité dans le temps",
       "La primovaccination concerne les vaccins obligatoires ; le rappel concerne les vaccins recommandés",
       "Il n'y a pas de différence fonctionnelle, c'est uniquement une question de terminologie"
     ],

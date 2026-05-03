@@ -408,11 +408,11 @@
   {
     "quiz": "vaccination-femme-enceinte",
     "theme": "Immunité naturelle",
-    "difficulte": "difficile",
-    "text": "Une mère a eu la coqueluche il y a 3 ans. Ses anticorps naturels protègent-ils suffisamment son futur nourrisson ?",
+    "difficulte": "modere",
+    "text": "Une mère a eu la coqueluche il y a 3 ans. Ses anticorps protègent-ils suffisamment son futur enfant ?",
     "options": [
       "Oui, l'immunité naturelle est totalement protectrice pour le nourrisson",
-      "Non — les anticorps naturels sont insuffisants pour assurer une protection passive du nourrisson : la vaccination pendant la grossesse reste recommandée",
+      "Non — les anticorps naturels sont insuffisants pour assurer une protection passive du nourrisson",
       "Oui, mais uniquement pendant les 2 premières semaines",
       "Oui, si la maladie était documentée biologiquement"
     ],
