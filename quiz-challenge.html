@@ -567,10 +567,17 @@ async function submitScore(){
   try {
     const scores = await fetchLeaderboard();
     const previous = scores.find(s => s.week === weekKey && s.pseudo === pseudo);
-    if (previous && previous.score >= totalScore) {
-      status.textContent = '⚠️ Votre meilleur score cette semaine (' + previous.score + ' pts) est conservé.';
-      setTimeout(showFinalButtons, 2000);
-      return;
+    if (previous) {
+      if (previous.score > totalScore) {
+        status.textContent = '⚠️ Votre meilleur score cette semaine (' + previous.score + ' pts) est conservé.';
+        setTimeout(showFinalButtons, 2000);
+        return;
+      }
+      if (previous.score === totalScore && previous.time <= totalTime) {
+        status.textContent = '⚠️ Score identique mais chrono moins bon — votre record (' + previous.score + ' pts en ' + previous.time.toFixed(1) + 's) est conservé.';
+        setTimeout(showFinalButtons, 2000);
+        return;
+      }
     }
     const entry = {pseudo, score:totalScore, time:totalTime, week:weekKey, ts:Date.now()};
     const filtered = scores.filter(s=>!(s.week===weekKey && s.pseudo===pseudo));

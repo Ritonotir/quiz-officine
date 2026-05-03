@@ -86,5 +86,13 @@
     "questions": 12,
     "difficulte": "Tous niveaux",
     "emoji": "🌿"
+  },
+  {
+    "titre": "Anglais Médical",
+    "fichier": "quiz-anglais-medical.html",
+    "theme": "Anglais",
+    "questions": 12,
+    "difficulte": "Tous niveaux",
+    "emoji": "🇬🇧"
   }
 ]

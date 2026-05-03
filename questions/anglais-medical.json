@@ -1,0 +1,1556 @@
+[
+  {
+    "text": "Que signifie \"fever\" ?",
+    "options": [
+      "Toux",
+      "Fièvre",
+      "Fatigue",
+      "Infection"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Symptômes",
+    "explanation": "<b>Fever</b> = fièvre. Ex : <em>\"The patient has a high fever\"</em>.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"syrup\" ?",
+    "options": [
+      "Comprimé",
+      "Pommade",
+      "Sirop",
+      "Gélule"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Formes galéniques",
+    "explanation": "<b>Syrup</b> = sirop. Forme liquide sucrée, souvent pour la toux ou les enfants.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"once a day\" ?",
+    "options": [
+      "Deux fois par jour",
+      "Une fois par jour",
+      "Toutes les heures",
+      "Une fois par semaine"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Posologie",
+    "explanation": "<b>Once a day</b> = une fois par jour. \"Twice a day\" = deux fois par jour, \"three times a day\" = trois fois par jour.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"eye drops\" ?",
+    "options": [
+      "Gouttes auriculaires",
+      "Gouttes nasales",
+      "Collyre",
+      "Spray nasal"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Formes galéniques",
+    "explanation": "<b>Eye drops</b> = collyre (gouttes oculaires). \"Ear drops\" = gouttes auriculaires, \"nose drops\" = gouttes nasales.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"rash\" ?",
+    "options": [
+      "Douleur",
+      "Fièvre",
+      "Éruption cutanée",
+      "Infection"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Symptômes",
+    "explanation": "<b>Rash</b> = éruption cutanée. Terme très fréquent dans les effets secondaires des médicaments.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"dizziness\" ?",
+    "options": [
+      "Douleur",
+      "Vertiges",
+      "Fièvre",
+      "Toux"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Symptômes",
+    "explanation": "<b>Dizziness</b> = vertiges / étourdissements. Effet secondaire fréquent à signaler au patient.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"side effects\" ?",
+    "options": [
+      "Symptômes",
+      "Effets secondaires",
+      "Maladie",
+      "Traitement"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Pharmacologie",
+    "explanation": "<b>Side effects</b> = effets secondaires / indésirables. Terme incontournable sur toute notice anglophone.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"painkiller\" ?",
+    "options": [
+      "Antibiotique",
+      "Anti-inflammatoire",
+      "Antalgique",
+      "Vaccin"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Médicaments",
+    "explanation": "<b>Painkiller</b> = antalgique / analgésique. \"Pain\" = douleur, \"killer\" = qui tue. Ex : paracétamol, ibuprofène.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"inhaler\" ?",
+    "options": [
+      "Spray nasal",
+      "Inhalateur",
+      "Perfusion",
+      "Sirop"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Formes galéniques",
+    "explanation": "<b>Inhaler</b> = inhalateur. Dispositif utilisé dans l'asthme et la BPCO pour délivrer le médicament directement dans les poumons.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"blood pressure\" ?",
+    "options": [
+      "Fréquence cardiaque",
+      "Glycémie",
+      "Tension artérielle",
+      "Température"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Signes vitaux",
+    "explanation": "<b>Blood pressure</b> = tension artérielle. \"High blood pressure\" = hypertension, \"low blood pressure\" = hypotension.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"chills\" ?",
+    "options": [
+      "Fatigue",
+      "Frissons",
+      "Douleur",
+      "Fièvre"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Symptômes",
+    "explanation": "<b>Chills</b> = frissons. Souvent associés à la fièvre : \"fever and chills\".",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"food poisoning\" ?",
+    "options": [
+      "Infection virale",
+      "Intoxication alimentaire",
+      "Allergie",
+      "Maladie chronique"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Pathologies",
+    "explanation": "<b>Food poisoning</b> = intoxication alimentaire. Symptômes typiques : nausées, vomissements, diarrhée.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"to throw up\" ?",
+    "options": [
+      "Tousser",
+      "Vomir",
+      "Respirer",
+      "Avaler"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Symptômes",
+    "explanation": "<b>To throw up</b> = vomir (familier). Synonymes : \"to vomit\" (médical), \"to be sick\" (britannique), \"to puke\" (argot).",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"vaccine\" ?",
+    "options": [
+      "Seringue",
+      "Comprimé",
+      "Vaccin",
+      "Antidote"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Vaccination",
+    "explanation": "<b>Vaccine</b> = vaccin. \"Vaccination\" = vaccination, \"to vaccinate\" = vacciner.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"pregnancy\" ?",
+    "options": [
+      "Accouchement",
+      "Grossesse",
+      "Fausse couche",
+      "Allaitement"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Gynécologie",
+    "explanation": "<b>Pregnancy</b> = grossesse. \"Pregnant\" = enceinte. Ex : \"Are you pregnant ?\" — question clé avant toute dispensation.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"diabetes\" ?",
+    "options": [
+      "Hypertension",
+      "Asthme",
+      "Allergie",
+      "Diabète"
+    ],
+    "correct": 3,
+    "difficulte": "facile",
+    "theme": "Pathologies",
+    "explanation": "<b>Diabetes</b> = diabète. \"Diabetic\" = diabétique. \"Type 1 diabetes\" / \"Type 2 diabetes\".",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"antibiotic\" ?",
+    "options": [
+      "Antifongique",
+      "Antibiotique",
+      "Antihistaminique",
+      "Antiviral"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Médicaments",
+    "explanation": "<b>Antibiotic</b> = antibiotique. Actif uniquement sur les bactéries, pas sur les virus.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"prescription\" ?",
+    "options": [
+      "Bilan de santé",
+      "Notice",
+      "Ordonnance",
+      "Posologie"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Officine",
+    "explanation": "<b>Prescription</b> = ordonnance. \"On prescription only\" = délivré uniquement sur ordonnance. \"Prescription drug\" = médicament prescrit.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"bandage\" ?",
+    "options": [
+      "Pansement adhésif",
+      "Gaze",
+      "Bandage / bande",
+      "Compresse"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Matériel médical",
+    "explanation": "<b>Bandage</b> = bandage, bande. À distinguer de \"plaster\" ou \"Band-Aid\" (pansement adhésif).",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"thermometer\" ?",
+    "options": [
+      "Tensiomètre",
+      "Thermomètre",
+      "Glucomètre",
+      "Spiromètre"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Matériel médical",
+    "explanation": "<b>Thermometer</b> = thermomètre. \"To take someone's temperature\" = prendre la température.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"toothbrush\" ?",
+    "options": [
+      "Brosse à cheveux",
+      "Brosse à dents",
+      "Fil dentaire",
+      "Brossette interdentaire"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Hygiène",
+    "explanation": "<b>Toothbrush</b> = brosse à dents. \"Toothpaste\" = dentifrice, \"dental floss\" = fil dentaire.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"pregnancy test\" ?",
+    "options": [
+      "Bilan hormonal",
+      "Test d'ovulation",
+      "Test de grossesse",
+      "Test sanguin"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Officine",
+    "explanation": "<b>Pregnancy test</b> = test de grossesse. Produit couramment demandé à l'officine.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"runny nose\" ?",
+    "options": [
+      "Nez bouché",
+      "Saignement de nez",
+      "Nez qui coule",
+      "Perte d'odorat"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Symptômes",
+    "explanation": "<b>Runny nose</b> = nez qui coule (rhinorrhée). \"Stuffy nose\" = nez bouché (obstruction nasale).",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"stuffy nose\" ?",
+    "options": [
+      "Nez qui coule",
+      "Nez bouché",
+      "Éternuements",
+      "Sinusite"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Symptômes",
+    "explanation": "<b>Stuffy nose</b> = nez bouché. Opposé de \"runny nose\" (nez qui coule).",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"sore throat\" ?",
+    "options": [
+      "Toux grasse",
+      "Voix enrouée",
+      "Mal de gorge",
+      "Amygdalite"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Symptômes",
+    "explanation": "<b>Sore throat</b> = mal de gorge. \"Sore\" = douloureux. \"I've got a sore throat\" = j'ai mal à la gorge.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"itchy\" ?",
+    "options": [
+      "Douloureux",
+      "Qui brûle",
+      "Qui démange",
+      "Enflé"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Symptômes",
+    "explanation": "<b>Itchy</b> = qui démange. \"I'm itchy\" / \"I have an itch\" = j'ai des démangeaisons. Associé aux allergies, eczéma.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"sunburn\" ?",
+    "options": [
+      "Insolation",
+      "Coup de soleil",
+      "Allergie solaire",
+      "Déshydratation"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Dermatologie",
+    "explanation": "<b>Sunburn</b> = coup de soleil. \"Sun\" = soleil, \"burn\" = brûlure. Produit très demandé en pharmacie l'été.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"chickenpox\" ?",
+    "options": [
+      "Oreillons",
+      "Rougeole",
+      "Coqueluche",
+      "Varicelle"
+    ],
+    "correct": 3,
+    "difficulte": "facile",
+    "theme": "Pathologies",
+    "explanation": "<b>Chickenpox</b> = varicelle. Maladie infantile très contagieuse due au virus VZV.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"birth control\" ?",
+    "options": [
+      "Planification familiale",
+      "Bilan de fertilité",
+      "Contraception",
+      "Suivi de grossesse"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Contraception",
+    "explanation": "<b>Birth control</b> = contraception. \"Birth control pill\" = pilule contraceptive. \"Birth control method\" = méthode contraceptive.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"over-the-counter\" (OTC) ?",
+    "options": [
+      "Médicament dangereux",
+      "Sans ordonnance",
+      "À usage hospitalier",
+      "Médicament naturel"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Officine",
+    "explanation": "<b>Over-the-counter</b> (OTC) = sans ordonnance. \"You can buy it over the counter\" = vous pouvez l'acheter sans ordonnance.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"expiry date\" ?",
+    "options": [
+      "Date de fabrication",
+      "Numéro de lot",
+      "Date de péremption",
+      "Date d'ouverture"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Officine",
+    "explanation": "<b>Expiry date</b> = date de péremption. Aussi écrit \"expiration date\" (américain). \"Best before\" est plus alimentaire.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"blurred vision\" ?",
+    "options": [
+      "Vision double",
+      "Vision floue",
+      "Vision nocturne",
+      "Perte de vision"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Symptômes",
+    "explanation": "<b>Blurred vision</b> = vision floue. Effet indésirable de nombreux médicaments (antihistaminiques, anticholinergiques).",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"to swallow\" ?",
+    "options": [
+      "Mâcher",
+      "Avaler",
+      "Croquer",
+      "Dissoudre"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Posologie",
+    "explanation": "<b>To swallow</b> = avaler. \"Swallow whole\" = avaler entier (sans croquer). Instruction fréquente sur les notices.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"mouthwash\" ?",
+    "options": [
+      "Bain de bouche",
+      "Dentifrice",
+      "Fil dentaire",
+      "Spray buccal"
+    ],
+    "correct": 0,
+    "difficulte": "facile",
+    "theme": "Hygiène",
+    "explanation": "<b>Mouthwash</b> = bain de bouche. \"Mouth\" = bouche, \"wash\" = laver. Ex : Listerine.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"antiseptic\" ?",
+    "options": [
+      "Antibiotique",
+      "Antifongique",
+      "Antiseptique",
+      "Analgésique"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Médicaments",
+    "explanation": "<b>Antiseptic</b> = antiseptique. Utilisé pour désinfecter les plaies. Ex : chlorhexidine, alcool iodé.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"first aid kit\" ?",
+    "options": [
+      "Ordonnance d'urgence",
+      "Trousse de secours",
+      "Service des urgences",
+      "Manuel médical"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Officine",
+    "explanation": "<b>First aid kit</b> = trousse de secours. \"First aid\" = premiers secours. Produit vendu à l'officine.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"pharmacist\" ?",
+    "options": [
+      "Médecin généraliste",
+      "Infirmier",
+      "Pharmacien",
+      "Préparateur"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Officine",
+    "explanation": "<b>Pharmacist</b> = pharmacien. \"Pharmacy\" = pharmacie, \"dispensary\" = officine / salle de préparation.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"dosage\" ?",
+    "options": [
+      "Interaction médicamenteuse",
+      "Posologie / dose",
+      "Durée de traitement",
+      "Contre-indication"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Posologie",
+    "explanation": "<b>Dosage</b> = posologie, dose. \"What's the dosage?\" = quelle est la posologie ? Terme clé sur toute notice.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"swelling\" ?",
+    "options": [
+      "Douleur",
+      "Gonflement / œdème",
+      "Rougeur",
+      "Cicatrice"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Symptômes",
+    "explanation": "<b>Swelling</b> = gonflement, œdème. \"My ankle is swollen\" = ma cheville est gonflée. Fréquent après entorse ou piqûre.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"to breastfeed\" ?",
+    "options": [
+      "Tirer son lait",
+      "Allaiter",
+      "Sevrer",
+      "Nourrir au biberon"
+    ],
+    "correct": 1,
+    "difficulte": "facile",
+    "theme": "Gynécologie",
+    "explanation": "<b>To breastfeed</b> = allaiter. \"Breastfeeding\" = allaitement. Information clé pour la dispensation de médicaments.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"constipation\" ?",
+    "options": [
+      "Diarrhée",
+      "Ballonnements",
+      "Constipation",
+      "Nausées"
+    ],
+    "correct": 2,
+    "difficulte": "facile",
+    "theme": "Gastro-entérologie",
+    "explanation": "<b>Constipation</b> = constipation. Même terme en français et anglais. \"Constipated\" = constipé.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"sprain\" ?",
+    "options": [
+      "Fracture",
+      "Entorse",
+      "Luxation",
+      "Blessure musculaire"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Traumatologie",
+    "explanation": "<b>Sprain</b> = entorse. \"I sprained my ankle\" = je me suis fait une entorse à la cheville. À distinguer de \"fracture\" (fracture) et \"dislocation\" (luxation).",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"blister\" ?",
+    "options": [
+      "Égratignure",
+      "Ecchymose",
+      "Ampoule",
+      "Verrue"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Dermatologie",
+    "explanation": "<b>Blister</b> = ampoule (cloque). Peut être causée par le frottement, une brûlure ou une infection (herpès).",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"bruise\" ?",
+    "options": [
+      "Plaie ouverte",
+      "Brûlure",
+      "Bleu / ecchymose",
+      "Cicatrice"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Traumatologie",
+    "explanation": "<b>Bruise</b> = bleu, ecchymose, contusion. \"To bruise easily\" = avoir la peau fragile, faire facilement des bleus.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"drowsiness\" ?",
+    "options": [
+      "Insomnie",
+      "Somnolence",
+      "Agitation",
+      "Fatigue chronique"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Effets indésirables",
+    "explanation": "<b>Drowsiness</b> = somnolence. Effet indésirable très fréquent des antihistaminiques de 1ère génération.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"non-drowsy\" ?",
+    "options": [
+      "Non sédatif",
+      "Sans sucre",
+      "Sans gluten",
+      "Sans alcool"
+    ],
+    "correct": 0,
+    "difficulte": "modere",
+    "theme": "Médicaments",
+    "explanation": "<b>Non-drowsy</b> = non sédatif / sans somnolence. Mention importante sur les antihistaminiques de 2ème génération (cétirizine, loratadine).",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"lozenge\" ?",
+    "options": [
+      "Gélule",
+      "Comprimé à avaler",
+      "Pastille à sucer",
+      "Suppositoire"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Formes galéniques",
+    "explanation": "<b>Lozenge</b> = pastille à sucer. Forme galénique pour les maux de gorge, la toux. Ex : pastilles à la menthe, à l'eucalyptus.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"suppository\" ?",
+    "options": [
+      "Comprimé effervescent",
+      "Ovule vaginal",
+      "Suppositoire",
+      "Patch"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Formes galéniques",
+    "explanation": "<b>Suppository</b> = suppositoire. Forme galénique rectale. \"Vaginal suppository\" = ovule vaginal.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"dressing\" ?",
+    "options": [
+      "Bande élastique",
+      "Pansement",
+      "Filet de maintien",
+      "Compresse sèche"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Matériel médical",
+    "explanation": "<b>Dressing</b> = pansement. \"To change the dressing\" = changer le pansement. \"Wound dressing\" = pansement pour plaie.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"sling\" ?",
+    "options": [
+      "Béquille",
+      "Attelle",
+      "Écharpe de bras",
+      "Déambulateur"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Matériel médical",
+    "explanation": "<b>Sling</b> = écharpe de bras. Utilisée pour immobiliser le membre supérieur après fracture ou entorse.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"to feel faint\" ?",
+    "options": [
+      "Se sentir nauséeux",
+      "Se sentir sur le point de s'évanouir",
+      "Se sentir fiévreux",
+      "Se sentir essoufflé"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Symptômes",
+    "explanation": "<b>To feel faint</b> = avoir l'impression de s'évanouir, avoir un malaise. \"I feel faint\" = je vais m'évanouir.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"nappy rash\" ?",
+    "options": [
+      "Allergie aux cosmétiques",
+      "Érythème fessier",
+      "Intertrigo",
+      "Psoriasis du nourrisson"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Pédiatrie",
+    "explanation": "<b>Nappy rash</b> = érythème fessier (britannique). \"Diaper rash\" = version américaine. Très fréquent en officine pédiatrique.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"teething\" ?",
+    "options": [
+      "Dentition de lait",
+      "Poussées dentaires",
+      "Extraction dentaire",
+      "Carie"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Pédiatrie",
+    "explanation": "<b>Teething</b> = poussées dentaires (dentition du nourrisson). \"The baby is teething\" = le bébé fait ses dents.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"morning sickness\" ?",
+    "options": [
+      "Insomnie gestationnelle",
+      "Nausées matinales de grossesse",
+      "Fatigue du premier trimestre",
+      "Hypotension orthostatique"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Gynécologie",
+    "explanation": "<b>Morning sickness</b> = nausées matinales de la grossesse. Peut survenir à toute heure malgré le nom. Touche 70-80% des femmes enceintes.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"period pains\" ?",
+    "options": [
+      "Syndrome prémenstruel",
+      "Dysménorrhée / douleurs menstruelles",
+      "Ménopause",
+      "Endométriose"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Gynécologie",
+    "explanation": "<b>Period pains</b> = dysménorrhée, douleurs menstruelles. \"Period\" = règles. \"Menstrual cramps\" = crampes menstruelles.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"brand-name drug\" ?",
+    "options": [
+      "Médicament générique",
+      "Médicament de marque / princeps",
+      "Médicament remboursé",
+      "Médicament OTC"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Officine",
+    "explanation": "<b>Brand-name drug</b> = médicament de marque (spécialité princeps). S'oppose à \"generic drug\" (médicament générique).",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"overdose\" ?",
+    "options": [
+      "Dose oubliée",
+      "Surdosage / overdose",
+      "Posologie maximale",
+      "Interaction médicamenteuse"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Pharmacologie",
+    "explanation": "<b>Overdose</b> = surdosage, intoxication médicamenteuse. \"Drug overdose\" = intoxication médicamenteuse volontaire ou accidentelle.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"bowel movement\" ?",
+    "options": [
+      "Crise d'appendicite",
+      "Selle / transit intestinal",
+      "Spasme intestinal",
+      "Hernie abdominale"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Gastro-entérologie",
+    "explanation": "<b>Bowel movement</b> = selle, exonération. \"Do you have regular bowel movements?\" = avez-vous un transit régulier ? Terme médical poli.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"numbness\" ?",
+    "options": [
+      "Douleur intense",
+      "Picotements",
+      "Engourdissement",
+      "Faiblesse musculaire"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Symptômes",
+    "explanation": "<b>Numbness</b> = engourdissement, perte de sensibilité. \"My hand is numb\" = ma main est engourdie. Peut signaler une neuropathie.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"to chew\" ?",
+    "options": [
+      "Avaler",
+      "Mâcher / croquer",
+      "Sucer",
+      "Dissoudre"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Posologie",
+    "explanation": "<b>To chew</b> = mâcher, croquer. \"Chew thoroughly before swallowing\" = mâcher soigneusement avant d'avaler. Important pour les comprimés à croquer.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"to dissolve\" ?",
+    "options": [
+      "Avaler entier",
+      "Injecter",
+      "Dissoudre / faire fondre",
+      "Écraser"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Posologie",
+    "explanation": "<b>To dissolve</b> = dissoudre. \"Dissolve one tablet in a glass of water\" = dissoudre un comprimé dans un verre d'eau. Comprimés effervescents.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"teaspoon\" ?",
+    "options": [
+      "Cuillère à soupe",
+      "Cuillère à café",
+      "Mesurette de 10 ml",
+      "Seringue orale"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Posologie",
+    "explanation": "<b>Teaspoon</b> = cuillère à café (environ 5 ml). \"Tablespoon\" = cuillère à soupe (environ 15 ml). Unités utilisées dans les notices anglophones.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"tablespoon\" ?",
+    "options": [
+      "Cuillère à café (5 ml)",
+      "Cuillère à soupe (15 ml)",
+      "Cuillère doseuse (10 ml)",
+      "Cuillère à dessert (7 ml)"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Posologie",
+    "explanation": "<b>Tablespoon</b> = cuillère à soupe ≈ 15 ml. \"Teaspoon\" = cuillère à café ≈ 5 ml. Attention aux confusions dans les posologies pédiatriques.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"topical\" ?",
+    "options": [
+      "Par voie orale",
+      "Par voie injectable",
+      "À usage externe / local",
+      "Par voie rectale"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Pharmacologie",
+    "explanation": "<b>Topical</b> = à usage topique / externe. \"Topical application\" = application locale sur la peau. Ex : crèmes, gels, pommades.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"store in a cool, dry place\" ?",
+    "options": [
+      "Conserver au réfrigérateur",
+      "Conserver à l'abri de la chaleur et de l'humidité",
+      "Conserver au congélateur",
+      "Conserver à l'abri de la lumière"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Officine",
+    "explanation": "<b>Store in a cool, dry place</b> = conserver dans un endroit frais et sec. Instruction de conservation fréquente sur les emballages.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"keep out of reach of children\" ?",
+    "options": [
+      "À conserver dans un endroit sécurisé",
+      "Ne pas administrer aux enfants",
+      "Tenir hors de portée des enfants",
+      "Consulter un pédiatre avant utilisation"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Officine",
+    "explanation": "<b>Keep out of reach of children</b> = tenir hors de portée des enfants. Mention obligatoire sur tous les médicaments.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"shake well before use\" ?",
+    "options": [
+      "Agiter légèrement avant utilisation",
+      "Agiter vigoureusement avant utilisation",
+      "Réchauffer avant utilisation",
+      "Filtrer avant utilisation"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Officine",
+    "explanation": "<b>Shake well before use</b> = agiter vigoureusement avant utilisation. Instruction pour les suspensions et certains collyres.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"scales\" ?",
+    "options": [
+      "Ciseaux",
+      "Balance / pèse-personne",
+      "Pince à épiler",
+      "Thermomètre"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Matériel médical",
+    "explanation": "<b>Scales</b> = balance, pèse-personne. \"To weigh yourself on the scales\" = se peser. Vendu en pharmacie pour le suivi pondéral.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"eye redness\" ?",
+    "options": [
+      "Sécheresse oculaire",
+      "Rougeur oculaire / hyperhémie conjonctivale",
+      "Vision trouble",
+      "Larmoiement"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Ophtalmologie",
+    "explanation": "<b>Eye redness</b> = rougeur oculaire (hyperhémie conjonctivale). Symptôme fréquent de conjonctivite, allergie, fatigue oculaire.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"tonsillitis\" ?",
+    "options": [
+      "Otite",
+      "Sinusite",
+      "Angine / amygdalite",
+      "Laryngite"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "ORL",
+    "explanation": "<b>Tonsillitis</b> = angine, amygdalite. \"Tonsils\" = amygdales, \"-itis\" = inflammation. Peut être virale ou bactérienne.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"measles\" ?",
+    "options": [
+      "Oreillons",
+      "Varicelle",
+      "Coqueluche",
+      "Rougeole"
+    ],
+    "correct": 3,
+    "difficulte": "modere",
+    "theme": "Vaccination",
+    "explanation": "<b>Measles</b> = rougeole. Maladie vaccinale (ROR). \"Mumps\" = oreillons, \"rubella\" = rubéole, \"whooping cough\" = coqueluche.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"immunity\" ?",
+    "options": [
+      "Contagion",
+      "Infection bactérienne",
+      "Immunité",
+      "Résistance aux antibiotiques"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Vaccination",
+    "explanation": "<b>Immunity</b> = immunité. \"Herd immunity\" = immunité collective. \"Immune system\" = système immunitaire.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"asthma attack\" ?",
+    "options": [
+      "Allergie respiratoire",
+      "Crise d'asthme",
+      "Bronchite aiguë",
+      "Essoufflement à l'effort"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Pathologies",
+    "explanation": "<b>Asthma attack</b> = crise d'asthme. \"Attack\" dans ce sens = crise, accès aigu. \"Heart attack\" = crise cardiaque.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"a check-up\" ?",
+    "options": [
+      "Une ordonnance",
+      "Un arrêt maladie",
+      "Un bilan de santé",
+      "Une hospitalisation"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Officine",
+    "explanation": "<b>Check-up</b> = bilan de santé, examen de routine. \"Annual check-up\" = bilan annuel.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"syringe\" ?",
+    "options": [
+      "Perfusion",
+      "Aiguille",
+      "Cathéter",
+      "Seringue"
+    ],
+    "correct": 3,
+    "difficulte": "modere",
+    "theme": "Matériel médical",
+    "explanation": "<b>Syringe</b> = seringue. \"Oral syringe\" = seringue orale (pour administrer des médicaments liquides aux enfants).",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"to come down with flu\" ?",
+    "options": [
+      "Guérir de la grippe",
+      "Éviter la grippe",
+      "Attraper la grippe",
+      "Soigner la grippe"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Pathologies",
+    "explanation": "<b>To come down with flu</b> = attraper la grippe. \"I'm coming down with something\" = je sens que je couve quelque chose.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"to take a sick leave\" ?",
+    "options": [
+      "Aller à l'hôpital",
+      "Prendre un congé maladie",
+      "Consulter un médecin",
+      "Acheter un médicament"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Vocabulaire professionnel",
+    "explanation": "<b>To take a sick leave</b> = prendre un congé maladie / arrêt de travail. \"Sick note\" = certificat médical.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"discharge\" ?",
+    "options": [
+      "Douleur chronique",
+      "Écoulement / pertes",
+      "Cicatrisation",
+      "Inflammation"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Symptômes",
+    "explanation": "<b>Discharge</b> = écoulement, pertes. \"Vaginal discharge\" = pertes vaginales, \"nasal discharge\" = écoulement nasal, \"eye discharge\" = sécrétions oculaires. Terme clé en gynécologie et ORL.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"flare-up\" ?",
+    "options": [
+      "Rémission",
+      "Guérison",
+      "Poussée / rechute",
+      "Premier épisode"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Pathologies",
+    "explanation": "<b>Flare-up</b> = poussée, rechute aiguë. \"An eczema flare-up\" = une poussée d'eczéma. \"An allergy flare-up\" = une crise allergique.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"to be allergic to\" ?",
+    "options": [
+      "Tolérer",
+      "Être immunisé contre",
+      "Être allergique à",
+      "Être sensible à"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Allergologie",
+    "explanation": "<b>To be allergic to</b> = être allergique à. \"Are you allergic to any medications?\" = avez-vous des allergies médicamenteuses ? Question systématique à l'officine.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"diarrhoea\" (ou \"diarrhea\") ?",
+    "options": [
+      "Constipation",
+      "Ballonnements",
+      "Diarrhée",
+      "Vomissements"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Gastro-entérologie",
+    "explanation": "<b>Diarrhoea</b> (GB) / <b>Diarrhea</b> (US) = diarrhée. \"Acute diarrhoea\" = diarrhée aiguë. Symptôme fréquent en automédication.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"urinary tract infection\" (UTI) ?",
+    "options": [
+      "Infection rénale",
+      "Infection urinaire",
+      "Calcul urinaire",
+      "Incontinence"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Urologie",
+    "explanation": "<b>Urinary tract infection</b> (UTI) = infection urinaire. \"Cystitis\" = cystite (atteinte vésicale). Très fréquente en automédication à l'officine.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"athlete's foot\" ?",
+    "options": [
+      "Durillon",
+      "Pied plat",
+      "Mycose des pieds / pied d'athlète",
+      "Ampoule de marche"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Dermatologie",
+    "explanation": "<b>Athlete's foot</b> = pied d'athlète (teigne des pieds, tinea pedis). Mycose cutanée traitée par antifongiques locaux.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"cavity\" ?",
+    "options": [
+      "Abcès dentaire",
+      "Carie dentaire",
+      "Douleur dentaire",
+      "Plaque dentaire"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Stomatologie",
+    "explanation": "<b>Cavity</b> = carie dentaire. \"I have a cavity\" = j'ai une carie. \"Dental cavity\" est le terme complet.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"hearing aid\" ?",
+    "options": [
+      "Test auditif",
+      "Bouchon d'oreille",
+      "Appareil auditif",
+      "Otoscope"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Matériel médical",
+    "explanation": "<b>Hearing aid</b> = appareil auditif. \"Aid\" = aide. \"Hard of hearing\" = malentendant.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"sting\" ?",
+    "options": [
+      "Piqûre d'insecte / sensation de brûlure",
+      "Coupure",
+      "Écorchure",
+      "Ampoule"
+    ],
+    "correct": 0,
+    "difficulte": "modere",
+    "theme": "Dermatologie",
+    "explanation": "<b>Sting</b> = piqûre (d'insecte, d'ortie), sensation de brûlure. \"Bee sting\" = piqûre d'abeille. \"That stings!\" = ça brûle / ça pique !",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"generic drug\" ?",
+    "options": [
+      "Médicament dangereux",
+      "Médicament générique",
+      "Médicament remboursé",
+      "Médicament sans ordonnance"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Officine",
+    "explanation": "<b>Generic drug</b> = médicament générique. Même principe actif, même dosage que le princeps mais moins cher. Opposé à \"brand-name drug\".",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"bloated\" ?",
+    "options": [
+      "Constipé",
+      "Ballonné",
+      "Nauséeux",
+      "Crampes abdominales"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Gastro-entérologie",
+    "explanation": "<b>Bloated</b> = ballonné. \"I feel bloated\" = je me sens ballonné. \"Bloating\" = ballonnements, météorisme abdominal.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"ear drops\" ?",
+    "options": [
+      "Collyre",
+      "Gouttes auriculaires",
+      "Gouttes nasales",
+      "Solution pour irrigation"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Formes galéniques",
+    "explanation": "<b>Ear drops</b> = gouttes auriculaires. \"Ear\" = oreille. À distinguer de \"eye drops\" (collyre) et \"nose drops\" (gouttes nasales).",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"antibacterial cream\" ?",
+    "options": [
+      "Crème anti-inflammatoire",
+      "Crème antibactérienne / antiseptique",
+      "Crème antifongique",
+      "Crème anesthésiante"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Médicaments",
+    "explanation": "<b>Antibacterial cream</b> = crème antibactérienne. Utilisée pour prévenir l'infection des plaies superficielles.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"district nurse\" ?",
+    "options": [
+      "Infirmier urgentiste",
+      "Infirmier scolaire",
+      "Infirmier de secteur / à domicile",
+      "Aide-soignant"
+    ],
+    "correct": 2,
+    "difficulte": "modere",
+    "theme": "Vocabulaire professionnel",
+    "explanation": "<b>District nurse</b> = infirmier(ère) de secteur, infirmier à domicile (système britannique NHS). Intervient au domicile du patient.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"midwife\" ?",
+    "options": [
+      "Gynécologue",
+      "Sage-femme",
+      "Puéricultrice",
+      "Infirmière en maternité"
+    ],
+    "correct": 1,
+    "difficulte": "modere",
+    "theme": "Vocabulaire professionnel",
+    "explanation": "<b>Midwife</b> = sage-femme. \"Midwifery\" = maïeutique, profession de sage-femme.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"to blow your nose\" ?",
+    "options": [
+      "Se moucher",
+      "Éternuer",
+      "Renifler",
+      "Déboucher le nez"
+    ],
+    "correct": 0,
+    "difficulte": "modere",
+    "theme": "Symptômes",
+    "explanation": "<b>To blow your nose</b> = se moucher. Conseil fréquent en ORL. \"Blow\" = souffler.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"sustained-release\" ?",
+    "options": [
+      "À dissolution rapide",
+      "À libération prolongée",
+      "À action immédiate",
+      "À libération gastrique"
+    ],
+    "correct": 1,
+    "difficulte": "difficile",
+    "theme": "Pharmacologie",
+    "explanation": "<b>Sustained-release</b> = à libération prolongée (LP). Aussi : \"extended-release\" (XR/ER), \"modified-release\" (MR). Ces formes ne doivent pas être écrasées ou mâchées.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"rebound effect\" ?",
+    "options": [
+      "Effet placebo",
+      "Effet rebond",
+      "Réaction allergique retardée",
+      "Effet cumulatif"
+    ],
+    "correct": 1,
+    "difficulte": "difficile",
+    "theme": "Pharmacologie",
+    "explanation": "<b>Rebound effect</b> = effet rebond. Réapparition ou aggravation du symptôme à l'arrêt du médicament. Ex : décongestionnants nasaux, IPP.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"drug-drug interaction\" ?",
+    "options": [
+      "Surdosage médicamenteux",
+      "Interaction médicamenteuse",
+      "Effet indésirable grave",
+      "Contre-indication absolue"
+    ],
+    "correct": 1,
+    "difficulte": "difficile",
+    "theme": "Pharmacologie",
+    "explanation": "<b>Drug-drug interaction</b> = interaction médicamenteuse. Modification de l'effet d'un médicament par un autre pris simultanément.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"tightness\" (ex. : chest tightness) ?",
+    "options": [
+      "Douleur lancinante",
+      "Oppression / sensation de serrement",
+      "Brûlure",
+      "Picotements"
+    ],
+    "correct": 1,
+    "difficulte": "difficile",
+    "theme": "Symptômes",
+    "explanation": "<b>Tightness</b> = oppression, sensation de serrement. \"Chest tightness\" = oppression thoracique — symptôme d'asthme, d'angor ou d'infarctus. Signe d'alarme.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"nutritional deficiencies\" ?",
+    "options": [
+      "Suralimentation",
+      "Malnutrition protéique",
+      "Carences nutritionnelles",
+      "Troubles du comportement alimentaire"
+    ],
+    "correct": 2,
+    "difficulte": "difficile",
+    "theme": "Nutrition",
+    "explanation": "<b>Nutritional deficiencies</b> = carences nutritionnelles. Ex : carence en fer (anémie), en vitamine D, en vitamine B12.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"tetanus\" ?",
+    "options": [
+      "Typhoïde",
+      "Tétanos",
+      "Tuberculose",
+      "Toxoplasmose"
+    ],
+    "correct": 1,
+    "difficulte": "difficile",
+    "theme": "Vaccination",
+    "explanation": "<b>Tetanus</b> = tétanos. Infection bactérienne grave (Clostridium tetani) touchant le système nerveux. Vaccination obligatoire.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"antacid\" ?",
+    "options": [
+      "Antifongique",
+      "Antihistaminique",
+      "Antibiotique",
+      "Antiacide"
+    ],
+    "correct": 3,
+    "difficulte": "difficile",
+    "theme": "Médicaments",
+    "explanation": "<b>Antacid</b> = antiacide. Médicament neutralisant l'acidité gastrique. Ex : hydroxyde de magnésium, bicarbonate de sodium. À distinguer des IPP et anti-H2.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"contraindication\" ?",
+    "options": [
+      "Précaution d'emploi",
+      "Indication principale",
+      "Contre-indication",
+      "Interaction médicamenteuse"
+    ],
+    "correct": 2,
+    "difficulte": "difficile",
+    "theme": "Pharmacologie",
+    "explanation": "<b>Contraindication</b> = contre-indication. Situation dans laquelle un médicament ne doit pas être utilisé. \"Absolute contraindication\" = contre-indication absolue.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"miscarriage\" ?",
+    "options": [
+      "Accouchement prématuré",
+      "Grossesse extra-utérine",
+      "Fausse couche",
+      "Interruption volontaire de grossesse"
+    ],
+    "correct": 2,
+    "difficulte": "difficile",
+    "theme": "Gynécologie",
+    "explanation": "<b>Miscarriage</b> = fausse couche (avortement spontané). \"To miscarry\" = faire une fausse couche. Pertinent pour la dispensation de médicaments tératogènes.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"expectorant\" ?",
+    "options": [
+      "Antitussif",
+      "Bronchodilatateur",
+      "Expectorant / mucolytique",
+      "Antihistaminique"
+    ],
+    "correct": 2,
+    "difficulte": "difficile",
+    "theme": "Médicaments",
+    "explanation": "<b>Expectorant</b> = expectorant. Médicament facilitant l'expectoration en fluidifiant les sécrétions bronchiques. Ex : guaïfénésine, acétylcystéine.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"to have a seizure\" ?",
+    "options": [
+      "Avoir une crise de panique",
+      "Faire une crise d'épilepsie / convulsions",
+      "Avoir un infarctus",
+      "Faire une syncope"
+    ],
+    "correct": 1,
+    "difficulte": "difficile",
+    "theme": "Neurologie",
+    "explanation": "<b>To have a seizure</b> = faire une crise épileptique, avoir des convulsions. \"Seizure\" est le terme médical standard en anglais pour la crise convulsive.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"under anaesthetic\" ?",
+    "options": [
+      "Sous anesthésie",
+      "Conscient mais sédaté",
+      "Sous traitement antalgique",
+      "En observation médicale"
+    ],
+    "correct": 0,
+    "difficulte": "difficile",
+    "theme": "Chirurgie",
+    "explanation": "<b>Under anaesthetic</b> = sous anesthésie. \"General anaesthetic\" = anesthésie générale, \"local anaesthetic\" = anesthésie locale.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"strain\" (dans un contexte médical) ?",
+    "options": [
+      "Fracture de stress",
+      "Claquage / élongation musculaire",
+      "Entorse ligamentaire",
+      "Tendinite"
+    ],
+    "correct": 1,
+    "difficulte": "difficile",
+    "theme": "Traumatologie",
+    "explanation": "<b>Strain</b> = claquage, élongation musculaire (lésion musculaire). À distinguer de \"sprain\" (entorse ligamentaire). \"A muscle strain\" = un claquage.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"retinal migraine\" ?",
+    "options": [
+      "Migraine avec aura visuelle bilatérale",
+      "Migraine ophtalmique / migraine rétinienne",
+      "Décollement de rétine douloureux",
+      "Hypertension oculaire migraineuse"
+    ],
+    "correct": 1,
+    "difficulte": "difficile",
+    "theme": "Neurologie",
+    "explanation": "<b>Retinal migraine</b> = migraine rétinienne (ou ophtalmique). Épisodes répétés de troubles visuels monoculaires temporaires associés à une céphalée migraineuse.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"dentures\" ?",
+    "options": [
+      "Dents de sagesse",
+      "Dents de lait",
+      "Dentier / prothèse dentaire amovible",
+      "Facettes dentaires"
+    ],
+    "correct": 2,
+    "difficulte": "difficile",
+    "theme": "Stomatologie",
+    "explanation": "<b>Dentures</b> = dentier, prothèse dentaire amovible. \"Partial dentures\" = prothèse partielle. \"Denture adhesive\" = crème fixative pour dentier — vendu en officine.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"to be voiceless\" ?",
+    "options": [
+      "Être aphone / avoir perdu la voix",
+      "Bégayer",
+      "Avoir une voix enrouée",
+      "Chuchoter"
+    ],
+    "correct": 0,
+    "difficulte": "difficile",
+    "theme": "ORL",
+    "explanation": "<b>To be voiceless</b> = être aphone, avoir perdu la voix. Plus courant : \"to lose one's voice\". \"Voiceless\" a aussi un sens phonétique en linguistique.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"lethal wound\" ?",
+    "options": [
+      "Blessure grave nécessitant hospitalisation",
+      "Blessure mortelle",
+      "Blessure infectée",
+      "Plaie profonde"
+    ],
+    "correct": 1,
+    "difficulte": "difficile",
+    "theme": "Urgences",
+    "explanation": "<b>Lethal wound</b> = blessure mortelle. \"Lethal\" = létal, mortel. \"Lethal dose\" = dose létale (DL50). \"Deadly\", \"fatal\" et \"mortal\" sont des synonymes proches.",
+    "quiz": "anglais-medical"
+  },
+  {
+    "text": "Que signifie \"dispensary\" ?",
+    "options": [
+      "Salle d'attente médicale",
+      "Officine / salle de préparation des médicaments",
+      "Distributeur automatique de médicaments",
+      "Armoire à pharmacie"
+    ],
+    "correct": 1,
+    "difficulte": "difficile",
+    "theme": "Officine",
+    "explanation": "<b>Dispensary</b> = officine, pharmacie, salle de préparation. \"To dispense\" = délivrer (un médicament). \"Dispensing pharmacist\" = pharmacien délivreur.",
+    "quiz": "anglais-medical"
+  }
+]

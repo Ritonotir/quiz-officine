@@ -100,6 +100,9 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   .empty{text-align:center;padding:40px;color:var(--muted);font-size:.95rem;}
 
+  .btn-danger{background:var(--red-light);color:var(--red);border:1.5px solid #f5c0c0;}
+  .btn-danger:hover{background:var(--red);color:white;}
+
   .toast{position:fixed;bottom:24px;right:24px;background:#1a1f1c;color:white;padding:12px 20px;border-radius:12px;font-size:.88rem;font-weight:500;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;max-width:360px;}
   .toast.show{transform:translateY(0);opacity:1;}
   .toast.success{background:var(--green);}
@@ -138,6 +141,7 @@
     <option value="vaccination-femme-enceinte">🤰 Vaccination Femme Enceinte</option>
     <option value="vaccination-jeunes-enfants">💉 Vaccination Jeunes Enfants</option>
     <option value="vaccination-seniors">🧓 Vaccination Seniors</option>
+    <option value="anglais-medical">🇬🇧 Anglais Médical</option>
   </select>
   <select class="filter-select" id="filter-diff" onchange="filterQuestions()">
     <option value="">Toutes difficultés</option>
@@ -175,6 +179,7 @@
         <option value="vaccination-femme-enceinte">🤰 Vaccination Femme Enceinte</option>
         <option value="vaccination-jeunes-enfants">💉 Vaccination Jeunes Enfants</option>
         <option value="vaccination-seniors">🧓 Vaccination Seniors</option>
+        <option value="anglais-medical">🇬🇧 Anglais Médical</option>
       </select>
     </div>
 
@@ -235,7 +240,8 @@ const REPO   = 'Ritonotir/quiz-officine';
 const BRANCH = 'main';
 const QUIZ_FILES = ['rhume','allergies','angines','contraception','cystite',
   'phytotherapie','pratique-vaccinale','vaccination-adultes',
-  'vaccination-femme-enceinte','vaccination-jeunes-enfants','vaccination-seniors'];
+  'vaccination-femme-enceinte','vaccination-jeunes-enfants','vaccination-seniors',
+  'anglais-medical'];
 const QUIZ_LABELS = {
   'rhume':'🤧 Rhume','allergies':'🌿 Allergies','angines':'🦠 Angines',
   'contraception':'💊 Contraception','cystite':'💧 Cystite',
@@ -243,7 +249,8 @@ const QUIZ_LABELS = {
   'vaccination-adultes':'💉 Vaccination Adultes',
   'vaccination-femme-enceinte':'🤰 Femme Enceinte',
   'vaccination-jeunes-enfants':'💉 Jeunes Enfants',
-  'vaccination-seniors':'🧓 Seniors'
+  'vaccination-seniors':'🧓 Seniors',
+  'anglais-medical':'🇬🇧 Anglais Médical'
 };
 const DIFF_LABELS = {facile:'🟢 Facile', modere:'🟡 Modéré', difficile:'🔴 Difficile'};
 
@@ -363,6 +370,7 @@ function renderQuestions(){
         <div class="form-actions">
           <button class="btn btn-primary" onclick="saveQuestion(this.closest('.q-card'))">💾 Sauvegarder</button>
           <button class="btn btn-ghost"   onclick="cancelEdit(this.closest('.q-card'))">Annuler</button>
+          <button class="btn btn-danger"  onclick="confirmDelete(this.closest('.q-card'))">🗑️ Supprimer</button>
           <span class="save-status" id="st-${di}"></span>
         </div>
       </div>`;
@@ -404,6 +412,43 @@ function toggleEdit(card){
   card.classList.toggle('editing',!was);
 }
 function cancelEdit(card){ card.classList.remove('editing'); }
+
+// ── Suppression ──
+function confirmDelete(card){
+  const preview = card.querySelector('.q-text-preview').textContent;
+  const short   = preview.length > 80 ? preview.substring(0,80)+'…' : preview;
+  if(!confirm(`Supprimer définitivement cette question ?\n\n"${short}"\n\nCette action est irréversible.`)) return;
+  deleteQuestion(card);
+}
+
+async function deleteQuestion(card){
+  const quizName = card.dataset.quiz;
+  const qIndex   = parseInt(card.dataset.index);
+  const di       = card.dataset.di;
+  const statusEl = document.getElementById('st-'+di);
+
+  // Supprimer de fileContents
+  fileContents[quizName].splice(qIndex, 1);
+
+  // Recalculer les _index pour les questions suivantes dans allQuestions
+  allQuestions.forEach(q => {
+    if(q._quiz === quizName && q._index > qIndex) q._index--;
+  });
+  // Supprimer de allQuestions
+  const idx = allQuestions.findIndex(q => q._quiz === quizName && q._index === qIndex);
+  if(idx !== -1) allQuestions.splice(idx, 1);
+
+  const ok = await githubSave(quizName, statusEl,
+    `[Admin] Suppression question dans ${quizName}`);
+
+  if(ok){
+    showToast('🗑️ Question supprimée','success');
+    setTimeout(() => { card.remove(); filterQuestions(); }, 600);
+  } else {
+    // Annuler la suppression en mémoire si erreur GitHub
+    fileContents[quizName].splice(qIndex, 0, allQuestions[idx]);
+  }
+}
 
 // ── GitHub API — noyau ──
 function getToken(){ return document.getElementById('gh-token').value.trim(); }
