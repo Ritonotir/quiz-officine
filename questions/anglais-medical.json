@@ -204,7 +204,7 @@
       "Allaitement"
     ],
     "correct": 1,
-    "difficulte": "facile",
+    "difficulte": "modere",
     "theme": "Gynécologie",
     "explanation": "<b>Pregnancy</b> = grossesse. \"Pregnant\" = enceinte. Ex : \"Are you pregnant ?\" — question clé avant toute dispensation.",
     "quiz": "anglais-medical"
@@ -316,7 +316,7 @@
       "Perte d'odorat"
     ],
     "correct": 2,
-    "difficulte": "facile",
+    "difficulte": "difficile",
     "theme": "Symptômes",
     "explanation": "<b>Runny nose</b> = nez qui coule (rhinorrhée). \"Stuffy nose\" = nez bouché (obstruction nasale).",
     "quiz": "anglais-medical"
@@ -400,7 +400,7 @@
       "Suivi de grossesse"
     ],
     "correct": 2,
-    "difficulte": "facile",
+    "difficulte": "difficile",
     "theme": "Contraception",
     "explanation": "<b>Birth control</b> = contraception. \"Birth control pill\" = pilule contraceptive. \"Birth control method\" = méthode contraceptive.",
     "quiz": "anglais-medical"
