@@ -286,7 +286,7 @@
     "text": "Quelle est la particularité de l'intervalle entre les doses de Bexsero® (méningocoque B) ?",
     "options": [
       "L'intervalle est plus court que les autres vaccins : 4 semaines suffisent",
-      "Un intervalle d'au moins 2 mois est une exigence immunologique : la réponse immunitaire est meilleure avec cet espacement",
+      "Un intervalle > ou = 2 mois est une exigence immunologique.",
       "Il n'y a pas de particularité, l'intervalle est librement choisi par le médecin",
       "Bexsero® ne peut jamais être co-administré avec d'autres vaccins"
     ],
@@ -370,7 +370,7 @@
     "text": "En cas de pénurie de vaccin pédiatrique DTCaP à 6 ans, quel vaccin le médecin peut-il utiliser en substitution et avec quelle précaution ?",
     "options": [
       "Le vaccin dTcaP adulte peut être utilisé sans précaution particulière",
-      "Le vaccin dTcaP adulte (doses réduites) peut être utilisé, mais le rappel de 11-13 ans devra être réalisé avec un vaccin à pleine dose DTCaP pour compenser",
+      "Le vaccin dTcaP adulte (fble valence) peut être utilisé, mais le rappel de 11-13 ans se fera avec un vaccin DTCaP (hte valence) dose",
       "Aucun substitut n'est possible, la vaccination doit être reportée",
       "Le vaccin hexavalent peut être utilisé jusqu'à 10 ans en cas de pénurie"
     ],
