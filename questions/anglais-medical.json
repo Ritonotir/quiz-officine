@@ -820,7 +820,7 @@
       "Faiblesse musculaire"
     ],
     "correct": 2,
-    "difficulte": "modere",
+    "difficulte": "difficile",
     "theme": "Symptômes",
     "explanation": "<b>Numbness</b> = engourdissement, perte de sensibilité. \"My hand is numb\" = ma main est engourdie. Peut signaler une neuropathie.",
     "quiz": "anglais-medical"
@@ -862,7 +862,7 @@
       "Seringue orale"
     ],
     "correct": 1,
-    "difficulte": "modere",
+    "difficulte": "facile",
     "theme": "Posologie",
     "explanation": "<b>Teaspoon</b> = cuillère à café (environ 5 ml). \"Tablespoon\" = cuillère à soupe (environ 15 ml). Unités utilisées dans les notices anglophones.",
     "quiz": "anglais-medical"
