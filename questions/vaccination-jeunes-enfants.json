@@ -286,7 +286,7 @@
     "text": "Quelle est la particularité de l'intervalle entre les doses de Bexsero® (méningocoque B) ?",
     "options": [
       "L'intervalle est plus court que les autres vaccins : 4 semaines suffisent",
-      "Un intervalle d'au moins 2 mois est une exigence immunologique : la réponse immunitaire est meilleure avec cet espacement",
+      "Un intervalle > ou = 2 mois est une exigence immunologique.",
       "Il n'y a pas de particularité, l'intervalle est librement choisi par le médecin",
       "Bexsero® ne peut jamais être co-administré avec d'autres vaccins"
     ],
