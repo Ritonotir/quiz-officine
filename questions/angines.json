@@ -198,8 +198,8 @@
   {
     "quiz": "angines",
     "theme": "Critères d'exclusion",
-    "difficulte": "modere",
-    "text": "Dans le cadre du protocole angine à l'officine, un patient présentant des signes de scarlatine (éruption cutanée associée) doit-il être orienté vers un médecin ?",
+    "difficulte": "facile",
+    "text": "Un patient se présentant pour un TROD présentant des signes de scarlatine (éruption cutanée associée) doit-il être orienté vers un médecin ?",
     "options": [
       "Non, la scarlatine se traite comme une angine simple à l'officine",
       "Oui, les formes éruptives sortent du cadre du protocole officinal",
@@ -773,7 +773,7 @@
     "quiz": "angines",
     "theme": "Thérapeutique",
     "difficulte": "difficile",
-    "text": "Dans le traitement d'une angine bactérienne par macrolide, quelle est la posologie de la clarithromycine chez l'adulte ?",
+    "text": "Quelle est la posologie de la clarithromycine chez l'adulte pour une angine bactérienne ?",
     "options": [
       "250 mg par jour, 6 jours",
       "500 mg, 2x/jr, 5 jours",
