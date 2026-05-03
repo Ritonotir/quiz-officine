@@ -255,6 +255,7 @@
   </div>
   <h2 id="res-title"></h2>
   <p class="result-msg" id="res-msg"></p>
+  <p class="result-msg" id="res-chrono" style="font-size:.88rem;color:var(--muted);margin-top:-8px;"></p>
 
   <div class="lb-form" id="lb-form">
     <h3>🏆 Intégrer le classement</h3>
@@ -598,6 +599,7 @@ function showResults(){
   const pct=Math.round((totalScore/maxPossible)*100);
   document.getElementById('res-score').textContent=totalScore;
   document.getElementById('res-max-label').textContent='/ '+maxPossible+' pts';
+  document.getElementById('res-chrono').textContent='⏱ Temps total : '+(totalTime/1000).toFixed(1)+' s';
   document.getElementById('score-circle').style.setProperty('--pct',pct+'%');
   const titles=['🔁 On s\'entraîne encore !','📚 Bon effort !','👍 Solide !','🏆 Excellent !'];
   const msgs=[
