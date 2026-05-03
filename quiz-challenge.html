@@ -179,12 +179,11 @@
         <small>Modifie aussi la répartition F/M/D proportionnellement</small>
       </div>
       <div class="config-row-controls">
-        <select class="config-select" id="cfg-total-q">
-          <option value="10">10 questions</option>
-          <option value="12">12 questions</option>
-          <option value="15" selected>15 questions</option>
-          <option value="20">20 questions</option>
-        </select>
+        <input type="number" class="config-select" id="cfg-total-q"
+          min="1" max="100" value="15"
+          style="width:70px;text-align:center;"
+          oninput="this.value=Math.min(100,Math.max(1,parseInt(this.value)||1))">
+        <span style="font-size:.82rem;color:var(--muted)">/ 100</span>
       </div>
     </div>
   </div>
@@ -699,7 +698,7 @@ function buildConfigScreen() {
   // Pré-remplir les selects
   var cfg = _cfg;
   var selTotal = document.getElementById('cfg-total-q');
-  selTotal.value = cfg.totalQuestions;
+  document.getElementById('cfg-total-q').value = cfg.totalQuestions || 15;
   var selDelay = document.getElementById('cfg-delay');
   selDelay.value = cfg.delay;
 
