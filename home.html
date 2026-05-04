@@ -201,7 +201,7 @@ var fluxData = null;
 // ── Quizzes ──
 async function loadQuizzes() {
   try {
-    var res = await fetch('quizzes.json?v=' + Date.now());
+    var res = await fetch('quizzes.json');
     if (!res.ok) throw new Error('fetch failed');
     allQuizzes = await res.json();
     document.getElementById('quiz-count').textContent = allQuizzes.length;
@@ -332,36 +332,59 @@ async function deleteScore(pseudo, week) {
   }
 }
 
+var SCORES_CACHE_KEY = 'jsonbin_scores';
+var SCORES_CACHE_TTL = 60 * 1000; // 60 secondes
+
 async function loadLeaderboard() {
   var weekKey = getWeekKey(0);
   var prevKey = getWeekKey(1);
   document.getElementById('lb-week').textContent = 'Semaine ' + weekKey;
   try {
-    var r = await fetch(JSONBIN_URL + '/latest', {headers: {'X-Master-Key': JSONBIN_KEY}});
-    if (!r.ok) throw new Error('lb');
-    var d = await r.json();
-    var record = d.record || {};
+    // ── Point A : cache sessionStorage (TTL 60s) ──
+    var record = null;
+    try {
+      var cached = sessionStorage.getItem(SCORES_CACHE_KEY);
+      if (cached) {
+        var parsed = JSON.parse(cached);
+        if (Date.now() - parsed.ts < SCORES_CACHE_TTL) record = parsed.data;
+      }
+    } catch(e) {}
+    if (!record) {
+      var r = await fetch(JSONBIN_URL + '/latest', {headers: {'X-Master-Key': JSONBIN_KEY}});
+      if (!r.ok) throw new Error('lb');
+      var d = await r.json();
+      record = d.record || {};
+      try { sessionStorage.setItem(SCORES_CACHE_KEY, JSON.stringify({ts: Date.now(), data: record})); } catch(e) {}
+    }
     var scores = record.scores || [];
 
-    // ── Track visit (utilisateurs uniquement, pas admin) ──
-    var stats = record.stats || {total:0, weeks:{}};
+    // ── Point B : track visit découplé (2s après affichage) ──
     var now = new Date();
     var wkStat = now.getFullYear() + '-W' + String(Math.ceil((now - new Date(now.getFullYear(),0,1))/604800000)).padStart(2,'0');
     if (!IS_ADMIN) {
-      stats.total = (stats.total || 0) + 1;
-      stats.weeks = stats.weeks || {};
-      stats.weeks[wkStat] = (stats.weeks[wkStat] || 0) + 1;
-      // Keep only last 8 weeks
-      var wkKeys = Object.keys(stats.weeks).sort();
-      if (wkKeys.length > 8) wkKeys.slice(0, wkKeys.length-8).forEach(function(k){ delete stats.weeks[k]; });
-      record.stats = stats;
-      // Save updated stats asynchronously
-      fetch(JSONBIN_URL, {
-        method: 'PUT',
-        headers: {'Content-Type':'application/json','X-Master-Key': JSONBIN_KEY},
-        body: JSON.stringify(record)
-      }).catch(function(e){ console.warn('Stats save error:', e); });
+      setTimeout(function() {
+        fetch(JSONBIN_URL + '/latest', {headers: {'X-Master-Key': JSONBIN_KEY}})
+          .then(function(r2){ return r2.json(); })
+          .then(function(d2) {
+            var rec = d2.record || {};
+            var st = rec.stats || {total:0, weeks:{}};
+            st.total = (st.total || 0) + 1;
+            st.weeks = st.weeks || {};
+            st.weeks[wkStat] = (st.weeks[wkStat] || 0) + 1;
+            var wkKeys = Object.keys(st.weeks).sort();
+            if (wkKeys.length > 8) wkKeys.slice(0, wkKeys.length-8).forEach(function(k){ delete st.weeks[k]; });
+            rec.stats = st;
+            try { sessionStorage.removeItem(SCORES_CACHE_KEY); } catch(e) {}
+            return fetch(JSONBIN_URL, {
+              method: 'PUT',
+              headers: {'Content-Type':'application/json','X-Master-Key': JSONBIN_KEY},
+              body: JSON.stringify(rec)
+            });
+          })
+          .catch(function(e){ console.warn('Stats save error:', e); });
+      }, 2000);
     }
+    var stats = record.stats || {total:0, weeks:{}};
 
     // ── Show admin panel ──
     if (IS_ADMIN) {
@@ -424,14 +447,29 @@ function renderFlux() {
   content.innerHTML = html;
 }
 
+var FLUX_CACHE_KEY = 'jsonbin_flux';
+var FLUX_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
 async function initFlux() {
   if (!FLUX_VISIBLE) return;
   document.getElementById('flux-card').style.display = 'block';
   try {
-    var r = await fetch(JSONBIN_URL_FLUX+'/latest', {headers:{'X-Master-Key':JSONBIN_KEY}});
-    if (!r.ok) throw new Error();
-    var d = await r.json();
-    fluxData = d.record || null;
+    // ── Point A : cache sessionStorage flux (TTL 5 min) ──
+    fluxData = null;
+    try {
+      var cached = sessionStorage.getItem(FLUX_CACHE_KEY);
+      if (cached) {
+        var parsed = JSON.parse(cached);
+        if (Date.now() - parsed.ts < FLUX_CACHE_TTL) fluxData = parsed.data;
+      }
+    } catch(e) {}
+    if (!fluxData) {
+      var r = await fetch(JSONBIN_URL_FLUX+'/latest', {headers:{'X-Master-Key':JSONBIN_KEY}});
+      if (!r.ok) throw new Error();
+      var d = await r.json();
+      fluxData = d.record || null;
+      try { sessionStorage.setItem(FLUX_CACHE_KEY, JSON.stringify({ts: Date.now(), data: fluxData})); } catch(e) {}
+    }
   } catch(e) { fluxData = null; }
   renderFlux();
 }

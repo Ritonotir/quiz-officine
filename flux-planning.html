@@ -139,7 +139,7 @@ let availability = {}; // { "Prénom": { "YYYY-MM-DD": { am: bool, pm: bool } } 
 
 async function loadAvailability() {
   try {
-    const r = await fetch('availability.json?v=' + Date.now());
+    const r = await fetch('availability.json');
     if (!r.ok) throw new Error();
     const data = await r.json();
     availability = data.availability || {};
@@ -593,8 +593,8 @@ async function regenerate() {
 
 // ── Init ──
 async function init() {
-  await loadAvailability();
-  const ok = await load();
+  // ── Point C : parallélisation des deux fetches indépendants ──
+  const [, ok] = await Promise.all([loadAvailability(), load()]);
   if (!ok) return;
   const dates  = get4Weeks();
   const needsGen = dates.some(d=>!officialData.planning?.[d]);
