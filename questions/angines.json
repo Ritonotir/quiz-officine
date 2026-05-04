@@ -1109,7 +1109,7 @@
     ],
     "correct": 0,
     "explanation": "L'angine érythémato-pultacée (ou blanche) présente des amygdales recouvertes par endroits d'un enduit blanchâtre facile à décoller, découvrant une muqueuse congestive. C'est le type le plus souvent associé à une origine bactérienne (SGA).",
-    "img": "images/angines/Angines_érythémato-pultacée.jpg",
+    "img": "images/angines/Angine_érythémato-pultacée.jpg",
     "img_label": "Angine érythémato-pultacée",
     "img_desc": "Amygdales recouvertes par endroits d'un enduit blanchâtre. Cet enduit est facile à décoller et découvre une muqueuse congestive en dessous."
   },
@@ -1127,7 +1127,7 @@
     ],
     "correct": 0,
     "explanation": "L'angine pseudo-membraneuse présente un enduit confluent, nacré ou grisâtre recouvrant largement les amygdales, difficile à décoller. Évoquer systématiquement une mononucléose infectieuse ou une diphtérie. Une consultation médicale est nécessaire — critère d'exclusion du TROD.",
-    "img": "images/angines/Angines_pseudomembraneuse.jpg",
+    "img": "images/angines/Angine_pseudomembraneuse.jpg",
     "img_label": "Angine pseudo-membraneuse",
     "img_desc": "Présence d'un enduit confluent, nacré et grisâtre recouvrant largement les deux amygdales. L'enduit est épais et difficile à décoller."
   },
@@ -1145,7 +1145,7 @@
     ],
     "correct": 0,
     "explanation": "L'angine ulcéreuse se caractérise par une érosion profonde au niveau de l'amygdale, parfois nécrotique. Cause principale : angine de Vincent (Fusobacterium + Borrelia). Critère d'exclusion absolu — orienter systématiquement vers un médecin.",
-    "img": "images/angines/Angines_ulcéreuses.jpg",
+    "img": "images/angines/Angine_ulcéreuse.jpg",
     "img_label": "Angine ulcéreuse",
     "img_desc": "Érosion profonde et creusante au niveau d'une amygdale, avec une lésion nécrotique visible. Extension possible au voile du palais."
   },
