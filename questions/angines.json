@@ -30,8 +30,8 @@
   {
     "quiz": "angines",
     "theme": "Épidémiologie",
-    "difficulte": "modere",
-    "text": "Quel est le pathogène le plus fréquemment responsable des angines nécessitant des antibiotiques ?",
+    "difficulte": "facile",
+    "text": "Quel est l'agent bactérien le plus fréquemment responsable des angines nécessitant des antibiotiques ?",
     "options": [
       "Staphylocoque doré",
       "Streptocoque du groupe A (SGA)",
@@ -198,8 +198,8 @@
   {
     "quiz": "angines",
     "theme": "Critères d'exclusion",
-    "difficulte": "facile",
-    "text": "Un patient se présentant pour un TROD présentant des signes de scarlatine (éruption cutanée associée) doit-il être orienté vers un médecin ?",
+    "difficulte": "modere",
+    "text": "Dans le cadre du protocole angine à l'officine, un patient présentant des signes de scarlatine (éruption cutanée associée) doit-il être orienté vers un médecin ?",
     "options": [
       "Non, la scarlatine se traite comme une angine simple à l'officine",
       "Oui, les formes éruptives sortent du cadre du protocole officinal",
@@ -422,16 +422,16 @@
   {
     "quiz": "angines",
     "theme": "Score Mac Isaac",
-    "difficulte": "facile",
-    "text": "Quel élément clinique permet souvent de différencier une rhinopharyngite d'une angine et constitue un critère négatif (0 pt) pour le score de Mac Isaac ?",
+    "difficulte": "difficile",
+    "text": "Quelle est la différence entre l'angine et la rhinopharyngite qui oriente vers le score de Mac Isaac ?",
     "options": [
-      "La présence d'une fièvre supérieure à 38°C",
-      "L'existence d'une toux associée aux symptômes ORL",
-      "La présence d'adénopathies cervicales sensibles",
-      "L'augmentation du volume des amygdales ou la présence d'un exsudat"
+      "La rhinopharyngite touche seulement les amygdales",
+      "L'angine s'accompagne souvent de toux, l'inflammation est moins concentrée sur les amygdales en cas de rhinopharyngite",
+      "La rhinopharyngite est toujours bactérienne",
+      "L'angine ne donne jamais de fièvre"
     ],
     "correct": 1,
-    "explanation": "Dans le score de Mac Isaac, la toux est un critère d'orientation vers une étiologie virale (rhinopharyngite, bronchite). Sa présence donne 0 point. L'absence de toux, à l'inverse, est un critère en faveur d'une angine bactérienne à SBA et donne +1 point."
+    "explanation": "La différence majeure : dans la <strong>rhinopharyngite</strong>, l'inflammation est moins concentrée sur les amygdales, le patient a moins mal en avalant, et la <strong>toux</strong> est fréquente (critère du score Mac Isaac). Un patient toussant avec des symptômes ORL diffus évoque une rhinopharyngite — le TROD n'est pas recommandé car il risque d'être faussement positif (porteur sain)."
   },
   {
     "quiz": "angines",
@@ -562,12 +562,12 @@
   {
     "quiz": "angines",
     "theme": "Thérapeutique",
-    "difficulte": "modere",
-    "text": "Quelle est la posologie de l'amoxicilline pour traiter une angine à SGA chez un adulte ?",
+    "difficulte": "facile",
+    "text": "Dans le traitement d'une angine bactérienne à l'officine, quelle est la posologie de l'amoxicilline pour un adulte sans allergie aux pénicillines ?",
     "options": [
-      "500 mg 2 fois par jour, 10 jours.",
-      "1 g 2 fois par jour, 6 jours.",
-      "1 g 3 fois par jour, 1 semaine.",
+      "500 mg 2 fois par jour",
+      "1 g 2 fois par jour",
+      "1 g 3 fois par jour",
       "3 g en une seule prise"
     ],
     "correct": 1,
@@ -591,7 +591,7 @@
     "quiz": "angines",
     "theme": "Thérapeutique",
     "difficulte": "modere",
-    "text": "Lors d'une angine bactérienne, pourquoi traite-t-on 6 jours avec de l'amoxicilline plutôt que 10 jours ?",
+    "text": "Dans le traitement antibiotique d'une angine bactérienne, pourquoi la durée de 6 jours par amoxicilline est-elle privilégiée par rapport à 10 jours ?",
     "options": [
       "Parce que c'est moins cher",
       "Pour améliorer l'observance tout en garantissant l'efficacité sur le SGA",
@@ -619,10 +619,10 @@
     "quiz": "angines",
     "theme": "Thérapeutique",
     "difficulte": "modere",
-    "text": "Pourquoi l'Augmentin (amox/ac clav) ne doit-il pas être utilisé pour une angine simple ?",
+    "text": "Pourquoi l'Augmentin (amoxicilline/acide clavulanique) ne doit-il pas être utilisé pour une angine simple ?",
     "options": [
       "Il est plus efficace mais trop cher",
-      "L'acide clavulanique n'apporte rien sur le SGA et augmente les EI digestifs",
+      "L'acide clavulanique n'apporte rien sur le SGA et augmente les effets indésirables digestifs",
       "Seulement si le patient a aussi une otite",
       "Oui, si l'amoxicilline seule est en rupture"
     ],
@@ -703,7 +703,7 @@
     "quiz": "angines",
     "theme": "Thérapeutique",
     "difficulte": "difficile",
-    "text": "Pour une angine bactérienne, quelle est la durée de traitement par cefpodoxime-proxétil ?",
+    "text": "Dans le traitement d'une angine bactérienne, quelle est la durée de traitement pour le cefpodoxime-proxétil ?",
     "options": [
       "4 jours",
       "5 jours",
@@ -773,12 +773,12 @@
     "quiz": "angines",
     "theme": "Thérapeutique",
     "difficulte": "difficile",
-    "text": "Quelle est la posologie de la clarithromycine chez l'adulte pour une angine bactérienne ?",
+    "text": "Dans le traitement d'une angine bactérienne par macrolide, quelle est la posologie de la clarithromycine chez l'adulte ?",
     "options": [
-      "250 mg par jour, 6 jours",
-      "500 mg, 2x/jr, 5 jours",
-      "1 g, 2x/jr, 1 sem",
-      "250 mg, 2x/jr, 6 jours"
+      "250 mg par jour",
+      "500 mg 2 fois par jour",
+      "1 g 2 fois par jour",
+      "250 mg 2 fois par jour"
     ],
     "correct": 1,
     "explanation": "La clarithromycine est prescrite à <strong>500 mg 2 fois par jour pendant 5 jours</strong> chez l'adulte. Attention aux nombreuses interactions médicamenteuses via le CYP3A4 et au risque d'allongement de l'intervalle QT."
@@ -985,13 +985,13 @@
     "difficulte": "difficile",
     "text": "Quelle est la conduite à tenir pour une angine chez un patient diabétique ?",
     "options": [
-      "Orientation vers le médecin systématique",
+      "Orientation médicale systématique (immunodépression potentielle)",
       "Prise en charge normale si le diabète est équilibré",
       "Réaliser le TROD mais ne pas donner d'antibiotiques",
       "Donner des antibiotiques sans faire de TROD"
     ],
     "correct": 0,
-    "explanation": "Le <strong>diabète</strong> peut induire une immunodépression, surtout s'il est déséquilibré. Selon le protocole officinal, un patient diabétique ou présentant un facteur de risque d'immunodépression doit être orienté vers un médecin. Cette décision relève du jugement du pharmacien en fonction de l'état clinique global mais attention à votre responsabilité en cas de complications!"
+    "explanation": "Le <strong>diabète</strong> peut induire une immunodépression, surtout s'il est déséquilibré. Selon le protocole officinal, un patient diabétique ou présentant un facteur de risque d'immunodépression doit être orienté vers un médecin. Cette décision relève du jugement du pharmacien en fonction de l'état clinique global."
   },
   {
     "quiz": "angines",
@@ -1076,5 +1076,113 @@
     ],
     "correct": 1,
     "explanation": "Les anticoagulants ne sont <strong>pas une contre-indication absolue</strong> au TROD angine. Le prélèvement par écouvillonnage est peu invasif. Il convient néanmoins d'être <strong>doux lors du frottis</strong> pour ne pas léser la muqueuse amygdalienne. La délivrance de l'antibiotique (amoxicilline ou céphalosporine) nécessite de renforcer la surveillance de l'INR (interaction avec les AVK)."
+  },
+  {
+    "quiz": "angines",
+    "theme": "Reconnaissance visuelle",
+    "difficulte": "facile",
+    "text": "Quel type d'angine est représenté sur cette photo ?",
+    "photo": true,
+    "options": [
+      "Angine érythémateuse",
+      "Angine érythémato-pultacée",
+      "Angine vésiculeuse",
+      "Phlegmon amygdalien"
+    ],
+    "correct": 0,
+    "explanation": "L'angine érythémateuse (ou rouge) se caractérise par des amygdales augmentées de volume avec un pharynx inflammatoire, sans dépôt blanchâtre. Principale cause virale (75%). Représente 90% des angines avec l'érythémato-pultacée.",
+    "img": "images/angines/Angine_érythémateuse.jpg",
+    "img_label": "Angine érythémateuse",
+    "img_desc": "Amygdales augmentées de volume, pharynx inflammatoire rouge. Absence de dépôt ou d'enduit visible sur les amygdales."
+  },
+  {
+    "quiz": "angines",
+    "theme": "Reconnaissance visuelle",
+    "difficulte": "modere",
+    "text": "Quel type d'angine est représenté sur cette photo ?",
+    "photo": true,
+    "options": [
+      "Angine érythémato-pultacée",
+      "Angine érythémateuse",
+      "Angine pseudo-membraneuse",
+      "Angine ulcéreuse"
+    ],
+    "correct": 0,
+    "explanation": "L'angine érythémato-pultacée (ou blanche) présente des amygdales recouvertes par endroits d'un enduit blanchâtre facile à décoller, découvrant une muqueuse congestive. C'est le type le plus souvent associé à une origine bactérienne (SGA).",
+    "img": "images/angines/Angines_érythémato-pultacée.jpg",
+    "img_label": "Angine érythémato-pultacée",
+    "img_desc": "Amygdales recouvertes par endroits d'un enduit blanchâtre. Cet enduit est facile à décoller et découvre une muqueuse congestive en dessous."
+  },
+  {
+    "quiz": "angines",
+    "theme": "Reconnaissance visuelle",
+    "difficulte": "difficile",
+    "text": "Quel type d'angine est représenté sur cette photo ?",
+    "photo": true,
+    "options": [
+      "Angine pseudo-membraneuse",
+      "Angine érythémato-pultacée",
+      "Angine ulcéreuse",
+      "Angine vésiculeuse"
+    ],
+    "correct": 0,
+    "explanation": "L'angine pseudo-membraneuse présente un enduit confluent, nacré ou grisâtre recouvrant largement les amygdales, difficile à décoller. Évoquer systématiquement une mononucléose infectieuse ou une diphtérie. Une consultation médicale est nécessaire — critère d'exclusion du TROD.",
+    "img": "images/angines/Angines_pseudomembraneuse.jpg",
+    "img_label": "Angine pseudo-membraneuse",
+    "img_desc": "Présence d'un enduit confluent, nacré et grisâtre recouvrant largement les deux amygdales. L'enduit est épais et difficile à décoller."
+  },
+  {
+    "quiz": "angines",
+    "theme": "Reconnaissance visuelle",
+    "difficulte": "modere",
+    "text": "Quel type d'angine est représenté sur cette photo ?",
+    "photo": true,
+    "options": [
+      "Angine ulcéreuse",
+      "Angine érythémato-pultacée",
+      "Angine pseudo-membraneuse",
+      "Phlegmon amygdalien"
+    ],
+    "correct": 0,
+    "explanation": "L'angine ulcéreuse se caractérise par une érosion profonde au niveau de l'amygdale, parfois nécrotique. Cause principale : angine de Vincent (Fusobacterium + Borrelia). Critère d'exclusion absolu — orienter systématiquement vers un médecin.",
+    "img": "images/angines/Angines_ulcéreuses.jpg",
+    "img_label": "Angine ulcéreuse",
+    "img_desc": "Érosion profonde et creusante au niveau d'une amygdale, avec une lésion nécrotique visible. Extension possible au voile du palais."
+  },
+  {
+    "quiz": "angines",
+    "theme": "Reconnaissance visuelle",
+    "difficulte": "modere",
+    "text": "Quel type d'angine est représenté sur cette photo ?",
+    "photo": true,
+    "options": [
+      "Angine vésiculeuse",
+      "Angine érythémateuse",
+      "Angine ulcéreuse",
+      "Angine pseudo-membraneuse"
+    ],
+    "correct": 0,
+    "explanation": "L'angine vésiculeuse présente de petites vésicules blanches sur une muqueuse inflammatoire. Toujours d'origine virale (entérovirus, herpès). Surtout chez les enfants entre 1 et 7 ans. Évolution bénigne mais très douloureuse. Critère d'exclusion du TROD.",
+    "img": "images/angines/Angine_vésiculeuse.jpg",
+    "img_label": "Angine vésiculeuse",
+    "img_desc": "Présence de petites vésicules blanches sur une muqueuse pharyngée inflammatoire et rouge."
+  },
+  {
+    "quiz": "angines",
+    "theme": "Reconnaissance visuelle",
+    "difficulte": "facile",
+    "text": "Quel type d'angine est représenté sur cette photo ?",
+    "photo": true,
+    "options": [
+      "Phlegmon amygdalien",
+      "Angine érythémato-pultacée",
+      "Angine pseudo-membraneuse",
+      "Angine ulcéreuse"
+    ],
+    "correct": 0,
+    "explanation": "Le phlegmon amygdalien (abcès périamygdalien) se reconnaît à l'amygdale unilatéralement gonflée qui pousse la luette vers le côté opposé. Critère d'exclusion absolu — ne pas réaliser le TROD, orienter immédiatement vers les urgences.",
+    "img": "images/angines/Phlegmon.jpg",
+    "img_label": "Phlegmon amygdalien",
+    "img_desc": "Amygdale unilatéralement gonflée et proéminente, poussant la luette vers le côté opposé. Œdème important du voile du palais."
   }
 ]
