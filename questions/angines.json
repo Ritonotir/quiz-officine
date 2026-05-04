@@ -985,13 +985,13 @@
     "difficulte": "difficile",
     "text": "Quelle est la conduite à tenir pour une angine chez un patient diabétique ?",
     "options": [
-      "Orientation médicale systématique (immunodépression potentielle)",
+      "Orientation vers le médecin systématique",
       "Prise en charge normale si le diabète est équilibré",
       "Réaliser le TROD mais ne pas donner d'antibiotiques",
       "Donner des antibiotiques sans faire de TROD"
     ],
     "correct": 0,
-    "explanation": "Le <strong>diabète</strong> peut induire une immunodépression, surtout s'il est déséquilibré. Selon le protocole officinal, un patient diabétique ou présentant un facteur de risque d'immunodépression doit être orienté vers un médecin. Cette décision relève du jugement du pharmacien en fonction de l'état clinique global."
+    "explanation": "Le <strong>diabète</strong> peut induire une immunodépression, surtout s'il est déséquilibré. Selon le protocole officinal, un patient diabétique ou présentant un facteur de risque d'immunodépression doit être orienté vers un médecin. Cette décision relève du jugement du pharmacien en fonction de l'état clinique global mais attention à votre responsabilité en cas de complications!"
   },
   {
     "quiz": "angines",
