@@ -577,17 +577,50 @@ function renderPlanning() {
 
 // ── Regenerate ──
 async function regenerate() {
-  if (!confirm('Régénérer le planning ? Les affectations actuelles seront effacées.')) return;
-  const savedClosed = [...closedDays]; // préserver les jours fermés
-  officialData = generate({champion_dispense: officialData?.champion_dispense||{person:null,week:null}});
-  officialData.closedDays = savedClosed;
-  // Effacer les créneaux des jours fermés dans le nouveau planning
-  closedDays.forEach(d => {
-    if (officialData.planning[d]) { officialData.planning[d].am=null; officialData.planning[d].pm=null; }
-  });
-  await save();
+  // ── Demander la date de départ ──
+  const dates = get4Weeks();
+  const minDate = dates[0];
+  const maxDate = dates[dates.length - 1];
+
+  const fromDate = prompt(
+    'Régénérer à partir de quelle date ?\n' +
+    'Format : JJ/MM/AAAA\n' +
+    '(Les affectations avant cette date seront préservées.)'
+  );
+  if (!fromDate) return;
+
+  // Convertir JJ/MM/AAAA → AAAA-MM-JJ
+  const parts = fromDate.trim().split('/');
+  if (parts.length !== 3) { alert('Format de date invalide. Utilisez JJ/MM/AAAA.'); return; }
+  const isoDate = parts[2] + '-' + parts[1].padStart(2,'0') + '-' + parts[0].padStart(2,'0');
+  if (isNaN(new Date(isoDate).getTime())) { alert('Date invalide.'); return; }
+  if (isoDate < minDate || isoDate > maxDate) {
+    alert('La date doit être comprise dans les semaines affichées\n(' + minDate + ' → ' + maxDate + ').'); return;
+  }
+
+  if (!confirm('Régénérer le planning à partir du ' + fromDate + ' ?\nLes affectations avant cette date seront préservées.')) return;
+
+  // ── Effacer les créneaux à partir de la date choisie (sauf jours fermés) ──
   pendingData  = clone(officialData);
   pendingSlots = new Set();
+  dates.forEach(d => {
+    if (d < isoDate) return;
+    if (pendingData.planning[d]) {
+      if (!closedDays.has(d)) {
+        pendingData.planning[d].am = null;
+        pendingData.planning[d].pm = null;
+      }
+    }
+  });
+  // Effacer l'historique à partir de cette date pour ne pas biaiser le recalcul
+  pendingData.history = (pendingData.history || []).filter(h => h.date < isoDate);
+
+  // ── Recalculer à partir du premier slot de la date choisie ──
+  recalcAfter(isoDate, 'am');
+
+  officialData = clone(pendingData);
+  pendingSlots = new Set();
+  await save();
   renderPlanning();
 }
 
