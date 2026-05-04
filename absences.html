@@ -70,7 +70,7 @@
       <div class="badge">Formation Officine</div>
       <h1>Congés & <span>Absences</span></h1>
     </div>
-    <a class="home-btn" href="flux-planning.html">← Planning Flux</a>
+    <a class="home-btn" id="back-btn" href="flux-planning.html">← Planning Flux</a>
   </header>
 
   <div class="readonly-banner" id="readonly-banner">👁️ Mode consultation — la modification des absences est réservée aux responsables EDT.</div>
@@ -291,6 +291,11 @@ function render() {
 
 // ── Start ──
 initUI();
+// Transmettre le mode edit au lien retour
+if (IS_EDIT) {
+  const btn = document.getElementById('back-btn');
+  if (btn) btn.href = 'flux-planning.html?mode=edit';
+}
 load();
 </script>
 </body>

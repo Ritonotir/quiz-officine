@@ -241,16 +241,39 @@ function weekKey(dateStr) {
 }
 
 // ── Algorithm ──
-function weight(person, date, history, dispense, wa, slot) {
+function lastPassage(person, date, history, planning) {
+  // Cherche la date la plus récente (< date) où la personne est assignée,
+  // dans l'historique JSONBin ET dans le planning en cours de génération.
+  let latest = null;
+  // Depuis l'historique
+  history.forEach(h => {
+    if (h.person === person && h.date < date) {
+      if (!latest || h.date > latest) latest = h.date;
+    }
+  });
+  // Depuis le planning pendingData (créneaux déjà calculés avant cette date)
+  if (planning) {
+    Object.entries(planning).forEach(([d, slots]) => {
+      if (d >= date) return;
+      if (slots.am === person || slots.pm === person) {
+        if (!latest || d > latest) latest = d;
+      }
+    });
+  }
+  return latest;
+}
+
+function weight(person, date, history, dispense, wa, slot, planning) {
   // Personne absente sur ce créneau selon l'EDT → poids quasi nul
   if (slot && !isAvailable(person, date, slot)) return 0.001;
   // Personne en congés/absence → poids quasi nul
   if (isAbsent(person, date)) return 0.001;
   // Personne en indisponibilité récurrente sur ce créneau → poids quasi nul
   if (slot && isUnavailable(person, date, slot)) return 0.001;
-  let ds = 999;
-  const ph = history.filter(h=>h.person===person).sort((a,b)=>b.date.localeCompare(a.date));
-  if (ph.length) ds = Math.max(0, Math.round((new Date(date+'T00:00:00')-new Date(ph[0].date+'T00:00:00'))/86400000));
+  const last = lastPassage(person, date, history, planning);
+  let ds = last
+    ? Math.max(0, Math.round((new Date(date+'T00:00:00') - new Date(last+'T00:00:00')) / 86400000))
+    : 999;
   let w = ds;
   const wk = weekKey(date);
   if (wa[wk]?.[person]) w *= 0.05;
@@ -284,7 +307,7 @@ function generate(data) {
     if (!planning[date]) planning[date]={am:null,pm:null};
     SLOTS.forEach(slot => {
       if (!planning[date][slot]) {
-        const weights = PEOPLE.map(p=>weight(p,date,history,dispense,wa,slot));
+        const weights = PEOPLE.map(p=>weight(p,date,history,dispense,wa,slot,planning));
         const chosen  = pick(PEOPLE, weights);
         planning[date][slot] = chosen;
         wa[wk][chosen] = (wa[wk][chosen]||0)+1;
@@ -319,7 +342,7 @@ function recalcAfter(fromDate, fromSlot) {
     if (!wa[wk]) wa[wk]={};
     if (!pendingData.planning[date]) pendingData.planning[date]={am:null,pm:null};
     if (!pendingSlots.has(date+'_'+slot)) {
-      const weights=PEOPLE.map(p=>weight(p,date,hist,dispense,wa,slot));
+      const weights=PEOPLE.map(p=>weight(p,date,hist,dispense,wa,slot,pendingData.planning));
       const chosen=pick(PEOPLE,weights);
       pendingData.planning[date][slot]=chosen;
       hist.push({person:chosen,date,slot});
@@ -411,7 +434,7 @@ function toggleClose(date) {
       });
       const disp = pendingData.champion_dispense||{person:null,week:null};
       SLOTS.forEach(slot => {
-        const weights = PEOPLE.map(p => weight(p, date, pendingData.history, disp, {[wk]:wa}, slot));
+        const weights = PEOPLE.map(p => weight(p, date, pendingData.history, disp, {[wk]:wa}, slot, pendingData.planning));
         pendingData.planning[date][slot] = pick(PEOPLE, weights);
         pendingData.planning[date][slot+'_modified'] = false;
       });
@@ -437,7 +460,7 @@ function propose(date, slot) {
   const wa = {[wk]:{}};
   SLOTS.forEach(s=>{ if(s!==slot&&pendingData.planning[date]?.[s]){const p=pendingData.planning[date][s];wa[wk][p]=(wa[wk][p]||0)+1;} });
   const dispense=pendingData.champion_dispense||{person:null,week:null};
-  const weights=cands.map(p=>weight(p,date,pendingData.history,dispense,wa,slot));
+  const weights=cands.map(p=>weight(p,date,pendingData.history,dispense,wa,slot,pendingData.planning));
   const chosen=pick(cands,weights);
   pendingData.planning[date][slot]=chosen;
   pendingSlots.add(date+'_'+slot);
@@ -445,6 +468,21 @@ function propose(date, slot) {
   renderPlanning();
 }
 
+
+function handleManualPick(date, slot, selectEl) {
+  const val = selectEl.value;
+  if (val === '__autre__') {
+    const name = prompt('Nom du remplaçant :');
+    if (name && name.trim()) {
+      manualPick(date, slot, name.trim());
+    } else {
+      // Annulé — remettre la valeur précédente
+      selectEl.value = pendingData.planning[date][slot] || PEOPLE[0];
+    }
+    return;
+  }
+  manualPick(date, slot, val);
+}
 
 function manualPick(date, slot, person) {
   if (!person) return;
@@ -512,13 +550,15 @@ function renderPlanning() {
         const person=dd[slot]||'—';
         const isPend=pendingSlots.has(date+'_'+slot);
         const cls=isPend?'pending':'official';
+        const isGuest = person !== '—' && !PEOPLE.includes(person);
+        const personDisplay = isGuest ? `<em>${person}</em>` : person;
         const selectOptions = PEOPLE.map(p =>
           `<option value="${p}" ${p===person?'selected':''}>${p}</option>`
-        ).join('');
+        ).join('') + `<option value="__autre__">Autre…</option>`;
         html+=`<div class="slot">
           <div class="slot-label">${SLOT_LABELS[slot]}</div>
-          <div class="slot-person ${cls}">${person}${isPend?' ⏳':''}</div>
-          ${isPend && !isPast ? `<select class="slot-select" onchange="manualPick('${date}','${slot}',this.value)">${selectOptions}</select>` : ''}
+          <div class="slot-person ${cls}">${personDisplay}${isPend?' ⏳':''}</div>
+          ${isPend && !isPast ? `<select class="slot-select" onchange="handleManualPick('${date}','${slot}',this)">${selectOptions}</select>` : ''}
           <div class="slot-btns">`;
         if (!isPast && IS_EDIT) {
           if (isPend) {
