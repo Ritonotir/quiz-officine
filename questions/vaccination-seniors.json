@@ -129,7 +129,7 @@
     "quiz": "vaccination-seniors",
     "theme": "Covid-19",
     "difficulte": "facile",
-    "text": "Quelle est la recommandation actuelle de rappel Covid-19 pour les plus de 65 ans ?",
+    "text": "Quelle est la recommandation actuelle de rappel Covid-19 pour les plus de 65 ans ou à risque de forme grave ?",
     "options": [
       "Tous les 6 mois",
       "Annuel, en période automnale",
@@ -137,7 +137,7 @@
       "Plus de rappel recommandé"
     ],
     "correct": 1,
-    "explanation": "Pour les personnes de 65 ans et plus, un rappel Covid-19 est recommandé chaque année en période automnale (<strong>rappel annuel</strong>), avant la saison hivernale. Ce rappel est co-administrable avec la grippe. La vaccination annuelle vise à maintenir une protection suffisante face à l'évolution des variants."
+    "explanation": "Pour les plus de 65 ans, un rappel Covid-19 est recommandé chaque année en période automnale (<strong>rappel annuel</strong>), avant la saison hivernale. Ce rappel est co-administrable avec la grippe. La vaccination annuelle vise à maintenir une protection suffisante face à l'évolution des variants.\n\nPour les plus fragiles, 1 dose suppl est recommandée au printemps (vers avril/juin), sous réserve d'un délai minimal :\n- 3 mois après la dernière dose de vaccin ou la dernière infection pour les > 80 ans, les personnes immunodéprimées et les résidents d'EHPAD ou d'USLD. \n- 6 mois pour les autres personnes à risque de forme grave."
   },
   {
     "quiz": "vaccination-seniors",
