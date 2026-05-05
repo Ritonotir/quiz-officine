@@ -88,6 +88,14 @@
     "emoji": "🌿"
   },
   {
+    "titre": "Maladies à Prévention Vaccinale",
+    "fichier": "quiz-maladies-prevention-vaccinale.html",
+    "theme": "Vaccination",
+    "questions": 12,
+    "difficulte": "Tous niveaux",
+    "emoji": "💉"
+  },
+  {
     "titre": "Anglais Médical",
     "fichier": "quiz-anglais-medical.html",
     "theme": "Anglais",

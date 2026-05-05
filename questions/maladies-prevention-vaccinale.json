@@ -1,0 +1,2648 @@
+[
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Diphtérie",
+    "difficulte": "facile",
+    "text": "Quelle bactérie est responsable de la diphtérie, une infection ORL grave pouvant entraîner une obstruction respiratoire ?",
+    "options": [
+      "Streptococcus pneumoniae",
+      "Corynebacterium diphtheriae",
+      "Staphylococcus aureus",
+      "Haemophilus influenzae"
+    ],
+    "correct": 1,
+    "explanation": "Corynebacterium diphtheriae produit une toxine responsable des complications systémiques."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Diphtérie",
+    "difficulte": "facile",
+    "text": "Quel est le mode principal de transmission de la diphtérie ?",
+    "options": [
+      "Transmission sexuelle",
+      "Voie aérienne par gouttelettes",
+      "Transmission vectorielle",
+      "Voie digestive"
+    ],
+    "correct": 1,
+    "explanation": "La transmission se fait principalement par les sécrétions respiratoires."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Diphtérie",
+    "difficulte": "modere",
+    "text": "Quel signe clinique est caractéristique de l’angine diphtérique ?",
+    "options": [
+      "Vésicules douloureuses",
+      "Fausses membranes adhérentes blanchâtres",
+      "Ulcérations profondes",
+      "Éruption diffuse"
+    ],
+    "correct": 1,
+    "explanation": "Ces membranes peuvent obstruer les voies respiratoires."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Diphtérie",
+    "difficulte": "difficile",
+    "text": "Quel est le taux de mortalité moyen de la diphtérie ?",
+    "options": [
+      "1 %",
+      "5 %",
+      "10 %",
+      "30 %"
+    ],
+    "correct": 2,
+    "explanation": "La mortalité de la diphtérie atteint 10% sans traitement rapide. Sans antitoxine diphtérique administrée en urgence, la toxine provoque une myocardite ou une paralysie des nerfs crâniens pouvant être fatales."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Diphtérie",
+    "difficulte": "difficile",
+    "text": "Quelle est la principale cause de décès lors de la diphtérie ?",
+    "options": [
+      "Déshydratation",
+      "Asphyxie ou atteinte toxique cardiaque",
+      "Insuffisance rénale",
+      "Surinfection bactérienne"
+    ],
+    "correct": 1,
+    "explanation": "La toxine diphtérique diffuse par voie sanguine et atteint le myocarde (myocardite) et le système nerveux, pouvant provoquer paralysies et troubles du rythme cardiaque."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Diphtérie",
+    "difficulte": "modere",
+    "text": "Pourquoi la vaccination reste-t-elle indispensable en France ?",
+    "options": [
+      "Le vaccin est peu efficace",
+      "La maladie est génétique",
+      "Risque de réimportation depuis des zones endémiques",
+      "Le virus mute rapidement"
+    ],
+    "correct": 2,
+    "explanation": "Maintien de l’immunité de groupe."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Diphtérie",
+    "difficulte": "difficile",
+    "text": "Dans quelles zones françaises récentes des cas ont-ils augmenté ?",
+    "options": [
+      "Bretagne et Normandie",
+      "Île-de-France",
+      "Guyane et Mayotte",
+      "PACA"
+    ],
+    "correct": 2,
+    "explanation": "La Guyane et Mayotte présentent une circulation persistante du bacille diphtérique liée aux flux migratoires depuis des zones endémiques et à une couverture vaccinale insuffisante dans certaines populations."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Diphtérie",
+    "difficulte": "facile",
+    "text": "Quelle substance est responsable des complications neurologiques et cardiaques ?",
+    "options": [
+      "Endotoxine bactérienne",
+      "Toxine diphtérique",
+      "Cytokines",
+      "Protéines virales"
+    ],
+    "correct": 1,
+    "explanation": "La toxine est le principal facteur de virulence."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Diphtérie",
+    "difficulte": "facile",
+    "text": "Quelle population est la plus à risque de formes graves ?",
+    "options": [
+      "Adolescents",
+      "Adultes jeunes",
+      "Enfants < 5 ans",
+      "Sportifs"
+    ],
+    "correct": 2,
+    "explanation": "Immunité immature."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Diphtérie",
+    "difficulte": "modere",
+    "text": "Quel est le taux de réponse immunitaire après vaccination chez le nourrisson ?",
+    "options": [
+      "70 %",
+      "80 %",
+      "90 %",
+      ">95 %"
+    ],
+    "correct": 3,
+    "explanation": "Très forte immunogénicité."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Diphtérie",
+    "difficulte": "facile",
+    "text": "La diphtérie est-elle à déclaration obligatoire ?",
+    "options": [
+      "Non",
+      "Oui",
+      "Seulement en cas grave",
+      "Seulement chez l’enfant"
+    ],
+    "correct": 1,
+    "explanation": "Surveillance épidémiologique obligatoire."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Diphtérie",
+    "difficulte": "difficile",
+    "text": "Depuis quelle année la vaccination est-elle obligatoire en France ?",
+    "options": [
+      "1920",
+      "1938",
+      "1955",
+      "1980"
+    ],
+    "correct": 1,
+    "explanation": "Mesure ancienne de santé publique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tétanos",
+    "difficulte": "facile",
+    "text": "Quelle est la particularité du tétanos parmi les maladies à prévention vaccinale ?",
+    "options": [
+      "Il est viral",
+      "Il est non contagieux",
+      "Il est bénin",
+      "Il est chronique"
+    ],
+    "correct": 1,
+    "explanation": "Pas de transmission interhumaine."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tétanos",
+    "difficulte": "facile",
+    "text": "Quel est l'agent bactérien responsable du tétanos ?",
+    "options": [
+      "Clostridium botulinum",
+      "Clostridium tetani",
+      "Bacillus anthracis",
+      "Listeria monocytogenes"
+    ],
+    "correct": 1,
+    "explanation": "Bactérie anaérobie sporulée."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tétanos",
+    "difficulte": "facile",
+    "text": "Où se trouve principalement le germe du tétanos dans l'environnement ?",
+    "options": [
+      "Air",
+      "Eau potable",
+      "Sol et terre",
+      "Sang humain"
+    ],
+    "correct": 2,
+    "explanation": "Réservoir environnemental."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tétanos",
+    "difficulte": "facile",
+    "text": "Comment se fait la contamination par le tétanos ?",
+    "options": [
+      "Voie aérienne",
+      "Plaie souillée",
+      "Voie digestive",
+      "Contact peau saine"
+    ],
+    "correct": 1,
+    "explanation": "Porte d’entrée cutanée."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tétanos",
+    "difficulte": "facile",
+    "text": "Quel symptôme musculaire est caractéristique du tétanos ?",
+    "options": [
+      "Paralysie flasque",
+      "Contractures musculaires intenses",
+      "Éruption cutanée",
+      "Toux chronique"
+    ],
+    "correct": 1,
+    "explanation": "Spasmes musculaires (trismus)."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tétanos",
+    "difficulte": "modere",
+    "text": "Quelle population est la plus concernée par le tétanos en France aujourd'hui ?",
+    "options": [
+      "Nourrissons",
+      "Adolescents",
+      "Personnes âgées",
+      "Adultes jeunes"
+    ],
+    "correct": 2,
+    "explanation": "Rappels vaccinaux souvent oubliés."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tétanos",
+    "difficulte": "difficile",
+    "text": "Quel taux de mortalité peut atteindre le tétanos malgré la réanimation ?",
+    "options": [
+      "5 %",
+      "10 %",
+      "20 %",
+      "30 %"
+    ],
+    "correct": 3,
+    "explanation": "Même en réanimation avec ventilation mécanique, la mortalité du tétanos reste élevée (jusqu'à 30%) en raison des spasmes respiratoires incontrôlables et de l'atteinte du système nerveux autonome."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tétanos",
+    "difficulte": "facile",
+    "text": "Quelle est l'efficacité du vaccin contre le tétanos ?",
+    "options": [
+      "80 %",
+      "90 %",
+      "95 %",
+      "Quasi 100 %"
+    ],
+    "correct": 3,
+    "explanation": "Très protecteur."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tétanos",
+    "difficulte": "modere",
+    "text": "Pourquoi le tétanos ne peut-il pas être éradiqué contrairement à d'autres maladies vaccinales ?",
+    "options": [
+      "Mutation rapide",
+      "Transmission animale",
+      "Réservoir dans le sol",
+      "Transmission aérienne"
+    ],
+    "correct": 2,
+    "explanation": "Impossible d’éliminer le germe du sol."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tétanos",
+    "difficulte": "modere",
+    "text": "Quelle est la cible de la toxine tétanique dans l'organisme ?",
+    "options": [
+      "Foie",
+      "Reins",
+      "Système nerveux central",
+      "Poumons"
+    ],
+    "correct": 2,
+    "explanation": "La toxine tétanique (tétanospasmine) remonte par voie nerveuse jusqu'aux interneurones inhibiteurs de la moelle épinière. En bloquant la libération de GABA et de glycine, elle provoque des contractures musculaires permanentes."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Poliomyélite",
+    "difficulte": "facile",
+    "text": "Quel est l’agent responsable de la poliomyélite, une maladie neurologique potentiellement paralysante ?",
+    "options": [
+      "Rotavirus",
+      "Poliovirus",
+      "Adenovirus",
+      "Virus influenza"
+    ],
+    "correct": 1,
+    "explanation": "Le poliovirus est un entérovirus ciblant le système nerveux."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Poliomyélite",
+    "difficulte": "facile",
+    "text": "Quel est le principal mode de transmission de la poliomyélite ?",
+    "options": [
+      "Voie aérienne",
+      "Transmission sexuelle",
+      "Voie féco-orale",
+      "Transmission vectorielle"
+    ],
+    "correct": 2,
+    "explanation": "Ingestion d’eau ou d’aliments contaminés."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Poliomyélite",
+    "difficulte": "modere",
+    "text": "Quels tissus sont spécifiquement atteints par le virus ?",
+    "options": [
+      "Hépatocytes",
+      "Neurones moteurs de la moelle épinière",
+      "Cellules pulmonaires",
+      "Cellules rénales"
+    ],
+    "correct": 1,
+    "explanation": "Destruction des motoneurones."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Poliomyélite",
+    "difficulte": "facile",
+    "text": "Quelle est la complication majeure irréversible chez l’enfant ?",
+    "options": [
+      "Surdité",
+      "Paralysie flasque aiguë",
+      "Insuffisance hépatique",
+      "Méningite chronique"
+    ],
+    "correct": 1,
+    "explanation": "Atteinte motrice définitive."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Poliomyélite",
+    "difficulte": "difficile",
+    "text": "Quelle est la mortalité des formes paralytiques sévères ?",
+    "options": [
+      "1 %",
+      "2–3 %",
+      "5–10 %",
+      "20 %"
+    ],
+    "correct": 2,
+    "explanation": "Décès par paralysie respiratoire."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Poliomyélite",
+    "difficulte": "modere",
+    "text": "Pourquoi continue-t-on à vacciner en France ?",
+    "options": [
+      "Mutation rapide",
+      "Présence animale",
+      "Risque d’importation depuis zones endémiques",
+      "Vaccin peu efficace"
+    ],
+    "correct": 2,
+    "explanation": "Persistance mondiale du virus."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Poliomyélite",
+    "difficulte": "difficile",
+    "text": "Quels pays restent des foyers d’endémie ?",
+    "options": [
+      "Japon et Corée",
+      "Pakistan et Afghanistan",
+      "France et Espagne",
+      "Canada et USA"
+    ],
+    "correct": 1,
+    "explanation": "Circulation persistante."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Poliomyélite",
+    "difficulte": "facile",
+    "text": "Existe-t-il un traitement curatif spécifique ?",
+    "options": [
+      "Oui, antiviral",
+      "Oui, antibiotique",
+      "Non",
+      "Oui, immunothérapie"
+    ],
+    "correct": 2,
+    "explanation": "Traitement symptomatique uniquement."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Poliomyélite",
+    "difficulte": "facile",
+    "text": "Quelle population est la plus vulnérable ?",
+    "options": [
+      "Adultes",
+      "Personnes âgées",
+      "Enfants < 5 ans",
+      "Adolescents"
+    ],
+    "correct": 2,
+    "explanation": "Immaturité immunitaire."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Poliomyélite",
+    "difficulte": "modere",
+    "text": "À partir de quelle dose l’efficacité vaccinale est-elle optimale ?",
+    "options": [
+      "1ère dose",
+      "2ème dose",
+      "3ème dose",
+      "5ème dose"
+    ],
+    "correct": 2,
+    "explanation": "Immunité complète après schéma primaire."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Poliomyélite",
+    "difficulte": "modere",
+    "text": "Quel type d’aliments peut transmettre le virus ?",
+    "options": [
+      "Aliments cuits",
+      "Produits fermentés",
+      "Aliments crus ou mal lavés",
+      "Produits laitiers pasteurisés"
+    ],
+    "correct": 2,
+    "explanation": "Contamination fécale."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Coqueluche",
+    "difficulte": "facile",
+    "text": "Quelle bactérie est responsable de la coqueluche ?",
+    "options": [
+      "Streptococcus pneumoniae",
+      "Bordetella pertussis",
+      "Haemophilus influenzae",
+      "Neisseria meningitidis"
+    ],
+    "correct": 1,
+    "explanation": "Bactérie respiratoire spécifique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Coqueluche",
+    "difficulte": "facile",
+    "text": "Quel est le mode de transmission principal de la coqueluche ?",
+    "options": [
+      "Voie digestive",
+      "Voie sanguine",
+      "Voie aérienne (gouttelettes)",
+      "Contact indirect uniquement"
+    ],
+    "correct": 2,
+    "explanation": "Transmission respiratoire."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Coqueluche",
+    "difficulte": "facile",
+    "text": "Quelle population est la plus à risque de forme grave de coqueluche ?",
+    "options": [
+      "Adolescents",
+      "Adultes",
+      "Nourrissons < 6 mois",
+      "Personnes âgées"
+    ],
+    "correct": 2,
+    "explanation": "Immaturité respiratoire."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Coqueluche",
+    "difficulte": "modere",
+    "text": "Comment appelle-t-on le bruit inspiratoire caractéristique de la coqueluche ?",
+    "options": [
+      "Sifflement bronchique",
+      "Chant du coq",
+      "Stridor",
+      "Ronflement"
+    ],
+    "correct": 1,
+    "explanation": "Signature clinique typique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Coqueluche",
+    "difficulte": "difficile",
+    "text": "Quel est le taux de mortalité de la coqueluche chez le nourrisson en cas de forme grave ?",
+    "options": [
+      "<1 %",
+      "1–3 %",
+      "5–10 %",
+      ">20 %"
+    ],
+    "correct": 1,
+    "explanation": "La mortalité de la coqueluche chez le nourrisson de moins de 3 mois peut atteindre 1 à 4% en cas de forme grave, par détresse respiratoire (apnées, hypoxie) ou complications comme l'hypertension pulmonaire."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Coqueluche",
+    "difficulte": "modere",
+    "text": "La coqueluche confère-t-elle une immunité à vie après l'infection ?",
+    "options": [
+      "Oui",
+      "Non",
+      "Seulement chez l’enfant",
+      "Seulement après vaccination"
+    ],
+    "correct": 1,
+    "explanation": "Réinfection possible."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Coqueluche",
+    "difficulte": "modere",
+    "text": "Quelle est la principale stratégie de protection du nourrisson contre la coqueluche avant ses 2 mois ?",
+    "options": [
+      "Isolement",
+      "Vaccination du nourrisson seul",
+      "Stratégie de cocooning",
+      "Antibiotiques systématiques"
+    ],
+    "correct": 2,
+    "explanation": "Le nourrisson ne peut être vacciné contre la coqueluche qu'à partir de 2 mois. La stratégie du cocooning consiste à vacciner les parents, la fratrie et l'entourage proche avant la naissance pour créer un bouclier protecteur."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite B",
+    "difficulte": "facile",
+    "text": "Quel type de cellules est ciblé par le virus de l'hépatite B ?",
+    "options": [
+      "Neurones",
+      "Hépatocytes",
+      "Pneumocytes",
+      "Cellules rénales"
+    ],
+    "correct": 1,
+    "explanation": "Infection du foie."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite B",
+    "difficulte": "facile",
+    "text": "Quels sont les principaux modes de transmission de l'hépatite B ?",
+    "options": [
+      "Air et eau",
+      "Sang et rapports sexuels",
+      "Contact cutané simple",
+      "Insectes"
+    ],
+    "correct": 1,
+    "explanation": "Fluides biologiques."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite B",
+    "difficulte": "modere",
+    "text": "Quelles sont les complications majeures chroniques de l'hépatite B non traitée ?",
+    "options": [
+      "Asthme et diabète",
+      "Cirrhose et cancer du foie",
+      "Arthrite et lupus",
+      "Insuffisance rénale"
+    ],
+    "correct": 1,
+    "explanation": "Évolution chronique possible."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite B",
+    "difficulte": "facile",
+    "text": "Quelle population est particulièrement à risque d'hépatite B ?",
+    "options": [
+      "Sportifs",
+      "Usagers de drogues",
+      "Étudiants",
+      "Enfants scolarisés"
+    ],
+    "correct": 1,
+    "explanation": "Exposition sanguine."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite B",
+    "difficulte": "modere",
+    "text": "Faut-il faire des rappels à l'âge adulte après un schéma vaccinal complet contre l'hépatite B ?",
+    "options": [
+      "Oui tous les 5 ans",
+      "Oui tous les 10 ans",
+      "Non",
+      "Seulement chez les femmes"
+    ],
+    "correct": 2,
+    "explanation": "Après un schéma vaccinal complet contre l'hépatite B, aucun rappel n'est nécessaire chez l'adulte immunocompétent. La mémoire immunitaire persiste durablement même si le taux d'anticorps diminue avec le temps."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite B",
+    "difficulte": "facile",
+    "text": "Quel signe clinique peut apparaître lors de la phase aiguë de l'hépatite B ?",
+    "options": [
+      "Rash",
+      "Ictère (jaunisse)",
+      "Toux",
+      "Œdème"
+    ],
+    "correct": 1,
+    "explanation": "Atteinte hépatique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite B",
+    "difficulte": "modere",
+    "text": "Pourquoi la vaccination contre l'hépatite B est-elle préférable à l'attente des symptômes ?",
+    "options": [
+      "Maladie bénigne",
+      "Phase souvent asymptomatique",
+      "Vaccin curatif",
+      "Transmission faible"
+    ],
+    "correct": 1,
+    "explanation": "Dépistage difficile."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Infections invasives",
+    "difficulte": "facile",
+    "text": "Quel est le point commun entre le pneumocoque, le méningocoque et Haemophilus influenzae b (Hib) ?",
+    "options": [
+      "Ce sont des virus",
+      "Ce sont des bactéries",
+      "Ce sont des parasites",
+      "Ce sont des champignons"
+    ],
+    "correct": 1,
+    "explanation": "Ces trois agents responsables d’infections invasives sont des bactéries."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Infections invasives",
+    "difficulte": "facile",
+    "text": "Quelle triade clinique évoque un syndrome méningé chez l’adulte ?",
+    "options": [
+      "Fièvre + diarrhée + rash",
+      "Céphalées + vomissements en jet + raideur de nuque",
+      "Toux + fièvre + dyspnée",
+      "Douleur abdominale + fièvre + vomissements"
+    ],
+    "correct": 1,
+    "explanation": "C’est la triade classique de la méningite."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Infections invasives",
+    "difficulte": "modere",
+    "text": "Quel signe peut alerter chez le nourrisson atteint de méningite bactérienne ?",
+    "options": [
+      "Mydriase isolée",
+      "Refus de s’alimenter",
+      "Rhinorrhée",
+      "Constipation"
+    ],
+    "correct": 1,
+    "explanation": "Les signes sont souvent peu spécifiques chez le tout-petit."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Infections invasives",
+    "difficulte": "modere",
+    "text": "Quelle séquelle est fréquente après une méningite bactérienne ?",
+    "options": [
+      "Diabète",
+      "Surdité",
+      "Asthme",
+      "Arthrose"
+    ],
+    "correct": 1,
+    "explanation": "Séquelles neurologiques ou sensorielles possibles."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Infections invasives",
+    "difficulte": "modere",
+    "text": "Quelle bactérie est la première cause de méningite bactérienne chez l’enfant et l’adulte ?",
+    "options": [
+      "Bordetella pertussis",
+      "Streptococcus pneumoniae",
+      "Corynebacterium diphtheriae",
+      "Clostridium tetani"
+    ],
+    "correct": 1,
+    "explanation": "Le pneumocoque est la cause la plus fréquente."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Infections invasives",
+    "difficulte": "difficile",
+    "text": "Depuis la vaccination obligatoire contre le méningocoque C, quel sérogroupe est devenu majoritaire ?",
+    "options": [
+      "A",
+      "B",
+      "C",
+      "Y"
+    ],
+    "correct": 1,
+    "explanation": "Depuis l'introduction de la vaccination obligatoire contre le méningocoque C en 2010, le sérogroupe B est devenu le plus fréquent en France métropolitaine, représentant désormais plus de 60% des cas."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Infections invasives",
+    "difficulte": "difficile",
+    "text": "Quel facteur rend Hib invasif ?",
+    "options": [
+      "Une exotoxine",
+      "Une capsule polysaccharidique",
+      "Une résistance aux antibiotiques",
+      "Une multiplication intracellulaire"
+    ],
+    "correct": 1,
+    "explanation": "La capsule facilite l’invasion sanguine."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Infections invasives",
+    "difficulte": "facile",
+    "text": "Pourquoi l’épiglottite à Hib est-elle une urgence vitale ?",
+    "options": [
+      "Risque de convulsions",
+      "Risque d’asphyxie",
+      "Risque d’hémorragie",
+      "Risque de déshydratation"
+    ],
+    "correct": 1,
+    "explanation": "L’œdème peut bloquer les voies respiratoires."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Infections invasives",
+    "difficulte": "modere",
+    "text": "Où retrouve-t-on exclusivement le méningocoque chez l’homme ?",
+    "options": [
+      "Intestin",
+      "Foie",
+      "Gorge (pharynx)",
+      "Peau"
+    ],
+    "correct": 2,
+    "explanation": "Portage pharyngé asymptomatique fréquent."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Infections invasives",
+    "difficulte": "difficile",
+    "text": "Quel est l’effet collectif majeur de la vaccination Hib ?",
+    "options": [
+      "Éradication du pneumocoque",
+      "Diminution du portage pharyngé",
+      "Immunité naturelle durable",
+      "Prévention des infections virales"
+    ],
+    "correct": 1,
+    "explanation": "Réduction de circulation bactérienne."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "ROR",
+    "difficulte": "facile",
+    "text": "Quel est le point commun thérapeutique des maladies ROR ?",
+    "options": [
+      "Antibiotiques efficaces",
+      "Antiviraux spécifiques",
+      "Aucun traitement curatif spécifique",
+      "Immunothérapie obligatoire"
+    ],
+    "correct": 2,
+    "explanation": "Le traitement est symptomatique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "ROR",
+    "difficulte": "modere",
+    "text": "Quelle est la période de contagiosité de la rougeole ?",
+    "options": [
+      "Le jour de l’éruption uniquement",
+      "De 5 jours avant à 5 jours après l’éruption",
+      "Seulement pendant la fièvre",
+      "Après disparition des boutons"
+    ],
+    "correct": 1,
+    "explanation": "Très contagieuse avant les signes visibles."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "ROR",
+    "difficulte": "modere",
+    "text": "Comment se présente typiquement l’éruption de la rougeole ?",
+    "options": [
+      "Vésicules localisées",
+      "Éruption descendante de petites taches rouges",
+      "Purpura nécrotique",
+      "Plaques urticariennes"
+    ],
+    "correct": 1,
+    "explanation": "Éruption maculo-papuleuse descendante."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "ROR",
+    "difficulte": "difficile",
+    "text": "Quelles populations ont la létalité la plus élevée pour la rougeole ?",
+    "options": [
+      "Enfants 5–10 ans",
+      "Adolescents uniquement",
+      "Nourrissons <1 an et adultes ≥15 ans",
+      "Femmes ménopausées"
+    ],
+    "correct": 2,
+    "explanation": "Ces groupes présentent les formes les plus graves."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "ROR",
+    "difficulte": "facile",
+    "text": "Quelle glande est typiquement atteinte dans les oreillons ?",
+    "options": [
+      "Thyroïde",
+      "Parotide",
+      "Hypophyse",
+      "Surrénale"
+    ],
+    "correct": 1,
+    "explanation": "Tuméfaction parotidienne caractéristique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "ROR",
+    "difficulte": "modere",
+    "text": "Quelle complication peut survenir chez le garçon pubère atteint d’oreillons ?",
+    "options": [
+      "Orchite",
+      "Péricardite",
+      "Méningite bactérienne",
+      "Hépatite fulminante"
+    ],
+    "correct": 0,
+    "explanation": "L'orchite ourlienne survient chez 20 à 30% des garçons pubères atteints d'oreillons. Généralement unilatérale, elle peut dans de rares cas entraîner une atrophie testiculaire et une réduction de la fertilité."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "ROR",
+    "difficulte": "modere",
+    "text": "Pourquoi la rubéole est-elle souvent difficile à diagnostiquer cliniquement ?",
+    "options": [
+      "Éruption tardive",
+      "Asymptomatique dans 1 cas sur 2",
+      "Confusion avec la rougeole uniquement",
+      "Très longue incubation"
+    ],
+    "correct": 1,
+    "explanation": "De nombreuses infections passent inaperçues."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "ROR",
+    "difficulte": "facile",
+    "text": "Quel est le principal risque d’une rubéole contractée au 1er trimestre de grossesse ?",
+    "options": [
+      "Pré-éclampsie",
+      "Malformations congénitales",
+      "Diabète gestationnel",
+      "Hémorragie de la délivrance"
+    ],
+    "correct": 1,
+    "explanation": "Une rubéole contractée au 1er trimestre peut provoquer la triade de Gregg : surdité de perception, cataracte congénitale et cardiopathie. Le risque de malformations dépasse 85% avant 8 semaines de grossesse."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "ROR",
+    "difficulte": "difficile",
+    "text": "Depuis quelle année le vaccin ROR (rougeole-oreillons-rubéole) est-il obligatoire en France ?",
+    "options": [
+      "2005",
+      "2010",
+      "2018",
+      "2020"
+    ],
+    "correct": 2,
+    "explanation": "Obligation vaccinale élargie."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "ROR",
+    "difficulte": "modere",
+    "text": "Comment différencier visuellement la rubéole de la rougeole ?",
+    "options": [
+      "Rubéole avec vésicules",
+      "Rubéole avec taches plus roses et plus claires",
+      "Rubéole avec purpura",
+      "Rubéole sans éruption"
+    ],
+    "correct": 1,
+    "explanation": "L’éruption rubéolique est plus discrète."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rotavirus",
+    "difficulte": "facile",
+    "text": "Quel est le mode principal de transmission du rotavirus ?",
+    "options": [
+      "Voie aérienne",
+      "Voie sexuelle",
+      "Manuportage féco-oral",
+      "Transmission vectorielle"
+    ],
+    "correct": 2,
+    "explanation": "Transmission manuportée très fréquente."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rotavirus",
+    "difficulte": "modere",
+    "text": "Quelle est la durée habituelle d'incubation du rotavirus ?",
+    "options": [
+      "6 à 12 heures",
+      "24 à 48 heures",
+      "4 à 7 jours",
+      "2 semaines"
+    ],
+    "correct": 1,
+    "explanation": "Incubation courte."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rotavirus",
+    "difficulte": "facile",
+    "text": "Quelle est la complication principale de la gastro-entérite à rotavirus chez le nourrisson ?",
+    "options": [
+      "Méningite",
+      "Déshydratation",
+      "Bronchiolite",
+      "Convulsions fébriles systématiques"
+    ],
+    "correct": 1,
+    "explanation": "La perte hydro-électrolytique est le risque majeur."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rotavirus",
+    "difficulte": "difficile",
+    "text": "De combien la vaccination anti-rotavirus réduit-elle les hospitalisations ?",
+    "options": [
+      "30 %",
+      "50 %",
+      ">80 %",
+      "100 %"
+    ],
+    "correct": 2,
+    "explanation": "Réduction majeure des formes sévères."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rotavirus",
+    "difficulte": "facile",
+    "text": "Quelle population est la plus à risque de forme grave de gastro-entérite à rotavirus ?",
+    "options": [
+      "Adolescents",
+      "Personnes âgées",
+      "Nourrissons et enfants <5 ans",
+      "Adultes jeunes"
+    ],
+    "correct": 2,
+    "explanation": "Vulnérabilité digestive et hydrique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rotavirus",
+    "difficulte": "facile",
+    "text": "Quel symptôme aggrave particulièrement le risque de déshydratation lors d'une gastro-entérite à rotavirus ?",
+    "options": [
+      "Rhinorrhée",
+      "Vomissements répétés",
+      "Toux",
+      "Éruption cutanée"
+    ],
+    "correct": 1,
+    "explanation": "Les vomissements majorent rapidement les pertes."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rotavirus",
+    "difficulte": "facile",
+    "text": "Le vaccin anti-rotavirus est-il obligatoire en France ?",
+    "options": [
+      "Oui",
+      "Non, recommandé",
+      "Seulement en collectivité",
+      "Seulement en maternité"
+    ],
+    "correct": 1,
+    "explanation": "Recommandation mais pas obligation."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rotavirus",
+    "difficulte": "facile",
+    "text": "Quel geste simple limite aussi la transmission du rotavirus ?",
+    "options": [
+      "Port du masque",
+      "Hygiène des mains",
+      "Antibiothérapie préventive",
+      "Désinfection de la peau uniquement"
+    ],
+    "correct": 1,
+    "explanation": "Mesure essentielle de prévention."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rotavirus",
+    "difficulte": "modere",
+    "text": "Quel est le taux global de protection du vaccin anti-rotavirus ?",
+    "options": [
+      "40 %",
+      "60 %",
+      "85 %",
+      "100 %"
+    ],
+    "correct": 2,
+    "explanation": "Bonne efficacité contre formes sévères."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rotavirus",
+    "difficulte": "modere",
+    "text": "Pourquoi la primo-infection à rotavirus est-elle particulièrement surveillée ?",
+    "options": [
+      "Elle dure plus longtemps",
+      "Risque maximal de diarrhée sévère",
+      "Transmission aérienne",
+      "Résistance aux traitements"
+    ],
+    "correct": 1,
+    "explanation": "Première infection souvent la plus symptomatique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rotavirus",
+    "difficulte": "facile",
+    "text": "Comment se manifeste généralement l'infection à rotavirus chez l'adulte ?",
+    "options": [
+      "Détresse respiratoire",
+      "Troubles digestifs bénins",
+      "Paralysie flasque",
+      "Méningite"
+    ],
+    "correct": 1,
+    "explanation": "Les formes adultes sont souvent modérées."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "HPV",
+    "difficulte": "modere",
+    "text": "Quel pourcentage de personnes sexuellement actives sera exposé au HPV au cours de sa vie ?",
+    "options": [
+      "10–20 %",
+      "30–40 %",
+      "50–60 %",
+      "70–80 %"
+    ],
+    "correct": 3,
+    "explanation": "Le HPV est extrêmement fréquent dans la population."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "HPV",
+    "difficulte": "modere",
+    "text": "Quel pourcentage des cancers du col de l’utérus est attribuable au HPV ?",
+    "options": [
+      "50 %",
+      "70 %",
+      "90 %",
+      "Près de 100 %"
+    ],
+    "correct": 3,
+    "explanation": "Le HPV est responsable de quasiment tous les cancers du col."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "HPV",
+    "difficulte": "difficile",
+    "text": "Quels génotypes sont les plus impliqués dans les cancers ?",
+    "options": [
+      "1 et 2",
+      "6 et 11",
+      "16 et 18",
+      "31 et 33 uniquement"
+    ],
+    "correct": 2,
+    "explanation": "Les types 16 et 18 sont les plus oncogènes."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "HPV",
+    "difficulte": "modere",
+    "text": "Quels autres cancers peuvent être liés au HPV ?",
+    "options": [
+      "Foie uniquement",
+      "Poumon uniquement",
+      "Anus, oropharynx, organes génitaux",
+      "Rein uniquement"
+    ],
+    "correct": 2,
+    "explanation": "Multiples localisations possibles."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "HPV",
+    "difficulte": "modere",
+    "text": "Pourquoi le préservatif ne protège-t-il pas totalement contre le HPV ?",
+    "options": [
+      "Virus résistant",
+      "Transmission aérienne possible",
+      "Zones non couvertes exposées",
+      "Transmission sanguine"
+    ],
+    "correct": 2,
+    "explanation": "Contact peau à peau possible."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "HPV",
+    "difficulte": "modere",
+    "text": "Quelle est l’efficacité du vaccin avant début de la vie sexuelle ?",
+    "options": [
+      "50 %",
+      "70 %",
+      "80 %",
+      "≈ 90 %"
+    ],
+    "correct": 3,
+    "explanation": "Très forte efficacité en prévention."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "HPV",
+    "difficulte": "modere",
+    "text": "Quel facteur favorise l’évolution vers un cancer ?",
+    "options": [
+      "Activité sportive",
+      "Tabac",
+      "Hydratation",
+      "Vaccination tardive"
+    ],
+    "correct": 1,
+    "explanation": "Le tabac favorise la persistance virale."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "HPV",
+    "difficulte": "facile",
+    "text": "Comment appelle-t-on les verrues génitales liées au HPV ?",
+    "options": [
+      "Papules",
+      "Condylomes",
+      "Nodules",
+      "Kystes"
+    ],
+    "correct": 1,
+    "explanation": "Lésions bénignes fréquentes."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "HPV",
+    "difficulte": "modere",
+    "text": "Existe-t-il un lien prouvé entre vaccin HPV et sclérose en plaques ?",
+    "options": [
+      "Oui fort",
+      "Oui modéré",
+      "Non",
+      "Incertain"
+    ],
+    "correct": 2,
+    "explanation": "De nombreuses études de pharmacovigilance portant sur des millions de doses administrées n'ont établi aucun lien entre le vaccin HPV et la sclérose en plaques ou d'autres maladies auto-immunes."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "HPV",
+    "difficulte": "facile",
+    "text": "La vaccination HPV concerne-t-elle uniquement les filles ?",
+    "options": [
+      "Oui",
+      "Non, filles et garçons",
+      "Seulement adultes",
+      "Seulement enfants"
+    ],
+    "correct": 1,
+    "explanation": "Protection collective."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "HPV",
+    "difficulte": "modere",
+    "text": "Pourquoi vacciner avant le début de la vie sexuelle ?",
+    "options": [
+      "Obligation légale",
+      "Meilleure réponse immunitaire et absence d’exposition",
+      "Moins d’effets secondaires",
+      "Protection immédiate uniquement"
+    ],
+    "correct": 1,
+    "explanation": "Prévention maximale."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "HPV",
+    "difficulte": "difficile",
+    "text": "Pourquoi vacciner même après le début de la vie sexuelle ?",
+    "options": [
+      "Vaccin curatif",
+      "Protection contre types non encore rencontrés",
+      "Obligation",
+      "Effet placebo"
+    ],
+    "correct": 1,
+    "explanation": "Même en cas de début de vie sexuelle, la vaccination HPV reste utile : elle protège contre les génotypes non encore rencontrés. L'efficacité reste proche de 100% contre les types non contractés."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Grippe saisonnière",
+    "difficulte": "difficile",
+    "text": "Quelle est la principale cause de décès liée à la grippe ?",
+    "options": [
+      "Infection virale directe",
+      "Décompensation de pathologies chroniques",
+      "Déshydratation",
+      "Allergie"
+    ],
+    "correct": 1,
+    "explanation": "Les comorbidités sont déterminantes."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Grippe saisonnière",
+    "difficulte": "modere",
+    "text": "Quelle population n’est généralement PAS prioritaire pour la vaccination ?",
+    "options": [
+      "Personnes âgées",
+      "Femmes enceintes",
+      "Adultes jeunes sans facteur de risque",
+      "Malades chroniques"
+    ],
+    "correct": 2,
+    "explanation": "Priorité aux populations fragiles."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Grippe saisonnière",
+    "difficulte": "facile",
+    "text": "En combien de temps la protection vaccinale s’installe-t-elle ?",
+    "options": [
+      "24 h",
+      "3 jours",
+      "1 semaine",
+      "2 semaines"
+    ],
+    "correct": 3,
+    "explanation": "Délai de réponse immunitaire."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Grippe saisonnière",
+    "difficulte": "facile",
+    "text": "Quel symptôme doit alerter ?",
+    "options": [
+      "Rhinite",
+      "Fièvre modérée",
+      "Dyspnée",
+      "Fatigue"
+    ],
+    "correct": 2,
+    "explanation": "Signe de gravité."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Grippe saisonnière",
+    "difficulte": "facile",
+    "text": "Pourquoi vacciner chaque année ?",
+    "options": [
+      "Immunité disparaît totalement",
+      "Virus mute régulièrement",
+      "Vaccin inefficace",
+      "Nouvelle souche unique"
+    ],
+    "correct": 1,
+    "explanation": "Variabilité antigénique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Grippe saisonnière",
+    "difficulte": "facile",
+    "text": "Quels sont les signes de début brutal ?",
+    "options": [
+      "Toux seule",
+      "Fièvre + courbatures + fatigue",
+      "Diarrhée",
+      "Rash"
+    ],
+    "correct": 1,
+    "explanation": "Syndrome grippal typique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Grippe saisonnière",
+    "difficulte": "modere",
+    "text": "Quelle particularité chez l’enfant <5 ans ?",
+    "options": [
+      "Toujours respiratoire",
+      "Toujours digestif",
+      "Présentation souvent atypique",
+      "Toujours asymptomatique"
+    ],
+    "correct": 2,
+    "explanation": "Expression différente."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Grippe saisonnière",
+    "difficulte": "facile",
+    "text": "Autre mode de transmission que l’air ?",
+    "options": [
+      "Eau",
+      "Aliments",
+      "Objets contaminés",
+      "Sang"
+    ],
+    "correct": 2,
+    "explanation": "Transmission indirecte."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Grippe saisonnière",
+    "difficulte": "modere",
+    "text": "Quels symptômes peuvent durer >2 semaines ?",
+    "options": [
+      "Fièvre",
+      "Toux et asthénie",
+      "Vomissements",
+      "Rash"
+    ],
+    "correct": 1,
+    "explanation": "Phase de récupération prolongée."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Grippe saisonnière",
+    "difficulte": "facile",
+    "text": "Quel est le principal bénéfice du vaccin ?",
+    "options": [
+      "Empêcher toute infection",
+      "Réduire les formes graves",
+      "Supprimer la transmission",
+      "Guérir la grippe"
+    ],
+    "correct": 1,
+    "explanation": "Prévention complications."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Grippe saisonnière",
+    "difficulte": "difficile",
+    "text": "Le cocooning concerne quels nourrissons ?",
+    "options": [
+      "Tous",
+      "Aucun",
+      "<6 mois à risque",
+      ">1 an"
+    ],
+    "correct": 2,
+    "explanation": "Protection indirecte."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tuberculose",
+    "difficulte": "facile",
+    "text": "Quel est l'agent responsable de la tuberculose ?",
+    "options": [
+      "Virus",
+      "Bacille de Koch (Mycobacterium tuberculosis)",
+      "Champignon",
+      "Parasite"
+    ],
+    "correct": 1,
+    "explanation": "Bactérie spécifique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tuberculose",
+    "difficulte": "facile",
+    "text": "Quel est le mode de transmission de la tuberculose ?",
+    "options": [
+      "Digestif",
+      "Cutané",
+      "Aérien",
+      "Sexuel"
+    ],
+    "correct": 2,
+    "explanation": "Transmission respiratoire."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tuberculose",
+    "difficulte": "modere",
+    "text": "Le BCG protège principalement contre :",
+    "options": [
+      "Toutes les formes",
+      "Formes pulmonaires uniquement",
+      "Formes graves (méningite)",
+      "Formes digestives"
+    ],
+    "correct": 2,
+    "explanation": "Le BCG offre une protection partielle : il est efficace à 75-85% contre les formes graves de tuberculose chez l'enfant (méningite tuberculeuse, miliaire), mais peu efficace contre la tuberculose pulmonaire de l'adulte."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tuberculose",
+    "difficulte": "difficile",
+    "text": "Quelles régions françaises sont à forte incidence ?",
+    "options": [
+      "Bretagne",
+      "PACA",
+      "Île-de-France, Guyane, Mayotte",
+      "Normandie"
+    ],
+    "correct": 2,
+    "explanation": "Zones prioritaires."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tuberculose",
+    "difficulte": "modere",
+    "text": "Dans quelle situation familiale vacciner ?",
+    "options": [
+      "Aucun cas",
+      "Parents venant de zone à risque",
+      "Famille sportive",
+      "Vie rurale"
+    ],
+    "correct": 1,
+    "explanation": "Risque accru."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tuberculose",
+    "difficulte": "facile",
+    "text": "Quel symptôme pulmonaire est évocateur d'une tuberculose ?",
+    "options": [
+      "Toux persistante",
+      "Rhinite",
+      "Otite",
+      "Pharyngite"
+    ],
+    "correct": 0,
+    "explanation": "Symptôme cardinal."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tuberculose",
+    "difficulte": "modere",
+    "text": "La tuberculose peut-elle être extra-pulmonaire ?",
+    "options": [
+      "Non",
+      "Oui",
+      "Rarement",
+      "Seulement chez l’enfant"
+    ],
+    "correct": 1,
+    "explanation": "Atteinte multiple possible."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tuberculose",
+    "difficulte": "facile",
+    "text": "Quel facteur socio-économique favorise la tuberculose ?",
+    "options": [
+      "Sport",
+      "Précarité",
+      "Alimentation riche",
+      "Vaccination"
+    ],
+    "correct": 1,
+    "explanation": "Conditions de vie."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Tuberculose",
+    "difficulte": "modere",
+    "text": "Quel autre symptôme respiratoire peut apparaître au cours d'une tuberculose ?",
+    "options": [
+      "Éternuements",
+      "Douleurs thoraciques",
+      "Hoquet",
+      "Ronflement"
+    ],
+    "correct": 1,
+    "explanation": "Atteinte pulmonaire."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite A",
+    "difficulte": "modere",
+    "text": "Quel type de virus est responsable de l’hépatite A ?",
+    "options": [
+      "Virus ADN",
+      "Virus ARN (VHA)",
+      "Retrovirus",
+      "Virus influenza"
+    ],
+    "correct": 1,
+    "explanation": "Le virus de l’hépatite A est un virus ARN transmis par voie digestive."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite A",
+    "difficulte": "facile",
+    "text": "Quel est le mode principal de transmission de l’hépatite A ?",
+    "options": [
+      "Voie aérienne",
+      "Voie sexuelle",
+      "Voie féco-orale",
+      "Transmission sanguine"
+    ],
+    "correct": 2,
+    "explanation": "Transmission via eau ou aliments contaminés."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite A",
+    "difficulte": "modere",
+    "text": "Comment se manifeste l’hépatite A chez le jeune enfant ?",
+    "options": [
+      "Toujours sévère",
+      "Souvent asymptomatique",
+      "Toujours avec ictère",
+      "Toujours chronique"
+    ],
+    "correct": 1,
+    "explanation": "Formes souvent discrètes chez l’enfant."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite A",
+    "difficulte": "facile",
+    "text": "Quels sont les signes principaux chez l’adulte ?",
+    "options": [
+      "Dyspnée et toux",
+      "Asthénie et troubles digestifs",
+      "Éruption cutanée",
+      "Douleurs articulaires uniquement"
+    ],
+    "correct": 1,
+    "explanation": "Symptômes digestifs et fatigue."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite A",
+    "difficulte": "difficile",
+    "text": "Quelle forme grave peut entraîner un décès ?",
+    "options": [
+      "Hépatite chronique",
+      "Hépatite fulminante",
+      "Cirrhose immédiate",
+      "Cancer du foie"
+    ],
+    "correct": 1,
+    "explanation": "L'hépatite A fulminante, bien que rare (moins de 0,1% des cas), entraîne une nécrose hépatique massive pouvant nécessiter une transplantation en urgence. Elle est plus fréquente chez les adultes et les patients avec hépatopathie chronique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite A",
+    "difficulte": "modere",
+    "text": "Quelle est l’efficacité après une dose ?",
+    "options": [
+      "50 %",
+      "70 %",
+      "85 %",
+      "98–100 %"
+    ],
+    "correct": 3,
+    "explanation": "Très forte efficacité dès la 1ère dose."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite A",
+    "difficulte": "facile",
+    "text": "Combien de doses pour une protection durable ?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correct": 1,
+    "explanation": "Schéma classique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite A",
+    "difficulte": "difficile",
+    "text": "Délai de vaccination après contact ?",
+    "options": [
+      "24 h",
+      "7 jours",
+      "14 jours",
+      "1 mois"
+    ],
+    "correct": 2,
+    "explanation": "Fenêtre post-exposition."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite A",
+    "difficulte": "modere",
+    "text": "Pourquoi vacciner les HSH ?",
+    "options": [
+      "Risque respiratoire",
+      "Risque féco-oral lors des pratiques sexuelles",
+      "Risque sanguin",
+      "Risque génétique"
+    ],
+    "correct": 1,
+    "explanation": "Transmission spécifique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite A",
+    "difficulte": "facile",
+    "text": "À partir de quel âge vacciner pour voyage ?",
+    "options": [
+      "Naissance",
+      "6 mois",
+      "1 an",
+      "5 ans"
+    ],
+    "correct": 2,
+    "explanation": "Recommandation standard."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Hépatite A",
+    "difficulte": "facile",
+    "text": "Délai d’efficacité après injection ?",
+    "options": [
+      "24 h",
+      "3 jours",
+      "1 semaine",
+      "2 semaines"
+    ],
+    "correct": 3,
+    "explanation": "Réponse immunitaire."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Méningocoques A/W/Y",
+    "difficulte": "facile",
+    "text": "Quel est l'agent responsable des infections à méningocoques A, W et Y ?",
+    "options": [
+      "Streptococcus pneumoniae",
+      "Neisseria meningitidis",
+      "Haemophilus influenzae",
+      "Listeria monocytogenes"
+    ],
+    "correct": 1,
+    "explanation": "Méningocoques de différents sérogroupes."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Méningocoques A/W/Y",
+    "difficulte": "difficile",
+    "text": "Pourquoi les personnes sans rate sont-elles à risque ?",
+    "options": [
+      "Déficit respiratoire",
+      "Défaut d’immunité contre bactéries encapsulées",
+      "Risque viral",
+      "Risque digestif"
+    ],
+    "correct": 1,
+    "explanation": "La rate joue un rôle clé contre ces bactéries."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Méningocoques A/W/Y",
+    "difficulte": "modere",
+    "text": "Comment appelle-t-on la zone mondiale à haut risque ?",
+    "options": [
+      "Zone tropicale",
+      "Ceinture de la méningite",
+      "Zone équatoriale",
+      "Zone humide"
+    ],
+    "correct": 1,
+    "explanation": "La 'ceinture de la méningite' s'étend sur 26 pays d'Afrique subsaharienne, du Sénégal à l'Éthiopie. Le pèlerinage à La Mecque (hajj) est aussi une situation à risque élevé pour les méningocoques W et Y."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Méningocoques A/W/Y",
+    "difficulte": "facile",
+    "text": "Quelles sont les formes invasives redoutées des infections à méningocoques ?",
+    "options": [
+      "Pneumonie et bronchite",
+      "Méningite et septicémie",
+      "Hépatite et cirrhose",
+      "Diarrhée et vomissements"
+    ],
+    "correct": 1,
+    "explanation": "Formes graves."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Méningocoques A/W/Y",
+    "difficulte": "difficile",
+    "text": "Quelle est l’efficacité vaccinale chez les jeunes ?",
+    "options": [
+      "50 %",
+      "70 %",
+      "85 %",
+      "93–96 %"
+    ],
+    "correct": 3,
+    "explanation": "Très bonne efficacité."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Méningocoques A/W/Y",
+    "difficulte": "modere",
+    "text": "Comment se présente le plus souvent l'infection à méningocoque dans la population ?",
+    "options": [
+      "Grave immédiatement",
+      "Asymptomatique (portage sain)",
+      "Chronique",
+      "Digestive"
+    ],
+    "correct": 1,
+    "explanation": "Portage fréquent."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Méningocoques A/W/Y",
+    "difficulte": "facile",
+    "text": "Quel est le mode de transmission du méningocoque ?",
+    "options": [
+      "Digestif",
+      "Aérien",
+      "Sanguin",
+      "Vectoriel"
+    ],
+    "correct": 1,
+    "explanation": "Gouttelettes."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Méningocoques A/W/Y",
+    "difficulte": "modere",
+    "text": "Faut-il vacciner l'entourage après contact avec un cas de méningocoque W ?",
+    "options": [
+      "Non",
+      "Oui",
+      "Seulement enfants",
+      "Seulement adultes"
+    ],
+    "correct": 1,
+    "explanation": "Mesure de prévention."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Varicelle",
+    "difficulte": "modere",
+    "text": "Pourquoi vacciner les adolescents non immunisés ?",
+    "options": [
+      "Maladie bénigne",
+      "Maladie plus grave à l’âge adulte",
+      "Transmission faible",
+      "Pas de complications"
+    ],
+    "correct": 1,
+    "explanation": "Risque accru chez adulte."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Varicelle",
+    "difficulte": "facile",
+    "text": "Quelle est la période de contagiosité de la varicelle ?",
+    "options": [
+      "Après guérison",
+      "2 jours avant à 5 jours après éruption",
+      "Seulement fièvre",
+      "Non contagieuse"
+    ],
+    "correct": 1,
+    "explanation": "Transmission précoce."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Varicelle",
+    "difficulte": "facile",
+    "text": "Quel est le risque de la varicelle au 1er trimestre de grossesse ?",
+    "options": [
+      "Diabète",
+      "Malformations congénitales",
+      "Asthme",
+      "Infection urinaire"
+    ],
+    "correct": 1,
+    "explanation": "Embryopathie varicelleuse."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Varicelle",
+    "difficulte": "difficile",
+    "text": "Risque autour de l’accouchement ?",
+    "options": [
+      "Infection maternelle",
+      "Varicelle néonatale grave",
+      "Retard de croissance",
+      "Aucune conséquence"
+    ],
+    "correct": 1,
+    "explanation": "Si la varicelle maternelle survient dans les 5 jours avant ou 2 jours après l'accouchement, le nouveau-né peut développer une varicelle néonatale fulminante potentiellement mortelle. Les immunoglobulines spécifiques (VZIG) doivent être administrées en urgence."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Varicelle",
+    "difficulte": "difficile",
+    "text": "Quel est le délai maximal pour une vaccination post-exposition à la varicelle ?",
+    "options": [
+      "24 h",
+      "48 h",
+      "7 jours",
+      "1 mois"
+    ],
+    "correct": 1,
+    "explanation": "Fenêtre courte."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Varicelle",
+    "difficulte": "facile",
+    "text": "Quelle est la complication cutanée du grattage des vésicules de varicelle ?",
+    "options": [
+      "Allergie",
+      "Surinfection bactérienne",
+      "Déshydratation",
+      "Asthme"
+    ],
+    "correct": 1,
+    "explanation": "Lésions cutanées infectées."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Varicelle",
+    "difficulte": "modere",
+    "text": "Faut-il vacciner l'entourage d'un patient immunodéprimé contre la varicelle ?",
+    "options": [
+      "Non",
+      "Oui",
+      "Seulement enfants",
+      "Seulement adultes"
+    ],
+    "correct": 1,
+    "explanation": "Protection indirecte."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Varicelle",
+    "difficulte": "modere",
+    "text": "Pourquoi réaliser une sérologie varicelle avant une grossesse ?",
+    "options": [
+      "Diagnostic",
+      "Vacciner si non immunisée",
+      "Dépister diabète",
+      "Prévoir accouchement"
+    ],
+    "correct": 1,
+    "explanation": "Prévention fœtale."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Varicelle",
+    "difficulte": "facile",
+    "text": "Quelle est l'efficacité du vaccin varicelle après 2 doses ?",
+    "options": [
+      "70 %",
+      "80 %",
+      "90 %",
+      ">95 %"
+    ],
+    "correct": 3,
+    "explanation": "Très efficace."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Varicelle",
+    "difficulte": "facile",
+    "text": "Quel est l'autre mode de transmission de la varicelle en plus du contact direct ?",
+    "options": [
+      "Digestif",
+      "Respiratoire",
+      "Sanguin",
+      "Vectoriel"
+    ],
+    "correct": 1,
+    "explanation": "Double transmission."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Varicelle",
+    "difficulte": "difficile",
+    "text": "Dans quelle condition vacciner contre la varicelle avant une greffe d'organe ?",
+    "options": [
+      "Toujours",
+      "Si immunisé",
+      "Si sérologie négative",
+      "Jamais"
+    ],
+    "correct": 2,
+    "explanation": "Sécurité immunitaire."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Zona",
+    "difficulte": "modere",
+    "text": "Quelle est l'origine du zona ?",
+    "options": [
+      "Nouvelle infection",
+      "Réactivation du virus varicelle-zona",
+      "Bactérie",
+      "Parasite"
+    ],
+    "correct": 1,
+    "explanation": "Virus latent."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Zona",
+    "difficulte": "difficile",
+    "text": "Quel est le risque de développer un zona après 85 ans ?",
+    "options": [
+      "10 %",
+      "20 %",
+      "30 %",
+      "50 %"
+    ],
+    "correct": 3,
+    "explanation": "Le risque cumulé de zona sur la vie est d'environ 30% dans la population générale. Au-delà de 85 ans, du fait de l'immunosénescence, ce risque peut dépasser 50% avec des formes plus sévères."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Zona",
+    "difficulte": "modere",
+    "text": "Quelle est la localisation la plus fréquente du zona ?",
+    "options": [
+      "Abdomen diffus",
+      "Thorax unilatéral",
+      "Membres inférieurs",
+      "Visage uniquement"
+    ],
+    "correct": 1,
+    "explanation": "Distribution dermatomérique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Zona",
+    "difficulte": "difficile",
+    "text": "Comment appelle-t-on les douleurs persistantes après un épisode de zona ?",
+    "options": [
+      "Névralgies",
+      "Algies post-zostériennes",
+      "Myalgies",
+      "Arthralgies"
+    ],
+    "correct": 1,
+    "explanation": "Complication invalidante."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Zona",
+    "difficulte": "modere",
+    "text": "Dans quel délai le traitement antiviral doit-il être initié pour être efficace dans le zona ?",
+    "options": [
+      "24 h",
+      "3 jours",
+      "7 jours",
+      "2 semaines"
+    ],
+    "correct": 1,
+    "explanation": "Traitement précoce."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Zona",
+    "difficulte": "difficile",
+    "text": "Quel est le risque principal du zona ophtalmique ?",
+    "options": [
+      "Surdité",
+      "Cécité",
+      "Diarrhée",
+      "Asthme"
+    ],
+    "correct": 1,
+    "explanation": "Le zona ophtalmique (branche ophtalmique du trijumeau) peut provoquer une kératite, une uvéite ou une nécrose rétinienne pouvant aboutir à la cécité. Il nécessite une prise en charge ophtalmologique urgente."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Zona",
+    "difficulte": "modere",
+    "text": "Quel est le principal bénéfice du vaccin zona (Shingrix®) ?",
+    "options": [
+      "Évite infection",
+      "Réduit douleurs post-zona",
+      "Guérit maladie",
+      "Empêche transmission"
+    ],
+    "correct": 1,
+    "explanation": "Shingrix® réduit de 90% le risque de zona et de 89% le risque d'algies post-zostériennes chez les adultes de 50 ans et plus. Contrairement à l'ancien Zostavax®, il est utilisable chez les immunodéprimés."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Zona",
+    "difficulte": "modere",
+    "text": "Quelle est la durée moyenne d'un épisode aigu de zona ?",
+    "options": [
+      "3 jours",
+      "1 semaine",
+      "10 jours",
+      "1 mois"
+    ],
+    "correct": 2,
+    "explanation": "Évolution typique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Zona",
+    "difficulte": "modere",
+    "text": "Quels sont les signes précurseurs du zona avant l'éruption ?",
+    "options": [
+      "Toux",
+      "Douleurs + plaques + vésicules",
+      "Diarrhée",
+      "Fièvre isolée"
+    ],
+    "correct": 1,
+    "explanation": "Phase prodromique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Zona",
+    "difficulte": "facile",
+    "text": "Quels sont les facteurs déclenchants d'une réactivation du zona ?",
+    "options": [
+      "Sport",
+      "Fatigue et immunodépression",
+      "Hydratation",
+      "Vaccination"
+    ],
+    "correct": 1,
+    "explanation": "Baisse immunité."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "COVID-19",
+    "difficulte": "facile",
+    "text": "Quel est l'agent responsable de la COVID-19 ?",
+    "options": [
+      "Virus influenza",
+      "SARS-CoV-2",
+      "VIH",
+      "Virus Ebola"
+    ],
+    "correct": 1,
+    "explanation": "Coronavirus identifié en 2019."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "COVID-19",
+    "difficulte": "facile",
+    "text": "Quel est l'organe principalement atteint lors d'une COVID-19 grave ?",
+    "options": [
+      "Foie",
+      "Poumons",
+      "Reins",
+      "Cerveau"
+    ],
+    "correct": 1,
+    "explanation": "Atteinte respiratoire prédominante."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "COVID-19",
+    "difficulte": "facile",
+    "text": "Quel symptôme sensoriel est évocateur de COVID-19, surtout dans les premiers variants ?",
+    "options": [
+      "Douleur articulaire",
+      "Perte du goût et de l’odorat",
+      "Éruption cutanée",
+      "Douleur abdominale"
+    ],
+    "correct": 1,
+    "explanation": "L'anosmie et l'agueusie étaient très caractéristiques du variant Delta. Avec Omicron, ces symptômes sont moins fréquents et d'autres signes (toux, fièvre, rhinite) prédominent."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "COVID-19",
+    "difficulte": "facile",
+    "text": "Quel test permet de détecter rapidement une infection à SARS-CoV-2 ?",
+    "options": [
+      "Sérologie",
+      "Test antigénique",
+      "Biopsie",
+      "Scanner"
+    ],
+    "correct": 1,
+    "explanation": "Détection rapide du virus."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "COVID-19",
+    "difficulte": "facile",
+    "text": "Quelle population est la plus à risque de forme grave de COVID-19 ?",
+    "options": [
+      "Enfants",
+      "Adultes jeunes",
+      "Personnes âgées et comorbidités",
+      "Sportifs"
+    ],
+    "correct": 2,
+    "explanation": "Facteurs de risque connus."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "COVID-19",
+    "difficulte": "facile",
+    "text": "Quel est le rôle principal du vaccin contre la COVID-19 ?",
+    "options": [
+      "Empêcher toute infection",
+      "Réduire les formes graves",
+      "Supprimer la transmission",
+      "Guérir la maladie"
+    ],
+    "correct": 1,
+    "explanation": "Protection contre complications."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "COVID-19",
+    "difficulte": "modere",
+    "text": "Quel phénomène propre au SARS-CoV-2 impose des rappels vaccinaux réguliers ?",
+    "options": [
+      "Mutation bactérienne",
+      "Évolution du virus",
+      "Perte totale immunité",
+      "Mauvaise efficacité"
+    ],
+    "correct": 1,
+    "explanation": "Variants successifs."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "COVID-19",
+    "difficulte": "facile",
+    "text": "Quel symptôme respiratoire est un signe de gravité dans la COVID-19 ?",
+    "options": [
+      "Toux sèche",
+      "Dyspnée",
+      "Rhinorrhée",
+      "Éternuements"
+    ],
+    "correct": 1,
+    "explanation": "Difficulté respiratoire."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "COVID-19",
+    "difficulte": "modere",
+    "text": "Quel examen simple évalue la saturation en oxygène chez un patient COVID-19 ?",
+    "options": [
+      "ECG",
+      "Oxymètre",
+      "Scanner",
+      "Radiographie"
+    ],
+    "correct": 1,
+    "explanation": "Mesure SpO2."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "COVID-19",
+    "difficulte": "modere",
+    "text": "Pourquoi la vaccination contre la COVID-19 reste-t-elle recommandée malgré l'immunité naturelle acquise ?",
+    "options": [
+      "Virus disparu",
+      "Prévention des formes sévères persistantes",
+      "Obligation",
+      "Immunité naturelle suffisante"
+    ],
+    "correct": 1,
+    "explanation": "Protection continue."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rage",
+    "difficulte": "facile",
+    "text": "Quel type de maladie est la rage ?",
+    "options": [
+      "Bactérienne",
+      "Virale",
+      "Parasitaire",
+      "Fongique"
+    ],
+    "correct": 1,
+    "explanation": "Virus neurotrope."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rage",
+    "difficulte": "facile",
+    "text": "Quel est le mode principal de transmission de la rage ?",
+    "options": [
+      "Air",
+      "Eau",
+      "Morsure animale",
+      "Contact indirect"
+    ],
+    "correct": 2,
+    "explanation": "Salive contaminée."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rage",
+    "difficulte": "facile",
+    "text": "Quel est le pronostic de la rage sans traitement post-exposition ?",
+    "options": [
+      "Guérison spontanée",
+      "Chronicité",
+      "Décès quasi constant",
+      "Handicap léger"
+    ],
+    "correct": 2,
+    "explanation": "La rage est mortelle dans quasi 100% des cas une fois les symptômes déclarés (encéphalite). Seule une poignée de survivants documentés après traitement expérimental est rapportée dans la littérature mondiale."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rage",
+    "difficulte": "facile",
+    "text": "Quel organe est principalement atteint dans la rage ?",
+    "options": [
+      "Foie",
+      "Poumon",
+      "Système nerveux central",
+      "Rein"
+    ],
+    "correct": 2,
+    "explanation": "Encéphalite."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rage",
+    "difficulte": "facile",
+    "text": "Que faire immédiatement après une morsure par un animal potentiellement enragé ?",
+    "options": [
+      "Rien",
+      "Nettoyer abondamment la plaie",
+      "Antibiotiques",
+      "Vaccin tardif"
+    ],
+    "correct": 1,
+    "explanation": "Premier geste essentiel."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rage",
+    "difficulte": "modere",
+    "text": "La vaccination post-exposition contre la rage est-elle efficace ?",
+    "options": [
+      "Non",
+      "Oui si rapide",
+      "Seulement enfants",
+      "Seulement adultes"
+    ],
+    "correct": 1,
+    "explanation": "Fenêtre thérapeutique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rage",
+    "difficulte": "modere",
+    "text": "Pourquoi vacciner les voyageurs contre la rage avant départ en zone endémique ?",
+    "options": [
+      "Virus aérien",
+      "Accès difficile aux soins",
+      "Risque alimentaire",
+      "Transmission humaine"
+    ],
+    "correct": 1,
+    "explanation": "Prévention en zones à risque."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Rage",
+    "difficulte": "facile",
+    "text": "Quels animaux sont les principaux vecteurs de la rage dans le monde ?",
+    "options": [
+      "Oiseaux",
+      "Rongeurs",
+      "Chiens",
+      "Poissons"
+    ],
+    "correct": 2,
+    "explanation": "Principal réservoir mondial."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Leptospirose",
+    "difficulte": "modere",
+    "text": "Quel est l'agent responsable de la leptospirose ?",
+    "options": [
+      "Virus",
+      "Bactérie (Leptospira)",
+      "Champignon",
+      "Parasite"
+    ],
+    "correct": 1,
+    "explanation": "Bactérie présente dans l’eau contaminée."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Leptospirose",
+    "difficulte": "facile",
+    "text": "Quel est le mode de transmission de la leptospirose ?",
+    "options": [
+      "Air",
+      "Contact eau souillée",
+      "Transmission sexuelle",
+      "Transmission sanguine"
+    ],
+    "correct": 1,
+    "explanation": "Contact avec urine animale."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Leptospirose",
+    "difficulte": "facile",
+    "text": "Quel animal est le principal réservoir de la leptospirose ?",
+    "options": [
+      "Chien",
+      "Chat",
+      "Rat",
+      "Cheval"
+    ],
+    "correct": 2,
+    "explanation": "Rongeurs."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Leptospirose",
+    "difficulte": "modere",
+    "text": "Quelle population professionnelle est la plus à risque de leptospirose ?",
+    "options": [
+      "Bureau",
+      "Sportifs nautiques / égoutiers",
+      "Étudiants",
+      "Enseignants"
+    ],
+    "correct": 1,
+    "explanation": "Exposition à l’eau contaminée."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Leptospirose",
+    "difficulte": "difficile",
+    "text": "Quelle est la forme grave de la leptospirose ?",
+    "options": [
+      "Grippe",
+      "Syndrome de Weil",
+      "Asthme",
+      "Zona"
+    ],
+    "correct": 1,
+    "explanation": "Atteinte multi-organique."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Leptospirose",
+    "difficulte": "facile",
+    "text": "Quelle est la principale mesure de prévention de la leptospirose ?",
+    "options": [
+      "Masque",
+      "Éviter eaux contaminées",
+      "Antibiotiques",
+      "Vaccin universel"
+    ],
+    "correct": 1,
+    "explanation": "Mesures environnementales."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Cas pratiques",
+    "difficulte": "modere",
+    "text": "Nourrisson non encore vaccinable exposé à un cas de coqueluche dans son entourage : quelle stratégie de protection ?",
+    "options": [
+      "Rien",
+      "Vaccination seule",
+      "Cocooning",
+      "Isolement total"
+    ],
+    "correct": 2,
+    "explanation": "Protection indirecte."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Cas pratiques",
+    "difficulte": "facile",
+    "text": "Un adulte sans rappel tétanos depuis plus de 10 ans se présente avec une plaie souillée : quelle conduite ?",
+    "options": [
+      "Antibiotiques",
+      "Rien",
+      "Rappel vaccinal urgent",
+      "Surveillance"
+    ],
+    "correct": 2,
+    "explanation": "Prévention essentielle."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Cas pratiques",
+    "difficulte": "difficile",
+    "text": "Une femme enceinte non immunisée contre la varicelle est exposée au virus : quelle est la conduite à tenir ?",
+    "options": [
+      "Vaccin immédiat",
+      "Surveillance + prévention",
+      "Aucun risque",
+      "Antibiotiques"
+    ],
+    "correct": 1,
+    "explanation": "Le vaccin varicelle est contre-indiqué pendant la grossesse. En cas d'exposition d'une femme enceinte non immunisée, les immunoglobulines spécifiques antivaricelle-zona (VZIG) peuvent être administrées dans les 96 heures pour atténuer la maladie."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Cas pratiques",
+    "difficulte": "facile",
+    "text": "Un patient part en voyage dans une zone à forte prévalence d'hépatite A : quelle recommandation ?",
+    "options": [
+      "Aucun vaccin",
+      "Vaccination recommandée",
+      "Antibiotiques",
+      "Isolement"
+    ],
+    "correct": 1,
+    "explanation": "Prévention adaptée."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Cas pratiques",
+    "difficulte": "facile",
+    "text": "Un adolescent de 15 ans n'a pas encore été vacciné contre le HPV : la vaccination est-elle encore utile ?",
+    "options": [
+      "Trop tard",
+      "Vaccination inutile",
+      "Vaccination recommandée",
+      "Traitement curatif"
+    ],
+    "correct": 2,
+    "explanation": "Bénéfice même tardif."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Cas pratiques",
+    "difficulte": "facile",
+    "text": "Un patient présente fièvre, céphalées intenses et raideur de nuque : quelle est la conduite à tenir ?",
+    "options": [
+      "Attendre",
+      "Antibiotiques maison",
+      "Urgence médicale immédiate",
+      "Repos"
+    ],
+    "correct": 2,
+    "explanation": "Urgence vitale."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "COVID-19",
+    "difficulte": "modere",
+    "text": "COVID-19 — Quel antiviral oral est disponible en pharmacie pour les patients à risque de forme grave, dans les 5 jours suivant l'apparition des symptômes ?",
+    "options": [
+      "Oseltamivir (Tamiflu®)",
+      "Nirmatrelvir/ritonavir (Paxlovid®)",
+      "Remdesivir (Veklury®)",
+      "Aciclovir"
+    ],
+    "correct": 1,
+    "explanation": "Le Paxlovid® est dispensé sur ordonnance aux patients à risque de forme grave (immunodéprimés, >65 ans avec comorbidités). La fenêtre thérapeutique de 5 jours est impérative. Attention aux nombreuses interactions médicamenteuses via l'inhibition du CYP3A4 par le ritonavir, notamment avec les statines et les anticoagulants."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "COVID-19",
+    "difficulte": "modere",
+    "text": "COVID-19 — Un patient positif vient chercher du Paxlovid®. Quelle classe médicamenteuse nécessite une vigilance particulière en raison des interactions avec le ritonavir ?",
+    "options": [
+      "Paracétamol",
+      "Ibuprofène",
+      "Statines (simvastatine, atorvastatine)",
+      "Amoxicilline"
+    ],
+    "correct": 2,
+    "explanation": "Le ritonavir est un puissant inhibiteur du CYP3A4. La simvastatine et la lovastatine sont contre-indiquées. L'atorvastatine doit être suspendue ou réduite. La rosuvastatine est la mieux tolérée. Ce point de vigilance est crucial pour le pharmacien au moment de la dispensation."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "COVID-19",
+    "difficulte": "facile",
+    "text": "COVID-19 — Parmi les symptômes du Covid long, lequel est le plus fréquemment rapporté par les patients ?",
+    "options": [
+      "Dyspnée persistante",
+      "Fatigue chronique et troubles cognitifs (brain fog)",
+      "Douleurs articulaires",
+      "Éruption cutanée"
+    ],
+    "correct": 1,
+    "explanation": "La fatigue chronique et le 'brouillard cognitif' (brain fog) touchent plus de 50% des patients souffrant de Covid long. Ces symptômes peuvent persister plus de 12 semaines après l'infection aiguë et impacter significativement la qualité de vie."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "COVID-19",
+    "difficulte": "facile",
+    "text": "COVID-19 — Le Paxlovid® est envisagé chez un patient positif symptomatique depuis 3 jours. Quelle condition supplémentaire est requise pour sa prescription ?",
+    "options": [
+      "Hospitalisation préalable",
+      "Facteur de risque de forme grave documenté",
+      "Vaccination complète obligatoire",
+      "Test PCR obligatoire (TROD insuffisant)"
+    ],
+    "correct": 1,
+    "explanation": "Le Paxlovid® est réservé aux patients présentant un facteur de risque de forme grave : immunodépression, >65 ans avec comorbidité, pathologie chronique grave. Un simple TROD positif suffit pour le diagnostic. La fenêtre de 5 jours après le début des symptômes est impérative."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Cas pratiques",
+    "difficulte": "modere",
+    "text": "Une femme de 28 ans souhaite débuter une contraception. Elle n'est pas vaccinée contre la rubéole. Quelle est la recommandation appropriée ?",
+    "options": [
+      "Aucune action, la rubéole est bénigne chez l'adulte",
+      "Vaccination ROR avant mise en route de la contraception",
+      "Vaccination possible pendant la grossesse si besoin",
+      "Sérologie inutile avant 35 ans"
+    ],
+    "correct": 1,
+    "explanation": "Le vaccin ROR est vivant atténué, formellement contre-indiqué pendant la grossesse. Il faut vacciner avant la conception et maintenir une contraception efficace pendant au moins 1 mois après l'injection. La rubéole au 1er trimestre de grossesse peut provoquer la triade de Gregg (surdité, cataracte, cardiopathie)."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Cas pratiques",
+    "difficulte": "modere",
+    "text": "Un patient revient de Thaïlande avec une plaie par morsure de chien. Il a été vacciné contre la rage il y a 8 ans. Quelle est la conduite à tenir ?",
+    "options": [
+      "Aucune action, il est protégé à vie",
+      "Nettoyage immédiat de la plaie + consultation urgente pour évaluation post-exposition",
+      "Antibiotiques seuls suffisants",
+      "Attendre l'apparition des symptômes avant d'agir"
+    ],
+    "correct": 1,
+    "explanation": "Même vacciné, une morsure en zone endémique nécessite une évaluation urgente. Premier geste : nettoyage abondant à l'eau et au savon. Le protocole post-exposition (rappels vaccinaux ± immunoglobulines selon statut) doit être initié rapidement. La rage est quasi systématiquement mortelle une fois les symptômes déclarés."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Cas pratiques",
+    "difficulte": "facile",
+    "text": "Un garçon de 13 ans consulte pour un rappel DTP. Ses parents s'interrogent sur le vaccin HPV. Quelle est la recommandation actuelle en France ?",
+    "options": [
+      "Inutile chez le garçon",
+      "Recommandé, avec rattrapage possible jusqu'à 19 ans",
+      "Obligatoire uniquement si partenaire infecté",
+      "Réservé aux garçons immunodéprimés"
+    ],
+    "correct": 1,
+    "explanation": "Depuis 2021, la vaccination HPV est recommandée chez les garçons entre 11 et 14 ans (rattrapage jusqu'à 19 ans). Elle protège contre les cancers oro-pharyngés, anaux et génitaux, et renforce l'immunité collective. Le calendrier standard est 2 doses entre 11 et 14 ans, ou 3 doses en rattrapage."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Cas pratiques",
+    "difficulte": "difficile",
+    "text": "Une patiente sous méthotrexate pour polyarthrite rhumatoïde demande le vaccin zona. Quelle affirmation est correcte concernant Shingrix® ?",
+    "options": [
+      "Contre-indiqué car c'est un vaccin vivant atténué",
+      "Possible car Shingrix® est un vaccin recombinant inactivé adjuvanté",
+      "Inutile avant 70 ans quel que soit le statut immunitaire",
+      "Nécessite l'arrêt du méthotrexate avant injection"
+    ],
+    "correct": 1,
+    "explanation": "Contrairement à l'ancien Zostavax® (vivant atténué, contre-indiqué chez l'immunodéprimé), Shingrix® est un vaccin recombinant inactivé adjuvanté (AS01B) utilisable chez les patients immunodéprimés. Il est particulièrement recommandé chez les patients sous immunosuppresseurs, très exposés au risque de zona sévère."
+  },
+  {
+    "quiz": "maladies-prevention-vaccinale",
+    "theme": "Cas pratiques",
+    "difficulte": "facile",
+    "text": "Des parents viennent avec leur nourrisson de 9 semaines et demandent si les vaccinations peuvent commencer. Quelle est la réponse correcte ?",
+    "options": [
+      "Non, il faut attendre 6 mois",
+      "Oui, le calendrier vaccinal débute à 2 mois révolus",
+      "Non, il faut attendre 1 an",
+      "Seulement le BCG est possible à cet âge"
+    ],
+    "correct": 1,
+    "explanation": "Le calendrier vaccinal français démarre à 2 mois révolus avec l'hexavalent (DTCaP-Hib-HepB) et le vaccin pneumocoque. À 9 semaines (plus de 2 mois), la vaccination peut démarrer. Un démarrage précoce est essentiel pour protéger les nourrissons, notamment contre la coqueluche, avant leur entrée en collectivité."
+  }
+]
