@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formation Officine – Quiz</title>
+<title>Kapsule – Quiz pour l'officine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
@@ -18,18 +18,44 @@
     --border: #dde5e0;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background-color: #f0ebe3; background-image: url(bg.jpg); background-repeat: repeat; background-size: 1024px 571px; color: var(--text); min-height: 100vh; padding: 40px 20px 60px; }
+  body { font-family: 'DM Sans', sans-serif; background-color: #f0ebe3; background-image: url(bg.jpg); background-repeat: repeat; background-size: 1024px 571px; color: var(--text); min-height: 100vh; padding: 40px 20px 60px; position: relative; }
+  @media(max-width:820px){ body { padding: 24px 16px 60px; } }
 
   .page-layout { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 280px; gap: 32px; align-items: start; }
-  @media(max-width:820px){ .page-layout { grid-template-columns: 1fr; } .sidebar { order: -1; } }
+  @media(max-width:820px){ .page-layout { grid-template-columns: 1fr; } .sidebar { display: none; } }
 
-  header { max-width: 1100px; margin: 0 auto 40px; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-  .header-left .badge { display: inline-block; background: var(--green); color: white; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 12px; border-radius: 100px; margin-bottom: 10px; }
-  header h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 800; line-height: 1.1; background: rgba(255,255,255,0.88); border-radius: 14px; padding: 6px 18px; display: inline-block; }
+  /* ── Header : transparent desktop + mobile ── */
+  header { max-width: 1100px; margin: 0 auto 24px; display: grid; grid-template-columns: 1fr 280px; gap: 32px; align-items: center; background: none; padding: 8px 0; }
+  .header-left .badge { display: none; }
+  header h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.2rem, 5vw, 3rem); font-weight: 800; line-height: 1.1; }
   header h1 span { color: var(--green); }
-  .header-right { text-align: right; background: rgba(255,255,255,0.88); border-radius: 12px; padding: 8px 16px; }
-  #quiz-count { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--green); line-height: 1; }
-  .header-right p { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+  .header-subtitle { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
+  .header-right { text-align: right; }
+  #quiz-count { display: none; }
+  .header-right p { display: none; }
+  .btn-logout { background: rgba(255,255,255,0.88); border: none; border-radius: 100px; padding: 9px 20px; font-family: 'DM Sans', sans-serif; font-size: .82rem; color: var(--text); cursor: pointer; font-weight: 500; box-shadow: 0 1px 6px rgba(0,0,0,.08); transition: all .2s; }
+  .btn-logout:hover { background: white; box-shadow: 0 2px 12px rgba(0,0,0,.12); }
+  @media(max-width:820px){
+    header { grid-template-columns: 1fr auto; gap: 12px; margin-bottom: 16px; padding: 8px 0; }
+    header h1 { font-size: 3rem; }
+  }
+
+  /* ── Tiroirs mobile ── */
+  .mobile-drawers { display: none; }
+  @media(max-width:820px){
+    .mobile-drawers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 1100px; margin: 0 auto 16px; }
+  }
+  .drawer-pill { background: rgba(255,255,255,0.75); border-radius: 14px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; cursor: pointer; border: 1px solid rgba(221,229,224,0.7); transition: border-color .2s; }
+  .drawer-pill:hover { border-color: var(--green); background: rgba(255,255,255,0.88); }
+  .drawer-pill-icon { font-size: 1rem; flex-shrink: 0; background: var(--green-light); color: var(--green-dark); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+  .drawer-pill-content { flex: 1; min-width: 0; }
+  .drawer-pill-label { font-size: 0.7rem; color: var(--muted); font-weight: 500; line-height: 1.3; }
+  .drawer-pill-value { font-size: 0.85rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+  .drawer-pill-chev { font-size: 0.75rem; color: var(--muted); font-weight: 700; flex-shrink: 0; }
+  .drawer-panel { display: none; background: rgba(255,255,255,0.82); border-radius: 12px; padding: 14px; border: 1px solid rgba(221,229,224,0.7); max-width: 1100px; margin: 0 auto 16px; }
+  .drawer-panel.open { display: block; }
+  .drawer-panel-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-family: 'Syne', sans-serif; font-size: .9rem; font-weight: 800; }
+  .drawer-close { font-size: .75rem; color: var(--muted); cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 400; }
 
   .challenge-card { background: linear-gradient(135deg, #1a1f1c 0%, #2d3530 100%); border-radius: 20px; padding: 24px; margin-bottom: 20px; display: flex; align-items: center; gap: 20px; text-decoration: none; transition: transform .2s, box-shadow .2s; box-shadow: 0 4px 20px rgba(0,0,0,.15); position: relative; overflow: hidden; }
   .challenge-card::before { content: ''; position: absolute; top: -30px; right: -30px; width: 160px; height: 160px; background: radial-gradient(circle, rgba(245,166,35,.15) 0%, transparent 70%); border-radius: 50%; }
@@ -42,17 +68,23 @@
   .winner-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(245,166,35,.15); border: 1px solid rgba(245,166,35,.3); border-radius: 8px; padding: 4px 10px; font-size: .76rem; color: var(--gold); font-weight: 500; }
   .challenge-arrow { color: var(--gold); font-size: 1.4rem; flex-shrink: 0; }
 
-  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
   .filter-btn { background: white; border: 1.5px solid var(--border); border-radius: 100px; padding: 7px 16px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.15s; color: var(--muted); font-weight: 500; }
   .filter-btn:hover, .filter-btn.active { background: var(--green); border-color: var(--green); color: white; }
 
+  /* Compteur sous les filtres */
+  #filter-count { font-size: 0.8rem; color: var(--muted); margin-bottom: 14px; font-weight: 500; }
+
   #quiz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
-  .quiz-card { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 22px; text-decoration: none; color: var(--text); transition: all 0.2s; display: flex; flex-direction: column; gap: 12px; animation: fadeUp 0.4s ease both; }
-  .quiz-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,158,110,0.12); }
+  @media(max-width:820px){ #quiz-grid { grid-template-columns: 1fr 1fr; gap: 12px; } }
+  .quiz-card { background: rgba(255,255,255,0.75); border: 1px solid rgba(221,229,224,0.7); border-radius: 18px; padding: 22px; text-decoration: none; color: var(--text); transition: all 0.2s; display: flex; flex-direction: column; gap: 12px; animation: fadeUp 0.4s ease both; }
+  @media(max-width:820px){ .quiz-card { padding: 16px; border-radius: 20px; gap: 10px; background: rgba(255,255,255,0.78); } }
+  .quiz-card:hover { background: rgba(255,255,255,0.92); border-color: var(--green); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,158,110,0.12); }
   .card-top { display: flex; justify-content: space-between; align-items: flex-start; }
   .card-emoji { font-size: 1.8rem; line-height: 1; }
   .card-theme { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; background: var(--green-light); color: var(--green-dark); padding: 3px 8px; border-radius: 100px; }
   .card-title { font-family: 'Syne', sans-serif; font-size: 0.98rem; font-weight: 700; line-height: 1.3; }
+  @media(max-width:820px){ .card-title { font-size: 1.05rem; } .card-emoji { font-size: 1.6rem; } }
   .card-meta { display: flex; gap: 10px; margin-top: auto; }
   .meta-item { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; color: var(--muted); }
   .meta-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
@@ -66,7 +98,7 @@
 
   .sidebar { display: flex; flex-direction: column; gap: 16px; }
 
-  .lb-card { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 20px; }
+  .lb-card { background: rgba(255,255,255,0.75); border: 1px solid rgba(221,229,224,0.7); border-radius: 18px; padding: 20px; }
   .lb-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
   .lb-week { font-size: .75rem; color: var(--muted); margin-bottom: 14px; }
   .lb-entry { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: .84rem; }
@@ -84,7 +116,7 @@
   .lb-time { font-size: .7rem; color: var(--muted); }
   .lb-empty { font-size: .84rem; color: var(--muted); text-align: center; padding: 14px 0; line-height: 1.6; }
 
-  .flux-card { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 20px; }
+  .flux-card { background: rgba(255,255,255,0.75); border: 1px solid rgba(221,229,224,0.7); border-radius: 18px; padding: 20px; }
   .flux-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
   .flux-date { font-size: .75rem; color: var(--muted); margin-bottom: 14px; }
   .flux-planning-btn { display: block; width: 100%; text-align: center; margin-top: 14px; background: var(--green-light); color: var(--green-dark); font-family: 'Syne', sans-serif; font-size: .82rem; font-weight: 700; padding: 9px 0; border-radius: 10px; text-decoration: none; transition: background .2s; }
@@ -140,14 +172,52 @@
 <header>
   <div class="header-left">
     <div class="badge">Formation Officine</div>
-    <h1>Bibliothèque<br><span>de Quiz</span></h1>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <h1>Kap<span>sule</span></h1>
+      <img src="gelule.png" alt="" style="height:36px;width:auto;flex-shrink:0;margin-bottom:2px;">
+    </div>
+    <div class="header-subtitle">Quiz pour l'officine</div>
   </div>
   <div class="header-right">
-    <div id="quiz-count">–</div>
-    <p>quiz disponibles</p>
     <button onclick="logout()" class="btn-logout">🔓 Déconnexion</button>
   </div>
 </header>
+
+<!-- Tiroirs mobile : classement + flux -->
+<div class="mobile-drawers">
+  <div class="drawer-pill" onclick="toggleDrawer('lb')">
+    <span class="drawer-pill-icon">🏆</span>
+    <div class="drawer-pill-content">
+      <div class="drawer-pill-label">Classement Challenge</div>
+      <div class="drawer-pill-value" id="drawer-lb-preview">Chargement…</div>
+    </div>
+    <span class="drawer-pill-chev" id="drawer-lb-chev">▾</span>
+  </div>
+  <div class="drawer-pill" onclick="toggleDrawer('flux')">
+    <span class="drawer-pill-icon">🔄</span>
+    <div class="drawer-pill-content">
+      <div class="drawer-pill-label">Flux du jour</div>
+      <div class="drawer-pill-value" id="drawer-flux-preview">Chargement…</div>
+    </div>
+    <span class="drawer-pill-chev" id="drawer-flux-chev">▾</span>
+  </div>
+</div>
+<div class="drawer-panel" id="drawer-panel-lb">
+  <div class="drawer-panel-head">
+    <span>🏆 Classement Challenge</span>
+    <span class="drawer-close" onclick="toggleDrawer('lb')">✕ fermer</span>
+  </div>
+  <div id="drawer-lb-list"><div class="lb-empty">Chargement…</div></div>
+</div>
+<div class="drawer-panel" id="drawer-panel-flux">
+  <div class="drawer-panel-head">
+    <span>🔄 Flux du jour</span>
+    <span class="drawer-close" onclick="toggleDrawer('flux')">✕ fermer</span>
+  </div>
+  <div class="flux-date" id="drawer-flux-date"></div>
+  <div id="drawer-flux-content"><div class="flux-msg">Chargement…</div></div>
+  <a class="flux-planning-btn" href="flux-planning.html">📅 Voir le planning complet</a>
+</div>
 
 <div class="page-layout">
   <div>
@@ -162,6 +232,7 @@
       <div class="challenge-arrow">→</div>
     </a>
     <div class="filters" id="filters"></div>
+    <div id="filter-count"></div>
     <div id="quiz-grid"></div>
     <div id="empty-state"><div style="font-size:2rem">🔍</div><p>Aucun quiz dans cette catégorie.</p></div>
     <div id="error-state"><strong>Impossible de charger les quiz</strong> Vérifiez que quizzes.json est présent.</div>
@@ -204,12 +275,18 @@ async function loadQuizzes() {
     var res = await fetch('quizzes.json');
     if (!res.ok) throw new Error('fetch failed');
     allQuizzes = await res.json();
-    document.getElementById('quiz-count').textContent = allQuizzes.length;
     buildFilters();
-    renderCards(allQuizzes);
+    renderCards(allQuizzes, 'tous');
   } catch(e) {
     document.getElementById('error-state').style.display = 'block';
   }
+}
+
+function updateFilterCount(list, theme) {
+  var el = document.getElementById('filter-count');
+  if (!el) return;
+  var label = theme === 'tous' ? list.length + ' quiz disponibles' : list.length + ' quiz · ' + theme;
+  el.textContent = label;
 }
 
 function buildFilters() {
@@ -224,15 +301,18 @@ function buildFilters() {
     btn.onclick = (function(theme, b){ return function(){ filterBy(theme, b); }; })(t, btn);
     el.appendChild(btn);
   });
+  updateFilterCount(allQuizzes, 'tous');
 }
 
 function filterBy(theme, btn) {
   document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
-  renderCards(theme === 'tous' ? allQuizzes : allQuizzes.filter(function(q){ return q.theme === theme; }));
+  var filtered = theme === 'tous' ? allQuizzes : allQuizzes.filter(function(q){ return q.theme === theme; });
+  updateFilterCount(filtered, theme);
+  renderCards(filtered, theme);
 }
 
-function renderCards(list) {
+function renderCards(list, theme) {
   var grid = document.getElementById('quiz-grid');
   var empty = document.getElementById('empty-state');
   if (!list.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
@@ -244,6 +324,7 @@ function renderCards(list) {
     card.className = 'quiz-card';
     card.style.animationDelay = (i * 0.05) + 's';
     var diff = (q.difficulte || 'Intermediaire').toLowerCase().replace(/[éè]/g, 'e').replace(/ /g, '-');
+    var poolId = 'pool-' + i;
     card.innerHTML =
       '<div class="card-top">' +
         '<span class="card-emoji">' + (q.emoji || '📋') + '</span>' +
@@ -252,10 +333,21 @@ function renderCards(list) {
       '<div class="card-title">' + q.titre + '</div>' +
       '<div class="card-meta">' +
         '<div class="meta-item"><div class="meta-dot diff-' + diff + '"></div>' + (q.difficulte || 'Intermédiaire') + '</div>' +
-        '<div class="meta-item"><div class="meta-dot"></div>' + (q.questions || '?') + ' questions</div>' +
+        '<div class="meta-item"><div class="meta-dot"></div><span id="' + poolId + '">…</span> questions</div>' +
       '</div>' +
       '<div class="card-arrow"><span>Commencer</span><span>→</span></div>';
     grid.appendChild(card);
+    // Chargement dynamique du pool
+    (function(jsonFile, elId) {
+      var name = jsonFile.replace('quiz-', '').replace('.html', '');
+      fetch('questions/' + name + '.json?v=' + Date.now())
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          var el = document.getElementById(elId);
+          if (el) el.textContent = data.length;
+        })
+        .catch(function(){ /* silencieux */ });
+    })(q.fichier, poolId);
   });
 }
 
@@ -399,7 +491,14 @@ async function loadLeaderboard() {
     var prevWinner = scores.filter(function(s){ return s.week === prevKey; }).sort(function(a,b){ return b.score - a.score || a.time - b.time; })[0];
     document.getElementById('winner-tag').textContent = prevWinner ? '🏆 Vainqueur S-1 : ' + prevWinner.pseudo + ' — ' + prevWinner.score + ' pts' : '🏆 Soyez le premier vainqueur !';
     var lbList = document.getElementById('lb-list');
-    if (!thisWeek.length) { lbList.innerHTML = '<div class="lb-empty">Aucun score cette semaine.<br>Lancez le challenge !</div>'; return; }
+    if (!thisWeek.length) {
+      lbList.innerHTML = '<div class="lb-empty">Aucun score cette semaine.<br>Lancez le challenge !</div>';
+      var drawerLbList0 = document.getElementById('drawer-lb-list');
+      if (drawerLbList0) drawerLbList0.innerHTML = '<div class="lb-empty">Aucun score cette semaine.<br>Lancez le challenge !</div>';
+      var drawerLbPreview0 = document.getElementById('drawer-lb-preview');
+      if (drawerLbPreview0) drawerLbPreview0.textContent = 'Aucun score';
+      return;
+    }
     var medals = ['gold','silver','bronze'];
     var html = '';
     thisWeek.slice(0,10).forEach(function(s,i){
@@ -417,9 +516,16 @@ async function loadLeaderboard() {
       }
     });
     lbList.innerHTML = html;
+    // ── Tiroir mobile : copie du classement ──
+    var drawerLbList = document.getElementById('drawer-lb-list');
+    if (drawerLbList) drawerLbList.innerHTML = html;
+    var drawerLbPreview = document.getElementById('drawer-lb-preview');
+    if (drawerLbPreview && thisWeek.length) drawerLbPreview.textContent = thisWeek[0].pseudo + ' #1';
   } catch(e) {
     document.getElementById('winner-tag').textContent = '🏆 Lancez le challenge !';
     document.getElementById('lb-list').innerHTML = '<div class="lb-empty">Classement indisponible.</div>';
+    var drawerLbPreview2 = document.getElementById('drawer-lb-preview');
+    if (drawerLbPreview2) drawerLbPreview2.textContent = 'Indisponible';
   }
 }
 
@@ -428,14 +534,27 @@ function renderFlux() {
   if (!FLUX_VISIBLE) return;
   var today = todayStr();
   var dt = new Date(today+"T00:00:00");
-  document.getElementById("flux-date").textContent = dt.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
+  var dateStr = dt.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
+  document.getElementById("flux-date").textContent = dateStr;
+  // Tiroir mobile
+  var drawerDate = document.getElementById("drawer-flux-date");
+  if (drawerDate) drawerDate.textContent = dateStr;
   var content = document.getElementById("flux-content");
+  var drawerContent = document.getElementById("drawer-flux-content");
   if (dt.getDay()===0) {
-    content.innerHTML = "<div class=\"flux-msg\">Pas de flux le dimanche 🌞</div>";
+    var msg = "<div class=\"flux-msg\">Pas de flux le dimanche 🌞</div>";
+    content.innerHTML = msg;
+    if (drawerContent) drawerContent.innerHTML = msg;
+    var prev = document.getElementById("drawer-flux-preview");
+    if (prev) prev.textContent = "Dimanche 🌞";
     return;
   }
   if (!fluxData || !fluxData.planning || !fluxData.planning[today]) {
-    content.innerHTML = "<div class=\"flux-msg\">Planning non disponible.<br><a href=\"flux-planning.html\" style=\"color:var(--green)\">Ouvrir le planning →</a></div>";
+    var msg2 = "<div class=\"flux-msg\">Planning non disponible.<br><a href=\"flux-planning.html\" style=\"color:var(--green)\">Ouvrir le planning →</a></div>";
+    content.innerHTML = msg2;
+    if (drawerContent) drawerContent.innerHTML = msg2;
+    var prev2 = document.getElementById("drawer-flux-preview");
+    if (prev2) prev2.textContent = "Non disponible";
     return;
   }
   var dd = fluxData.planning[today];
@@ -445,6 +564,11 @@ function renderFlux() {
     html += "<div class=\"flux-slot\"><div class=\"flux-slot-label\">" + SLOT_LABELS[slot] + "</div><div class=\"flux-person\"><span>" + p + "</span></div></div>";
   });
   content.innerHTML = html;
+  if (drawerContent) drawerContent.innerHTML = html;
+  // Preview pill
+  var amPerson = dd["am"] || "—";
+  var prev3 = document.getElementById("drawer-flux-preview");
+  if (prev3) prev3.textContent = amPerson + " (matin)";
 }
 
 var FLUX_CACHE_KEY = 'jsonbin_flux';
@@ -478,7 +602,22 @@ loadQuizzes();
 loadLeaderboard();
 initFlux();
 
-// Stats tracked in loadLeaderboard()
+// ── Tiroirs mobile ──
+function toggleDrawer(id) {
+  var lbPanel = document.getElementById('drawer-panel-lb');
+  var fluxPanel = document.getElementById('drawer-panel-flux');
+  var lbChev = document.getElementById('drawer-lb-chev');
+  var fluxChev = document.getElementById('drawer-flux-chev');
+  if (id === 'lb') {
+    var open = lbPanel.classList.toggle('open');
+    lbChev.textContent = open ? '▴' : '▾';
+    if (open) { fluxPanel.classList.remove('open'); fluxChev.textContent = '▾'; }
+  } else {
+    var open2 = fluxPanel.classList.toggle('open');
+    fluxChev.textContent = open2 ? '▴' : '▾';
+    if (open2) { lbPanel.classList.remove('open'); lbChev.textContent = '▾'; }
+  }
+}
 
 function logout() {
   sessionStorage.removeItem('auth');
