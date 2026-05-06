@@ -482,7 +482,7 @@ async function loadLeaderboard() {
       document.getElementById('stat-total').textContent = stats.total;
       document.getElementById('stat-week').textContent = stats.weeks[wkStat] || 1;
       document.getElementById('stat-challenges').textContent = scores.length;
-      document.getElementById('stat-quiz').textContent = '—';
+      document.getElementById('stat-quiz').textContent = stats.quizPlayed || 0;
     }
     var thisWeek = scores.filter(function(s){ return s.week === weekKey; }).sort(function(a,b){ return b.score - a.score || a.time - b.time; });
     var prevWinner = scores.filter(function(s){ return s.week === prevKey; }).sort(function(a,b){ return b.score - a.score || a.time - b.time; })[0];

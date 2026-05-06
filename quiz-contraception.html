@@ -256,6 +256,22 @@ function showResults(){
     list.appendChild(item);
   });
 }
+
+  // ── Tracker quiz joués ──
+  (async function(){
+    try {
+      var r = await fetch('https://api.jsonbin.io/v3/b/69e8731aaaba882197256035/latest',{headers:{'X-Master-Key':'$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m'}});
+      var d = await r.json();
+      var record = d.record || {};
+      record.stats = record.stats || {};
+      record.stats.quizPlayed = (record.stats.quizPlayed || 0) + 1;
+      await fetch('https://api.jsonbin.io/v3/b/69e8731aaaba882197256035',{
+        method:'PUT',
+        headers:{'Content-Type':'application/json','X-Master-Key':'$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m'},
+        body: JSON.stringify(record)
+      });
+    } catch(e) { /* silencieux */ }
+  })();
 function restartQuiz(){startQuiz();}
 
 // ── Signalement ──
