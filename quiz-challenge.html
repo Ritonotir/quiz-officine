@@ -72,6 +72,11 @@
   .diff-modere{background:#e6f7f1;color:#1a9e6e}
   .diff-difficile{background:#fdeaea;color:#c0392b}
   .question-text{font-family:'Syne',sans-serif;font-size:clamp(1.05rem,2.5vw,1.22rem);font-weight:700;line-height:1.4;margin-bottom:24px}
+  .photo-block{display:flex;gap:20px;margin-bottom:16px;align-items:flex-start}
+  .photo-block img{width:48%;min-width:48%;max-width:48%;border-radius:12px;border:1px solid var(--border);object-fit:contain}
+  .photo-desc{flex:1;font-size:.9rem;color:var(--muted);line-height:1.5;padding:8px 0}
+  .photo-desc strong{display:block;font-family:'Syne',sans-serif;font-size:.95rem;color:var(--text);margin-bottom:6px}
+  @media(max-width:500px){.photo-block{flex-direction:column}.photo-block img{width:100%;max-width:100%}}
   .options-grid{display:flex;flex-direction:column;gap:10px}
   .option-btn{width:100%;text-align:left;background-color:#f4efe9;border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;font-family:'DM Sans',sans-serif;font-size:.95rem;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:12px;line-height:1.4}
   .option-btn .opt-letter{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:white;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;color:var(--muted);transition:all .18s}
@@ -241,6 +246,10 @@
       <span class="diff-badge" id="q-diff"></span>
     </div>
     <div class="question-text" id="q-text"></div>
+    <div class="photo-block" id="photo-block" style="display:none">
+      <img id="photo-img" src="" alt="">
+      <div class="photo-desc"><div id="photo-desc-text"></div></div>
+    </div>
     <div class="options-grid" id="options-grid"></div>
     <div class="pts-awarded" id="pts-awarded"></div>
     <div class="feedback-box" id="feedback-box">
@@ -535,6 +544,19 @@ function renderQuestion() {
   diffEl.textContent=diffLabels[q.difficulte]||q.difficulte;
   diffEl.className='diff-badge diff-'+q.difficulte;
   document.getElementById('q-text').textContent=q.text;
+
+  // ── Photo (questions angines) ──
+  var photoBlock = document.getElementById('photo-block');
+  if(q.photo && q.img){
+    document.getElementById('photo-img').src = q.img;
+    document.getElementById('photo-img').alt = q.img_label || '';
+    var descEl = document.getElementById('photo-desc-text');
+    descEl.innerHTML = (q.img_desc ? '<strong>' + q.img_desc + '</strong>' : '');
+    photoBlock.style.display = 'flex';
+  } else {
+    photoBlock.style.display = 'none';
+    document.getElementById('photo-img').src = '';
+  }
   
   const grid=document.getElementById('options-grid');
   grid.innerHTML='';
