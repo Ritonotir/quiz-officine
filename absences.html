@@ -117,7 +117,8 @@ const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08';
 const JSONBIN_KEY = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
 
 const PEOPLE = ['Anthony','Cha R','Cha M','Georges','Nicolas','Anaïs A','Anaïs B','Ines','Cynthia','Clémentine','Marina B','Fabienne','Nathalie'];
-const IS_EDIT = new URLSearchParams(window.location.search).get('mode') === 'edit';
+const IS_EDIT = new URLSearchParams(window.location.search).get('mode') === 'edit'
+             || sessionStorage.getItem('auth') === 'flux';
 
 let binRecord = null; // record complet du bin
 

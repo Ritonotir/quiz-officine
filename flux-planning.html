@@ -131,11 +131,15 @@
 const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/69e935c1856a68218960ce08';
 const JSONBIN_KEY = '$2a$10$ZdHcrjLMrlKst6zsRu4G3u4Y6rxldjKwXWoCf8Pkp6MT9mI5E915m';
 
-const PEOPLE = ['Anthony','Cha R','Cha M','Georges','Nicolas','Anaïs A','Anaïs B','Ines','Cynthia','Clémentine','Marina B','Fabienne','Nathalie']
-const IS_EDIT = new URLSearchParams(window.location.search).get('mode') === 'edit';
+
+const PEOPLE = ['Anthony','Cha R','Cha M','Georges','Nicolas','Anaïs A','Anaïs B','Ines','Cynthia','Clémentine','Marina B','Fabienne','Nathalie'];
+
+// ── Mode édition : URL ou sessionStorage (connexion Chabienne) ──
+const IS_EDIT = new URLSearchParams(window.location.search).get('mode') === 'edit'
+             || sessionStorage.getItem('auth') === 'flux';
 
 // ── Disponibilités EDT ──
-let availability = {}; // { "Prénom": { "YYYY-MM-DD": { am: bool, pm: bool } } }
+let availability = {};
 
 async function loadAvailability() {
   try {
@@ -150,69 +154,26 @@ async function loadAvailability() {
 }
 
 function isAvailable(person, date, slot) {
-  // Pas de données pour cette personne ou cette date → considéré disponible
   if (!availability[person]) return true;
   if (!availability[person][date]) return true;
   return availability[person][date][slot] === true;
 }
 
-// ── Read-only mode ──
-if (!IS_EDIT) {
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('readonly-banner').style.display = 'block';
-    // Hide all edit buttons
-    document.querySelectorAll('.btn-gen, .btn-validate, .btn-cancel, .btn-print, .btn-close').forEach(el => {
-      el.style.display = 'none';
-    });
-    // Also hide the global action buttons row
-    const actionBar = document.querySelector('.action-bar');
-    if (actionBar) actionBar.style.display = 'none';
-  });
-}
-;
+// ── Constantes ──
 const SLOTS = ['am','pm'];
 const SLOT_LABELS = {am:'Matin', pm:'Après-midi'};
 const DAY_SHORT = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
 
-// SOURCE DE VÉRITÉ : officialData = ce qui est dans JSONBin
-// pendingData = copie de travail avec les propositions non validées
-// pendingSlots = Set des clés "date_slot" avec une proposition en attente
+// ── État global ──
 let officialData = null;
 let pendingData  = null;
-let pendingSlots = new Set();
-let closedDays = new Set(); // dates 'YYYY-MM-DD' fermées
-let nbWeeks = 4; // nombre de semaines affichées, sauvegardé dans JSONBin
-let absences = []; // [{ person, from, to }] — chargées depuis JSONBin
-let indisponibilites = []; // [{ person, day, slot, recur }] — chargées depuis JSONBin
+let pendingSlots = new Set(); // "date_slot" en attente de validation
+let closedDays   = new Set();
+let nbWeeks      = 4;
+let absences     = [];
+let indisponibilites = [];
 
-function weekNumber(dateStr) {
-  const d = new Date(dateStr + 'T00:00:00');
-  const day = d.getDay() || 7;
-  d.setDate(d.getDate() + 4 - day);
-  const ys = new Date(d.getFullYear(), 0, 1);
-  return Math.ceil((((d - ys) / 86400000) + 1) / 7);
-}
-
-function isAbsent(person, date) {
-  return absences.some(a => a.person === person && date >= a.from && date <= a.to);
-}
-
-function isUnavailable(person, date, slot) {
-  const d = new Date(date + 'T00:00:00');
-  const dow = d.getDay() || 7; // 1=lundi … 6=samedi
-  const wn  = weekNumber(date);
-  return indisponibilites.some(i => {
-    if (i.person !== person) return false;
-    if (i.day !== dow) return false;
-    if (i.slot !== slot) return false;
-    if (i.recur === 'weekly') return true;
-    if (i.recur === 'even')   return wn % 2 === 0;
-    if (i.recur === 'odd')    return wn % 2 !== 0;
-    return false;
-  });
-}
-
-// ── Dates ──
+// ── Helpers date ──
 function localStr(d) {
   return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 }
@@ -230,7 +191,6 @@ function getNWeeks() {
     }
   return out;
 }
-// Alias pour compatibilité avec le reste du code
 function get4Weeks() { return getNWeeks(); }
 function weekKey(dateStr) {
   const d = new Date(dateStr+'T00:00:00'), day = d.getDay()||7;
@@ -239,146 +199,232 @@ function weekKey(dateStr) {
   const w = Math.ceil((((d-ys)/86400000)+1)/7);
   return d.getFullYear()+'-W'+String(w).padStart(2,'0');
 }
+function weekNumber(dateStr) {
+  const d = new Date(dateStr+'T00:00:00'), day = d.getDay()||7;
+  d.setDate(d.getDate()+4-day);
+  const ys = new Date(d.getFullYear(),0,1);
+  return Math.ceil((((d-ys)/86400000)+1)/7);
+}
 
-// ── Algorithm ──
-function lastPassage(person, date, history, planning) {
-  // Cherche la date la plus récente (< date) où la personne est assignée,
-  // dans l'historique JSONBin ET dans le planning en cours de génération.
+// ── Migration : ancien format string → objet slot ──
+function migrateSlot(val) {
+  if (!val) return null;
+  if (typeof val === 'string') return { person: val, type: 'AUTO', isLocked: false };
+  if (!val.type) val.type = 'AUTO';
+  if (val.isLocked === undefined) val.isLocked = (val.type === 'MANUAL_LOCKED');
+  return val;
+}
+function migratePlanning(planning) {
+  const out = {};
+  Object.entries(planning).forEach(([date, day]) => {
+    out[date] = {
+      am: migrateSlot(day.am),
+      pm: migrateSlot(day.pm)
+    };
+  });
+  return out;
+}
+
+// ── Accesseurs ──
+function getPerson(planning, date, slot) {
+  const s = planning[date]?.[slot];
+  return s ? s.person : null;
+}
+function getType(planning, date, slot) {
+  return planning[date]?.[slot]?.type || 'AUTO';
+}
+function setSlot(planning, date, slot, person, type) {
+  if (!planning[date]) planning[date] = {am:null, pm:null};
+  planning[date][slot] = { person, type, isLocked: type !== 'AUTO' };
+}
+
+// ── Contraintes ──
+function isAbsent(person, date) {
+  return absences.some(a => a.person === person && date >= a.from && date <= a.to);
+}
+function isUnavailable(person, date, slot) {
+  const d = new Date(date+'T00:00:00');
+  const dow = d.getDay() || 7;
+  const wn  = weekNumber(date);
+  return indisponibilites.some(i => {
+    if (i.person !== person) return false;
+    if (i.day !== dow) return false;
+    if (i.slot !== slot) return false;
+    if (i.recur === 'weekly') return true;
+    if (i.recur === 'even')   return wn % 2 === 0;
+    if (i.recur === 'odd')    return wn % 2 !== 0;
+    return false;
+  });
+}
+function hasDoublePoste(person, date, slot, planning) {
+  const other = slot === 'am' ? 'pm' : 'am';
+  return getPerson(planning, date, other) === person;
+}
+function alreadyThisWeek(person, date, planning) {
+  const wk = weekKey(date);
+  return get4Weeks().some(d => {
+    if (weekKey(d) !== wk || d >= date) return false;
+    return SLOTS.some(s => {
+      const sl = planning[d]?.[s];
+      return sl && sl.person === person && sl.type !== 'GUEST';
+    });
+  });
+}
+
+// ── Éligibilité ──
+function isEligible(person, date, slot, planning, checkAntiMatraquage) {
+  if (!isAvailable(person, date, slot)) return false;
+  if (isAbsent(person, date)) return false;
+  if (isUnavailable(person, date, slot)) return false;
+  if (hasDoublePoste(person, date, slot, planning)) return false;
+  if (checkAntiMatraquage && alreadyThisWeek(person, date, planning)) return false;
+  return true;
+}
+
+// ── Compteur d'équité ──
+function countAssignments(person, history, planning) {
+  let count = 0;
+  // Historique JSONBin (passé)
+  (history || []).forEach(h => { if (h.person === person) count++; });
+  // Planning en cours (AUTO et MANUAL_LOCKED uniquement, pas GUEST)
+  Object.values(planning || {}).forEach(day => {
+    SLOTS.forEach(s => {
+      const sl = day[s];
+      if (sl && sl.person === person && sl.type !== 'GUEST') count++;
+    });
+  });
+  return count;
+}
+
+function lastAssignment(person, history, planning) {
   let latest = null;
-  // Depuis l'historique
-  history.forEach(h => {
-    if (h.person === person && h.date < date) {
+  (history || []).forEach(h => {
+    if (h.person === person) {
       if (!latest || h.date > latest) latest = h.date;
     }
   });
-  // Depuis le planning pendingData (créneaux déjà calculés avant cette date)
-  if (planning) {
-    Object.entries(planning).forEach(([d, slots]) => {
-      if (d >= date) return;
-      if (slots.am === person || slots.pm === person) {
+  Object.entries(planning || {}).forEach(([d, day]) => {
+    SLOTS.forEach(s => {
+      const sl = day[s];
+      if (sl && sl.person === person && sl.type !== 'GUEST') {
         if (!latest || d > latest) latest = d;
       }
     });
-  }
+  });
   return latest;
 }
 
-function weight(person, date, history, dispense, wa, slot, planning) {
-  // Personne absente sur ce créneau selon l'EDT → poids quasi nul
-  if (slot && !isAvailable(person, date, slot)) return 0.001;
-  // Personne en congés/absence → poids quasi nul
-  if (isAbsent(person, date)) return 0.001;
-  // Personne en indisponibilité récurrente sur ce créneau → poids quasi nul
-  if (slot && isUnavailable(person, date, slot)) return 0.001;
-  const last = lastPassage(person, date, history, planning);
-  let ds = last
-    ? Math.max(0, Math.round((new Date(date+'T00:00:00') - new Date(last+'T00:00:00')) / 86400000))
-    : 999;
-  let w = ds;
-  const wk = weekKey(date);
-  if (wa[wk]?.[person]) w *= 0.05;
-  if (dispense?.person===person && dispense?.week===wk) w *= 0.01;
-  return Math.max(w, 0.001);
-}
-function pick(people, weights) {
-  const total = weights.reduce((s,w)=>s+w,0);
-  let r = Math.random()*total;
-  for (let i=0; i<people.length; i++) { r-=weights[i]; if(r<=0) return people[i]; }
-  return people[people.length-1];
-}
-function generate(data) {
-  const planning = data?.planning || {};
-  const history  = data?.history  || [];
-  const dispense = data?.champion_dispense || {person:null,week:null};
-  const dates    = get4Weeks();
-  const wa       = {};
-
-  // Count existing assignments for week-constraint
-  dates.forEach(date => {
-    const wk = weekKey(date);
-    if (!wa[wk]) wa[wk]={};
-    if (planning[date]) SLOTS.forEach(s => { const p=planning[date][s]; if(p) wa[wk][p]=(wa[wk][p]||0)+1; });
+// ── Sélection du meilleur candidat ──
+function pickBest(candidates, history, planning) {
+  let best = null, bestCount = Infinity, bestLast = null;
+  candidates.forEach(person => {
+    const count = countAssignments(person, history, planning);
+    const last  = lastAssignment(person, history, planning);
+    if (count < bestCount ||
+       (count === bestCount && (last === null || (bestLast !== null && last < bestLast)))) {
+      best = person; bestCount = count; bestLast = last;
+    }
   });
+  return best;
+}
 
-  // Fill missing
+// ── Algorithme principal ──
+function fillSlot(date, slot, planning, history) {
+  // 1. Éligibles avec anti-matraquage
+  let eligibles = PEOPLE.filter(p => isEligible(p, date, slot, planning, true));
+  // 2. Fallback sans anti-matraquage si personne n'est éligible
+  if (eligibles.length === 0) {
+    eligibles = PEOPLE.filter(p => isEligible(p, date, slot, planning, false));
+  }
+  // 3. Dernier recours : tous (ignorer toutes contraintes sauf double-poste)
+  if (eligibles.length === 0) {
+    eligibles = PEOPLE.filter(p => !hasDoublePoste(p, date, slot, planning));
+  }
+  // 4. Vraiment personne : prendre n'importe qui
+  if (eligibles.length === 0) eligibles = [...PEOPLE];
+  return pickBest(eligibles, history, planning);
+}
+
+function generate(data) {
+  const planning = migratePlanning(data?.planning || {});
+  const history  = data?.history || [];
+  const dates    = get4Weeks();
+
   dates.forEach(date => {
-    const wk = weekKey(date);
-    if (!wa[wk]) wa[wk]={};
-    if (!planning[date]) planning[date]={am:null,pm:null};
+    if (!planning[date]) planning[date] = {am: null, pm: null};
     SLOTS.forEach(slot => {
-      if (!planning[date][slot]) {
-        const weights = PEOPLE.map(p=>weight(p,date,history,dispense,wa,slot,planning));
-        const chosen  = pick(PEOPLE, weights);
-        planning[date][slot] = chosen;
-        wa[wk][chosen] = (wa[wk][chosen]||0)+1;
-        history.push({person:chosen,date,slot});
-      }
+      const existing = planning[date][slot];
+      // Ne pas écraser les slots verrouillés ou guests
+      if (existing && existing.type !== 'AUTO') return;
+      if (existing && existing.person) return; // déjà AUTO rempli
+      const person = fillSlot(date, slot, planning, history);
+      setSlot(planning, date, slot, person, 'AUTO');
+      history.push({person, date, slot});
     });
   });
-  return {planning, history, champion_dispense:dispense};
+  return { ...data, planning, history };
 }
 
-// Recalculate non-pending slots after fromDate/fromSlot
 function recalcAfter(fromDate, fromSlot) {
   const all = [];
-  get4Weeks().forEach(d => SLOTS.forEach(s => all.push({date:d,slot:s})));
+  get4Weeks().forEach(d => SLOTS.forEach(s => all.push({date:d, slot:s})));
   let si = 0;
   for (let i=0; i<all.length; i++) {
-    if (all[i].date===fromDate && all[i].slot===fromSlot) { si=i+1; break; }
+    if (all[i].date === fromDate && all[i].slot === fromSlot) { si = i+1; break; }
   }
-  const wa={};
-  for (let i=0; i<si; i++) {
-    const {date,slot}=all[i], p=pendingData.planning[date]?.[slot], wk=weekKey(date);
-    if (!wa[wk]) wa[wk]={};
-    if (p) wa[wk][p]=(wa[wk][p]||0)+1;
-  }
-  const hist = pendingData.history.filter(h => {
-    const idx=all.findIndex(s=>s.date===h.date&&s.slot===h.slot);
-    return idx<si;
+  // Construire l'historique jusqu'au point de départ
+  const hist = [];
+  (officialData.history || []).forEach(h => {
+    const idx = all.findIndex(s => s.date === h.date && s.slot === h.slot);
+    if (idx < si) hist.push(h);
   });
-  const dispense = pendingData.champion_dispense||{person:null,week:null};
+
   for (let i=si; i<all.length; i++) {
-    const {date,slot}=all[i], wk=weekKey(date);
-    if (!wa[wk]) wa[wk]={};
-    if (!pendingData.planning[date]) pendingData.planning[date]={am:null,pm:null};
-    if (!pendingSlots.has(date+'_'+slot)) {
-      const weights=PEOPLE.map(p=>weight(p,date,hist,dispense,wa,slot,pendingData.planning));
-      const chosen=pick(PEOPLE,weights);
-      pendingData.planning[date][slot]=chosen;
-      hist.push({person:chosen,date,slot});
+    const {date, slot} = all[i];
+    if (!pendingData.planning[date]) pendingData.planning[date] = {am:null, pm:null};
+    const existing = pendingData.planning[date][slot];
+    // Respecter les slots verrouillés (MANUAL_LOCKED, GUEST)
+    if (existing && existing.type !== 'AUTO') {
+      if (existing.person) hist.push({person: existing.person, date, slot});
+      continue;
     }
-    const p=pendingData.planning[date][slot];
-    if(p) wa[wk][p]=(wa[wk][p]||0)+1;
+    // Respecter les slots en attente de validation manuelle
+    if (pendingSlots.has(date+'_'+slot)) {
+      if (existing?.person) hist.push({person: existing.person, date, slot});
+      continue;
+    }
+    const person = fillSlot(date, slot, pendingData.planning, hist);
+    setSlot(pendingData.planning, date, slot, person, 'AUTO');
+    hist.push({person, date, slot});
   }
-  pendingData.history=hist;
+  pendingData.history = hist;
 }
 
-// ── API ──
+// ── API JSONBin ──
 function setStatus(state, txt) {
-  document.getElementById('sdot').className='status-dot '+state;
-  document.getElementById('stxt').textContent=txt;
+  document.getElementById('sdot').className = 'status-dot '+state;
+  document.getElementById('stxt').textContent = txt;
 }
+
 async function load() {
   setStatus('saving','Chargement…');
   try {
-    const r = await fetch(JSONBIN_URL+'/latest',{headers:{'X-Master-Key':JSONBIN_KEY}});
+    const r = await fetch(JSONBIN_URL+'/latest', {headers:{'X-Master-Key':JSONBIN_KEY}});
     if (!r.ok) throw new Error();
     const d = await r.json();
-    officialData = d.record || {planning:{},history:[],champion_dispense:{person:null,week:null}};
-    // Lire les absences
+    officialData = d.record || {planning:{}, history:[], champion_dispense:{person:null,week:null}};
+    // Migration silent & safe
+    officialData.planning = migratePlanning(officialData.planning || {});
+    // Données annexes
     absences = (officialData.absences || []).filter(a => a.to >= todayStr());
-    // Lire les indisponibilités récurrentes
     indisponibilites = officialData.indisponibilites || [];
-    // Lire le nombre de semaines configuré
-    if (officialData.nb_weeks) {
-      nbWeeks = officialData.nb_weeks;
-    }
-    // Liens vers pages annexes : transmettre le mode edit si applicable
+    if (officialData.nb_weeks) nbWeeks = officialData.nb_weeks;
+    // Liens pages annexes
     const absBtn = document.getElementById('absences-btn');
     if (absBtn && IS_EDIT) absBtn.href = 'absences.html?mode=edit';
     const indispBtn = document.getElementById('indisp-btn');
     if (indispBtn && IS_EDIT) indispBtn.href = 'indisponibilites.html?mode=edit';
-    // Afficher le sélecteur uniquement en mode édition
+    // Sélecteur semaines
     if (IS_EDIT) {
       const sel = document.getElementById('weeks-selector');
       if (sel) sel.style.display = 'flex';
@@ -389,18 +435,17 @@ async function load() {
     return true;
   } catch(e) { setStatus('error','Erreur de chargement'); return false; }
 }
-function syncClosedDays() {
-  // store in officialData so it persists
-  officialData.closedDays = [...closedDays];
-}
+
+function syncClosedDays() { officialData.closedDays = [...closedDays]; }
+
 async function save() {
   syncClosedDays();
   setStatus('saving','Sauvegarde…');
   try {
-    await fetch(JSONBIN_URL,{
+    await fetch(JSONBIN_URL, {
       method:'PUT',
       headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
-      body:JSON.stringify(officialData)
+      body: JSON.stringify(officialData)
     });
     setStatus('','Sauvegardé ✓');
   } catch(e) { setStatus('error','Erreur de sauvegarde'); }
@@ -416,96 +461,97 @@ async function changeNbWeeks(val) {
   renderPlanning();
 }
 
-// ── Actions ──
-
+// ── Actions planning ──
 function toggleClose(date) {
   if (closedDays.has(date)) {
-    // Réactiver : remettre les personnes officielles
     closedDays.delete(date);
-    // Restore from officialData or regenerate
-    if (!pendingData.planning[date] || !pendingData.planning[date].am) {
-      // Regenerate this single day
-      const wk = weekKey(date);
-      const wa = {};
-      get4Weeks().forEach(d => {
-        if (d !== date && pendingData.planning[d]) {
-          SLOTS.forEach(s => { const p=pendingData.planning[d][s]; if(p) wa[p]=(wa[p]||0)+1; });
-        }
-      });
-      const disp = pendingData.champion_dispense||{person:null,week:null};
-      SLOTS.forEach(slot => {
-        const weights = PEOPLE.map(p => weight(p, date, pendingData.history, disp, {[wk]:wa}, slot, pendingData.planning));
-        pendingData.planning[date][slot] = pick(PEOPLE, weights);
-        pendingData.planning[date][slot+'_modified'] = false;
-      });
-    }
+    if (!pendingData.planning[date]) pendingData.planning[date] = {am:null, pm:null};
+    SLOTS.forEach(slot => {
+      const existing = pendingData.planning[date][slot];
+      if (!existing || !existing.person) {
+        const person = fillSlot(date, slot, pendingData.planning, pendingData.history||[]);
+        setSlot(pendingData.planning, date, slot, person, 'AUTO');
+      }
+    });
   } else {
     closedDays.add(date);
-    // Clear pending for this day
     pendingSlots.delete(date+'_am');
     pendingSlots.delete(date+'_pm');
   }
   officialData = clone(pendingData);
-  closedDays.forEach(d => { if(officialData.planning[d]) { officialData.planning[d].am=null; officialData.planning[d].pm=null; } });
+  closedDays.forEach(d => {
+    if (officialData.planning[d]) {
+      officialData.planning[d].am = null;
+      officialData.planning[d].pm = null;
+    }
+  });
   officialData.closedDays = [...closedDays];
   save();
   renderPlanning();
 }
 
-// Propose: change slot in pendingData, recalc downstream, do NOT save
 function propose(date, slot) {
-  const cur = pendingData.planning[date][slot];
-  const cands = PEOPLE.filter(p=>p!==cur);
-  const wk = weekKey(date);
-  const wa = {[wk]:{}};
-  SLOTS.forEach(s=>{ if(s!==slot&&pendingData.planning[date]?.[s]){const p=pendingData.planning[date][s];wa[wk][p]=(wa[wk][p]||0)+1;} });
-  const dispense=pendingData.champion_dispense||{person:null,week:null};
-  const weights=cands.map(p=>weight(p,date,pendingData.history,dispense,wa,slot,pendingData.planning));
-  const chosen=pick(cands,weights);
-  pendingData.planning[date][slot]=chosen;
+  // Propose une nouvelle personne AUTO (différente de l'actuelle)
+  const cur = getPerson(pendingData.planning, date, slot);
+  const planning = clone(pendingData.planning);
+  // Retirer temporairement le slot pour forcer un autre choix
+  if (planning[date]) planning[date][slot] = null;
+  let eligibles = PEOPLE.filter(p => p !== cur && isEligible(p, date, slot, planning, true));
+  if (eligibles.length === 0) eligibles = PEOPLE.filter(p => p !== cur && isEligible(p, date, slot, planning, false));
+  if (eligibles.length === 0) eligibles = PEOPLE.filter(p => p !== cur);
+  if (eligibles.length === 0) eligibles = [...PEOPLE];
+  const person = pickBest(eligibles, pendingData.history||[], planning);
+  setSlot(pendingData.planning, date, slot, person, 'AUTO');
   pendingSlots.add(date+'_'+slot);
-  recalcAfter(date,slot);
+  recalcAfter(date, slot);
   renderPlanning();
 }
-
 
 function handleManualPick(date, slot, selectEl) {
   const val = selectEl.value;
   if (val === '__autre__') {
     const name = prompt('Nom du remplaçant :');
     if (name && name.trim()) {
-      manualPick(date, slot, name.trim());
+      manualPick(date, slot, name.trim(), true);
     } else {
-      // Annulé — remettre la valeur précédente
-      selectEl.value = pendingData.planning[date][slot] || PEOPLE[0];
+      const cur = getPerson(pendingData.planning, date, slot);
+      selectEl.value = cur || PEOPLE[0];
     }
     return;
   }
-  manualPick(date, slot, val);
+  manualPick(date, slot, val, false);
 }
 
-function manualPick(date, slot, person) {
+function manualPick(date, slot, person, isGuest) {
   if (!person) return;
-  pendingData.planning[date][slot] = person;
-  pendingSlots.add(date + '_' + slot);
+  const type = isGuest ? 'GUEST' : 'MANUAL_LOCKED';
+  setSlot(pendingData.planning, date, slot, person, type);
+  pendingSlots.add(date+'_'+slot);
   recalcAfter(date, slot);
   renderPlanning();
 }
 
-// Validate: promote pendingData to official, save, clear pending for this slot
+function unlockSlot(date, slot) {
+  // Repasser en AUTO et recalculer
+  if (pendingData.planning[date]) {
+    pendingData.planning[date][slot] = null;
+  }
+  pendingSlots.delete(date+'_'+slot);
+  recalcAfter(date, slot);
+  renderPlanning();
+}
+
 async function validate(date, slot) {
   officialData = clone(pendingData);
-  officialData.closedDays = [...closedDays]; // préserver les jours fermés
+  officialData.closedDays = [...closedDays];
   pendingSlots.delete(date+'_'+slot);
   await save();
   renderPlanning();
 }
 
-// Cancel: discard all pending changes, revert pendingData to official
 function cancel() {
   pendingData  = clone(officialData);
   pendingSlots = new Set();
-  // Ne pas réinitialiser closedDays depuis officialData — on garde l'état courant
   closedDays   = new Set(officialData.closedDays || []);
   renderPlanning();
 }
@@ -515,29 +561,32 @@ function renderPlanning() {
   const today = todayStr();
   const dates = get4Weeks();
   const el    = document.getElementById('planning-content');
-  el.innerHTML='';
+  el.innerHTML = '';
 
   for (let w=0; w<nbWeeks; w++) {
     const wd = dates.slice(w*6, w*6+6);
-    const d0 = new Date(wd[0]+'T00:00:00'), d5=new Date(wd[5]+'T00:00:00');
+    const d0 = new Date(wd[0]+'T00:00:00'), d5 = new Date(wd[5]+'T00:00:00');
     const lbl = d0.toLocaleDateString('fr-FR',{day:'numeric',month:'long'})+' – '+d5.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
     const isoW = weekKey(wd[0]).split('-W')[1];
     const blk = document.createElement('div'); blk.className='week-block';
-    blk.innerHTML=`<div class="week-title">Semaine ${isoW} <span>${lbl}</span></div><div class="days-grid" id="wg-${w}"></div>`;
+    blk.innerHTML = `<div class="week-title">Semaine ${isoW} <span>${lbl}</span></div><div class="days-grid" id="wg-${w}"></div>`;
     el.appendChild(blk);
 
-    const grid=document.getElementById('wg-'+w);
-    wd.forEach(date=>{
-      const dt=new Date(date+'T00:00:00');
-      const isPast=date<today, isToday=date===today;
-      const dd=pendingData.planning[date]||{am:null,pm:null};
-      const card=document.createElement('div');
-      card.className='day-card'+(isToday?' today':'')+(isPast?' past':'');
+    const grid = document.getElementById('wg-'+w);
+    wd.forEach(date => {
+      const dt = new Date(date+'T00:00:00');
+      const isPast = date < today, isToday = date === today;
+      const dd = pendingData.planning[date] || {am:null, pm:null};
+      const card = document.createElement('div');
+      card.className = 'day-card'+(isToday?' today':'')+(isPast?' past':'');
 
       const isClosed = closedDays.has(date);
       if (isClosed) card.classList.add('closed');
 
-      let html=`<div class="day-name${isToday?' today-label':''}">${DAY_SHORT[dt.getDay()]} ${dt.getDate()}${(!isPast && IS_EDIT) ? `<button class="btn-close${isClosed?' is-closed':''}" onclick="toggleClose('${date}')" title="${isClosed?'Réactiver':'Fermer'}"> ${isClosed?'✓':'✕'} </button>` : ''}</div>`;
+      let html = `<div class="day-name${isToday?' today-label':''}">
+        ${DAY_SHORT[dt.getDay()]} ${dt.getDate()}
+        ${(!isPast && IS_EDIT) ? `<button class="btn-close${isClosed?' is-closed':''}" onclick="toggleClose('${date}')" title="${isClosed?'Réactiver':'Fermer'}">${isClosed?'✓':'✕'}</button>` : ''}
+      </div>`;
 
       if (isClosed) {
         html += '<div class="day-closed-label">🔒 Fermé</div>';
@@ -546,78 +595,82 @@ function renderPlanning() {
         return;
       }
 
-      SLOTS.forEach(slot=>{
-        const person=dd[slot]||'—';
-        const isPend=pendingSlots.has(date+'_'+slot);
-        const cls=isPend?'pending':'official';
-        const isGuest = person !== '—' && !PEOPLE.includes(person);
-        const personDisplay = isGuest ? `<em>${person}</em>` : person;
+      SLOTS.forEach(slot => {
+        const slotObj = dd[slot];
+        const person  = slotObj?.person || '—';
+        const type    = slotObj?.type || 'AUTO';
+        const isPend  = pendingSlots.has(date+'_'+slot);
+        const isLocked = type === 'MANUAL_LOCKED' || type === 'GUEST';
+        const isGuest  = type === 'GUEST';
+
+        const cls = isPend ? 'pending' : 'official';
+        const personDisplay = isGuest
+          ? `<em>${person}</em>`
+          : (isLocked ? `${person} 🔒` : person);
+
         const selectOptions = PEOPLE.map(p =>
           `<option value="${p}" ${p===person?'selected':''}>${p}</option>`
         ).join('') + `<option value="__autre__">Autre…</option>`;
-        html+=`<div class="slot">
+
+        html += `<div class="slot">
           <div class="slot-label">${SLOT_LABELS[slot]}</div>
           <div class="slot-person ${cls}">${personDisplay}${isPend?' ⏳':''}</div>
           ${isPend && !isPast ? `<select class="slot-select" onchange="handleManualPick('${date}','${slot}',this)">${selectOptions}</select>` : ''}
           <div class="slot-btns">`;
+
         if (!isPast && IS_EDIT) {
           if (isPend) {
-            html+=`<button class="slot-btn ok" onclick="validate('${date}','${slot}')" title="Valider">✓</button>
-                   <button class="slot-btn no" onclick="cancel()"                     title="Annuler">✗</button>`;
+            html += `<button class="slot-btn ok"  onclick="validate('${date}','${slot}')" title="Valider">✓</button>
+                     <button class="slot-btn no"  onclick="cancel()"                      title="Annuler">✗</button>`;
           }
-          html+=`<button class="slot-btn next" onclick="propose('${date}','${slot}')" title="Proposer →">→</button>`;
+          if (isLocked) {
+            html += `<button class="slot-btn next" onclick="unlockSlot('${date}','${slot}')" title="Déverrouiller">🔓</button>`;
+          } else {
+            html += `<button class="slot-btn next" onclick="propose('${date}','${slot}')" title="Proposer →">→</button>`;
+          }
         }
-        html+=`</div></div>`;
+        html += `</div></div>`;
       });
-      card.innerHTML=html;
+
+      card.innerHTML = html;
       grid.appendChild(card);
     });
   }
 }
 
-// ── Regenerate ──
+// ── Régénération partielle ──
 async function regenerate() {
-  // ── Demander la date de départ ──
-  const dates = get4Weeks();
-  const minDate = dates[0];
-  const maxDate = dates[dates.length - 1];
-
+  const dates   = get4Weeks();
+  const minDate = dates[0], maxDate = dates[dates.length-1];
   const fromDate = prompt(
-    'Régénérer à partir de quelle date ?\n' +
-    'Format : JJ/MM/AAAA\n' +
-    '(Les affectations avant cette date seront préservées.)'
+    'Régénérer à partir de quelle date ?\nFormat : JJ/MM/AAAA\n(Les affectations avant cette date seront préservées.)'
   );
   if (!fromDate) return;
-
-  // Convertir JJ/MM/AAAA → AAAA-MM-JJ
   const parts = fromDate.trim().split('/');
-  if (parts.length !== 3) { alert('Format de date invalide. Utilisez JJ/MM/AAAA.'); return; }
-  const isoDate = parts[2] + '-' + parts[1].padStart(2,'0') + '-' + parts[0].padStart(2,'0');
+  if (parts.length !== 3) { alert('Format invalide. Utilisez JJ/MM/AAAA.'); return; }
+  const isoDate = parts[2]+'-'+parts[1].padStart(2,'0')+'-'+parts[0].padStart(2,'0');
   if (isNaN(new Date(isoDate).getTime())) { alert('Date invalide.'); return; }
   if (isoDate < minDate || isoDate > maxDate) {
-    alert('La date doit être comprise dans les semaines affichées\n(' + minDate + ' → ' + maxDate + ').'); return;
+    alert('La date doit être dans les semaines affichées\n('+minDate+' → '+maxDate+').'); return;
   }
+  if (!confirm('Régénérer à partir du '+fromDate+' ?\nLes affectations manuellement verrouillées seront préservées.')) return;
 
-  if (!confirm('Régénérer le planning à partir du ' + fromDate + ' ?\nLes affectations avant cette date seront préservées.')) return;
-
-  // ── Effacer les créneaux à partir de la date choisie (sauf jours fermés) ──
   pendingData  = clone(officialData);
   pendingSlots = new Set();
+  // Effacer uniquement les slots AUTO à partir de la date choisie
   dates.forEach(d => {
-    if (d < isoDate) return;
-    if (pendingData.planning[d]) {
-      if (!closedDays.has(d)) {
-        pendingData.planning[d].am = null;
-        pendingData.planning[d].pm = null;
+    if (d < isoDate || closedDays.has(d)) return;
+    SLOTS.forEach(s => {
+      const sl = pendingData.planning[d]?.[s];
+      if (!sl || sl.type === 'AUTO') {
+        if (!pendingData.planning[d]) pendingData.planning[d] = {am:null, pm:null};
+        pendingData.planning[d][s] = null;
       }
-    }
+    });
   });
-  // Effacer l'historique à partir de cette date pour ne pas biaiser le recalcul
-  pendingData.history = (pendingData.history || []).filter(h => h.date < isoDate);
-
-  // ── Recalculer à partir du premier slot de la date choisie ──
+  // Purger l'historique à partir de cette date
+  pendingData.history = (pendingData.history||[]).filter(h => h.date < isoDate);
   recalcAfter(isoDate, 'am');
-
   officialData = clone(pendingData);
   pendingSlots = new Set();
   await save();
@@ -626,11 +679,13 @@ async function regenerate() {
 
 // ── Init ──
 async function init() {
-  // ── Point C : parallélisation des deux fetches indépendants ──
   const [, ok] = await Promise.all([loadAvailability(), load()]);
   if (!ok) return;
-  const dates  = get4Weeks();
-  const needsGen = dates.some(d=>!officialData.planning?.[d]);
+  const dates    = get4Weeks();
+  const needsGen = dates.some(d => {
+    const day = officialData.planning?.[d];
+    return !day || !day.am || !day.pm;
+  });
   if (needsGen) {
     officialData = generate(officialData);
     await save();
